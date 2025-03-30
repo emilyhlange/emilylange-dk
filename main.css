@@ -68,11 +68,17 @@ user-select: none;
 
 .btn {
   color: black;
-  font-size: 24px;
+  font-size: 14px;
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
   user-select: none;
   transition: all 500ms;
   text-decoration: none;
-  padding: 10px 20px;
+	line-height: 15px;
+  font-weight: 400;
+}
+
+.btn:hover {
+  color: rgb(0, 0, 255);
 }
 
 /*.custom-btn-container {
