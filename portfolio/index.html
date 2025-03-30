@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,15 +8,25 @@
     <link rel="stylesheet" href="/playground/css/bootstrap-4.3.1.css">
     <link rel="stylesheet" href="/playground/css/style.css">
 </head>
+
 <body>
     <div class="flex-container content">
-        <div class="left">
-            <?php include 'nav2.php'; ?>
-            </div>
+        <div class="left" id="sidebar">
+            <ul class="nav flex-column" id="listBar">
+                <li class="project-item"><a href="#about">About Me</a></li>
+                <li class="sidebar-item"><a href="#resume">Resume</a></li>
+                <li class="sidebar-item"><a href="#contact">Contact</a></li>
+                <li class="sidebar-item"><strong>Portfolio</strong></li>
+                <li class="project-item"><a href="#web-design">Web Design</a></li>
+                <li class="project-item"><a href="#ui-ux-design">UI/UX Design</a></li>
+                <li class="project-item"><a href="#graphic-design">Graphic Design</a></li>
+            </ul>
+        </div>
         <div class="right">
             <section id="about"></section>
             <p>Portfolio</p>
-            </div>
+        </div>
     </div>
-    </body>
+</body>
+
 </html>
