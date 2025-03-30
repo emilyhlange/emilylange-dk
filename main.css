@@ -1,0 +1,140 @@
+.container{
+}
+
+/*Text formatting*/
+.info-text{
+  line-height: 1.2;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  word-spacing: -1px;
+  width: 350px;
+}
+
+/* Image formatting (classes) */
+
+.draggable-image{
+cursor: move;
+user-select: none;
+}
+
+/* Image Id's */
+
+#breathe-movie{
+    position: absolute;
+    top: 40%;
+    right: 5%;
+}
+
+#chaos-exhibition{
+    position: absolute;
+    top: 40%;
+    left: 5%;
+}
+
+#portable{
+  position: absolute;
+  top: 20%;
+  right: 30%;
+}
+
+#tune-slideshow{
+  position: absolute;
+  top: 5%;
+  left: 20%;
+}
+
+#thesis{
+  position: absolute;
+  bottom: 10%;
+  left: 15%;
+}
+
+
+/* Button formatting */
+.entry-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15; /* Added z-index for buttons */
+}
+
+.draggable-button {
+  cursor: move;       /* Make them draggable */
+}
+
+.btn {
+  color: black;
+  font-size: 24px;
+  user-select: none;
+  transition: all 500ms;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+/*.custom-btn-container {
+  height: 48px;
+  width: 48px;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+}*/
+
+/*
+.custom-btn-container .btn {
+  color: black;
+  font-size: 36px;
+  user-select: none;
+  transition: all 500ms;
+  text-decoration: none;
+}*/
+
+/* Dropzone testing */
+
+/* #folder{
+  opacity: 0.9;
+  position: absolute;
+  top: 20%;
+  right: 20%;
+} 
+
+#folder.highlight{
+  opacity: 1;
+}*/
+
+#dropZone {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  width: 150px; /* Adjust the width as needed */
+  height: 150px; /* Adjust the height as needed */
+  background-image: url('/assets/trashcan.webp');
+  background-size: contain; /* Or 'cover' if you prefer */
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1000;
+}
+
+#dropZone::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent; /* Initially transparent */
+  background-blend-mode: overlay; /* Default blend mode */
+}
+
+#dropZone.highlight::before {
+  background-color: rgba(200, 200, 200, 0.5); /* Semi-transparent grey overlay */
+}

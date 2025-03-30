@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>my portfolio</title>
+
+    <!-- Bootstrap -->
+	 <link type="text/css" href="../css/bootstrap-4.3.1.css" rel="stylesheet">
+	 <link type="text/css" href="../css/style.css?v=2" rel="stylesheet">
+
+
+  </head>
+  <body>
+      
+    <div class="flex-container">
+        <div class="left">
+            <!-- Insert php -->
+            <?php include $_SERVER['DOCUMENT_ROOT']."/playground/nav.php";?>  
+
+            <!-- Stop php -->
+        </div>
+
+       <div class="right">
+           <div class="row">
+          <div class="item col">
+              <img src="../images/pornolampen/exhibition1.jpg" style="width: 100%"><br><br>
+            <p id="project-description"> Pornolampen skal placeres i et fælles areal på et kollegie. Det kunne være et fælles køkken eller en fælles dagligstue. Dette valg er taget, da vi ønsker at placere pornolampen i en kontekst, hvor der er en form for fællesskab, samtidigt med at individerne stadig har deres eget private rum, hvor de ikke skal gå på kompromis med deres personlige sfære. Når en beboer på kollegiet ser porno, vil pornolampen, som står i et fælles areal, lyse op. Det vil altså være synligt for de øvrige beboere, som opholder sig i fælles arealet, at der er nogen som ser porno, men ikke hvem som ser det.</p>
+                        <img src="../images/pornolampen/kontekst.jpg" style="width: 100%">
+
+              <img src="../images/pornolampen/visionboard.jpg" style="width: 100%">
+            <br><br><p id="project-description">En tiltænkt brugskontekst kunne se ud som følgende: Kollegiebeboer nr. 1, sidder med sin computer på sit værelse. To andre beboere, står og snakker i deres fællesareal på kollegiet. Når beboer nr. 1 går ind på en pornoside, vil en lampe, placeret i fællesarealet, lyse op. De to andre beboere ser dette og begynder efterfølgende at diskutere porno sammen. De andre beboere er indforstået med lampens betydning, og derved kan det potentielt fremme en samtale. Ambitionen med pornolampen er først og fremmest at bidrage til at aftabuisere brugen af porno, ved at skabe et design, som kan fungere som dialogstarter. </p><br>
+              <img src="../images/pornolampen/prototype2.jpg" style="width: 100%;">
+              <br><br><p id="project-description">Processing programmet (1) har til opgave at holde øje med, hvornår computeren besøger Pornhub. Når den gør, sender den et 1-tal og når den ikke gør, sender den et 2-tal videre til Arduino (2). Arduino-koden står for at sende information videre til Arduino-boardet (3). Hvis Arduinoen modtager et 2-tal skal lampen (5) forblive slukket, men hvis den modtager et 1-tal, skal lampen tændes. Denne information modtager Arduinoen, som så står for enten at tænde eller slukke lampen. Arduino-boardet kan kun håndtere 5 volt, men eftersom at vores pære bruger 230 volt, har vi et relæ-modul (4) imellem vores Arduino-board og vores pære, som sørger for, at Arduino-boardet kan håndtere de 230 volt, som kommer ud af stikkontakten og som vores pære bruger.</p>
+              <img src="../images/pornolampen/elektrisk.png" style="width: 100%"><br><br>
+              <img src="../images/pornolampen/exhibition3.jpg" style="width: 100%">
+          </div>
+
+        <div class="item col">
+            <p id="project-title"> Pornolampen [2019]</p>
+              <p id="project-description"> Vi har designet Pornolampen - en interaktiv, penis og vagina-formet lampe, som tænder hver gang en beboer på kollegiets Wi-Fi besøger en porno-hjemmeside. Pornolampen skal placeres i et af kollegiets fællesarealer - dette kan være et fælleskøkken eller en fælles opholdsstue. Hver gang en beboer på kollegiet ser porno på sit værelse, vil lampen lyse op i fællesarealet. Pornolampen vil altså ikke afsløre præcis hvem som ser porno, men vil gøre de resterende beboere på kollegiet, der opholder sig på fællesarealet, opmærksom på, at der er nogen som ser det netop nu.</p>
+        <img src="../images/pornolampen/exhibition2.jpg" style="width: 100%">
+        <img src="../images/pornolampen/exhibition4.png" style="width: 100%">
+            <br><br><p id="project-description"><strong>Design manifesto: </strong> </p><ul id="project-description"><li>vi vil give brugeren et trygt og frit rum til at tale om porno i </li><li>at føle sig komfortable i at tale om noget så privat</li>
+            <li>vi vil ikke tvinge brugerne til at tale om noget de ikke har lyst til; men rettere give dem muligheden</li>
+            <li>dette tale-rum vil ændre den måde vi taler om pornografi på, og vores syn på seksualitet, sex og vores opfattelse og forhold til sin egen krop, og de begær og lyster alle har</li>
+            <li>projektet skal tilbyde en troværdighed til brugeren</li>
+            <li>er formålet at provokere?</li></ul><br>
+        <img src="../images/pornolampen/designproces.jpg" style="width: 100%">
+        <br><br><p id="project-description">Koden bag Pornolampen er skrevet i Arduino og Processing. Programmet måler, hvornår brugerens computer besøger Pornhub. Hver gang dette sker, sender programmet et signal videre til lampen om, at den skal tænde. Når brugeren forlader porno- hjemmesiden vil lampen slukke. Pornolampen vil altså kun være tændt så længe en beboer er inde på siden.</p><br>
+        <img src="../images/pornolampen/prototype3.jpg" style="width: 100%">
+        <br><br><p id="project-description">“Hvis man kan få folk til at gå med til det (...) så tror jeg helt sikker at den ville skabe noget dialog. Bare det at skulle diskutere om den skal stilles op, er en dialog omkring det. (...) Spørgsmålet er bare om folk ville gå med til det, eller om de ville synes at det var for krænkende”(jf. Bilag 7 - Tietgen Kollegiet, 10.20).</p>
+        </div>
+         </div>     
+       </div>
+       </div>  
+      
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+    <script src="../project pages/js/jquery-3.3.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed --> 
+    <script src="../project pages/js/popper.min.js"></script>
+    <script src="../project pages/js/bootstrap-4.3.1.js"></script>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>my portfolio</title>
+
+    <!-- Bootstrap -->
+	 <link type="text/css" href="../css/bootstrap-4.3.1.css" rel="stylesheet">
+	 <link type="text/css" href="../css/style.css?v=2" rel="stylesheet">
+
+
+  </head>
+  <body>
+      
+      <div class="flex-container">
+        <div class="left">
+            <!-- Insert php -->
+
+            <?php include $_SERVER['DOCUMENT_ROOT']."/playground/nav.php";?>  
+            <!-- Stop php -->
+        </div>
+
+       <div class="right">
+         <div class="row">
+          <div class="item">
+            <p id="project-title">Dynamic behaviour through chaotic motion [2017]</p>
+            <p id="project-description"> Our eyes are constantly looking for patterns and our ears are constantly listening for rhythm. It seems that we, collectively as a human race, become uneasy in the midst of chaos. This is why we build visual and audible structure –whether that be for a song or a picture. There are rules to abide by: a subject in focus or a meter to follow. Our hope, with this project, was to break this uneasiness. By building a double pendulum, a formation which has a strong sensitivity to initial conditions, we created a visual and audible experience that follows no rules and embraces the chaotic.
+
+			<br><i>"Push the button, get a little close, and join the chaos."</i></p>
+            <p id="project-description">In collaboration with Anton Zeuthen, Simrun Mannan & Amanda Barlebo. Exhibition as part of a course in Digital Experience & Aesthetics.</p>
+          </div>
+         </div>
+
+       <div class="row">
+            <div class="item">
+            <img style="width: 100%; object-fit: cover;" src="../images/Chaos/exhibition2.jpg">
+            </div>
+           
+            <div class="item col"><p id="project-description" style="width: 60%;">We set out with an intent to create an artefact that had randomness as its central component. In order to make the random motion, we chose to work with the double pendulum as our central actuator. We found that alone, the stepper motor did not mimic the motion of a vertical pendulum. In contrast, it created a constant predictable motion. To create a random path for the pendulum, we used the glasses as obstacles, resulting in a highly unpredictable path.	
+            </p></div>
+            
+            <div class="item">
+            <img style="width: 100%; object-fit: cover;" src="../images/Chaos/exhibition1.jpg">
+            </div>
+           
+            <div class="item col"><p id="project-description" style="width: 100%;">When the rotation of the double pendulum was working, we wanted to put in a larger context to figure out what experience we wanted to give the users. We started off with light and slowly progressed into an audio-visual experience, using glasses (with liquids), as the medium for sound when the pendulum hits them.
+            </p></div>
+
+            <div class="item col"><p id="project-description" style="width: 100%;">Our final prototype has a stepper motor as its main actuator. The double pendulum attached to the motor consists of 3mm semi-transparent acrylic arms, connected with two ball bearings. To create the sound and random motion, we have six identical glasses filled with different amounts of water, which results in a random pattern of different sounds. The pendulum and glasses are lit from below by a small LED spot, casting a shadow to a white linen suspended above the artefact.
+            </p></div>
+           
+            <div class="item" style="width: 100%;">
+            <img style="width: 100%; object-fit: cover;" src="../images/Chaos/prototyping3.jpg">
+            </div>
+            </div>
+            <div class="row">
+            <div class="item col"><p id="project-description" style="width: 100%;">
+            When designing our prototype, we initially started with thin pieces of wood. However, the material was too heavy, so we tried a different material Plexiglas. This also had another advantage, in that the transparency was visually interesting. In our final prototype, we used a 3mm acrylic, as the colour and transparency has a unique visual effect. 
+            </p></div>
+            </div>
+            <div class="row">
+            <div class="item col">
+            <img style="width: 100%; max-height: 320px; object-fit: cover" src="../images/Chaos/prototyping2%20copy.jpg">
+            </div>
+               
+            <div class="item col">
+            <img style="width: 100%; max-height: 320px; object-fit: cover" src="../images/Chaos/prototyping1%20copy.jpg">
+            </div>   
+            </div>
+           
+         </div>
+
+        </div>  
+    
+      
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+    <script src="../project pages/js/jquery-3.3.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed --> 
+    <script src="../project pages/js/popper.min.js"></script>
+    <script src="../project pages/js/bootstrap-4.3.1.js"></script>
+  </body>
+</html>

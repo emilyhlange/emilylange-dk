@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+<!--    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"> -->
+</head>
+
+
+<body>
+    <div class="container">
+    <div class="draggable-image info-text">
+        <p>Portfolio by Emily Howkins Lange.
+        <br>Product designer with an interest in building, scaling and shaping Design Systems.<br>Portfolio updated March 2025.</p>
+    </div>
+
+    <div class="entry-options">
+        <div class="draggable-image">
+            <a href="/portfolio/index.html" class="btn" id="professional-portfolio">Professional Portfolio</a>
+        </div>
+        <div class="draggable-image">
+            <a href="/playground/index.html" class="btn" id="design-playground">Design playground</a>
+        </div>
+    </div>
+
+<!-- // Draggable elements -->
+
+    <div class="draggable-image" id="breathe-movie">
+        <video src="/playground/images/breathe/breathe_final.mp4" height="200px" autoplay muted loop></video>
+    </div>
+
+    <div class="draggable-image" id="chaos-exhibition">
+        <img src="/playground/images/Chaos/exhibition2.jpg" height="150px"></img>
+    </div>
+
+    <div class="draggable-image" id="portable">
+        <img src="/playground/images/portable/shoot1.jpg" height="200px"></img>
+    </div>
+
+    <div class="draggable-image" id="tune-slideshow">
+        <video src="/playground/images/tune/front_stand.mp4" height="280px" autoplay muted loop></video>
+    </div>
+
+    <div class="draggable-image" id="thesis" draggable="true">
+        <img src="/playground/images/thesis/lamp.png" height="190px"></img>
+    </div>
+
+
+<!-- // Drop zone testing-->
+
+<!-- <div id="folder">
+    <img src="/assets/img/folder.png" height="100px">
+</div> -->
+
+<div id="dropZone">
+</div>
+
+</div>
+
+<!-- // Scripts -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script src="scripts.js"></script>
+
+</body>
+</html>

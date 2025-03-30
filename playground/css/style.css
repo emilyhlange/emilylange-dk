@@ -1,0 +1,465 @@
+/* CSS Document */
+
+
+
+body{
+    background-color: #F6F6F6;
+    color: blue;
+    animation: color-change 20s infinite;
+}
+
+@-webkit-keyframes color-change {
+  0%  { color: black; }
+  50% { color: blue; }
+  100%{ color: black;}
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 5px;
+  }
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #000;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: blue;  
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 255, 0.519); 
+  }
+
+
+.flex-container{
+    display: flex;
+    margin-right: 30px;
+    margin-top: 30px;
+    margin-left: 50px;
+    margin-bottom: 30px;
+}
+
+.left{
+   flex: 20%;
+   padding-right: 20px;
+   position: fixed;
+}
+
+.right{
+    flex: 80%;
+    margin-right: 40px;
+    margin-left: 20%;
+}
+
+@media (max-width: 1100px) {
+  .right{
+    flex: 100%;
+    margin-right: 5px;
+    margin-left: auto;
+    }
+  .left{
+     flex: 100%;
+     padding-bottom: 20px;
+     position: relative;
+    }
+    .flex-container{
+    flex-direction: column;
+    }
+}
+
+div.overflow{
+    width: auto;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.pointer{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-10%, -10%);
+    width: 20px;
+    height: 20px; 
+    background: rgba(0, 0,255,.3);
+    border: 1px solid rgba(0, 0,255,.3);
+    border-radius: 50%;
+    pointer-events: none;
+    box-sizing: border-box;
+    transition: 0.2s;
+    z-index: 100;
+}
+
+#rssBlock{
+    position: absolute;
+    width:100%;
+    overflow: hidden;
+  }
+  
+  /*remove p*/
+  .cnnContents {
+    width:100%;
+    margin:0 auto;
+  }
+  
+  .marqueeStyle {
+    display:inline-block;
+    /* Apply animation to this element */
+    -webkit-animation: scrolling-left1 15s linear infinite;
+    animation: scrolling-left1 20s linear infinite;
+  }
+  
+
+  /* scrolling-left is continuous/repeatly text */
+  @keyframes scrolling-left1 {
+      0% {transform: translateX(100%);
+          -webkit-transform: translateX(100%);}
+        100% {transform: translateX(-100%);
+            -webkit-transform: translateX(-100%);}
+  }
+  @keyframes scrolling-left2 {
+      0% {transform: translateX(0%);
+          -webkit-transform: translateX(0%);}
+        100% {transform: translateX(-200%);
+            -webkit-transform: translateX(-200%);}
+  }
+  
+
+.pointer1{
+    transition: 0.01s;
+}
+.pointer2{
+    transition: 0.02s;
+}
+.pointer3{
+    transition: 0.03s;
+}
+.pointer4{
+    transition: 0.04s;
+}
+.pointer5{
+    transition: 0.05s;
+}
+.pointer6{
+    transition: 0.06s;
+}
+.pointer7{
+    transition: 0.07s;
+}
+.pointer8{
+    transition: 0.08s;
+}
+.pointer9{
+    transition: 0.09s;
+}
+
+.bgVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+#bgvideo2{
+    position: fixed;
+    
+}
+
+#spaghetti{
+    width: 100%;
+}
+
+.item{
+    padding: 10px;
+}
+
+.frontpage_grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-gap: 15px;
+}
+.grid_two{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-gap: 15px;
+}
+
+.imageFade{
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  backface-visibility: hidden;
+}
+
+.imageFade .imageText{
+  visibility: hidden;
+  color: black;
+  font-size: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 1s;
+	
+}
+.imageFade:hover .imageText{
+	visibility: visible;
+	opacity: 1;
+}
+
+li.project-item{
+	font-size: 12px;
+/*	padding-left: 15px;*/
+	font-family:Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	line-height: 17px;
+}
+
+li.sidebar-item{
+	font-size: 12px;
+/*	padding-left: 15px;*/
+	font-family:Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	line-height: 17px;
+}
+#project-description{
+	font-size: 12px;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	line-height: 15px;
+}
+
+#about-me{
+    font-size: 20px;
+    font-family: "Helvetica Neue";
+    line-height: 25px;
+    font-weight: 500; 
+}
+
+#project-title{
+	font-size: 12px;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	line-height: 15px;
+    font-weight: 600;
+}
+
+a{
+color: inherit;
+text-decoration: inherit;
+}
+
+a:hover{
+	text-decoration: none;
+	color: orangered;
+    position: relative;
+}
+
+#breathe:hover:after {
+    content: url(../images/breathe/breathe_thumb.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+}
+
+#tune:hover:after {
+    content: url(../images/tune/tune_thumbnail.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+}
+
+#teaterthumb:hover:after {
+    content: url(../images/teater/logo_nt_red_fill@4x.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+}
+
+#portablethumb:hover:after {
+    content: url(../images/portable/thumbnail.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+}
+
+#fanfarethumb:hover:after {
+    content: url(../images/fanfare/fanfarethumb.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+    height: 100px;
+}
+
+#cerealthumb:hover:after {
+    content: url(../images/cerealbox/cerealthumb.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+    height: 100px;
+}
+
+#devothumb:hover:after {
+    content: url(../images/lime_devo/devothumb.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+    height: 100px;
+}
+
+#thesisthumb:hover:after {
+    content: url(../images/thesis/thumbnail.jpg); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+    height: 100px;
+}
+
+#mikkellerthumb:hover:after {
+    content: url(../images/mikkeller/thumbnail.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+    height: 100px;
+}
+
+#pcthumb:hover:after {
+    content: url(../images/politicalCorrectness/thumbnail.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+    height: 100px;
+}
+
+#timethumb:hover:after {
+    content: url(../images/timely_awareness/thumbnail.jpg); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+    height: 100px;
+}
+
+#pornthumb:hover:after {
+    content: url(../images/pornolampen/thumbnail.jpg); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+}
+
+#cwcjthumb:hover:after {
+    content: url(../images/cwcj/thumbnail.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+}
+
+#chaosthumb:hover:after {
+    content: url(../images/Chaos/thumbnail.jpg); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+}
+
+#ecothumb:hover:after {
+    content: url(../images/EcoDistricts/thumbnail.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+}
+
+#plasticthumb:hover:after {
+    content: url(../images/breakupwithplastic/thumbnail.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+}
+
+#duboisthumb:hover:after {
+    content: url(../images/dubois/thumbnail.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+}
+
+#mvthumb:hover:after {
+    content: url(../images/informationdesign/thumbnail.png); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+}
+
+#pearthumb:hover:after {
+    content: url(../images/sharepear/thumbnail.jpg); /* no need for qoutes */
+    display: block;
+    position: absolute;
+    left: 20px; /* change this value to one that suits you */
+    top: 20px; /* change this value to one that suits you */
+    z-index: -10;
+}
+
+#sidebar{
+/*	padding-left: 15px;*/
+/*
+	padding-right: 20px;
+	margin-top: 30px;
+    padding-bottom: 10px;
+*/
+}
+
+h1.display-4 {
+  font-size: 32px;
+  font-weight: 100;
+  line-height: 1.2;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.row{
+/*    margin-left: 15px;*/
+    margin-right: 15px;
+}
+
+#iframepdf{
+    height: 100%;
+}
