@@ -367,70 +367,6 @@
             opacity: 0.7;
         }
 
-        /* ── Playground section ── */
-        .pg-intro {
-            font-size: 12px;
-            line-height: 17px;
-            max-width: 560px;
-            margin-bottom: 30px;
-            opacity: 0.6;
-        }
-
-        .pg-category {
-            margin-bottom: 32px;
-        }
-
-        .pg-category-label {
-            font-size: 10px;
-            opacity: 0.4;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            border-bottom: 1px solid currentColor;
-            padding-bottom: 4px;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .pg-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 0;
-            border: 1px solid currentColor;
-        }
-
-        .pg-item {
-            padding: 10px 14px;
-            border-right: 1px solid currentColor;
-            border-bottom: 1px solid currentColor;
-            display: block;
-            color: inherit;
-            text-decoration: none;
-            transition: background 0.12s;
-        }
-
-        .pg-item:last-child { border-right: none; }
-
-        .pg-item:hover {
-            background: currentColor;
-        }
-
-        .pg-item:hover .pg-item-inner {
-            color: #F6F6F6;
-            mix-blend-mode: difference;
-        }
-
-        .pg-year {
-            font-size: 10px;
-            opacity: 0.4;
-            line-height: 14px;
-            margin-bottom: 2px;
-        }
-
-        .pg-title {
-            font-size: 11px;
-            line-height: 15px;
-        }
-
         /* ── Fade-in on scroll ── */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(16px); }
@@ -454,7 +390,6 @@
             <span class="sidebar-label">sections</span>
             <ul>
                 <li class="project-item"><a href="#" onclick="showSection('work'); return false;">work</a></li>
-                <li class="project-item"><a href="#" onclick="showSection('playground'); return false;">playground</a></li>
                 <li class="project-item"><a href="#" onclick="showSection('cv'); return false;">cv</a></li>
             </ul>
 
@@ -489,7 +424,6 @@
             <!-- Section tabs -->
             <div class="section-tabs">
                 <button class="section-tab active" onclick="showSection('work')">work</button>
-                <button class="section-tab" onclick="showSection('playground')">playground</button>
                 <button class="section-tab" onclick="showSection('cv')">cv</button>
             </div>
 
@@ -662,133 +596,6 @@
                 </div>
 
             </div><!-- /panel-work -->
-
-            <!-- ══ PLAYGROUND PANEL ══ -->
-            <div id="panel-playground" class="section-panel">
-
-                <p class="pg-intro">Earlier work, experiments, and student projects from 2018–2021. Graphic design, product design, branding, and speculative work.</p>
-
-                <div class="pg-category">
-                    <span class="pg-category-label">Thesis</span>
-                    <div class="pg-grid">
-                        <a class="pg-item" href="/playground/projects/thesis.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2021</div>
-                                <div class="pg-title">Designing for low self-esteem</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="pg-category">
-                    <span class="pg-category-label">Product Design</span>
-                    <div class="pg-grid">
-                        <a class="pg-item" href="/playground/projects/portable.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2021</div>
-                                <div class="pg-title">Portable.</div>
-                            </div>
-                        </a>
-                        <a class="pg-item" href="/playground/projects/mikkeller.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2020</div>
-                                <div class="pg-title">Mikkeller Brewery</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="pg-category">
-                    <span class="pg-category-label">Branding &amp; Campaign</span>
-                    <div class="pg-grid">
-                        <a class="pg-item" href="/playground/projects/skiveteater.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2021</div>
-                                <div class="pg-title">Skive Theater</div>
-                            </div>
-                        </a>
-                        <a class="pg-item" href="/playground/projects/ecodistricts.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2018</div>
-                                <div class="pg-title">EcoDistricts</div>
-                            </div>
-                        </a>
-                        <a class="pg-item" href="/playground/projects/multivitamin.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2018</div>
-                                <div class="pg-title">Information Redesign</div>
-                            </div>
-                        </a>
-                        <a class="pg-item" href="/playground/projects/breakupwithplastic.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2018</div>
-                                <div class="pg-title">#breakUpWithPlastic</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="pg-category">
-                    <span class="pg-category-label">Graphic Design</span>
-                    <div class="pg-grid">
-                        <a class="pg-item" href="/playground/projects/tune.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2021</div>
-                                <div class="pg-title">Tune</div>
-                            </div>
-                        </a>
-                        <a class="pg-item" href="/playground/projects/cerealbox.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2021</div>
-                                <div class="pg-title">A Cereal Box</div>
-                            </div>
-                        </a>
-                        <a class="pg-item" href="/playground/projects/lp_limedevo.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2021</div>
-                                <div class="pg-title">LP Cover Design</div>
-                            </div>
-                        </a>
-                        <a class="pg-item" href="/playground/projects/dubois.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2018</div>
-                                <div class="pg-title">DuBois</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="pg-category">
-                    <span class="pg-category-label">Speculative Design</span>
-                    <div class="pg-grid">
-                        <a class="pg-item" href="/playground/projects/breathe.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2021</div>
-                                <div class="pg-title">Breathe</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="pg-category">
-                    <span class="pg-category-label">Exhibition</span>
-                    <div class="pg-grid">
-                        <a class="pg-item" href="/playground/projects/fanfare.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2021</div>
-                                <div class="pg-title">Typographic Kitchen</div>
-                            </div>
-                        </a>
-                        <a class="pg-item" href="/playground/projects/chaos.html">
-                            <div class="pg-item-inner">
-                                <div class="pg-year">2018</div>
-                                <div class="pg-title">Chaos</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-            </div><!-- /panel-playground -->
 
             <!-- ══ CV PANEL ══ -->
             <div id="panel-cv" class="section-panel">

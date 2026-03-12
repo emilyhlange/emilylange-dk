@@ -1,148 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Playground — Emily Howkins Lange</title>
+    <meta name="description" content="Experiments, graphic design, product design, and student projects by Emily Howkins Lange.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <link type="text/css" href="css/bootstrap-4.3.1.css" rel="stylesheet">
-    <link type="text/css" href="css/style.css?v=2" rel="stylesheet">
+        body {
+            background: #F6F6F6;
+            color: black;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            line-height: 17px;
+            animation: color-change 20s infinite;
+        }
+
+        @keyframes color-change {
+            0%   { color: black; }
+            50%  { color: blue; }
+            100% { color: black; }
+        }
+
+        ::-webkit-scrollbar { width: 10px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: blue; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,255,0.519); }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* ── Shell ── */
+        .pg-shell {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 50px 50px 120px;
+        }
+
+        /* ── Header ── */
+        .pg-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 64px;
+        }
+
+        .pg-name {
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .pg-name:hover { color: orangered; }
+
+        .pg-nav {
+            display: flex;
+            gap: 24px;
+            font-size: 11px;
+            opacity: 0.5;
+        }
+
+        .pg-nav a:hover {
+            opacity: 1;
+            color: orangered;
+        }
+
+        /* ── Lede ── */
+        .pg-lede {
+            font-size: 12px;
+            opacity: 0.45;
+            margin-bottom: 48px;
+            max-width: 480px;
+            line-height: 18px;
+        }
+
+        /* ── Project list ── */
+        .pg-list { list-style: none; }
+
+        .pg-row {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            align-items: baseline;
+            padding: 11px 0;
+            border-top: 1px solid currentColor;
+        }
+
+        .pg-row:last-child { border-bottom: 1px solid currentColor; }
+
+        .pg-meta {
+            font-size: 10px;
+            opacity: 0.4;
+            letter-spacing: 0.04em;
+            padding-right: 16px;
+        }
+
+        .pg-title-link {
+            font-size: 13px;
+            line-height: 19px;
+            display: block;
+            min-height: 19px;
+        }
+
+        .pg-title-link:hover { color: orangered; }
+
+        /* Blinking cursor shown while typing */
+        .pg-cursor {
+            display: inline-block;
+            width: 1px;
+            height: 12px;
+            background: currentColor;
+            margin-left: 1px;
+            vertical-align: middle;
+            animation: blink 0.65s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* ── Floating thumbnail ── */
+        #pg-thumb {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.12s ease;
+        }
+
+        #pg-thumb.visible { opacity: 1; }
+
+        #pg-thumb img {
+            display: block;
+            width: 220px;
+            height: 160px;
+            object-fit: cover;
+            border: 1px solid currentColor;
+            background: #e8e8e8;
+        }
+
+        @media (max-width: 640px) {
+            .pg-shell { padding: 32px 24px 80px; }
+            .pg-header { flex-direction: column; gap: 16px; margin-bottom: 40px; }
+            .pg-row { grid-template-columns: 1fr; gap: 2px; }
+            #pg-thumb { display: none; }
+        }
+    </style>
 </head>
-
 <body>
 
-    <div class="flex-container content">
-        <div class="left">
+<div class="pg-shell">
 
-            <ul class="nav flex-column">
-                <div>
-                    <li class="project-item"><a href="/index.html">emily howkins lange</a></li>
-                    <li class="sidebar-item"><a href="https://www.emily-howkins.com/playground/about.html">about</a></li>
-                    <li class="sidebar-item"><a href="https://www.emily-howkins.com/playground/resume.html">resumé</a></li>
-                    <li class="sidebar-item"><a href="https://www.emily-howkins.com/playground/contact.html">social media // contact</a></li>
-                </div>
-                <br>
-                <div>
-                    <li class="sidebar-item"><a href="/index.html">← home</a></li>
-                    <li class="sidebar-item"><a href="/portfolio/index.html">portfolio →</a></li>
-                </div>
-                <br>
-                <div>
-                    <li class="project-item"><a id="thesisthumb"
-                            href="https://www.emily-howkins.com/playground/projects/thesis.html">[2021] designing for low self-esteem</a></li>
-                    </div>
-                <div>
-                    <li class="sidebar-item"><strong>––product design</strong></li>
-                    <li class="project-item"><a id="portablethumb"
-                            href="https://www.emily-howkins.com/playground/projects/portable.html">[2021] portable. </a></li>
-                    <li class="project-item"><a id="mikkellerthumb"
-                            href="https://www.emily-howkins.com/playground/projects/mikkeller.html">[2020] mikkeller brewery</a></li>
-                    </div>
-                <div>
-                    <li class="sidebar-item"><strong>––branding/campaign</strong></li>
-                    <li class="project-item"><a id="teaterthumb"
-                            href="https://www.emily-howkins.com/playground/projects/skiveteater.html">[2021] skive theater </a></li>
-                    <li class="project-item"><a id="ecothumb"
-                            href="https://www.emily-howkins.com/playground/projects/ecodistricts.html">[2018] ecodistricts</a></li>
-                    <li class="project-item"><a id="mvthumb"
-                            href="https://www.emily-howkins.com/playground/projects/multivitamin.html">[2018] information redesign</a></li>
-                    <li class="project-item"><a id="plasticthumb"
-                            href="https://www.emily-howkins.com/playground/projects/breakupwithplastic.html">[2018] #breakUpWithPlastic</a></li>
-                </div>
-                <div>
-                    <li class="sidebar-item"><strong>––graphic design</strong></li>
-                    <li class="project-item"><a id="tune"
-                            href="https://www.emily-howkins.com/playground/projects/tune.html">[2021] tune </a></li>
-                    <li class="project-item"><a id="cerealthumb"
-                            href="https://www.emily-howkins.com/playground/projects/cerealbox.html">[2021] a cereal box </a></li>
-                    <li class="project-item"><a id="devothumb"
-                            href="https://www.emily-howkins.com/playground/projects/lp_limedevo.html">[2021] lp cover design</a></li>
-                    <li class="project-item"><a id="duboisthumb"
-                            href="https://www.emily-howkins.com/playground/projects/dubois.html">[2018] duBois</a></li>
-                </div>
-                <div>
-                    <li class="sidebar-item"><strong>––speculative design</strong></li>
-                    <li class="project-item"><a id="breathe"
-                            href="https://www.emily-howkins.com/playground/projects/breathe.html">[2021] breathe </a></li>
-                <div>
-                    <li class="sidebar-item"><strong>––exhibition</strong></li>
-                    <li class="project-item"><a id="fanfarethumb"
-                            href="https://www.emily-howkins.com/playground/projects/fanfare.html">[2021] typographic kitchen </a></li>
-                    <li class="project-item"><a id="chaosthumb"
-                            href="https://www.emily-howkins.com/playground/projects/chaos.html">[2018] chaos</a></li>
-                </div>
-            </ul>
-            </div>
+    <header class="pg-header">
+        <a class="pg-name" href="/index.html">Emily Howkins Lange</a>
+        <nav class="pg-nav">
+            <a href="/index.html">← home</a>
+            <a href="/portfolio/index.html">portfolio →</a>
+        </nav>
+    </header>
 
-        <div class="right">
-            <div class="row overflow">
-                <div class="item col">
-                    <p class="project-description">Recent projects</p>
-                    <iframe width="560" style="max-height: 600px;" height=100% src="https://www.youtube.com/embed/1qeEknAQP6Q?si=x4-ZN_rcV2hGtJnJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                    <a href="https://www.emily-howkins.com/playground/projects/tune.html" target="_blank"><img
-                            src="./images/pp_layout.jpg" style="max-width: 80%; max-height: 600px;"></a>
-                    <a href="https://www.emily-howkins.com/playground/projects/tune.html" target="_blank"><img
-                            src="./images/pp_layout2.jpg" style="max-width: 80%; max-height: 600px;"></a>
-                    <a href="https://www.emily-howkins.com/playground/projects/skiveteater.html" target="_blank"><img
-                            src="./images/pp_layout3.jpg" style="max-width: 80%; max-height: 600px;"></a>
-                    <a href="https://www.emily-howkins.com/playground/projects/skiveteater.html" target="_blank"><img
-                            src="./images/pp_layout4.jpg" style="max-width: 80%; max-height: 600px;"></a>
-                    <a href="https://www.emily-howkins.com/playground/projects/portable.html" target="_blank"><img
-                            src="./images/pp_layout5.jpg" style="max-width: 80%; max-height: 600px;"></a>
-                    <a href="https://www.emily-howkins.com/playground/projects/portable.html" target="_blank"><img
-                            src="./images/pp_layout6.jpg" style="max-width: 80%; max-height: 600px;"></a>
-                </div>
-            </div>
-            <div id='rssBlock'>
-                <p class="cnnContents">
-                    <span class="marqueeStyle" class="project-description">&nbsp;Breathe: selling air [film]. </span>
-                    </p>
+    <p class="pg-lede">Earlier work, experiments, and student projects — 2018–2021. Graphic design, product design, branding, and speculative work.</p>
 
-                <p class="cnnContents">
-                    <span class="marqueeStyle" class="project-description">&nbsp;Tune: a compilation of graphic design techniques,
-                        portraying a collection of songs [book]. </span>
-                    </p>
-                <p class="cnnContents">
-                    <span class="marqueeStyle" class="project-description">&nbsp;Portable: design of a game that connects people.
-                        Project included building the prototype of the game, the aesthetic and a social media campaign
-                        that surrounds it.
-                    </span>
-                    </p>
-                <p class="cnnContents">
-                    <span class="marqueeStyle" class="project-description">&nbsp;Skive Theater: brand identity/poster design for the
-                        local theater in Skive Municipality. </span>
-                    </p>
-            </div>
-        </div>
-    </div>
+    <ol class="pg-list">
 
-    <div class="trail">
-        <div class="pointer pointer1"></div>
-        <div class="pointer pointer2"></div>
-        <div class="pointer pointer3"></div>
-        <div class="pointer pointer4"></div>
-        <div class="pointer pointer5"></div>
-        <div class="pointer pointer6"></div>
-        <div class="pointer pointer7"></div>
-        <div class="pointer pointer8"></div>
-        <div class="pointer pointer9"></div>
-    </div>
+        <li class="pg-row" data-thumb="images/thesis/thumbnail.jpg">
+            <span class="pg-meta">2021 / Thesis</span>
+            <a class="pg-title-link" href="/playground/projects/thesis.html" data-text="Designing for low self-esteem"></a>
+        </li>
 
-    <script src="js/jquery-3.3.1.min.js"></script>
+        <li class="pg-row" data-thumb="images/portable/thumbnail.png">
+            <span class="pg-meta">2021 / Product Design</span>
+            <a class="pg-title-link" href="/playground/projects/portable.html" data-text="Portable."></a>
+        </li>
 
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap-4.3.1.js"></script>
+        <li class="pg-row" data-thumb="images/mikkeller/thumbnail.png">
+            <span class="pg-meta">2020 / Product Design</span>
+            <a class="pg-title-link" href="/playground/projects/mikkeller.html" data-text="Mikkeller Brewery"></a>
+        </li>
 
-    <script>
-        $(document).mousemove(function (e) {
-            $('.pointer').css({
-                left: e.pageX - 50,
-                top: e.pageY - 30
-            });
-        })
-    </script>
+        <li class="pg-row" data-thumb="images/teater/12.jpg">
+            <span class="pg-meta">2021 / Branding</span>
+            <a class="pg-title-link" href="/playground/projects/skiveteater.html" data-text="Skive Theater"></a>
+        </li>
+
+        <li class="pg-row" data-thumb="images/EcoDistricts/thumbnail.png">
+            <span class="pg-meta">2018 / Branding</span>
+            <a class="pg-title-link" href="/playground/projects/ecodistricts.html" data-text="EcoDistricts"></a>
+        </li>
+
+        <li class="pg-row" data-thumb="images/informationdesign/thumbnail.png">
+            <span class="pg-meta">2018 / Branding</span>
+            <a class="pg-title-link" href="/playground/projects/multivitamin.html" data-text="Information Redesign"></a>
+        </li>
+
+        <li class="pg-row" data-thumb="images/breakupwithplastic/thumbnail.png">
+            <span class="pg-meta">2018 / Campaign</span>
+            <a class="pg-title-link" href="/playground/projects/breakupwithplastic.html" data-text="#breakUpWithPlastic"></a>
+        </li>
+
+        <li class="pg-row" data-thumb="images/tune/front_stand.jpg">
+            <span class="pg-meta">2021 / Graphic Design</span>
+            <a class="pg-title-link" href="/playground/projects/tune.html" data-text="Tune"></a>
+        </li>
+
+        <li class="pg-row" data-thumb="images/cerealbox/cerealthumb.png">
+            <span class="pg-meta">2021 / Graphic Design</span>
+            <a class="pg-title-link" href="/playground/projects/cerealbox.html" data-text="A Cereal Box"></a>
+        </li>
+
+        <li class="pg-row" data-thumb="images/lime_devo/devothumb.png">
+            <span class="pg-meta">2021 / Graphic Design</span>
+            <a class="pg-title-link" href="/playground/projects/lp_limedevo.html" data-text="LP Cover Design"></a>
+        </li>
+
+        <li class="pg-row" data-thumb="images/dubois/thumbnail.png">
+            <span class="pg-meta">2018 / Graphic Design</span>
+            <a class="pg-title-link" href="/playground/projects/dubois.html" data-text="DuBois"></a>
+        </li>
+
+        <li class="pg-row" data-thumb="images/breathe/Screenshot 2022-01-11 at 15.36.23.png">
+            <span class="pg-meta">2021 / Speculative</span>
+            <a class="pg-title-link" href="/playground/projects/breathe.html" data-text="Breathe"></a>
+        </li>
+
+        <li class="pg-row" data-thumb="images/fanfare/5715_edit.png">
+            <span class="pg-meta">2021 / Exhibition</span>
+            <a class="pg-title-link" href="/playground/projects/fanfare.html" data-text="Typographic Kitchen"></a>
+        </li>
+
+        <li class="pg-row" data-thumb="images/Chaos/thumbnail.jpg">
+            <span class="pg-meta">2018 / Exhibition</span>
+            <a class="pg-title-link" href="/playground/projects/chaos.html" data-text="Chaos"></a>
+        </li>
+
+    </ol>
+
+</div>
+
+<!-- Floating thumbnail follows cursor -->
+<div id="pg-thumb"><img id="pg-thumb-img" src="" alt=""></div>
+
+<script>
+(function () {
+    const SPEED = 32; // ms per character
+
+    function typeText(el, text) {
+        // Build cursor element
+        const cursor = document.createElement('span');
+        cursor.className = 'pg-cursor';
+        el.textContent = '';
+        el.appendChild(cursor);
+
+        let i = 0;
+        function tick() {
+            if (i < text.length) {
+                el.insertBefore(document.createTextNode(text[i]), cursor);
+                i++;
+                setTimeout(tick, SPEED + (Math.random() * 12 - 6)); // slight jitter
+            } else {
+                // Fade out cursor
+                setTimeout(() => {
+                    cursor.style.animation = 'none';
+                    cursor.style.opacity = '0';
+                }, 350);
+            }
+        }
+        tick();
+    }
+
+    // ── Cascade on load, then per-row on scroll ──
+    const rows = Array.from(document.querySelectorAll('.pg-row'));
+    const typed = new Set();
+
+    function triggerRow(row, delay) {
+        if (typed.has(row)) return;
+        typed.add(row);
+        const link = row.querySelector('.pg-title-link');
+        setTimeout(() => typeText(link, link.dataset.text), delay);
+    }
+
+    // Detect which rows are visible at load time → stagger them
+    function initVisible() {
+        const vh = window.innerHeight;
+        let stagger = 0;
+        rows.forEach(row => {
+            const rect = row.getBoundingClientRect();
+            if (rect.top < vh && rect.bottom > 0) {
+                triggerRow(row, stagger);
+                stagger += 90;
+            }
+        });
+    }
+
+    // IntersectionObserver for rows entering on scroll
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                triggerRow(entry.target, 0);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    rows.forEach(row => observer.observe(row));
+
+    // Kick off initial cascade after a tiny delay (allows paint)
+    setTimeout(initVisible, 80);
+
+    // ── Hover thumbnail ──
+    const thumb  = document.getElementById('pg-thumb');
+    const thumbImg = document.getElementById('pg-thumb-img');
+    const THUMB_W = 220 + 2; // image width + border
+    const THUMB_H = 160 + 2;
+    const OFFSET  = 24;
+
+    let mx = 0, my = 0;
+
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX;
+        my = e.clientY;
+
+        // Flip to left if near right edge; flip up if near bottom
+        const x = (mx + OFFSET + THUMB_W > window.innerWidth)
+            ? mx - OFFSET - THUMB_W
+            : mx + OFFSET;
+        const y = (my - THUMB_H / 2 < 0)
+            ? 0
+            : (my + THUMB_H / 2 > window.innerHeight)
+                ? window.innerHeight - THUMB_H
+                : my - THUMB_H / 2;
+
+        thumb.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    rows.forEach(row => {
+        row.addEventListener('mouseenter', () => {
+            const src = row.dataset.thumb;
+            if (src) {
+                thumbImg.src = src;
+                thumb.classList.add('visible');
+            }
+        });
+        row.addEventListener('mouseleave', () => {
+            thumb.classList.remove('visible');
+        });
+    });
+}());
+</script>
+
 </body>
-
 </html>
