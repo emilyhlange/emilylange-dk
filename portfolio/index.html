@@ -1,66 +1,760 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Emily Lange - Professional Portfolio</title>
-    <link rel="stylesheet" href="/playground/css/bootstrap-4.3.1.css">
-    <link rel="stylesheet" href="/playground/css/style.css">
+    <title>Portfolio — Emily Howkins Lange</title>
+    <meta name="description" content="Product Designer specialising in Design Systems. Based in Copenhagen.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* ── Base — matches existing site exactly ── */
+        body {
+            background-color: #F6F6F6;
+            color: black;
+            font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            line-height: 17px;
+            animation: color-change 20s infinite;
+        }
+
+        @keyframes color-change {
+            0%   { color: black; }
+            50%  { color: blue; }
+            100% { color: black; }
+        }
+
+        /* Scrollbar — matches existing */
+        ::-webkit-scrollbar { width: 10px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: blue; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,255,0.519); }
+
+        a { color: inherit; text-decoration: inherit; }
+        a:hover { text-decoration: none; color: orangered; position: relative; }
+
+        /* ── Layout ── */
+        .flex-container {
+            display: flex;
+            margin: 30px 30px 30px 50px;
+        }
+
+        .left {
+            flex: 0 0 170px;
+            padding-right: 24px;
+            padding-left: 4px;
+            position: fixed;
+            top: 30px;
+        }
+
+        .right {
+            flex: 1;
+            margin-left: 210px;
+            margin-right: 40px;
+            max-width: 640px;
+        }
+
+        @media (max-width: 1100px) {
+            .flex-container { flex-direction: column; }
+            .left { flex: 100%; padding-bottom: 20px; padding-right: 0; position: relative; top: auto; }
+            .right { flex: 100%; margin-left: 0; margin-right: 5px; max-width: 100%; }
+        }
+
+        .item { padding: 10px; }
+
+        /* ── Sidebar ── */
+        .sidebar-name {
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 17px;
+            margin-bottom: 16px;
+        }
+
+        .sidebar-name span {
+            font-weight: normal;
+            display: block;
+        }
+
+        ul { list-style: none; }
+
+        li.project-item {
+            font-size: 12px;
+            font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            line-height: 17px;
+        }
+
+        li.sidebar-item {
+            font-size: 12px;
+            font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            line-height: 17px;
+        }
+
+        .sidebar-label {
+            font-size: 10px;
+            opacity: 0.4;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 16px;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        /* ── Section navigation tabs ── */
+        .section-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid currentColor;
+        }
+
+        .section-tab {
+            font-size: 12px;
+            font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            line-height: 17px;
+            padding: 6px 16px 6px 0;
+            cursor: pointer;
+            opacity: 0.35;
+            border: none;
+            background: none;
+            color: inherit;
+            transition: opacity 0.15s;
+            letter-spacing: 0.04em;
+        }
+
+        .section-tab.active {
+            opacity: 1;
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .section-tab:hover { opacity: 0.8; }
+
+        /* ── Section panels ── */
+        .section-panel { display: none; }
+        .section-panel.active { display: block; }
+
+        /* ── About ── */
+        #about-me {
+            font-size: 20px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            line-height: 25px;
+            font-weight: 500;
+            max-width: 560px;
+            margin-bottom: 30px;
+        }
+
+        /* ── Project index cards ── */
+        .project-index {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border: 1px solid currentColor;
+            margin-bottom: 40px;
+        }
+
+        .project-index-item {
+            padding: 14px 16px;
+            border-right: 1px solid currentColor;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+            transition: background 0.15s;
+        }
+
+        .project-index-item:last-child { border-right: none; }
+
+        .project-index-item:hover {
+            background: currentColor;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Trick: use a wrapper inside so text stays readable on hover */
+        .project-index-item:hover .index-inner {
+            color: #F6F6F6;
+            mix-blend-mode: difference;
+        }
+
+        .index-num {
+            font-size: 10px;
+            opacity: 0.5;
+            margin-bottom: 4px;
+            line-height: 14px;
+        }
+
+        .index-title {
+            font-size: 11px;
+            line-height: 15px;
+        }
+
+        /* ── Case studies ── */
+        .case-study {
+            margin-bottom: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid currentColor;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .case-study.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .case-study:last-child { border-bottom: none; }
+
+        .cs-num {
+            font-size: 10px;
+            opacity: 0.4;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            line-height: 17px;
+            margin-bottom: 4px;
+        }
+
+        .cs-title {
+            font-size: 20px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 500;
+            line-height: 25px;
+            margin-bottom: 10px;
+            max-width: 480px;
+        }
+
+        .cs-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .tag {
+            font-size: 10px;
+            border: 1px solid currentColor;
+            padding: 2px 8px;
+            border-radius: 20px;
+            line-height: 16px;
+            opacity: 0.6;
+        }
+
+        /* ── Case study body — two col ── */
+        .cs-body {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 10px 24px;
+        }
+
+        .cs-section-label {
+            font-size: 10px;
+            opacity: 0.4;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding-top: 1px;
+            line-height: 17px;
+        }
+
+        .cs-section-content {
+            font-size: 12px;
+            line-height: 17px;
+        }
+
+        .cs-section-content p {
+            margin-bottom: 8px;
+            max-width: 500px;
+        }
+
+        .cs-section-content p:last-child { margin-bottom: 0; }
+
+        .cs-section-content ul { list-style: none; margin-bottom: 8px; }
+
+        .cs-section-content ul li {
+            font-size: 12px;
+            line-height: 17px;
+            padding-left: 14px;
+            position: relative;
+            max-width: 500px;
+        }
+
+        .cs-section-content ul li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            opacity: 0.4;
+        }
+
+        .cs-divider {
+            grid-column: 1 / -1;
+            height: 1px;
+            background: currentColor;
+            opacity: 0.08;
+            margin: 4px 0;
+        }
+
+        /* Pull quote */
+        .cs-pullquote {
+            grid-column: 2;
+            font-size: 12px;
+            line-height: 17px;
+            font-style: italic;
+            opacity: 0.6;
+            border-left: 1px solid currentColor;
+            padding-left: 14px;
+            margin: 2px 0;
+            max-width: 460px;
+        }
+
+        /* ── CV section ── */
+        .cv-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 40px;
+        }
+
+        @media (max-width: 800px) {
+            .cv-grid { grid-template-columns: 1fr; }
+        }
+
+        .cv-block { margin-bottom: 28px; }
+
+        .cv-block-label {
+            font-size: 10px;
+            opacity: 0.4;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            display: block;
+            line-height: 17px;
+            border-bottom: 1px solid currentColor;
+            padding-bottom: 4px;
+        }
+
+        .cv-entry { margin-bottom: 14px; }
+
+        .cv-entry-title {
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 17px;
+        }
+
+        .cv-entry-sub {
+            font-size: 12px;
+            line-height: 17px;
+            opacity: 0.7;
+        }
+
+        .cv-entry-date {
+            font-size: 10px;
+            line-height: 17px;
+            opacity: 0.4;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-tag {
+            font-size: 10px;
+            border: 1px solid currentColor;
+            padding: 2px 8px;
+            border-radius: 20px;
+            line-height: 16px;
+            opacity: 0.7;
+        }
+
+        /* ── Fade-in on scroll ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
 </head>
-
 <body>
-    <div class="flex-container content">
-        <div class="left">
-            <ul class="row">
-                <div class="item col">
-                    <li id="project-description" style="list-style-type: none;"><a href="/index.html">go back</a></li>
-                    <li id="project-description" style="list-style-type: none;"><a href="/resume.html">resumé</a></li>
-                    <li id="project-description" style="list-style-type: none;"><a href="/portfolio/index.html">projects</a></li>
-<br>
-<li id="project-description" style="list-style-type: none; color: orangered;">Obs! Site in progress.</li>
+<div class="flex-container">
 
-                </div>
+    <!-- ── Sidebar ── -->
+    <div class="left">
+        <div class="item">
+            <div class="sidebar-name">
+                Emily Howkins Lange
+                <span>Product Designer — Design Systems</span>
+                <span>Copenhagen</span>
+            </div>
+
+            <span class="sidebar-label">sections</span>
+            <ul>
+                <li class="project-item"><a href="#" onclick="showSection('work'); return false;">work</a></li>
+                <li class="project-item"><a href="#" onclick="showSection('cv'); return false;">cv</a></li>
+            </ul>
+
+            <span class="sidebar-label">projects</span>
+            <ul>
+                <li class="project-item"><a href="#" onclick="showSection('work'); scrollTo('project-01'); return false;">01 — collaboration model</a></li>
+                <li class="project-item"><a href="#" onclick="showSection('work'); scrollTo('project-02'); return false;">02 — product language</a></li>
+                <li class="project-item"><a href="#" onclick="showSection('work'); scrollTo('project-03'); return false;">03 — foundations</a></li>
+            </ul>
+
+            <span class="sidebar-label">navigate</span>
+            <ul>
+                <li class="sidebar-item"><a href="/index.html">← back</a></li>
+                <li class="sidebar-item"><a href="/playground/index.html">playground</a></li>
+            </ul>
+
+            <span class="sidebar-label">contact</span>
+            <ul>
+                <li class="sidebar-item"><a href="/cdn-cgi/l/email-protection#4421292d283d2c2b332f2d2a3728252a2321042329252d286a272b29">email</a></li>
+                <li class="sidebar-item"><a href="https://www.linkedin.com/in/emilyhowkinslange/" target="_blank">linkedin</a></li>
             </ul>
         </div>
-        <div class="right">
-            <div class="row">
-            <div class="item col">
-                <p id="project-title">Driving the co-creation, shaping, implementation & adoption of a collaboration / contribution model for our design system</p>
-                <p id="project-title">Highlights:</p>
-                <p id="project-description">
-                    <li id="project-description"> Mapped out existing practices and workflows in a growing product department.</li>
-                    <li id="project-description"> Identified key challenges and opportunities, aligning with broader product development strategies. </li>
-                    <li id="project-description"> Facilitated co-creation workshops with designers and product teams to refine processes and gather feedback. </li>
-<br>
-                <p id="project-title">Outputs:</p>
-                    <li id="project-description">Defined collaboration model – Establishing clear expectations and structured ways of working to balance speed, quality, and alignment.</li>
-                    <li id="project-description">Request intake & prioritisation – Implementing a process to manage, track, and follow up on design system contributions.</li>
-                    <li id="project-description">Guidance & resources – Creating materials to help product teams understand and engage with the contribution process.</li>
-                    <li id="project-description">Cross-functional alignment – Strengthening collaboration between design, product, and engineering through structured workflows.</li>
-                    <li id="project-description">Workshop facilitation & communication – Driving engagement and ensuring clarity across teams.</p></li>
-                   
-                 <p id="project-title">Applied skills:</p>
-                 <li id="project-description">User centricity – Ensuring the model supports real user needs, whether for designers, product teams, or end-users.</li>
-                 <li id="project-description">Co-creation – Engaging key stakeholders in shaping the model for better adoption and impact.</li>
-                 <li id="project-description">Empathy & usability - Designing a system that is intuitive, scalable, and fosters collaboration.</li>
-<br>
-<p id="project-title"><a href="mailto: emilyhowkinslange@gmail.com">Details upon request</a></p>
+    </div>
 
+    <!-- ── Right content ── -->
+    <div class="right">
+        <div class="item">
 
+            <!-- About -->
+            <p id="about-me">I'm a product designer focused on building the structures that allow quality to scale. My work sits beyond interface output — shaping how design operates, collaborates, and maintains clarity as organisations grow.</p>
+
+            <!-- Section tabs -->
+            <div class="section-tabs">
+                <button class="section-tab active" onclick="showSection('work')">work</button>
+                <button class="section-tab" onclick="showSection('cv')">cv</button>
             </div>
-            <div class="item col" style="flex-grow: 2">
-                <img src="/assets/Contr.model_blurred.jpg" alt="Project Image" class="img-fluid">
-                <img src="/assets/contr.process.jpg" alt="Project Image" class="img-fluid">
-                <img src="/assets/contr1.jpg" alt="Project Image" class="img-fluid">
-                <img src="/assets/contr2.jpg" alt="Project Image" class="img-fluid">
-                
-            </div>
-            
-              </div>  
-         </div>
+
+            <!-- ══ WORK PANEL ══ -->
+            <div id="panel-work" class="section-panel active">
+
+                <!-- Project index -->
+                <div class="project-index">
+                    <a class="project-index-item" href="#project-01" onclick="setTimeout(()=>document.getElementById('project-01').scrollIntoView({behavior:'smooth'}),10)">
+                        <div class="index-inner">
+                            <div class="index-num">01</div>
+                            <div class="index-title">Designing how a design system collaborates</div>
+                        </div>
+                    </a>
+                    <a class="project-index-item" href="#project-02">
+                        <div class="index-inner">
+                            <div class="index-num">02</div>
+                            <div class="index-title">Systematising product language</div>
+                        </div>
+                    </a>
+                    <a class="project-index-item" href="#project-03">
+                        <div class="index-inner">
+                            <div class="index-num">03</div>
+                            <div class="index-title">Building stability in a high-speed environment</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Project 01 -->
+                <div class="case-study" id="project-01">
+                    <div class="cs-num">Project 01 — Visma e-conomic, 2022–Present</div>
+                    <div class="cs-title">Designing how a design system collaborates</div>
+                    <div class="cs-tags">
+                        <span class="tag">Design Systems</span>
+                        <span class="tag">Governance</span>
+                        <span class="tag">Stakeholder Management</span>
+                        <span class="tag">Workshop Facilitation</span>
+                    </div>
+                    <div class="cs-body">
+                        <div class="cs-section-label">Context</div>
+                        <div class="cs-section-content">
+                            <p>As the organisation scaled, the design system struggled to keep pace. More teams were shipping. Delivery pressure was increasing. But the system lacked the structures needed to support this growth — no shared intake model, no clear ownership boundaries, no consistent understanding of what the system should be responsible for.</p>
+                            <p>The team operated reactively. Work arrived through conversations. Demand was invisible. Local decisions accumulated into long-term system debt. The design system risked becoming a service function, rather than infrastructure.</p>
+                        </div>
+                        <div class="cs-divider"></div>
+                        <div class="cs-section-label">My role</div>
+                        <div class="cs-section-content">
+                            <p>Product Designer, Design Systems. I identified the structural gap and led the initiative — from research through to implementation and adoption.</p>
+                        </div>
+                        <div class="cs-divider"></div>
+                        <div class="cs-section-label">Approach</div>
+                        <div class="cs-section-content">
+                            <p>I shifted focus toward designing how the system collaborates — not just what it delivers. The gap wasn't only structural in the UI. It was structural in how teams engaged with the system.</p>
+                            <ul>
+                                <li>Introduced contribution thinking — moving from requests to shared ownership</li>
+                                <li>Structured feedback as a formal input to decision-making</li>
+                                <li>Built a formal intake and prioritisation approach</li>
+                                <li>Defined clearer boundaries between system work and product work</li>
+                            </ul>
+                        </div>
+                        <div class="cs-divider"></div>
+                        <div class="cs-section-label">Outcome</div>
+                        <div class="cs-section-content">
+                            <ul>
+                                <li>Incoming needs became visible and prioritisable</li>
+                                <li>Stakeholder loops were closed — teams knew the status of their requests</li>
+                                <li>The design system repositioned: from a place to request UI, to a partner that guides decisions</li>
+                            </ul>
+                        </div>
+                        <div class="cs-divider"></div>
+                        <div class="cs-section-label">Reflection</div>
+                        <div class="cs-pullquote">"A design system is more than a component team. It needs to support, advocate, and collaborate. When product pressure builds, teams don't just need UI — they need guidance. Design systems scale through trust and shared ownership."</div>
+                    </div>
+                </div>
+
+                <!-- Project 02 -->
+                <div class="case-study" id="project-02">
+                    <div class="cs-num">Project 02 — Visma e-conomic, 2022–Present</div>
+                    <div class="cs-title">Systematising product language</div>
+                    <div class="cs-tags">
+                        <span class="tag">Content Design</span>
+                        <span class="tag">UX Writing</span>
+                        <span class="tag">Design Systems</span>
+                        <span class="tag">Cross-team Alignment</span>
+                    </div>
+                    <div class="cs-body">
+                        <div class="cs-section-label">Context</div>
+                        <div class="cs-section-content">
+                            <p>While design matured, language remained unstructured. No content designers. No shared writing ownership. Designers wrote UI copy independently — and as the product grew more international, inconsistencies became increasingly visible.</p>
+                            <p>No one was to blame — there were no shared expectations. But if a product can't demonstrate care in how it communicates, why should users trust that it works?</p>
+                        </div>
+                        <div class="cs-divider"></div>
+                        <div class="cs-section-label">My role</div>
+                        <div class="cs-section-content">
+                            <p>Self-initiated. I identified the gap, built the case internally, and led the effort — while simultaneously upskilling myself in content design. As the daughter of a technical writer, raised in a Danish/English household, I had a sharp eye for where the product's language was failing.</p>
+                        </div>
+                        <div class="cs-divider"></div>
+                        <div class="cs-section-label">Approach</div>
+                        <div class="cs-section-content">
+                            <p>I treated language as part of the system — not a layer on top of design, but a direct contributor to experience quality.</p>
+                            <ul>
+                                <li>Built a structured writing library with reusable microcopy patterns</li>
+                                <li>Aligned terminology across departments</li>
+                                <li>Integrated writing guidance directly into designers' workflows</li>
+                                <li>Avoided a static guide — embedded shared language into everyday practice instead</li>
+                            </ul>
+                        </div>
+                        <div class="cs-divider"></div>
+                        <div class="cs-section-label">Outcome</div>
+                        <div class="cs-section-content">
+                            <p>Writing became a shared discipline. Designers started aligning terminology unprompted, requesting new patterns, and auditing copy in their own areas. A brand-writing group formed organically.</p>
+                            <ul>
+                                <li>Reduced cognitive effort through consistent terminology</li>
+                                <li>Fewer writing inconsistencies across flows</li>
+                                <li>A culture shift: writing went from afterthought to habit</li>
+                            </ul>
+                        </div>
+                        <div class="cs-divider"></div>
+                        <div class="cs-section-label">Reflection</div>
+                        <div class="cs-pullquote">"I took it upon myself to close a gap no one else was watching. That's the work I find most meaningful — identifying what's quietly breaking, and building the structure to fix it."</div>
+                    </div>
+                </div>
+
+                <!-- Project 03 -->
+                <div class="case-study" id="project-03">
+                    <div class="cs-num">Project 03 — Visma e-conomic, 2022–Present</div>
+                    <div class="cs-title">Building stability in a high-speed environment</div>
+                    <div class="cs-tags">
+                        <span class="tag">Foundations</span>
+                        <span class="tag">Tokens</span>
+                        <span class="tag">Documentation</span>
+                        <span class="tag">Design Systems</span>
+                    </div>
+                    <div class="cs-body">
+                        <div class="cs-section-label">Context</div>
+                        <div class="cs-section-content">
+                            <p>Over three years, the design team more than doubled in size. Adoption was already high — but without foundational guidance, usage became fragmented. Patterns diverged. Layout logic varied. Delivery capacity increased, but consistency did not.</p>
+                        </div>
+                        <div class="cs-divider"></div>
+                        <div class="cs-section-label">The challenge</div>
+                        <div class="cs-section-content">
+                            <p>Foundational work is difficult to prioritise when delivery pressure is high. We had to reframe what progress looked like: working slowly wasn't delay — it was preparation to move faster later.</p>
+                        </div>
+                        <div class="cs-divider"></div>
+                        <div class="cs-section-label">Approach</div>
+                        <div class="cs-section-content">
+                            <p>We built stability through foundations — starting from scratch where needed, without redesigning everything at once.</p>
+                            <ul>
+                                <li>Built an entirely new token system, starting from atoms up</li>
+                                <li>Simplified the colour scale using a systematic approach</li>
+                                <li>Established clearer radius and border logic</li>
+                                <li>Refined typography for flexibility and consistency</li>
+                            </ul>
+                            <p>Documentation became central — not to describe redesigns, but to guide better usage of what already existed.</p>
+                        </div>
+                        <div class="cs-divider"></div>
+                        <div class="cs-section-label">Outcome</div>
+                        <div class="cs-section-content">
+                            <ul>
+                                <li>Greater consistency across teams</li>
+                                <li>Reduced layout divergence across the product</li>
+                                <li>Faster onboarding for new designers</li>
+                                <li>A stronger baseline for future component work</li>
+                            </ul>
+                        </div>
+                        <div class="cs-divider"></div>
+                        <div class="cs-section-label">Reflection</div>
+                        <div class="cs-pullquote">"The goal wasn't uniformity. It was predictability — enabling teams to move faster without fragmenting the experience."</div>
+                    </div>
+                </div>
+
+            </div><!-- /panel-work -->
+
+            <!-- ══ CV PANEL ══ -->
+            <div id="panel-cv" class="section-panel">
+                <div class="cv-grid">
+
+                    <!-- Left col -->
+                    <div>
+                        <div class="cv-block">
+                            <span class="cv-block-label">Employment</span>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">Product Designer, Design Systems</div>
+                                <div class="cv-entry-sub">Visma e-conomic</div>
+                                <div class="cv-entry-date">2022–Present</div>
+                            </div>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">UX Project Lead</div>
+                                <div class="cv-entry-sub">Design Matters Inc</div>
+                                <div class="cv-entry-date">2022</div>
+                            </div>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">Graphic Designer</div>
+                                <div class="cv-entry-sub">ClickLearn</div>
+                                <div class="cv-entry-date">2020–2021</div>
+                            </div>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">Freelance Web Designer</div>
+                                <div class="cv-entry-date">2019–Present</div>
+                            </div>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">Student Assistant</div>
+                                <div class="cv-entry-sub">The Danish Royal Library</div>
+                                <div class="cv-entry-date">2018–2021</div>
+                            </div>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">Student Consultant</div>
+                                <div class="cv-entry-sub">Digital Sprint</div>
+                                <div class="cv-entry-date">2019</div>
+                            </div>
+                        </div>
+
+                        <div class="cv-block">
+                            <span class="cv-block-label">Skills</span>
+                            <div class="skills-list">
+                                <span class="skill-tag">Design Systems</span>
+                                <span class="skill-tag">Component Architecture</span>
+                                <span class="skill-tag">Governance</span>
+                                <span class="skill-tag">Cross-team Alignment</span>
+                                <span class="skill-tag">Content Design</span>
+                                <span class="skill-tag">UX Writing</span>
+                                <span class="skill-tag">UX/UI Design</span>
+                                <span class="skill-tag">Documentation</span>
+                                <span class="skill-tag">Workshop Facilitation</span>
+                                <span class="skill-tag">Accessibility</span>
+                            </div>
+                        </div>
+
+                        <div class="cv-block">
+                            <span class="cv-block-label">Tools</span>
+                            <div class="skills-list">
+                                <span class="skill-tag">Figma</span>
+                                <span class="skill-tag">Storybook</span>
+                                <span class="skill-tag">HTML & CSS</span>
+                                <span class="skill-tag">Jira</span>
+                                <span class="skill-tag">Github</span>
+                                <span class="skill-tag">Airtable</span>
+                                <span class="skill-tag">Dovetail</span>
+                                <span class="skill-tag">Adobe Suite</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right col -->
+                    <div>
+                        <div class="cv-block">
+                            <span class="cv-block-label">Education</span>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">MSc in Digital Design & Interactive Technologies</div>
+                                <div class="cv-entry-sub">IT University of Copenhagen (ITU)</div>
+                                <div class="cv-entry-date">2021</div>
+                            </div>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">BSc in Digital Media & Design</div>
+                                <div class="cv-entry-sub">IT University of Copenhagen (ITU)</div>
+                                <div class="cv-entry-date">2019</div>
+                            </div>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">Exchange Semester, Computational Media</div>
+                                <div class="cv-entry-sub">Georgia Institute of Technology (GA, USA)</div>
+                                <div class="cv-entry-date">Spring 2018</div>
+                            </div>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">Electives — Economics & Business Administration</div>
+                                <div class="cv-entry-sub">Copenhagen Business School (CBS)</div>
+                                <div class="cv-entry-date">Autumn 2018</div>
+                            </div>
+                        </div>
+
+                        <div class="cv-block">
+                            <span class="cv-block-label">Certificates</span>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">Subatomic: The Complete Guide to Design Tokens</div>
+                                <div class="cv-entry-sub">Brad Frost Course</div>
+                                <div class="cv-entry-date">Spring 2026</div>
+                            </div>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">Javascript Bootcamp</div>
+                                <div class="cv-entry-sub">Barcelona Code School</div>
+                                <div class="cv-entry-date">August 2019</div>
+                            </div>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">Graphic Design</div>
+                                <div class="cv-entry-sub">Krabbesholm Højskole</div>
+                                <div class="cv-entry-date">Aug–Dec 2022</div>
+                            </div>
+                        </div>
+
+                        <div class="cv-block">
+                            <span class="cv-block-label">Volunteering</span>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">Volunteer</div>
+                                <div class="cv-entry-sub">Design Matters Conference</div>
+                                <div class="cv-entry-date">September 2018</div>
+                            </div>
+                            <div class="cv-entry">
+                                <div class="cv-entry-title">Volunteer</div>
+                                <div class="cv-entry-sub">CPH:DOX — Copenhagen Documentary Festival</div>
+                                <div class="cv-entry-date">March 2017</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- /panel-cv -->
+
         </div>
     </div>
-</body>
+</div>
 
-</html>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // ── Tab switching ──
+    function showSection(name) {
+        document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+        document.getElementById('panel-' + name).classList.add('active');
+        document.querySelectorAll('.section-tab').forEach(t => {
+            if (t.textContent.trim() === name) t.classList.add('active');
+        });
+        // Re-trigger scroll animations when switching to work
+        if (name === 'work') observeStudies();
+    }
+
+    // ── Scroll-triggered fade-in for case studies ──
+    function observeStudies() {
+        const studies = document.querySelectorAll('.case-study');
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        observer.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.08 });
+            studies.forEach(s => observer
