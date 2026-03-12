@@ -123,6 +123,17 @@
             color: #fff;
         }
 
+        /* Portfolio is the primary CTA */
+        .btn--primary {
+            background: #000;
+            color: #fff;
+        }
+
+        .btn--primary:hover {
+            background: #fff;
+            color: #000;
+        }
+
         /* ── Tooltip ── */
         .btn[data-tooltip] {
             position: relative;
@@ -225,8 +236,8 @@
 
     <!-- Centre: entry buttons -->
     <div class="entry-options">
-        <a href="/portfolio/index.html" class="btn" data-tooltip="professional work">Portfolio <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:5px; vertical-align:middle;"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg></a>
-        <a href="/playground/index.html" class="btn" data-tooltip="experiments & personal projects">Playground <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:5px; vertical-align:middle;"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg></a>
+        <a href="/portfolio/index.html" class="btn btn--primary" data-tooltip="case studies & CV">Portfolio ↗</a>
+        <a href="/playground/index.html" class="btn" data-tooltip="experiments & personal projects">Playground ↗</a>
     </div>
 
     <!-- Draggable media -->
