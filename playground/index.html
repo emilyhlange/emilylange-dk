@@ -56,26 +56,36 @@
             88% { background-position:  50px  70px; }
         }
 
+        /* ── Fixed topbar (breadcrumb) ── */
+        .pg-topbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 32px;
+            background: #F6F6F6;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 110;
+            font-size: 11px;
+        }
+        .pg-topbar a { color: inherit; text-decoration: none; }
+        .pg-topbar a:hover { color: orangered; }
+        .pg-topbar .nav-left { display: flex; align-items: center; gap: 8px; }
+        .pg-topbar .nav-sep { opacity: 0.3; }
+        .pg-topbar .nav-current { opacity: 0.45; }
+        .pg-topbar .nav-right a { color: inherit; text-decoration: none; }
+        .pg-topbar .nav-right a:hover { color: orangered; }
+
         /* ── Page shell ── */
         .pg-shell {
             max-width: 860px;
             margin: 0 auto;
-            padding: 50px 50px 120px;
+            padding: 72px 50px 120px;
             position: relative;
             z-index: 1;
         }
-
-        /* ── Header ── */
-        .pg-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 64px;
-        }
-        .pg-name { font-size: 12px; font-weight: 700; }
-        .pg-name:hover { color: orangered; }
-        .pg-nav { display: flex; gap: 24px; font-size: 11px; opacity: 0.5; }
-        .pg-nav a:hover { color: orangered; opacity: 1; }
 
         /* ── Lede ── */
         .pg-lede {
@@ -395,14 +405,16 @@
 
 <div class="grain" aria-hidden="true"></div>
 
+<nav class="pg-topbar">
+    <div class="nav-left">
+        <a href="/index.html">← home</a>
+        <span class="nav-sep">·</span>
+        <span class="nav-current">playground</span>
+    </div>
+    <div class="nav-right"><a href="/index.html">Emily Howkins Lange</a></div>
+</nav>
+
 <div class="pg-shell">
-    <header class="pg-header">
-        <a class="pg-name" href="/index.html">Emily Howkins Lange</a>
-        <nav class="pg-nav">
-            <a href="/index.html">← home</a>
-            <a href="/portfolio/index.html">portfolio →</a>
-        </nav>
-    </header>
 
     <p class="pg-lede">Earlier work, experiments, and student projects — 2018–2021. Click any project to open it.</p>
 

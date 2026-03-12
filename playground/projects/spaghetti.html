@@ -77,11 +77,12 @@
             color: inherit;
             text-decoration: none;
         }
-        .pg-nav a:hover {
-            color: orangered;
-        }
-        .pg-nav .nav-left { display: flex; gap: 16px; }
-        .pg-nav .nav-right { color: #999; }
+        .pg-nav a:hover { color: orangered; }
+        .pg-nav .nav-left { display: flex; align-items: center; gap: 8px; }
+        .pg-nav .nav-sep { opacity: 0.3; }
+        .pg-nav .nav-current { opacity: 0.45; }
+        .pg-nav .nav-right a { color: inherit; text-decoration: none; }
+        .pg-nav .nav-right a:hover { color: orangered; }
 
         /* Content */
         .pg-content {
@@ -159,8 +160,10 @@
 <nav class="pg-nav">
     <div class="nav-left">
         <a href="/playground/index.html">← playground</a>
+        <span class="nav-sep">·</span>
+        <span class="nav-current">spaghetti</span>
     </div>
-    <div class="nav-right">Emily Howkins Lange</div>
+    <div class="nav-right"><a href="/index.html">Emily Howkins Lange</a></div>
 </nav>
 
 <div class="pg-content">
