@@ -757,4 +757,15 @@
                     }
                 });
             }, { threshold: 0.08 });
-            studies.forEach(s => observer
+            studies.forEach(s => observer.observe(s));
+        } else {
+            // Fallback for browsers without IntersectionObserver
+            document.querySelectorAll('.case-study').forEach(s => s.classList.add('visible'));
+        }
+    }
+
+    // Run on page load
+    observeStudies();
+</script>
+</body>
+</html>
