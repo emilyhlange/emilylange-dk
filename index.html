@@ -6,77 +6,266 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emily Howkins Lange — Product Designer</title>
     <meta name="description" content="Portfolio of Emily Howkins Lange, product designer specialising in Design Systems.">
-    <link rel="stylesheet" href="main.css">
-<!--    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"> -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+            color: #000;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .stage {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* ── Fixed UI corners ── */
+
+        .corner {
+            position: fixed;
+            z-index: 100;
+        }
+
+        .corner--tl {
+            top: 18px;
+            left: 18px;
+        }
+
+        .corner--tr {
+            top: 18px;
+            right: 18px;
+            text-align: right;
+        }
+
+        .corner--bl {
+            bottom: 18px;
+            left: 18px;
+        }
+
+        .corner--br {
+            bottom: 18px;
+            right: 18px;
+            text-align: right;
+        }
+
+        .corner p,
+        .corner a {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            line-height: 1.6;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .corner a:hover {
+            text-decoration: underline;
+        }
+
+        .corner .label {
+            color: #999;
+            font-size: 10px;
+            display: block;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* ── Entry buttons — dead centre ── */
+
+        .entry-options {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 50;
+            display: flex;
+            gap: 0;
+        }
+
+        .btn {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            color: #000;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #000;
+            background: #fff;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.1s, color 0.1s;
+            display: block;
+        }
+
+        .btn:first-child {
+            border-radius: 4px 0 0 4px;
+        }
+
+        .btn:last-child {
+            border-radius: 0 4px 4px 0;
+            border-left: none;
+        }
+
+        .btn:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        /* ── Tooltip ── */
+        .btn[data-tooltip] {
+            position: relative;
+        }
+
+        .btn[data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: #fff;
+            font-size: 10px;
+            white-space: nowrap;
+            padding: 4px 8px;
+            border-radius: 4px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+
+        .btn[data-tooltip]:hover::after {
+            opacity: 1;
+        }
+
+        /* ── Draggable media ── */
+
+        .draggable-media {
+            position: absolute;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .draggable-media:active {
+            cursor: grabbing;
+        }
+
+        .draggable-media img,
+        .draggable-media video {
+            display: block;
+            pointer-events: none;
+        }
+
+        /* Media positions */
+        #breathe-movie {
+            top: 38%;
+            right: 5%;
+        }
+
+        #chaos-exhibition {
+            top: 40%;
+            left: 4%;
+        }
+
+        #portable {
+            top: 18%;
+            right: 28%;
+        }
+
+        #tune-slideshow {
+            top: 4%;
+            left: 30%;
+        }
+
+        #thesis {
+            bottom: 10%;
+            left: 14%;
+        }
+
+    </style>
 </head>
 
-
 <body>
-    <div class="container">
-        <div class="draggable-image info-text">
-            <p>Portfolio by Emily Howkins Lange.
-            <br>Product designer with an interest in building, scaling and shaping Design Systems.<br>Portfolio updated March 2025.
-            </p>
-        </div>
-        <div class="draggable-image info-text">
-            <p> find me
-            <br> e-mail for inquiries: <a href = "mailto: emilyhowkinslange@gmail.com">emilyhowkinslange@gmail.com;</a>
-            <br> LinkedIn: <a href="https://www.linkedin.com/in/emilyhowkinslange/">linkedin.com/emilyhowkinslange/</a>
-        </p>
-        </div>
-        <div class="draggable-image info-text">
-            <p>Obs! I have decided to code this portfolio from scratch – however, I am not a software developer. I just have a keen interest in web design, and experimenting with it.</p>
-        </div>
+<div class="stage">
 
+    <!-- Top left: name + title -->
+    <div class="corner corner--tl">
+        <p>Emily Howkins Lange</p>
+        <p style="color:#999;">Product Designer — Design Systems</p>
+        <p style="color:#999;">Copenhagen</p>
+    </div>
+
+    <!-- Top right: hint -->
+    <div class="corner corner--tr">
+        <p style="color:#999; font-size:10px;">drag to arrange</p>
+    </div>
+
+    <!-- Bottom left: contact -->
+    <div class="corner corner--bl">
+        <span class="label">contact</span>
+        <a href="mailto:emilyhowkinslange@gmail.com">emilyhowkinslange@gmail.com</a><br>
+        <a href="https://www.linkedin.com/in/emilyhowkinslange/" target="_blank">linkedin/emilyhowkinslange</a>
+    </div>
+
+    <!-- Bottom right: availability -->
+    <div class="corner corner--br">
+        <p style="color:#999; font-size:10px;">Open to new opportunities</p>
+    </div>
+
+    <!-- Centre: entry buttons -->
     <div class="entry-options">
-        <div class="draggable-image">
-            <a href="/portfolio/index.html" class="btn" id="professional-portfolio">go to: Portfolio ➶</a>
-        </div>
-        <div class="draggable-image">
-            <a href="/playground/index.html" class="btn" id="design-playground">go to: Playground ➶ </a>
-        </div>
+        <a href="/portfolio/index.html" class="btn" data-tooltip="professional work">Portfolio <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:5px; vertical-align:middle;"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg></a>
+        <a href="/playground/index.html" class="btn" data-tooltip="experiments & personal projects">Playground <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:5px; vertical-align:middle;"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg></a>
     </div>
 
-<!-- // Draggable elements -->
-
-    <div class="draggable-image" id="breathe-movie">
-        <video src="/playground/images/breathe/breathe_final.mp4" height="200px" autoplay muted loop></video>
+    <!-- Draggable media -->
+    <div class="draggable-media" id="breathe-movie">
+        <video src="/playground/images/breathe/breathe_final.mp4" height="200" autoplay muted loop></video>
     </div>
 
-    <div class="draggable-image" id="chaos-exhibition">
-        <img src="/playground/images/Chaos/exhibition2.jpg" height="150px"></img>
+    <div class="draggable-media" id="chaos-exhibition">
+        <img src="/playground/images/Chaos/exhibition2.jpg" height="150" alt="Chaos exhibition">
     </div>
 
-    <div class="draggable-image" id="portable">
-        <img src="/playground/images/portable/shoot1.jpg" height="200px"></img>
+    <div class="draggable-media" id="portable">
+        <img src="/playground/images/portable/shoot1.jpg" height="200" alt="Portable project">
     </div>
 
-    <div class="draggable-image" id="tune-slideshow">
-        <video src="/playground/images/tune/front_stand.mp4" height="280px" autoplay muted loop></video>
+    <div class="draggable-media" id="tune-slideshow">
+        <video src="/playground/images/tune/front_stand.mp4" height="270" autoplay muted loop></video>
     </div>
 
-    <div class="draggable-image" id="thesis" draggable="true">
-        <img src="/playground/images/thesis/lamp.png" height="190px"></img>
+    <div class="draggable-media" id="thesis">
+        <img src="/playground/images/thesis/lamp.png" height="190" alt="Thesis project">
     </div>
-
-
-<!-- // Drop zone testing-->
-
-<!-- <div id="folder">
-    <img src="/assets/img/folder.png" height="100px">
-</div> -->
-
-<div id="dropZone">
-</div>
 
 </div>
 
-<!-- // Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script>
+    $(function () {
+        $('.draggable-media').draggable({
+            stack: 'div',
+            scroll: false
+        });
 
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-
-    <script src="scripts.js"></script>
-
+        // Slight random tilt on each image — scattered on a desk feeling
+        $('.draggable-media').each(function () {
+            const tilt = (Math.random() - 0.5) * 5;
+            $(this).css('transform', 'rotate(' + tilt + 'deg)');
+        });
+    });
+</script>
 </body>
 </html>
