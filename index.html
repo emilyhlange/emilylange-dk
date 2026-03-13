@@ -18,16 +18,16 @@
 
     <style>
         :root {
-            --bg: #F6F6F6;
+            --bg: #F3F3F0;
             --fg: #000;
-            --fg-dim: #aaa;
-            --border: rgba(0,0,0,0.13);
+            --fg-dim: #999;
+            --border: rgba(0,0,0,0.10);
         }
         [data-theme="dark"] {
-            --bg: #111;
+            --bg: #0e0e0e;
             --fg: #f0f0ee;
             --fg-dim: #555;
-            --border: rgba(255,255,255,0.1);
+            --border: rgba(255,255,255,0.09);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -35,11 +35,70 @@
         html, body {
             width: 100%; height: 100%;
             overflow: hidden;
-            background: var(--bg);
-            color: var(--fg);
             font-family: Arial, Helvetica, sans-serif;
             font-size: 11px;
+            color: var(--fg);
         }
+
+        /* ── Colorful background ── */
+        body {
+            background:
+                radial-gradient(ellipse 65% 55% at 78% 8%,  rgba(110,130,255,0.16) 0%, transparent 100%),
+                radial-gradient(ellipse 55% 45% at 12% 88%, rgba(255,155,90,0.11)  0%, transparent 100%),
+                radial-gradient(ellipse 45% 40% at 88% 78%, rgba(120,220,180,0.09) 0%, transparent 100%),
+                var(--bg);
+        }
+        [data-theme="dark"] body {
+            background:
+                radial-gradient(ellipse 65% 55% at 78% 8%,  rgba(80,100,255,0.14) 0%, transparent 100%),
+                radial-gradient(ellipse 55% 45% at 12% 88%, rgba(200,100,50,0.10) 0%, transparent 100%),
+                radial-gradient(ellipse 45% 40% at 88% 78%, rgba(60,160,120,0.08) 0%, transparent 100%),
+                var(--bg);
+        }
+
+        /* ── Cursor light ── */
+        #cursor-light {
+            position: fixed;
+            pointer-events: none;
+            width: 520px; height: 520px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                rgba(255,255,255,0.22) 0%,
+                rgba(200,210,255,0.08) 35%,
+                transparent 70%
+            );
+            left: calc(var(--cx, 50vw) * 1px - 260px);
+            top:  calc(var(--cy, 50vh) * 1px - 260px);
+            z-index: 1;
+            transition: left 0.07s linear, top 0.07s linear;
+        }
+        [data-theme="dark"] #cursor-light {
+            background: radial-gradient(circle,
+                rgba(255,255,255,0.12) 0%,
+                rgba(180,200,255,0.05) 35%,
+                transparent 70%
+            );
+        }
+
+        /* ── Grain ── */
+        .grain {
+            position: fixed; inset: -20%; width: 140%; height: 140%;
+            pointer-events: none; z-index: 2; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+            animation: grain-move 0.18s steps(1) infinite;
+        }
+        @keyframes grain-move {
+            0%{background-position:0 0}     10%{background-position:-5% -10%}
+            20%{background-position:-15% 5%} 30%{background-position:7% -25%}
+            40%{background-position:-5% 25%} 50%{background-position:-15% 10%}
+            60%{background-position:15% -25%}70%{background-position:0 15%}
+            80%{background-position:3% 35%}  90%{background-position:-18% 10%}
+            100%{background-position:0 -20%}
+        }
+
+        /* ── Pixel trail ── */
+        #trail { position: fixed; inset: 0; pointer-events: none; z-index: 90; }
 
         /* ── Intro ── */
         #intro {
@@ -57,45 +116,33 @@
         }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-        /* ── Grain ── */
-        .grain {
-            position: fixed; inset: -20%; width: 140%; height: 140%;
-            pointer-events: none; z-index: 80; opacity: 0.038;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-size: 200px 200px;
-            animation: grain-move 0.18s steps(1) infinite;
-        }
-        @keyframes grain-move {
-            0%  {background-position:0% 0%}   10%{background-position:-5% -10%}
-            20% {background-position:-15% 5%}  30%{background-position:7% -25%}
-            40% {background-position:-5% 25%}  50%{background-position:-15% 10%}
-            60% {background-position:15% -25%} 70%{background-position:0% 15%}
-            80% {background-position:3% 35%}   90%{background-position:-18% 10%}
-            100%{background-position:0% -20%}
-        }
-
-        /* ── Pixel trail ── */
-        #trail { position: fixed; inset: 0; pointer-events: none; z-index: 90; }
-
-        /* ── Layout ── */
+        /* ── Page wrapper ── */
         #page {
             position: fixed; inset: 0;
             display: flex; flex-direction: column;
-            opacity: 0; transition: opacity 0.45s ease;
+            opacity: 0; transition: opacity 0.45s;
+            z-index: 10;
         }
         #page.visible { opacity: 1; }
 
         /* ── Topbar ── */
-        .top {
+        .topbar {
             height: 32px; flex-shrink: 0;
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 20px;
             border-bottom: 1px solid var(--border);
             font-size: 11px; color: var(--fg);
+            background: rgba(243,243,240,0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
-        .top a { color: inherit; text-decoration: none; }
-        .top a:hover { color: orangered; }
-        .top-sep { opacity: 0.3; margin: 0 6px; }
+        [data-theme="dark"] .topbar {
+            background: rgba(14,14,14,0.75);
+        }
+        .topbar a { color: inherit; text-decoration: none; }
+        .topbar a:hover { color: orangered; }
+        .nav-sep { opacity: 0.3; margin: 0 6px; }
+        .nav-current { font-weight: bold; }
         #theme-btn {
             background: none; border: none; cursor: pointer;
             font-size: 13px; color: var(--fg); padding: 0 4px;
@@ -103,165 +150,227 @@
         }
         #theme-btn:hover { opacity: 1; }
 
-        /* ── Identity block ── */
-        .identity {
+        /* ── Center container ── */
+        .center-wrap {
+            flex: 1;
+            display: flex; align-items: center; justify-content: center;
             padding: 0 20px;
-            flex-shrink: 0;
-            display: flex; align-items: baseline; justify-content: space-between;
-            border-bottom: 1px solid var(--border);
-            /* Height is 1/3 of remaining space, set by JS */
+        }
+        .content {
+            width: 100%;
+            max-width: 860px;
+        }
+
+        /* ── Identity ── */
+        .identity {
+            margin-bottom: 40px;
         }
         .identity-name {
-            font-size: clamp(32px, 5.5vw, 72px);
+            font-size: clamp(28px, 4vw, 52px);
             font-weight: normal;
             letter-spacing: -0.02em;
-            line-height: 1;
+            line-height: 1.1;
             color: var(--fg);
+            display: block;
+            margin-bottom: 8px;
         }
-        .identity-meta {
+        .identity-sub {
             font-size: 10px;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
             color: var(--fg-dim);
-            align-self: flex-end;
-            padding-bottom: 0.5em;
         }
 
-        /* ── Nav rows ── */
-        .nav-rows { flex: 1; display: flex; flex-direction: column; }
+        /* ── Glass buttons ── */
+        .btn-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
 
-        .nav-row {
-            flex: 1;
+        .glass-btn {
             position: relative;
-            overflow: hidden;
-            display: flex; align-items: center;
-            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 22px 24px 20px;
+            min-height: 130px;
             text-decoration: none;
             color: var(--fg);
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
+            border-radius: 3px;
+            /* Glass effect */
+            background: rgba(255,255,255,0.28);
+            backdrop-filter: blur(24px) saturate(1.8);
+            -webkit-backdrop-filter: blur(24px) saturate(1.8);
+            border: 1px solid rgba(255,255,255,0.55);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.65),
+                0 4px 24px rgba(0,0,0,0.06),
+                0 1px 3px rgba(0,0,0,0.05);
+            transition: background 0.22s, box-shadow 0.22s, transform 0.22s;
+            overflow: hidden;
         }
-        .nav-row:last-child { border-bottom: none; }
+        [data-theme="dark"] .glass-btn {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.13);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.08),
+                0 4px 24px rgba(0,0,0,0.25);
+        }
+        .glass-btn:hover {
+            background: rgba(255,255,255,0.4);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.75),
+                0 10px 40px rgba(0,0,0,0.1),
+                0 2px 6px rgba(0,0,0,0.06);
+            transform: translateY(-2px);
+        }
+        [data-theme="dark"] .glass-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
 
-        /* Fill layer — sweeps left → right */
-        .nav-row::before {
+        /* Subtle color tint per button on hover */
+        .glass-btn-portfolio::after {
             content: '';
             position: absolute; inset: 0;
-            transform: scaleX(0);
-            transform-origin: left center;
-            transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
-            z-index: 0;
-        }
-        .row-portfolio::before { background: #0d0d0d; }
-        .row-playground::before { background: #0000ff; }
-        .nav-row:hover::before { transform: scaleX(1); }
-
-        /* Content inside row */
-        .row-inner {
-            position: relative; z-index: 1;
-            width: 100%;
-            display: flex; align-items: baseline; justify-content: space-between;
+            background: radial-gradient(ellipse 80% 60% at 20% 50%, rgba(30,30,30,0.04) 0%, transparent 70%);
+            border-radius: 3px;
+            opacity: 0;
+            transition: opacity 0.3s;
             pointer-events: none;
         }
+        .glass-btn-playground::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 20% 50%, rgba(0,0,255,0.05) 0%, transparent 70%);
+            border-radius: 3px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .glass-btn:hover::after { opacity: 1; }
 
-        .row-title {
-            font-size: clamp(28px, 4.8vw, 64px);
+        .btn-inner { position: relative; z-index: 1; }
+
+        .btn-label {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            font-size: clamp(18px, 2.4vw, 28px);
             font-weight: normal;
             letter-spacing: -0.01em;
-            line-height: 1;
-            transition: color 0.3s;
+            margin-bottom: 8px;
         }
-        .nav-row:hover .row-title { color: #fff; }
-
-        .row-arrow {
-            font-size: clamp(28px, 4.8vw, 64px);
+        .btn-arrow {
+            font-size: clamp(18px, 2.4vw, 28px);
             opacity: 0;
-            transform: translateX(-10px);
-            transition: opacity 0.25s 0.15s, transform 0.25s 0.15s, color 0.3s;
-            color: #fff;
+            transform: translateX(-5px);
+            transition: opacity 0.2s, transform 0.2s;
+            display: inline-block;
         }
-        .nav-row:hover .row-arrow {
-            opacity: 1;
-            transform: translateX(0);
+        .glass-btn:hover .btn-arrow {
+            opacity: 1; transform: translateX(0);
         }
 
-        .row-meta {
+        .btn-desc {
             font-size: 10px;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            letter-spacing: 0.08em;
             color: var(--fg-dim);
-            transition: color 0.3s;
-            align-self: flex-end;
-            padding-bottom: 0.4em;
+            line-height: 1.5;
         }
-        .nav-row:hover .row-meta { color: rgba(255,255,255,0.45); }
 
-        /* Dim sibling row on hover */
-        .nav-rows:has(.row-portfolio:hover) .row-playground,
-        .nav-rows:has(.row-playground:hover) .row-portfolio {
-            opacity: 0.4;
+        .btn-year {
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            color: var(--fg-dim);
+            opacity: 0.6;
+            margin-top: 14px;
         }
-        .nav-rows { }
-        .nav-row { transition: opacity 0.3s; }
 
         ::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body>
 
-<div id="intro"><span id="intro-text"></span><span id="intro-cursor"></span></div>
+<!-- Cursor light layer -->
+<div id="cursor-light"></div>
+
+<!-- Atmospheric grain -->
 <div class="grain"></div>
+
+<!-- Pixel trail -->
 <canvas id="trail"></canvas>
 
+<!-- Intro -->
+<div id="intro"><span id="intro-text"></span><span id="intro-cursor"></span></div>
+
+<!-- Page -->
 <div id="page">
 
-    <div class="top">
-        <span style="opacity:0.4;letter-spacing:0.04em">emily-howkins.com</span>
+    <div class="topbar">
+        <div style="display:flex;align-items:center">
+            <span class="nav-current">home</span>
+            <span class="nav-sep">·</span>
+            <a href="portfolio/">portfolio</a>
+            <span class="nav-sep">·</span>
+            <a href="playground/">playground</a>
+        </div>
         <div style="display:flex;align-items:center">
             <button id="theme-btn">◐</button>
-            <span class="top-sep">·</span>
+            <span class="nav-sep">·</span>
             <span>Emily Howkins Lange</span>
         </div>
     </div>
 
-    <div class="identity" id="identity">
-        <span class="identity-name" id="hero-name">&nbsp;</span>
-        <span class="identity-meta">product designer</span>
-    </div>
+    <div class="center-wrap">
+        <div class="content">
 
-    <div class="nav-rows">
-
-        <a class="nav-row row-portfolio" href="portfolio/">
-            <div class="row-inner">
-                <span>
-                    <span class="row-title" id="label-portfolio">portfolio</span><span class="row-arrow"> →</span>
-                </span>
-                <span class="row-meta">UX · design systems · product&nbsp;&nbsp;2022—</span>
+            <div class="identity">
+                <span class="identity-name" id="hero-name">&nbsp;</span>
+                <span class="identity-sub">product designer</span>
             </div>
-        </a>
 
-        <a class="nav-row row-playground" href="playground/">
-            <div class="row-inner">
-                <span>
-                    <span class="row-title" id="label-playground">playground</span><span class="row-arrow"> →</span>
-                </span>
-                <span class="row-meta">graphic · experiments · student&nbsp;&nbsp;2018—2021</span>
+            <div class="btn-row">
+
+                <a class="glass-btn glass-btn-portfolio" href="portfolio/">
+                    <div class="btn-inner">
+                        <div class="btn-label">portfolio<span class="btn-arrow">→</span></div>
+                        <div class="btn-desc">UX · design systems · product design</div>
+                    </div>
+                    <div class="btn-year">2022 — present</div>
+                </a>
+
+                <a class="glass-btn glass-btn-playground" href="playground/">
+                    <div class="btn-inner">
+                        <div class="btn-label">playground<span class="btn-arrow">→</span></div>
+                        <div class="btn-desc">graphic design · experiments · student work</div>
+                    </div>
+                    <div class="btn-year">2018 — 2021</div>
+                </a>
+
             </div>
-        </a>
 
+        </div>
     </div>
 
 </div>
 
 <script>
+// ── Cursor light ─────────────────────────────────────────
+const light = document.getElementById('cursor-light');
+document.addEventListener('mousemove', e => {
+    light.style.left = (e.clientX - 260) + 'px';
+    light.style.top  = (e.clientY - 260) + 'px';
+});
+
 // ── Scramble ─────────────────────────────────────────────
-const CHARS = 'abcdefghijklmnopqrstuvwxyz·—–/';
+const CHARS = 'abcdefghijklmnopqrstuvwxyz·—/';
 function scrambleTo(el, target, ms) {
     const t0 = performance.now();
     (function f(now) {
         const p = Math.min((now - t0) / ms, 1);
         const settled = Math.floor(p * target.length);
-        el.textContent = target.split('').map((c, i) => {
+        el.textContent = target.split('').map((c,i) => {
             if (c === ' ') return ' ';
             if (i < settled) return c;
             return CHARS[Math.floor(Math.random() * CHARS.length)];
@@ -271,14 +380,6 @@ function scrambleTo(el, target, ms) {
     })(t0);
 }
 
-// Scramble on row hover
-['portfolio','playground'].forEach(key => {
-    const row   = document.querySelector('.row-' + key);
-    const label = document.getElementById('label-' + key);
-    const orig  = label.textContent;
-    row.addEventListener('mouseenter', () => scrambleTo(label, orig, 400));
-});
-
 // ── Intro ────────────────────────────────────────────────
 const introEl = document.getElementById('intro');
 const introTx = document.getElementById('intro-text');
@@ -287,7 +388,7 @@ const heroEl  = document.getElementById('hero-name');
 
 function reveal() {
     page.classList.add('visible');
-    setTimeout(() => scrambleTo(heroEl, 'Emily Howkins Lange', 700), 100);
+    setTimeout(() => scrambleTo(heroEl, 'Emily Howkins Lange', 650), 80);
 }
 
 if (sessionStorage.getItem('intro-seen')) {
@@ -301,56 +402,46 @@ if (sessionStorage.getItem('intro-seen')) {
         if (i <= name.length) setTimeout(tick, 55 + Math.random() * 60);
         else setTimeout(() => {
             introEl.classList.add('gone');
-            sessionStorage.setItem('intro-seen','1');
-            setTimeout(() => { introEl.style.display='none'; reveal(); }, 550);
-        }, 450);
+            sessionStorage.setItem('intro-seen', '1');
+            setTimeout(() => { introEl.style.display = 'none'; reveal(); }, 520);
+        }, 420);
     })();
 }
 
 // ── Pixel trail ───────────────────────────────────────────
 (function(){
     const c = document.getElementById('trail');
-    const x = c.getContext('2d');
+    const ctx = c.getContext('2d');
     let W, H;
     const rsz = () => { W = c.width = innerWidth; H = c.height = innerHeight; };
     rsz(); addEventListener('resize', rsz);
-
     const dark = () => document.documentElement.getAttribute('data-theme') === 'dark';
     const PL = ['#000','#000','#000','#000','#0000ff','#ff4500'];
     const PD = ['#fff','#fff','#fff','#e0e0ff','#0000ff','#ff4500'];
-    // On hovered rows use inverted palette
-    const hoveredRow = () => document.querySelector('.nav-row:hover');
-
     let px = [], lx = null, ly = null;
     addEventListener('mousemove', e => {
-        const dx = lx != null ? e.clientX - lx : 0;
-        const dy = ly != null ? e.clientY - ly : 0;
-        const spd = Math.hypot(dx, dy);
+        const spd = lx != null ? Math.hypot(e.clientX-lx, e.clientY-ly) : 0;
         const n = Math.min(4, Math.ceil(spd / 6));
-        const row = hoveredRow();
-        let pal = dark() ? PD : PL;
-        if (row) pal = PD; // always white-ish on filled row
+        const pal = dark() ? PD : PL;
         for (let i=0;i<n;i++) px.push({
-            x: e.clientX+(Math.random()-.5)*8,
-            y: e.clientY+(Math.random()-.5)*8,
-            s: 4, a: 0.85,
-            c: pal[Math.floor(Math.random()*pal.length)]
+            x: e.clientX+(Math.random()-.5)*8, y: e.clientY+(Math.random()-.5)*8,
+            s: 4, a: 0.8, c: pal[Math.floor(Math.random()*pal.length)]
         });
         lx = e.clientX; ly = e.clientY;
     });
     (function draw(){
-        x.clearRect(0,0,W,H);
-        for(let i=px.length-1;i>=0;i--){
+        ctx.clearRect(0,0,W,H);
+        for (let i=px.length-1;i>=0;i--) {
             const p=px[i]; p.a-=0.045;
             if(p.a<=0){px.splice(i,1);continue;}
-            x.globalAlpha=p.a; x.fillStyle=p.c;
-            x.fillRect(Math.round(p.x),Math.round(p.y),p.s,p.s);
+            ctx.globalAlpha=p.a; ctx.fillStyle=p.c;
+            ctx.fillRect(Math.round(p.x),Math.round(p.y),p.s,p.s);
         }
-        x.globalAlpha=1; requestAnimationFrame(draw);
+        ctx.globalAlpha=1; requestAnimationFrame(draw);
     })();
 })();
 
-// ── Theme toggle ─────────────────────────────────────────
+// ── Dark mode ─────────────────────────────────────────────
 (function(){
     const btn  = document.getElementById('theme-btn');
     const html = document.documentElement;
