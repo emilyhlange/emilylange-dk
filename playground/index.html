@@ -16,32 +16,21 @@
     <title>Playground — Emily Howkins Lange</title>
     <meta name="description" content="Experiments, graphic design, product design, and student projects by Emily Howkins Lange.">
     <style>
-        /* ── Variables ── */
-        :root {
-            --bg: #F6F6F6;
-            --fg: #000;
-            --fg-dim: #888;
-            --border: rgba(0,0,0,0.12);
-            --topbar-bg: rgba(246,246,246,0.85);
-        }
-        [data-theme="dark"] {
-            --bg: #111;
-            --fg: #f0f0ee;
-            --fg-dim: #666;
-            --border: rgba(255,255,255,0.1);
-            --topbar-bg: rgba(13,13,13,0.88);
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* ── Base ── */
         body {
-            background: var(--bg);
-            color: var(--fg);
+            background-color: #F6F6F6;
+            color: black;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
             line-height: 17px;
             animation: color-change 20s infinite;
-            transition: background 0.3s, color 0.3s;
+        }
+        [data-theme="dark"] body {
+            background-color: #111;
+            color: #f0f0ee;
+            animation: color-change 20s infinite;
         }
 
         @keyframes color-change {
@@ -50,43 +39,97 @@
             100% { color: var(--fg, black); }
         }
 
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: blue; border-radius: 0; }
-
-        a { color: inherit; text-decoration: none; }
-
-        /* ── Grain ── */
-        .grain {
-            position: fixed;
-            inset: -20%;
-            width: 140%;
-            height: 140%;
-            pointer-events: none;
-            z-index: 5;
-            opacity: 0.038;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-            animation: grain-anim 0.18s steps(1) infinite;
+        /* ── CSS Variables ── */
+        :root {
+            --bg: #F6F6F6;
+            --fg: #000;
+            --fg-dim: #999;
+            --border: rgba(0,0,0,0.1);
+            --topbar-bg: #F6F6F6;
+            --topbar-fg: #000;
         }
-        @keyframes grain-anim {
-            0%  { background-position:   0px   0px; }
-            11% { background-position: -60px  40px; }
-            22% { background-position:  40px -80px; }
-            33% { background-position: -20px  60px; }
-            44% { background-position:  80px -20px; }
-            55% { background-position: -40px  90px; }
-            66% { background-position:  20px -50px; }
-            77% { background-position: -70px  20px; }
-            88% { background-position:  50px  70px; }
+        [data-theme="dark"] {
+            --bg: #111;
+            --fg: #f0f0ee;
+            --fg-dim: #666;
+            --border: rgba(255,255,255,0.08);
+            --topbar-bg: #0d0d0d;
+            --topbar-fg: #f0f0ee;
+        }
+        html, body { background: var(--bg); color: var(--fg); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: blue; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,255,0.519); }
+
+        a { color: inherit; text-decoration: inherit; }
+        a:hover { color: orangered; }
+
+        /* ── Layout ── */
+        .flex-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 62px auto 30px;
+            padding: 0 40px 0 50px;
         }
 
-        /* ── Pixel trail canvas ── */
-        #cursor-canvas {
+        .left {
+            flex: 0 0 170px;
+            padding-right: 24px;
+            padding-left: 4px;
             position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 999;
+            top: 62px;
+        }
+
+        .right {
+            flex: 1;
+            margin-left: 240px;
+            min-width: 0;
+        }
+
+        @media (max-width: 1100px) {
+            .flex-container { flex-direction: column; padding: 0 20px; }
+            .left { flex: 100%; padding-bottom: 20px; padding-right: 0; position: relative; top: auto; }
+            .right { flex: 100%; margin-left: 0; }
+        }
+
+        .item { padding: 10px; }
+
+        /* ── Sidebar ── */
+        .sidebar-name {
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 17px;
+            margin-bottom: 16px;
+        }
+        .sidebar-name span {
+            font-weight: normal;
+            display: block;
+        }
+
+        ul { list-style: none; }
+
+        li.project-item {
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 17px;
+        }
+        li.sidebar-item {
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 17px;
+        }
+
+        .sidebar-label {
+            font-size: 10px;
+            opacity: 0.4;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 16px;
+            margin-bottom: 4px;
+            display: block;
         }
 
         /* ── Fixed topbar ── */
@@ -95,52 +138,68 @@
             top: 0; left: 0; right: 0;
             height: 32px;
             background: var(--topbar-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 16px;
+            padding: 0 20px;
             z-index: 110;
             font-size: 11px;
+            color: var(--topbar-fg);
         }
         .pg-topbar a { color: inherit; text-decoration: none; }
         .pg-topbar a:hover { color: orangered; }
-        .pg-topbar .nav-left { display: flex; align-items: center; }
-        .nav-sep { opacity: 0.35; margin: 0 6px; }
-        .nav-current { font-weight: bold; }
-        .nav-right { display: flex; align-items: center; }
+        .pg-topbar .nav-left { display: flex; align-items: center; gap: 8px; }
+        .pg-topbar .nav-sep { opacity: 0.3; }
+        .pg-topbar .nav-current { opacity: 0.45; }
 
         #theme-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
-            color: var(--fg);
-            padding: 0 6px;
-            line-height: 1;
-            opacity: 0.55;
-            transition: opacity 0.2s;
+            background: none; border: none; cursor: pointer;
+            font-family: inherit; font-size: 11px;
+            color: inherit; opacity: 0.5; padding: 0;
+            transition: opacity 0.15s;
         }
-        #theme-btn:hover { opacity: 1; }
+        #theme-btn:hover { opacity: 1; color: orangered; }
 
-        /* ── Page shell ── */
-        .pg-shell {
-            max-width: 860px;
-            margin: 0 auto;
-            padding: 72px 50px 120px;
-            position: relative;
-            z-index: 1;
+        /* ── Grain overlay ── */
+        .grain {
+            position: fixed;
+            inset: -40%; width: 180%; height: 180%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+            opacity: 0.038;
+            pointer-events: none;
+            z-index: 5;
+            animation: grain-drift 0.18s steps(1) infinite;
+        }
+        @keyframes grain-drift {
+            0%   { transform: translate(0, 0); }
+            10%  { transform: translate(-3%, -4%); }
+            20%  { transform: translate(4%, 3%); }
+            30%  { transform: translate(-2%, 5%); }
+            40%  { transform: translate(5%, -2%); }
+            50%  { transform: translate(-4%, 1%); }
+            60%  { transform: translate(2%, -5%); }
+            70%  { transform: translate(-5%, 3%); }
+            80%  { transform: translate(3%, 4%); }
+            90%  { transform: translate(-1%, -3%); }
+            100% { transform: translate(0, 0); }
+        }
+
+        /* ── Pixel trail canvas ── */
+        #cursor-canvas {
+            position: fixed; inset: 0;
+            pointer-events: none; z-index: 999;
         }
 
         /* ── Lede ── */
         .pg-lede {
             font-size: 12px;
-            line-height: 18px;
+            line-height: 17px;
             color: var(--fg-dim);
-            margin-bottom: 48px;
+            margin-bottom: 30px;
             max-width: 480px;
+            opacity: 0.7;
         }
 
         /* ── Project list ── */
@@ -148,9 +207,9 @@
 
         .pg-row {
             display: grid;
-            grid-template-columns: 160px 1fr;
+            grid-template-columns: 130px 1fr;
             align-items: baseline;
-            padding: 11px 0;
+            padding: 10px 0;
             border-top: 1px solid currentColor;
             cursor: pointer;
             text-decoration: none;
@@ -167,17 +226,16 @@
         }
 
         .pg-title-link {
-            font-size: 13px;
-            line-height: 19px;
+            font-size: 12px;
+            line-height: 17px;
             display: block;
-            min-height: 19px;
+            min-height: 17px;
         }
 
         /* Blinking cursor during typewriter */
         .pg-cursor {
             display: inline-block;
-            width: 1px;
-            height: 12px;
+            width: 1px; height: 12px;
             background: currentColor;
             margin-left: 1px;
             vertical-align: middle;
@@ -187,18 +245,12 @@
 
         /* ── Hover thumbnail ── */
         #pg-thumb {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            top: 0; left: 0;
-            opacity: 0;
-            transition: opacity 0.12s ease;
+            position: fixed; pointer-events: none; z-index: 9999;
+            top: 0; left: 0; opacity: 0; transition: opacity 0.12s ease;
         }
         #pg-thumb.visible { opacity: 1; }
         #pg-thumb img {
-            display: block;
-            width: 220px;
-            height: 160px;
+            display: block; width: 220px; height: 160px;
             object-fit: cover;
             border: 1px solid currentColor;
             background: var(--bg);
@@ -218,88 +270,136 @@
         <span class="nav-sep">·</span>
         <span class="nav-current">playground</span>
     </div>
-    <div class="nav-right"><button id="theme-btn" aria-label="Toggle colour mode">◐</button>
+    <div style="display:flex;align-items:center;gap:4px">
+        <button id="theme-btn" aria-label="Toggle colour mode">◐</button>
         <span class="nav-sep">·</span>
-        <a href="../">Emily Howkins Lange</a></div>
+        <a href="../">Emily Howkins Lange</a>
+    </div>
 </nav>
 
-<div class="pg-shell">
+<div class="flex-container">
 
-    <p class="pg-lede">Earlier work, experiments, and student projects — 2018–2021.</p>
+    <!-- ── Sidebar ── -->
+    <div class="left">
+        <div class="item">
+            <div class="sidebar-name">
+                Emily Howkins Lange
+                <span>Playground — 2018–2021</span>
+            </div>
 
-    <ol class="pg-list">
+            <span class="sidebar-label">navigate</span>
+            <ul>
+                <li class="sidebar-item"><a href="../">home</a></li>
+                <li class="sidebar-item"><a href="../portfolio/">portfolio</a></li>
+            </ul>
 
-        <li class="pg-row" data-thumb="images/thesis/thumbnail.jpg">
-            <span class="pg-meta">2021 / Thesis</span>
-            <a class="pg-title-link" href="projects/thesis.html" data-text="Designing for low self-esteem"></a>
-        </li>
+            <span class="sidebar-label">projects</span>
+            <ul>
+                <li class="project-item"><a href="projects/thesis.html">Designing for Low Self-Esteem</a></li>
+                <li class="project-item"><a href="projects/portable.html">Portable.</a></li>
+                <li class="project-item"><a href="projects/mikkeller.html">Mikkeller Brewery</a></li>
+                <li class="project-item"><a href="projects/skiveteater.html">Skive Theater</a></li>
+                <li class="project-item"><a href="projects/ecodistricts.html">EcoDistricts</a></li>
+                <li class="project-item"><a href="projects/multivitamin.html">Information Redesign</a></li>
+                <li class="project-item"><a href="projects/breakupwithplastic.html">#breakUpWithPlastic</a></li>
+                <li class="project-item"><a href="projects/tune.html">Tune</a></li>
+                <li class="project-item"><a href="projects/cerealbox.html">A Cereal Box</a></li>
+                <li class="project-item"><a href="projects/lp_limedevo.html">LP Cover Design</a></li>
+                <li class="project-item"><a href="projects/dubois.html">W.E.B. Du Bois</a></li>
+                <li class="project-item"><a href="projects/breathe.html">Breathe</a></li>
+                <li class="project-item"><a href="projects/fanfare.html">Typographic Kitchen</a></li>
+                <li class="project-item"><a href="projects/chaos.html">Chaotic Motion</a></li>
+            </ul>
 
-        <li class="pg-row" data-thumb="images/portable/thumbnail.png">
-            <span class="pg-meta">2021 / Product Design</span>
-            <a class="pg-title-link" href="projects/portable.html" data-text="Portable."></a>
-        </li>
+            <span class="sidebar-label">contact</span>
+            <ul>
+                <li class="sidebar-item"><a href="../portfolio/">portfolio</a></li>
+            </ul>
+        </div>
+    </div>
 
-        <li class="pg-row" data-thumb="images/mikkeller/thumbnail.png">
-            <span class="pg-meta">2020 / Product Design</span>
-            <a class="pg-title-link" href="projects/mikkeller.html" data-text="Mikkeller Brewery"></a>
-        </li>
+    <!-- ── Right content ── -->
+    <div class="right">
+        <div class="item">
 
-        <li class="pg-row" data-thumb="images/teater/12.jpg">
-            <span class="pg-meta">2021 / Branding</span>
-            <a class="pg-title-link" href="projects/skiveteater.html" data-text="Skive Theater"></a>
-        </li>
+            <p class="pg-lede">Earlier work, experiments, and student projects — 2018–2021.</p>
 
-        <li class="pg-row" data-thumb="images/EcoDistricts/thumbnail.png">
-            <span class="pg-meta">2018 / Branding</span>
-            <a class="pg-title-link" href="projects/ecodistricts.html" data-text="EcoDistricts"></a>
-        </li>
+            <ol class="pg-list">
 
-        <li class="pg-row" data-thumb="images/informationdesign/thumbnail.png">
-            <span class="pg-meta">2018 / Branding</span>
-            <a class="pg-title-link" href="projects/multivitamin.html" data-text="Information Redesign"></a>
-        </li>
+                <li class="pg-row" data-thumb="images/thesis/thumbnail.jpg">
+                    <span class="pg-meta">2021 / Thesis</span>
+                    <a class="pg-title-link" href="projects/thesis.html" data-text="Designing for low self-esteem"></a>
+                </li>
 
-        <li class="pg-row" data-thumb="images/breakupwithplastic/thumbnail.png">
-            <span class="pg-meta">2018 / Campaign</span>
-            <a class="pg-title-link" href="projects/breakupwithplastic.html" data-text="#breakUpWithPlastic"></a>
-        </li>
+                <li class="pg-row" data-thumb="images/portable/thumbnail.png">
+                    <span class="pg-meta">2021 / Product Design</span>
+                    <a class="pg-title-link" href="projects/portable.html" data-text="Portable."></a>
+                </li>
 
-        <li class="pg-row" data-thumb="images/tune/front_stand.jpg">
-            <span class="pg-meta">2021 / Graphic Design</span>
-            <a class="pg-title-link" href="projects/tune.html" data-text="Tune"></a>
-        </li>
+                <li class="pg-row" data-thumb="images/mikkeller/thumbnail.png">
+                    <span class="pg-meta">2020 / Product Design</span>
+                    <a class="pg-title-link" href="projects/mikkeller.html" data-text="Mikkeller Brewery"></a>
+                </li>
 
-        <li class="pg-row" data-thumb="images/cerealbox/cerealthumb.png">
-            <span class="pg-meta">2021 / Graphic Design</span>
-            <a class="pg-title-link" href="projects/cerealbox.html" data-text="A Cereal Box"></a>
-        </li>
+                <li class="pg-row" data-thumb="images/teater/12.jpg">
+                    <span class="pg-meta">2021 / Branding</span>
+                    <a class="pg-title-link" href="projects/skiveteater.html" data-text="Skive Theater"></a>
+                </li>
 
-        <li class="pg-row" data-thumb="images/lime_devo/devothumb.png">
-            <span class="pg-meta">2021 / Graphic Design</span>
-            <a class="pg-title-link" href="projects/lp_limedevo.html" data-text="LP Cover Design"></a>
-        </li>
+                <li class="pg-row" data-thumb="images/EcoDistricts/thumbnail.png">
+                    <span class="pg-meta">2018 / Branding</span>
+                    <a class="pg-title-link" href="projects/ecodistricts.html" data-text="EcoDistricts"></a>
+                </li>
 
-        <li class="pg-row" data-thumb="images/dubois/thumbnail.png">
-            <span class="pg-meta">2018 / Graphic Design</span>
-            <a class="pg-title-link" href="projects/dubois.html" data-text="DuBois"></a>
-        </li>
+                <li class="pg-row" data-thumb="images/informationdesign/thumbnail.png">
+                    <span class="pg-meta">2018 / Branding</span>
+                    <a class="pg-title-link" href="projects/multivitamin.html" data-text="Information Redesign"></a>
+                </li>
 
-        <li class="pg-row" data-thumb="images/breathe/Screenshot 2022-01-11 at 15.36.23.png">
-            <span class="pg-meta">2021 / Speculative</span>
-            <a class="pg-title-link" href="projects/breathe.html" data-text="Breathe"></a>
-        </li>
+                <li class="pg-row" data-thumb="images/breakupwithplastic/thumbnail.png">
+                    <span class="pg-meta">2018 / Campaign</span>
+                    <a class="pg-title-link" href="projects/breakupwithplastic.html" data-text="#breakUpWithPlastic"></a>
+                </li>
 
-        <li class="pg-row" data-thumb="images/fanfare/5715_edit.png">
-            <span class="pg-meta">2021 / Exhibition</span>
-            <a class="pg-title-link" href="projects/fanfare.html" data-text="Typographic Kitchen"></a>
-        </li>
+                <li class="pg-row" data-thumb="images/tune/front_stand.jpg">
+                    <span class="pg-meta">2021 / Graphic Design</span>
+                    <a class="pg-title-link" href="projects/tune.html" data-text="Tune"></a>
+                </li>
 
-        <li class="pg-row" data-thumb="images/Chaos/thumbnail.jpg">
-            <span class="pg-meta">2018 / Exhibition</span>
-            <a class="pg-title-link" href="projects/chaos.html" data-text="Chaos"></a>
-        </li>
+                <li class="pg-row" data-thumb="images/cerealbox/cerealthumb.png">
+                    <span class="pg-meta">2021 / Graphic Design</span>
+                    <a class="pg-title-link" href="projects/cerealbox.html" data-text="A Cereal Box"></a>
+                </li>
 
-    </ol>
+                <li class="pg-row" data-thumb="images/lime_devo/devothumb.png">
+                    <span class="pg-meta">2021 / Graphic Design</span>
+                    <a class="pg-title-link" href="projects/lp_limedevo.html" data-text="LP Cover Design"></a>
+                </li>
+
+                <li class="pg-row" data-thumb="images/dubois/thumbnail.png">
+                    <span class="pg-meta">2018 / Graphic Design</span>
+                    <a class="pg-title-link" href="projects/dubois.html" data-text="DuBois"></a>
+                </li>
+
+                <li class="pg-row" data-thumb="images/breathe/Screenshot 2022-01-11 at 15.36.23.png">
+                    <span class="pg-meta">2021 / Speculative</span>
+                    <a class="pg-title-link" href="projects/breathe.html" data-text="Breathe"></a>
+                </li>
+
+                <li class="pg-row" data-thumb="images/fanfare/5715_edit.png">
+                    <span class="pg-meta">2021 / Exhibition</span>
+                    <a class="pg-title-link" href="projects/fanfare.html" data-text="Typographic Kitchen"></a>
+                </li>
+
+                <li class="pg-row" data-thumb="images/Chaos/thumbnail.jpg">
+                    <span class="pg-meta">2018 / Exhibition</span>
+                    <a class="pg-title-link" href="projects/chaos.html" data-text="Chaos"></a>
+                </li>
+
+            </ol>
+        </div>
+    </div>
+
 </div>
 
 <!-- Hover thumbnail -->
@@ -321,7 +421,6 @@
 
     /* ── Typewriter ── */
     const SPEED = 32;
-
     function typeText(el, text) {
         const cursor = document.createElement('span');
         cursor.className = 'pg-cursor';

@@ -43,16 +43,16 @@
         /* ── Colorful background ── */
         body {
             background:
-                radial-gradient(ellipse 65% 55% at 78% 8%,  rgba(100,120,255,0.30) 0%, transparent 100%),
-                radial-gradient(ellipse 55% 45% at 12% 88%, rgba(255,140,70,0.22)  0%, transparent 100%),
-                radial-gradient(ellipse 45% 40% at 88% 78%, rgba(100,210,165,0.18) 0%, transparent 100%),
+                radial-gradient(ellipse 65% 55% at 78% 8%,  rgba(100,120,255,0.18) 0%, transparent 100%),
+                radial-gradient(ellipse 55% 45% at 12% 88%, rgba(255,140,70,0.13)  0%, transparent 100%),
+                radial-gradient(ellipse 45% 40% at 88% 78%, rgba(100,210,165,0.10) 0%, transparent 100%),
                 var(--bg);
         }
         [data-theme="dark"] body {
             background:
-                radial-gradient(ellipse 65% 55% at 78% 8%,  rgba(80,100,255,0.26) 0%, transparent 100%),
-                radial-gradient(ellipse 55% 45% at 12% 88%, rgba(200,100,50,0.18) 0%, transparent 100%),
-                radial-gradient(ellipse 45% 40% at 88% 78%, rgba(60,160,120,0.15) 0%, transparent 100%),
+                radial-gradient(ellipse 65% 55% at 78% 8%,  rgba(80,100,255,0.16) 0%, transparent 100%),
+                radial-gradient(ellipse 55% 45% at 12% 88%, rgba(200,100,50,0.11) 0%, transparent 100%),
+                radial-gradient(ellipse 45% 40% at 88% 78%, rgba(60,160,120,0.09) 0%, transparent 100%),
                 var(--bg);
         }
 
@@ -158,34 +158,42 @@
         }
         .content {
             width: 100%;
-            max-width: 860px;
+            max-width: 640px;
         }
 
         /* ── Identity ── */
         .identity {
-            margin-bottom: 44px;
+            margin-bottom: 36px;
         }
         .identity-name {
-            font-size: clamp(34px, 5vw, 66px);
-            font-weight: normal;
-            letter-spacing: -0.02em;
-            line-height: 1.05;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.3;
             color: var(--fg);
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 4px;
         }
         .identity-sub {
-            font-size: 11px;
-            letter-spacing: 0.16em;
+            font-size: 10px;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--fg-dim);
+            opacity: 0.5;
         }
 
-        /* ── Glass buttons ── */
+        /* ── Buttons ── */
         .btn-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 14px;
+            gap: 0;
+            border: 1px solid currentColor;
+        }
+        .btn-row .glass-btn {
+            border: none;
+            border-right: 1px solid currentColor;
+        }
+        .btn-row .glass-btn:last-child {
+            border-right: none;
         }
 
         .glass-btn {
@@ -193,76 +201,57 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 28px 30px 24px;
-            min-height: 175px;
+            padding: 22px 22px 18px;
+            min-height: 150px;
             text-decoration: none;
             color: var(--fg);
-            border-radius: 4px;
-            /* Glass effect */
-            background: rgba(255,255,255,0.30);
-            backdrop-filter: blur(28px) saturate(2);
-            -webkit-backdrop-filter: blur(28px) saturate(2);
-            border: 1px solid rgba(255,255,255,0.60);
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.70),
-                0 4px 24px rgba(0,0,0,0.06),
-                0 1px 3px rgba(0,0,0,0.05);
-            transition: background 0.25s, box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+            border-radius: 0;
+            /* Brutalist default */
+            background: transparent;
+            border: 1px solid currentColor;
+            backdrop-filter: none;
+            box-shadow: none;
+            transition: background 0.2s, transform 0.2s, border-color 0.2s;
             overflow: hidden;
         }
-        [data-theme="dark"] .glass-btn {
-            background: rgba(255,255,255,0.07);
-            border-color: rgba(255,255,255,0.14);
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.09),
-                0 4px 24px rgba(0,0,0,0.30);
-        }
         .glass-btn:hover {
-            background: rgba(255,255,255,0.46);
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.80),
-                0 14px 48px rgba(0,0,0,0.12),
-                0 2px 8px rgba(0,0,0,0.06);
-            transform: translateY(-4px) scale(1.008);
+            background: rgba(255,255,255,0.18);
+            backdrop-filter: blur(20px) saturate(1.6);
+            -webkit-backdrop-filter: blur(20px) saturate(1.6);
+            transform: translateY(-3px);
         }
         [data-theme="dark"] .glass-btn:hover {
-            background: rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.08);
         }
 
-        /* Vivid color bloom per button on hover */
+        /* Color bloom on hover */
         .glass-btn-portfolio::after {
             content: '';
             position: absolute; inset: 0;
             background: radial-gradient(ellipse 90% 80% at 15% 60%,
                 rgba(255,60,0,0.14) 0%,
-                rgba(0,0,0,0.06) 40%,
+                rgba(0,0,0,0.04) 40%,
                 transparent 70%);
-            border-radius: 4px;
             opacity: 0;
-            transition: opacity 0.35s;
+            transition: opacity 0.3s;
             pointer-events: none;
         }
         .glass-btn-playground::after {
             content: '';
             position: absolute; inset: 0;
             background: radial-gradient(ellipse 90% 80% at 15% 60%,
-                rgba(40,60,255,0.18) 0%,
-                rgba(100,160,255,0.07) 45%,
+                rgba(40,60,255,0.16) 0%,
+                rgba(100,160,255,0.06) 45%,
                 transparent 70%);
-            border-radius: 4px;
             opacity: 0;
-            transition: opacity 0.35s;
+            transition: opacity 0.3s;
             pointer-events: none;
         }
         .glass-btn:hover::after { opacity: 1; }
 
-        /* Colored border glow on hover */
-        .glass-btn-portfolio:hover {
-            border-color: rgba(255,100,30,0.45);
-        }
-        .glass-btn-playground:hover {
-            border-color: rgba(80,100,255,0.45);
-        }
+        /* Colored border on hover */
+        .glass-btn-portfolio:hover { border-color: rgba(255,100,30,0.55); }
+        .glass-btn-playground:hover { border-color: rgba(80,100,255,0.55); }
 
         .btn-inner { position: relative; z-index: 1; }
 
@@ -270,16 +259,16 @@
             display: flex;
             align-items: baseline;
             gap: 8px;
-            font-size: clamp(22px, 2.8vw, 34px);
-            font-weight: normal;
-            letter-spacing: -0.01em;
-            margin-bottom: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            margin-bottom: 8px;
         }
         .btn-arrow {
-            font-size: clamp(22px, 2.8vw, 34px);
+            font-size: 13px;
             opacity: 0;
-            transform: translateX(-6px);
-            transition: opacity 0.2s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+            transform: translateX(-4px);
+            transition: opacity 0.18s, transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
             display: inline-block;
             color: inherit;
         }
@@ -290,18 +279,18 @@
         }
 
         .btn-desc {
-            font-size: 11px;
-            letter-spacing: 0.07em;
+            font-size: 10px;
+            letter-spacing: 0.05em;
             color: var(--fg-dim);
-            line-height: 1.55;
+            line-height: 1.5;
         }
 
         .btn-year {
             font-size: 9px;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.1em;
             color: var(--fg-dim);
-            opacity: 0.55;
-            margin-top: 18px;
+            opacity: 0.45;
+            margin-top: 14px;
         }
 
         ::-webkit-scrollbar { display: none; }
