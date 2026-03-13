@@ -1,6 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="auto">
 <head>
+    <!-- Apply saved theme before paint -->
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
+            else if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+                document.documentElement.setAttribute('data-theme', 'dark');
+        }());
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,6 +26,13 @@
             line-height: 1.6;
             animation: color-change 20s infinite;
         }
+        [data-theme="dark"] body {
+            background: #111;
+            color: #f0f0ee;
+            animation: color-cycle 20s infinite;
+        }
+        [data-theme="dark"] .pg-nav { background: #0d0d0d; border-bottom-color: rgba(255,255,255,0.08); }
+        [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #f0f0ee; }
 
         @keyframes color-change {
             0%   { color: black; }
@@ -152,9 +168,63 @@
 
         strong { font-weight: 700; }
         i, em { font-style: italic; }
+    
+        /* ── Dark mode ── */
+        :root {
+            --bg: #F6F6F6;
+            --fg: #000;
+            --fg-dim: #999;
+            --border: rgba(0,0,0,0.1);
+            --topbar-bg: #F6F6F6;
+            --topbar-fg: #000;
+        }
+        [data-theme="dark"] {
+            --bg: #111;
+            --fg: #f0f0ee;
+            --fg-dim: #666;
+            --border: rgba(255,255,255,0.08);
+            --topbar-bg: #0d0d0d;
+            --topbar-fg: #f0f0ee;
+        }
+        html, body { background: var(--bg); color: var(--fg); }
+        @keyframes color-cycle {
+            0%,100% { color: var(--fg); }
+            50%     { color: blue; }
+        }
+        /* ── Dark mode topbar ── */
+        .pg-topbar, .pg-nav {
+            background: var(--topbar-bg);
+            border-bottom-color: var(--border);
+            color: var(--topbar-fg);
+        }
+        .pg-nav .nav-right, .pg-nav .nav-current, .pg-nav .nav-sep,
+        .pg-topbar .nav-right, .pg-topbar .nav-current, .pg-topbar .nav-sep {
+            color: var(--topbar-fg);
+        }
+        /* Dark mode toggle */
+        #theme-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 11px;
+            color: inherit;
+            opacity: 0.5;
+            padding: 0;
+            transition: opacity 0.15s;
+        }
+        #theme-btn:hover { opacity: 1; color: orangered; }
+        /* ── Pixel cursor trail canvas ── */
+        #cursor-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 999;
+        }
     </style>
 </head>
 <body>
+<canvas id="cursor-canvas"></canvas>
 <div class="grain" aria-hidden="true"></div>
 
 <nav class="pg-nav">
@@ -163,7 +233,7 @@
         <span class="nav-sep">·</span>
         <span class="nav-current">breathe</span>
     </div>
-    <div class="nav-right"><a href="/index.html">Emily Howkins Lange</a></div>
+    <div class="nav-right"><button id="theme-btn" aria-label="Toggle colour mode">◐</button><span style="margin:0 8px;opacity:0.25;">·</span><a href="/index.html">Emily Howkins Lange</a></div>
 </nav>
 
 <div class="pg-content">

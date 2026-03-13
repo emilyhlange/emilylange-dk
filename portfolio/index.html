@@ -1,6 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="auto">
 <head>
+    <!-- Apply saved theme before paint -->
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
+            else if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+                document.documentElement.setAttribute('data-theme', 'dark');
+        }());
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Portfolio — Emily Howkins Lange</title>
@@ -8,7 +17,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* ── Base — matches existing site exactly ── */
+        /* ── Base ── */
         body {
             background-color: #F6F6F6;
             color: black;
@@ -16,6 +25,31 @@
             font-size: 12px;
             line-height: 17px;
             animation: color-change 20s infinite;
+        }
+        [data-theme="dark"] body {
+            background-color: #111;
+            color: #f0f0ee;
+            animation: color-cycle 20s infinite;
+        }
+        [data-theme="dark"] .left,
+        [data-theme="dark"] .sidebar-name,
+        [data-theme="dark"] .section-tab,
+        [data-theme="dark"] .sidebar-label,
+        [data-theme="dark"] .sidebar-item a,
+        [data-theme="dark"] .project-item a,
+        [data-theme="dark"] p, [data-theme="dark"] span,
+        [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3 {
+            color: inherit;
+        }
+        [data-theme="dark"] .section-tab {
+            border-color: rgba(255,255,255,0.15);
+            background: transparent;
+        }
+        [data-theme="dark"] .section-tab.active {
+            border-color: #f0f0ee;
+        }
+        [data-theme="dark"] .project-case {
+            border-color: rgba(255,255,255,0.1);
         }
 
         @keyframes color-change {
@@ -422,6 +456,59 @@
             100% { transform: translate(0, 0); }
         }
 
+    
+        /* ── Dark mode ── */
+        :root {
+            --bg: #F6F6F6;
+            --fg: #000;
+            --fg-dim: #999;
+            --border: rgba(0,0,0,0.1);
+            --topbar-bg: #F6F6F6;
+            --topbar-fg: #000;
+        }
+        [data-theme="dark"] {
+            --bg: #111;
+            --fg: #f0f0ee;
+            --fg-dim: #666;
+            --border: rgba(255,255,255,0.08);
+            --topbar-bg: #0d0d0d;
+            --topbar-fg: #f0f0ee;
+        }
+        html, body { background: var(--bg); color: var(--fg); }
+        @keyframes color-cycle {
+            0%,100% { color: var(--fg); }
+            50%     { color: blue; }
+        }
+        /* ── Dark mode topbar ── */
+        .pg-topbar, .pg-nav {
+            background: var(--topbar-bg);
+            border-bottom-color: var(--border);
+            color: var(--topbar-fg);
+        }
+        .pg-nav .nav-right, .pg-nav .nav-current, .pg-nav .nav-sep,
+        .pg-topbar .nav-right, .pg-topbar .nav-current, .pg-topbar .nav-sep {
+            color: var(--topbar-fg);
+        }
+        /* Dark mode toggle */
+        #theme-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 11px;
+            color: inherit;
+            opacity: 0.5;
+            padding: 0;
+            transition: opacity 0.15s;
+        }
+        #theme-btn:hover { opacity: 1; color: orangered; }
+        /* ── Pixel cursor trail canvas ── */
+        #cursor-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 999;
+        }
     </style>
 </head>
 <body>
@@ -431,8 +518,13 @@
         <span class="nav-sep">·</span>
         <span class="nav-current">portfolio</span>
     </div>
-    <div class="nav-right"><a href="/playground/index.html">playground →</a></div>
+    <div class="nav-right">
+        <button id="theme-btn" aria-label="Toggle colour mode">◐</button>
+        <span class="nav-sep">·</span>
+        <a href="/playground/index.html">playground →</a>
+    </div>
 </nav>
+<canvas id="cursor-canvas"></canvas>
 <div class="grain" aria-hidden="true"></div>
 <div class="flex-container">
 
