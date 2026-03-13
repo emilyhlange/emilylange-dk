@@ -8,7 +8,6 @@
     <title>Emily Howkins Lange — Product Designer</title>
     <meta name="description" content="Portfolio of Emily Howkins Lange, product designer specialising in Design Systems.">
 
-    <!-- Apply saved theme before paint to avoid flash -->
     <script>
         (function() {
             const saved = localStorage.getItem('theme');
@@ -19,88 +18,56 @@
     </script>
 
     <style>
-        /* ── Variables ── */
         :root {
             --bg: #F6F6F6;
             --fg: #000;
-            --fg-dim: #888;
+            --fg-dim: #999;
             --border: rgba(0,0,0,0.12);
-            --topbar-bg: rgba(246,246,246,0.85);
-            --topbar-fg: #000;
-            --card-bg: #fff;
-            --card-shadow: rgba(0,0,0,0.08);
         }
         [data-theme="dark"] {
             --bg: #111;
             --fg: #f0f0ee;
             --fg-dim: #666;
             --border: rgba(255,255,255,0.1);
-            --topbar-bg: rgba(13,13,13,0.88);
-            --topbar-fg: #f0f0ee;
-            --card-bg: #1a1a1a;
-            --card-shadow: rgba(0,0,0,0.4);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html, body {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             overflow: hidden;
-            background: var(--bg);
-            color: var(--fg);
             font-family: Arial, Helvetica, sans-serif;
             font-size: 11px;
-            line-height: 1.5;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        @keyframes color-change {
-            0%   { color: var(--fg, black); }
-            50%  { color: blue; }
-            100% { color: var(--fg, black); }
-        }
-
-        /* ── Intro overlay ── */
-        #intro {
-            position: fixed;
-            inset: 0;
             background: var(--bg);
-            z-index: 9000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.6s ease;
+            color: var(--fg);
+        }
+
+        /* ── Intro ── */
+        #intro {
+            position: fixed; inset: 0; z-index: 9000;
+            background: var(--bg);
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.55s ease;
         }
         #intro.fade-out { opacity: 0; pointer-events: none; }
         #intro-text {
-            font-size: 13px;
-            letter-spacing: 0.04em;
+            font-size: 12px;
+            letter-spacing: 0.06em;
             color: var(--fg);
-            font-family: Arial, Helvetica, sans-serif;
-            animation: color-change 20s infinite;
         }
         #intro-cursor {
-            display: inline-block;
-            width: 1px;
-            height: 13px;
+            display: inline-block; width: 1px; height: 12px;
             background: var(--fg);
-            margin-left: 2px;
-            vertical-align: middle;
+            margin-left: 2px; vertical-align: middle;
             animation: blink 0.7s step-end infinite;
         }
-        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-        /* ── Grain overlay ── */
+        /* ── Grain ── */
         .grain {
-            position: fixed;
-            inset: -20%;
-            width: 140%;
-            height: 140%;
-            pointer-events: none;
-            z-index: 100;
-            opacity: 0.038;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            position: fixed; inset: -20%; width: 140%; height: 140%;
+            pointer-events: none; z-index: 80; opacity: 0.038;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
             background-size: 200px 200px;
             animation: grain-drift 0.18s steps(1) infinite;
         }
@@ -109,7 +76,7 @@
             10% { background-position: -5%  -10%; }
             20% { background-position: -15%   5%; }
             30% { background-position:  7%  -25%; }
-            40% { background-position: -5%  25%; }
+            40% { background-position: -5%   25%; }
             50% { background-position: -15%  10%; }
             60% { background-position:  15% -25%; }
             70% { background-position:  0%   15%; }
@@ -118,161 +85,201 @@
            100% { background-position:  0%  -20%; }
         }
 
-        /* ── Pixel trail canvas ── */
+        /* ── Pixel trail ── */
         #trail-canvas {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 99;
+            position: fixed; inset: 0;
+            pointer-events: none; z-index: 90;
         }
 
         /* ── Topbar ── */
-        .pg-nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .top-bar {
+            position: fixed; top: 0; left: 0; right: 0;
+            height: 32px; z-index: 200;
+            display: flex; align-items: center; justify-content: space-between;
             padding: 0 16px;
             font-size: 11px;
-            background: var(--topbar-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            z-index: 200;
-            color: var(--topbar-fg);
+            background: transparent;
+            pointer-events: none;
         }
-        .pg-nav a { color: inherit; text-decoration: none; }
-        .pg-nav a:hover { color: orangered; }
+        .top-bar-left {
+            color: var(--fg);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: all;
+        }
+        .top-bar-left.visible { opacity: 0.45; }
+        .top-bar-right {
+            display: flex; align-items: center; gap: 0;
+            color: var(--fg);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: all;
+        }
+        .top-bar-right.visible { opacity: 1; }
         .nav-sep { opacity: 0.35; margin: 0 6px; }
-        .nav-current { font-weight: bold; }
-        .nav-right { display: flex; align-items: center; gap: 0; }
         #theme-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
-            color: var(--topbar-fg);
-            padding: 0 6px;
-            line-height: 1;
-            opacity: 0.6;
+            background: none; border: none; cursor: pointer;
+            font-size: 13px; color: var(--fg);
+            padding: 0 6px; line-height: 1; opacity: 0.55;
             transition: opacity 0.2s;
         }
         #theme-btn:hover { opacity: 1; }
 
-        /* ── Hero ── */
-        .hero {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        /* ── Split screen ── */
+        .split {
+            position: fixed; inset: 0;
+            display: flex;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .split.visible { opacity: 1; }
+
+        /* The divider line */
+        .split-line {
+            position: absolute;
+            left: 50%; top: 0; bottom: 0;
+            width: 1px;
+            background: var(--border);
+            z-index: 5;
+            transform-origin: center;
+            transition: background 0.4s, transform 0.4s;
+        }
+
+        /* Each half */
+        .half {
+            flex: 1;
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--fg);
+        }
+
+        /* Animated fill layer */
+        .half::before {
+            content: '';
+            position: absolute; inset: 0;
+            transform: scaleY(0);
+            transform-origin: bottom center;
+            transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+            z-index: 0;
+        }
+        .half-left::before  { background: #0d0d0d; }
+        .half-right::before { background: #0000ff; }
+
+        .half:hover::before { transform: scaleY(1); }
+
+        /* Dim the OTHER half when one is hovered */
+        .split:has(.half-left:hover) .half-right,
+        .split:has(.half-right:hover) .half-left {
+            opacity: 0.35;
+        }
+        .split:has(.half-left:hover) .split-line,
+        .split:has(.half-right:hover) .split-line {
+            opacity: 0.3;
+        }
+        .half { transition: opacity 0.3s; }
+
+        /* Content inside each half */
+        .half-inner {
+            position: relative; z-index: 2;
             text-align: center;
-            z-index: 10;
             pointer-events: none;
         }
-        .hero h1 {
-            font-size: clamp(22px, 3.5vw, 42px);
+
+        /* The big label */
+        .half-label {
+            display: block;
+            font-size: clamp(28px, 5vw, 64px);
             font-weight: normal;
-            letter-spacing: 0.01em;
+            letter-spacing: -0.01em;
+            line-height: 1;
             color: var(--fg);
-            animation: color-change 20s infinite;
-            line-height: 1.15;
+            transition: color 0.35s;
+            /* Scramble animation handled by JS */
         }
-        .hero .role {
+        .half:hover .half-label { color: #fff; }
+
+        /* Arrow that appears on hover */
+        .half-arrow {
+            display: inline-block;
+            opacity: 0;
+            transform: translateX(-6px);
+            transition: opacity 0.3s 0.15s, transform 0.3s 0.15s;
+            font-size: clamp(28px, 5vw, 64px);
+            color: #fff;
+        }
+        .half:hover .half-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Subtitle */
+        .half-sub {
+            display: block;
             font-size: 10px;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
             color: var(--fg-dim);
-            margin-top: 8px;
+            margin-top: 14px;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.3s 0.1s, transform 0.3s 0.1s, color 0.3s;
         }
-        .hero .cta {
-            margin-top: 24px;
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            pointer-events: all;
-        }
-        .cta-btn {
-            display: inline-block;
-            font-size: 11px;
-            padding: 7px 16px;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--fg);
-            text-decoration: none;
-            letter-spacing: 0.06em;
-            transition: background 0.18s, color 0.18s, border-color 0.18s;
-            cursor: pointer;
-        }
-        .cta-btn:hover {
-            background: var(--fg);
-            color: var(--bg);
-            border-color: var(--fg);
+        .half:hover .half-sub {
+            opacity: 0.7;
+            transform: translateY(0);
+            color: rgba(255,255,255,0.6);
         }
 
-        /* ── Scattered cards ── */
-        #cards-field {
+        /* Center name — floats at the split line */
+        .center-name {
             position: fixed;
-            inset: 32px 0 0;
-            z-index: 5;
-            pointer-events: none;
-        }
-        .work-card {
-            position: absolute;
-            width: 160px;
-            pointer-events: all;
-            cursor: pointer;
-            will-change: transform;
-            transition: box-shadow 0.2s;
-        }
-        .work-card .card-img {
-            width: 100%;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-            display: block;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-        }
-        .work-card .card-label {
-            display: block;
-            font-size: 10px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            font-size: 11px;
+            letter-spacing: 0.08em;
             color: var(--fg-dim);
-            padding: 5px 2px 0;
-            letter-spacing: 0.04em;
+            pointer-events: none;
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
             opacity: 0;
-            transition: opacity 0.2s;
+            transition: opacity 0.4s, transform 0.4s;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
         }
-        .work-card:hover .card-label { opacity: 1; }
-        .work-card:hover .card-img {
-            border-color: var(--fg);
-            box-shadow: 0 4px 20px var(--card-shadow);
+        .center-name.visible { opacity: 0.4; }
+
+        /* Nudge name toward hovered side */
+        .split:has(.half-left:hover)  ~ .center-name { transform: translate(calc(-50% - 20px), -50%); opacity: 0 !important; }
+        .split:has(.half-right:hover) ~ .center-name { transform: translate(calc(-50% + 20px), -50%); opacity: 0 !important; }
+
+        /* Year tag at bottom of each half */
+        .half-year {
+            position: absolute;
+            bottom: 28px;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            color: var(--fg-dim);
+            opacity: 0;
+            transition: opacity 0.3s 0.2s, color 0.3s;
+            z-index: 2;
+        }
+        .half:hover .half-year {
+            opacity: 0.5;
+            color: rgba(255,255,255,0.4);
         }
 
-        /* Card entrance animation */
-        @keyframes card-in {
-            from { opacity: 0; transform: translateY(18px) rotate(var(--base-r)); }
-            to   { opacity: 1; transform: translateY(0) rotate(var(--base-r)); }
-        }
-        .work-card {
-            opacity: 0;
-        }
-        .work-card.visible {
-            animation: card-in 0.5s ease forwards;
-        }
-
-        /* ── Scrollbar ── */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: blue; border-radius: 0; }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: blue; }
     </style>
 </head>
 <body>
 
-<!-- Intro overlay -->
+<!-- Intro -->
 <div id="intro">
     <span id="intro-text"></span><span id="intro-cursor"></span>
 </div>
@@ -280,245 +287,172 @@
 <!-- Grain -->
 <div class="grain"></div>
 
-<!-- Pixel trail canvas -->
+<!-- Pixel trail -->
 <canvas id="trail-canvas"></canvas>
 
 <!-- Topbar -->
-<nav class="pg-nav">
-    <div class="nav-left">
-        <span class="nav-current">home</span>
-        <span class="nav-sep">·</span>
-        <a href="portfolio/">portfolio</a>
-        <span class="nav-sep">|</span>
-        <a href="playground/">playground</a>
-    </div>
-    <div class="nav-right">
-        <button id="theme-btn" title="Toggle dark mode">◐</button>
+<div class="top-bar">
+    <span class="top-bar-left" id="topbar-left">emily-howkins.com</span>
+    <div class="top-bar-right" id="topbar-right">
+        <button id="theme-btn">◐</button>
         <span class="nav-sep">·</span>
         <span>Emily Howkins Lange</span>
     </div>
-</nav>
-
-<!-- Hero -->
-<div class="hero">
-    <h1 id="hero-name">&nbsp;</h1>
-    <p class="role">designer &nbsp;·&nbsp; developer</p>
-    <div class="cta">
-        <a href="portfolio/" class="cta-btn">portfolio →</a>
-        <a href="playground/" class="cta-btn">playground →</a>
-    </div>
 </div>
 
-<!-- Scattered work cards -->
-<div id="cards-field"></div>
+<!-- Split screen -->
+<div class="split" id="split">
+
+    <div class="split-line"></div>
+
+    <a class="half half-left" href="portfolio/" id="half-left">
+        <div class="half-inner">
+            <span class="half-label" id="label-left">portfolio</span>
+            <span class="half-arrow">&nbsp;→</span>
+            <span class="half-sub">UX · design systems · product</span>
+        </div>
+        <span class="half-year">2022 — present</span>
+    </a>
+
+    <a class="half half-right" href="playground/" id="half-right">
+        <div class="half-inner">
+            <span class="half-label" id="label-right">playground</span>
+            <span class="half-arrow">&nbsp;→</span>
+            <span class="half-sub">graphic · experiments · student work</span>
+        </div>
+        <span class="half-year">2018 — 2021</span>
+    </a>
+
+</div>
+
+<!-- Vertical name at center -->
+<div class="center-name" id="center-name">Emily Howkins Lange</div>
 
 <script>
-// ── Card data ──────────────────────────────────────────
-const CARDS = [
-    { img: 'playground/images/breakupwithplastic/thumbnail.png', title: 'Break Up With Plastic', link: 'playground/projects/breakupwithplastic.html', bx: 7,  by: 14, r: -7  },
-    { img: 'playground/images/Chaos/thumbnail.jpg',              title: 'Chaotic Motion',        link: 'playground/projects/chaos.html',            bx: 76, by: 10, r:  6  },
-    { img: 'playground/images/pornolampen/thumbnail.jpg',        title: 'The Porn Lamp',         link: 'playground/projects/pornolampen.html',      bx: 3,  by: 55, r: -5  },
-    { img: 'playground/images/dubois/thumbnail.png',             title: 'W.E.B. Du Bois',        link: 'playground/projects/dubois.html',           bx: 80, by: 58, r:  7  },
-    { img: 'playground/images/thesis/thumbnail.jpg',             title: 'Low Self-Esteem',       link: 'playground/projects/thesis.html',           bx: 12, by: 74, r: -3  },
-    { img: 'playground/images/EcoDistricts/thumbnail.png',       title: 'Eco Districts',         link: 'playground/projects/ecodistricts.html',     bx: 67, by: 75, r:  4  },
-    { img: 'playground/images/portable/thumbnail.png',           title: 'portable.',             link: 'playground/projects/portable.html',         bx: 43, by: 80, r: -6  },
-    { img: 'playground/images/timely_awareness/thumbnail.jpg',   title: 'Timely Awareness',      link: 'playground/projects/tune.html',             bx: 60, by: 8,  r:  3  },
-];
+// ── Scramble ──────────────────────────────────────────────────────────────
+const CHARS = 'abcdefghijklmnopqrstuvwxyz–—·/';
 
-// ── Build cards ─────────────────────────────────────────
-const field = document.getElementById('cards-field');
-const cardEls = [];
-
-CARDS.forEach((c, i) => {
-    const el = document.createElement('div');
-    el.className = 'work-card';
-    el.style.setProperty('--base-r', c.r + 'deg');
-    el.innerHTML = `
-        <img class="card-img" src="${c.img}" alt="${c.title}" loading="lazy" draggable="false">
-        <span class="card-label">${c.title}</span>
-    `;
-    el.addEventListener('click', () => { window.location.href = c.link; });
-    field.appendChild(el);
-
-    // Viewport-relative position (percentage)
-    const vw = window.innerWidth, vh = window.innerHeight - 32;
-    const startX = (c.bx / 100) * vw;
-    const startY = (c.by / 100) * vh;
-
-    cardEls.push({
-        el,
-        bx: startX,  // base X (px)
-        by: startY,  // base Y (px)
-        cx: startX,  // current X
-        cy: startY,  // current Y
-        vx: 0, vy: 0,// velocity
-        r: c.r,
-        floatOffset: i * 0.7 + Math.random() * 2,
-    });
-
-    el.style.left = startX + 'px';
-    el.style.top  = startY + 'px';
-    el.style.transform = `rotate(${c.r}deg)`;
-
-    // Staggered entrance
-    setTimeout(() => { el.classList.add('visible'); }, 600 + i * 80);
-});
-
-// ── Mouse tracking ──────────────────────────────────────
-let mx = -999, my = -999;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY - 32; });
-
-// ── Animation loop ──────────────────────────────────────
-let t = 0;
-function animateCards() {
-    t += 0.01;
-    const vw = window.innerWidth, vh = window.innerHeight - 32;
-
-    cardEls.forEach((card, i) => {
-        // Gentle floating offset (Lissajous-like)
-        const floatX = Math.sin(t * 0.6 + card.floatOffset) * 8;
-        const floatY = Math.cos(t * 0.45 + card.floatOffset * 1.3) * 6;
-
-        // Target = base + float
-        let tx = card.bx + floatX;
-        let ty = card.by + floatY;
-
-        // Cursor repulsion
-        const cardCX = card.cx + 80; // card center
-        const cardCY = card.cy + 60;
-        const dx = cardCX - mx;
-        const dy = cardCY - my;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const repelRadius = 180;
-
-        if (dist < repelRadius && dist > 1) {
-            const force = (repelRadius - dist) / repelRadius;
-            const push = force * force * 120;
-            tx += (dx / dist) * push;
-            ty += (dy / dist) * push;
+function scrambleTo(el, target, duration) {
+    const start = performance.now();
+    const len = target.length;
+    function frame(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const settled = Math.floor(progress * len);
+        let out = '';
+        for (let i = 0; i < len; i++) {
+            if (target[i] === ' ') { out += ' '; continue; }
+            if (i < settled) { out += target[i]; continue; }
+            out += CHARS[Math.floor(Math.random() * CHARS.length)];
         }
-
-        // Lerp toward target (spring-like)
-        const ease = 0.06;
-        card.cx += (tx - card.cx) * ease;
-        card.cy += (ty - card.cy) * ease;
-
-        // Keep within viewport with padding
-        const pad = 10;
-        card.cx = Math.max(pad, Math.min(vw - 170, card.cx));
-        card.cy = Math.max(pad, Math.min(vh - 140, card.cy));
-
-        card.el.style.left = card.cx + 'px';
-        card.el.style.top  = card.cy + 'px';
-    });
-
-    requestAnimationFrame(animateCards);
+        el.textContent = out;
+        if (progress < 1) requestAnimationFrame(frame);
+        else el.textContent = target;
+    }
+    requestAnimationFrame(frame);
 }
-animateCards();
 
-// Recalculate base positions on resize
-window.addEventListener('resize', () => {
-    const vw = window.innerWidth, vh = window.innerHeight - 32;
-    cardEls.forEach((card, i) => {
-        card.bx = (CARDS[i].bx / 100) * vw;
-        card.by = (CARDS[i].by / 100) * vh;
+// ── Hover scramble on half labels ────────────────────────────────────────
+['left', 'right'].forEach(side => {
+    const half  = document.getElementById('half-' + side);
+    const label = document.getElementById('label-' + side);
+    const orig  = label.textContent;
+    let timer;
+    half.addEventListener('mouseenter', () => {
+        clearTimeout(timer);
+        scrambleTo(label, orig, 380);
     });
 });
 
-// ── Name scramble ────────────────────────────────────────
-const CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789-–.';
-const REAL_NAME = 'Emily Howkins Lange';
-const heroEl = document.getElementById('hero-name');
-
-function scrambleName() {
-    let iterations = 0;
-    const total = 18;
-    const interval = setInterval(() => {
-        heroEl.textContent = REAL_NAME.split('').map((ch, idx) => {
-            if (ch === ' ') return ' ';
-            if (idx < iterations) return ch;
-            return CHARS[Math.floor(Math.random() * CHARS.length)];
-        }).join('');
-        iterations += 0.4;
-        if (iterations >= REAL_NAME.length) {
-            heroEl.textContent = REAL_NAME;
-            clearInterval(interval);
-        }
-    }, 40);
-}
-
-// ── Intro sequence ──────────────────────────────────────
+// ── Intro sequence ───────────────────────────────────────────────────────
 const introEl   = document.getElementById('intro');
 const introText = document.getElementById('intro-text');
-const seen = sessionStorage.getItem('intro-seen');
+const split     = document.getElementById('split');
+const topL      = document.getElementById('topbar-left');
+const topR      = document.getElementById('topbar-right');
+const cn        = document.getElementById('center-name');
 
+function revealPage() {
+    split.classList.add('visible');
+    topL.classList.add('visible');
+    topR.classList.add('visible');
+    setTimeout(() => cn.classList.add('visible'), 300);
+}
+
+const seen = sessionStorage.getItem('intro-seen');
 if (seen) {
     introEl.style.display = 'none';
-    scrambleName();
+    revealPage();
 } else {
-    const fullName = 'emily howkins lange';
+    const name = 'emily howkins lange';
     let i = 0;
     function typeNext() {
-        if (i <= fullName.length) {
-            introText.textContent = fullName.slice(0, i);
+        if (i <= name.length) {
+            introText.textContent = name.slice(0, i);
             i++;
-            setTimeout(typeNext, 55 + Math.random() * 65);
+            setTimeout(typeNext, 55 + Math.random() * 60);
         } else {
             setTimeout(() => {
                 introEl.classList.add('fade-out');
                 sessionStorage.setItem('intro-seen', '1');
                 setTimeout(() => {
                     introEl.style.display = 'none';
-                    scrambleName();
-                }, 700);
-            }, 600);
+                    revealPage();
+                }, 600);
+            }, 500);
         }
     }
-    setTimeout(typeNext, 250);
+    setTimeout(typeNext, 200);
 }
 
-// ── Pixel trail ─────────────────────────────────────────
+// ── Pixel trail ───────────────────────────────────────────────────────────
 (function() {
     const canvas = document.getElementById('trail-canvas');
     const ctx = canvas.getContext('2d');
     let W, H;
-    function resize() {
-        W = canvas.width  = window.innerWidth;
-        H = canvas.height = window.innerHeight;
-    }
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
     resize();
     window.addEventListener('resize', resize);
 
     const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
-    const PALETTE_LIGHT = ['#000000','#000000','#000000','#000000','#0000ff','#ff4500'];
-    const PALETTE_DARK  = ['#ffffff','#ffffff','#ffffff','#e0e0ff','#0000ff','#ff4500'];
+    const PAL_LIGHT = ['#000','#000','#000','#000','#0000ff','#ff4500'];
+    const PAL_DARK  = ['#fff','#fff','#fff','#e0e0ff','#0000ff','#ff4500'];
 
-    let pixels = [];
-    let lastX = null, lastY = null;
+    // Special: on the dark half, use white pixels
+    let pixels = [], lx = null, ly = null;
 
     document.addEventListener('mousemove', e => {
         const x = e.clientX, y = e.clientY;
-        const spd = lastX != null ? Math.hypot(x - lastX, y - lastY) : 0;
+        const spd = lx != null ? Math.hypot(x - lx, y - ly) : 0;
         const n = Math.min(4, Math.ceil(spd / 6));
-        const pal = isDark() ? PALETTE_DARK : PALETTE_LIGHT;
+
+        // Detect which half we're on for pixel color
+        const onLeft = x < window.innerWidth / 2;
+        const leftHovered = document.querySelector('.half-left:hover');
+        const rightHovered = document.querySelector('.half-right:hover');
+        let pal;
+        if ((onLeft && leftHovered) || (!onLeft && rightHovered)) {
+            pal = PAL_DARK; // on filled dark/blue side
+        } else {
+            pal = isDark() ? PAL_DARK : PAL_LIGHT;
+        }
+
         for (let i = 0; i < n; i++) {
             pixels.push({
-                x: x + (Math.random() - 0.5) * 8,
-                y: y + (Math.random() - 0.5) * 8,
-                s: 4,
-                alpha: 0.85,
+                x: x + (Math.random()-0.5)*8, y: y + (Math.random()-0.5)*8,
+                s: 4, alpha: 0.85,
                 color: pal[Math.floor(Math.random() * pal.length)]
             });
         }
-        lastX = x; lastY = y;
+        lx = x; ly = y;
     });
 
     (function draw() {
         ctx.clearRect(0, 0, W, H);
-        for (let i = pixels.length - 1; i >= 0; i--) {
+        for (let i = pixels.length-1; i >= 0; i--) {
             const p = pixels[i];
             p.alpha -= 0.045;
-            if (p.alpha <= 0) { pixels.splice(i, 1); continue; }
+            if (p.alpha <= 0) { pixels.splice(i,1); continue; }
             ctx.globalAlpha = p.alpha;
             ctx.fillStyle = p.color;
             ctx.fillRect(Math.round(p.x), Math.round(p.y), p.s, p.s);
@@ -528,23 +462,14 @@ if (seen) {
     })();
 })();
 
-// ── Dark mode toggle ────────────────────────────────────
+// ── Dark mode toggle ─────────────────────────────────────────────────────
 (function() {
-    const btn = document.getElementById('theme-btn');
+    const btn  = document.getElementById('theme-btn');
     const html = document.documentElement;
-
-    function getTheme() {
-        return html.getAttribute('data-theme') ||
-            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    }
-    function setTheme(t) {
-        html.setAttribute('data-theme', t);
-        localStorage.setItem('theme', t);
-    }
-
-    btn.addEventListener('click', () => {
-        setTheme(getTheme() === 'dark' ? 'light' : 'dark');
-    });
+    const get  = () => html.getAttribute('data-theme') ||
+                       (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const set  = t => { html.setAttribute('data-theme', t); localStorage.setItem('theme', t); };
+    btn.addEventListener('click', () => set(get() === 'dark' ? 'light' : 'dark'));
 })();
 </script>
 
