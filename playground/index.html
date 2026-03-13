@@ -31,16 +31,16 @@
         [data-theme="dark"] body {
             background: #111;
             color: #f0f0ee;
-            animation: color-cycle 20s infinite;
+            animation: color-change 20s infinite;
         }
         [data-theme="dark"] .pg-list { border-color: rgba(255,255,255,0.15); }
         [data-theme="dark"] .pg-row  { border-color: rgba(255,255,255,0.1); }
         [data-theme="dark"] .pg-topbar { background: #0d0d0d; border-bottom-color: rgba(255,255,255,0.08); }
 
         @keyframes color-change {
-            0%   { color: black; }
+            0%   { color: var(--fg, black); }
             50%  { color: blue;  }
-            100% { color: black; }
+            100% { color: var(--fg, black); }
         }
 
         ::-webkit-scrollbar { width: 8px; height: 5px; }
