@@ -221,6 +221,67 @@
             pointer-events: none;
             z-index: 999;
         }
+
+        /* ── Sidebar layout ── */
+        .pg-sidebar {
+            position: fixed;
+            top: 32px;
+            left: 0;
+            bottom: 0;
+            width: 200px;
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            background: var(--bg);
+            z-index: 50;
+            padding: 20px 0 40px;
+            scrollbar-width: none;
+        }
+        .pg-sidebar::-webkit-scrollbar { display: none; }
+
+        .sidebar-heading {
+            font-size: 9px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--fg-dim);
+            padding: 0 16px 10px;
+            opacity: 0.6;
+        }
+
+        .sidebar-list {
+            list-style: none;
+            margin: 0; padding: 0;
+        }
+
+        .sidebar-list li a {
+            display: block;
+            font-size: 11px;
+            line-height: 1.4;
+            padding: 6px 16px;
+            color: var(--fg);
+            text-decoration: none;
+            opacity: 0.45;
+            border-left: 2px solid transparent;
+            transition: opacity 0.15s, border-color 0.15s;
+        }
+        .sidebar-list li a:hover {
+            opacity: 1;
+            color: orangered;
+        }
+        .sidebar-list li.current a {
+            opacity: 1;
+            font-weight: bold;
+            border-left-color: var(--fg);
+        }
+
+        /* Push content right */
+        .pg-content {
+            margin-left: 200px !important;
+            max-width: 820px !important;
+            margin-right: auto !important;
+            padding-left: 32px !important;
+            padding-right: 32px !important;
+        }
+
     </style>
 </head>
 <body>
@@ -235,6 +296,29 @@
     </div>
     <div class="nav-right"><button id="theme-btn" aria-label="Toggle colour mode">◐</button><span style="margin:0 8px;opacity:0.25;">·</span><a href="/index.html">Emily Howkins Lange</a></div>
 </nav>
+
+<aside class="pg-sidebar">
+    <p class="sidebar-heading">playground</p>
+    <ol class="sidebar-list">
+        <li><a href="thesis.html">Designing for Low Self-Esteem</a></li>
+        <li><a href="portable.html">Portable.</a></li>
+        <li><a href="skiveteater.html">Skive Theater</a></li>
+        <li><a href="ecodistricts.html">EcoDistricts</a></li>
+        <li><a href="multivitamin.html">Information Redesign</a></li>
+        <li><a href="breakupwithplastic.html">#breakUpWithPlastic</a></li>
+        <li><a href="tune.html">Tune</a></li>
+        <li><a href="cerealbox.html">A Cereal Box</a></li>
+        <li><a href="lp_limedevo.html">LP Cover Design</a></li>
+        <li><a href="dubois.html">W.E.B. Du Bois</a></li>
+        <li><a href="breathe.html">Breathe</a></li>
+        <li><a href="fanfare.html">Typographic Kitchen</a></li>
+        <li class="current"><a href="chaos.html">Chaotic Motion</a></li>
+        <li><a href="cwcj.html">Capt. Jack — Copenhagen</a></li>
+        <li><a href="pornolampen.html">The Porn Lamp</a></li>
+        <li><a href="sharePear.html">SharePear</a></li>
+        <li><a href="spaghetti.html">Spaghetti</a></li>
+    </ol>
+</aside>
 
 <div class="pg-content">
 <div class="row">
