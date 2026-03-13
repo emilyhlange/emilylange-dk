@@ -8,156 +8,78 @@
     <title>Emily Howkins Lange — Product Designer</title>
     <meta name="description" content="Portfolio of Emily Howkins Lange, product designer specialising in Design Systems.">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html, body {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: #fff;
+            background: #F6F6F6;
             color: #000;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 11px;
             line-height: 1.5;
         }
 
-        .stage {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-        }
-
-        /* ── Fixed UI corners ── */
-
-        .corner {
+        /* ── Intro overlay ── */
+        #intro {
             position: fixed;
-            z-index: 100;
-        }
-
-        .corner--tl {
-            top: 18px;
-            left: 18px;
-        }
-
-        .corner--tr {
-            top: 18px;
-            right: 18px;
-            text-align: right;
-        }
-
-        .corner--bl {
-            bottom: 18px;
-            left: 18px;
-        }
-
-        .corner--br {
-            bottom: 18px;
-            right: 18px;
-            text-align: right;
-        }
-
-        .corner p,
-        .corner a {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 11px;
-            line-height: 1.6;
-            color: #000;
-            text-decoration: none;
-        }
-
-        .corner a:hover {
-            text-decoration: underline;
-        }
-
-        .corner .label {
-            color: #999;
-            font-size: 10px;
-            display: block;
-            margin-bottom: 2px;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        /* ── Entry buttons — dead centre ── */
-
-        .entry-options {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 50;
+            inset: 0;
+            background: #F6F6F6;
+            z-index: 9000;
             display: flex;
-            gap: 0;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease;
         }
+        #intro.fade-out { opacity: 0; pointer-events: none; }
 
-        .btn {
+        #intro-text {
             font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.04em;
+            color: #000;
+        }
+        #intro-cursor {
+            display: inline-block;
+            width: 1px;
+            height: 13px;
+            background: #000;
+            margin-left: 2px;
+            vertical-align: middle;
+            animation: blink 0.7s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50%      { opacity: 0; }
+        }
+
+        /* ── Fixed topbar ── */
+        .pg-topbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 32px;
+            background: #F6F6F6;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 18px;
+            z-index: 110;
             font-size: 11px;
-            font-weight: 400;
-            color: #000;
-            text-decoration: none;
-            padding: 8px 16px;
-            border: 1px solid #000;
-            background: #fff;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: background 0.1s, color 0.1s;
-            display: block;
         }
+        .pg-topbar a { color: inherit; text-decoration: none; }
+        .pg-topbar a:hover { color: orangered; }
+        .pg-topbar .nav-left { font-size: 11px; }
+        .pg-topbar .nav-right { display: flex; align-items: center; gap: 10px; }
+        .pg-topbar .nav-sep { opacity: 0.25; }
 
-        .btn:first-child {
-            border-radius: 4px 0 0 4px;
-        }
-
-        .btn:last-child {
-            border-radius: 0 4px 4px 0;
-            border-left: none;
-        }
-
-        .btn:hover {
-            background: #000;
-            color: #fff;
-        }
-
-        /* Portfolio is the primary CTA */
-        .btn--primary {
-            background: #000;
-            color: #fff;
-        }
-
-        .btn--primary:hover {
-            background: #fff;
-            color: #000;
-        }
-
-        /* ── Tooltip ── */
-        .btn[data-tooltip] {
-            position: relative;
-        }
-
-        .btn[data-tooltip]::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: calc(100% + 6px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: #000;
-            color: #fff;
-            font-size: 10px;
-            white-space: nowrap;
-            padding: 4px 8px;
-            border-radius: 4px;
+        /* ── Canvas for pixel cursor trail ── */
+        #cursor-canvas {
+            position: fixed;
+            inset: 0;
             pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.15s;
-        }
-
-        .btn[data-tooltip]:hover::after {
-            opacity: 1;
+            z-index: 6;
         }
 
         /* ── Grain overlay ── */
@@ -187,63 +109,176 @@
             100% { transform: translate(0, 0); }
         }
 
-        /* ── Draggable media ── */
+        /* ── Morphing blob ── */
+        #blob {
+            position: fixed;
+            width: 720px;
+            height: 720px;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(0, 0, 255, 0.055) 0%,
+                rgba(0, 0, 255, 0.02) 45%,
+                transparent 70%
+            );
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            pointer-events: none;
+            z-index: 2;
+            animation: blob-morph 11s ease-in-out infinite;
+            filter: blur(40px);
+            transform-origin: center center;
+        }
+        @keyframes blob-morph {
+            0%,100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            16%     { border-radius: 58% 42% 28% 72% / 44% 64% 36% 56%; }
+            33%     { border-radius: 76% 24% 55% 45% / 56% 28% 72% 44%; }
+            50%     { border-radius: 42% 58% 38% 62% / 66% 42% 58% 34%; }
+            66%     { border-radius: 24% 76% 62% 38% / 38% 72% 28% 62%; }
+            82%     { border-radius: 55% 45% 30% 70% / 52% 36% 64% 48%; }
+        }
 
+        /* ── Stage ── */
+        .stage {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* ── Corner overlays ── */
+        .corner {
+            position: fixed;
+            z-index: 100;
+        }
+        .corner--tr {
+            top: 50px;
+            right: 18px;
+            text-align: right;
+        }
+        .corner--bl {
+            bottom: 18px;
+            left: 18px;
+        }
+        .corner--br {
+            bottom: 18px;
+            right: 18px;
+            text-align: right;
+        }
+        .corner p,
+        .corner a {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            line-height: 1.6;
+            color: #000;
+            text-decoration: none;
+        }
+        .corner a:hover { color: orangered; }
+        .corner .label {
+            color: #999;
+            font-size: 10px;
+            display: block;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* ── Entry buttons ── */
+        .entry-options {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 50;
+            display: flex;
+            gap: 0;
+        }
+        .btn {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            color: #000;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #000;
+            background: #F6F6F6;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.1s, color 0.1s;
+            display: block;
+        }
+        .btn:first-child { border-radius: 4px 0 0 4px; }
+        .btn:last-child  { border-radius: 0 4px 4px 0; border-left: none; }
+        .btn:hover { background: #000; color: #F6F6F6; }
+        .btn--primary { background: #000; color: #F6F6F6; }
+        .btn--primary:hover { background: #F6F6F6; color: #000; }
+        .btn[data-tooltip] { position: relative; }
+        .btn[data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: #F6F6F6;
+            font-size: 10px;
+            white-space: nowrap;
+            padding: 4px 8px;
+            border-radius: 4px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+        .btn[data-tooltip]:hover::after { opacity: 1; }
+
+        /* ── Draggable media ── */
         .draggable-media {
             position: absolute;
             cursor: grab;
             user-select: none;
+            z-index: 10;
         }
-
-        .draggable-media:active {
-            cursor: grabbing;
-        }
-
+        .draggable-media:active { cursor: grabbing; }
         .draggable-media img,
         .draggable-media video {
             display: block;
             pointer-events: none;
         }
 
-        /* Media positions */
-        #breathe-movie {
-            top: 38%;
-            right: 5%;
-        }
-
-        #chaos-exhibition {
-            top: 40%;
-            left: 4%;
-        }
-
-        #portable {
-            top: 18%;
-            right: 28%;
-        }
-
-        #tune-slideshow {
-            top: 4%;
-            left: 30%;
-        }
-
-        #thesis {
-            bottom: 10%;
-            left: 14%;
-        }
+        /* Initial scatter positions */
+        #breathe-movie    { top: 38%; right: 5%; }
+        #chaos-exhibition { top: 40%; left: 4%; }
+        #portable         { top: 18%; right: 28%; }
+        #tune-slideshow   { top: 4%;  left: 30%; }
+        #thesis           { bottom: 10%; left: 14%; }
 
     </style>
 </head>
-
 <body>
-<div class="grain" aria-hidden="true"></div>
-<div class="stage">
 
-    <!-- Top left: name + title -->
-    <div class="corner corner--tl">
-        <p>Emily Howkins Lange</p>
-        <p style="color:#999;">Product Designer — Design Systems</p>
-        <p style="color:#999;">Copenhagen</p>
+<!-- ── Intro overlay ── -->
+<div id="intro">
+    <span id="intro-text"></span><span id="intro-cursor"></span>
+</div>
+
+<!-- ── Fixed topbar ── -->
+<nav class="pg-topbar">
+    <div class="nav-left">emily howkins lange</div>
+    <div class="nav-right">
+        <a href="/portfolio/index.html">portfolio ↗</a>
+        <span class="nav-sep">·</span>
+        <a href="/playground/index.html">playground ↗</a>
     </div>
+</nav>
+
+<!-- ── Pixel cursor trail canvas ── -->
+<canvas id="cursor-canvas"></canvas>
+
+<!-- ── Grain ── -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ── Morphing blob ── -->
+<div id="blob"></div>
+
+<!-- ── Page stage ── -->
+<div class="stage">
 
     <!-- Top right: hint -->
     <div class="corner corner--tr">
@@ -272,19 +307,15 @@
     <div class="draggable-media" id="breathe-movie">
         <video src="/playground/images/breathe/breathe_final.mp4" height="200" autoplay muted loop></video>
     </div>
-
     <div class="draggable-media" id="chaos-exhibition">
         <img src="/playground/images/Chaos/exhibition2.jpg" height="150" alt="Chaos exhibition">
     </div>
-
     <div class="draggable-media" id="portable">
         <img src="/playground/images/portable/shoot1.jpg" height="200" alt="Portable project">
     </div>
-
     <div class="draggable-media" id="tune-slideshow">
         <video src="/playground/images/tune/front_stand.mp4" height="270" autoplay muted loop></video>
     </div>
-
     <div class="draggable-media" id="thesis">
         <img src="/playground/images/thesis/lamp.png" height="190" alt="Thesis project">
     </div>
@@ -294,18 +325,153 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 <script>
-    $(function () {
-        $('.draggable-media').draggable({
-            stack: 'div',
-            scroll: false
-        });
+/* ══════════════════════════════════════════════
+   INTRO SEQUENCE
+   Runs once per browser session.
+══════════════════════════════════════════════ */
+(function () {
+    const intro    = document.getElementById('intro');
+    const textEl   = document.getElementById('intro-text');
+    const cursorEl = document.getElementById('intro-cursor');
+    const NAME     = 'emily howkins lange';
 
-        // Slight random tilt on each image — scattered on a desk feeling
-        $('.draggable-media').each(function () {
-            const tilt = (Math.random() - 0.5) * 5;
-            $(this).css('transform', 'rotate(' + tilt + 'deg)');
-        });
+    // Skip on back-nav within same session
+    if (sessionStorage.getItem('intro-seen')) {
+        intro.style.display = 'none';
+        return;
+    }
+
+    let i = 0;
+    function typeNext() {
+        if (i < NAME.length) {
+            textEl.textContent += NAME[i];
+            i++;
+            setTimeout(typeNext, 65 + Math.random() * 55);
+        } else {
+            // Pause with cursor blinking, then dissolve
+            setTimeout(() => {
+                cursorEl.style.animation = 'none';
+                cursorEl.style.opacity   = '0';
+                intro.classList.add('fade-out');
+                setTimeout(() => {
+                    intro.style.display = 'none';
+                    sessionStorage.setItem('intro-seen', '1');
+                }, 650);
+            }, 620);
+        }
+    }
+
+    setTimeout(typeNext, 260);
+}());
+
+
+/* ══════════════════════════════════════════════
+   MORPHING BLOB — lazy cursor follow
+══════════════════════════════════════════════ */
+(function () {
+    const blob = document.getElementById('blob');
+    let cx = window.innerWidth  / 2;
+    let cy = window.innerHeight / 2;
+    let tx = cx, ty = cy;
+
+    document.addEventListener('mousemove', e => {
+        tx = e.clientX;
+        ty = e.clientY;
     });
+
+    function tick() {
+        cx += (tx - cx) * 0.025;   // very lazy follow
+        cy += (ty - cy) * 0.025;
+        blob.style.left = (cx - 360) + 'px';
+        blob.style.top  = (cy - 360) + 'px';
+        requestAnimationFrame(tick);
+    }
+    tick();
+}());
+
+
+/* ══════════════════════════════════════════════
+   PIXEL CURSOR TRAIL
+   Spawns dithered pixel squares that decay.
+══════════════════════════════════════════════ */
+(function () {
+    const canvas = document.getElementById('cursor-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const PX   = 5;   // pixel block size
+    const POOL = ['#000000', '#000000', '#000000', '#000000',
+                  '#0000ff', '#ff4500'];  // mostly black, rare colour
+
+    const particles = [];
+    let   lastX = -999, lastY = -999, moving = false, moveTimer;
+
+    document.addEventListener('mousemove', e => {
+        const mx = e.clientX, my = e.clientY;
+        const dist = Math.hypot(mx - lastX, my - lastY);
+
+        // Spawn density proportional to movement speed
+        const count = Math.min(8, 1 + Math.floor(dist / 10));
+        for (let n = 0; n < count; n++) {
+            const ox = (Math.round((Math.random() - 0.5) * 5)) * PX;
+            const oy = (Math.round((Math.random() - 0.5) * 5)) * PX;
+            particles.push({
+                x:     Math.round(mx / PX) * PX + ox,
+                y:     Math.round(my / PX) * PX + oy,
+                color: POOL[Math.floor(Math.random() * POOL.length)],
+                alpha: 0.55 + Math.random() * 0.35,
+                decay: 0.032 + Math.random() * 0.028
+            });
+        }
+        lastX = mx; lastY = my;
+
+        // Hide cursor trail hint when mouse stops
+        moving = true;
+        clearTimeout(moveTimer);
+        moveTimer = setTimeout(() => { moving = false; }, 120);
+    });
+
+    function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            ctx.globalAlpha = p.alpha;
+            ctx.fillStyle   = p.color;
+            ctx.fillRect(p.x, p.y, PX, PX);
+            p.alpha -= p.decay;
+            if (p.alpha <= 0) particles.splice(i, 1);
+        }
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(render);
+    }
+    render();
+}());
+
+
+/* ══════════════════════════════════════════════
+   DRAGGABLE MEDIA (jQuery UI)
+══════════════════════════════════════════════ */
+$(function () {
+    $('.draggable-media').draggable({
+        stack:  '.draggable-media',
+        scroll: false,
+        start: function () {
+            $(this).css('transition', 'none');
+        }
+    });
+
+    // Initial scattered tilts — desk-like
+    $('.draggable-media').each(function () {
+        const tilt = (Math.random() - 0.5) * 6;
+        $(this).css('transform', 'rotate(' + tilt + 'deg)');
+    });
+});
 </script>
 </body>
 </html>
