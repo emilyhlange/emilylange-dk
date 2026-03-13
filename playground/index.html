@@ -16,48 +16,56 @@
     <title>Playground — Emily Howkins Lange</title>
     <meta name="description" content="Experiments, graphic design, product design, and student projects by Emily Howkins Lange.">
     <style>
-        /* ── Reset ── */
+        /* ── Variables ── */
+        :root {
+            --bg: #F6F6F6;
+            --fg: #000;
+            --fg-dim: #888;
+            --border: rgba(0,0,0,0.12);
+            --topbar-bg: rgba(246,246,246,0.85);
+        }
+        [data-theme="dark"] {
+            --bg: #111;
+            --fg: #f0f0ee;
+            --fg-dim: #666;
+            --border: rgba(255,255,255,0.1);
+            --topbar-bg: rgba(13,13,13,0.88);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* ── Base ── */
         body {
-            background: #F6F6F6;
-            color: black;
+            background: var(--bg);
+            color: var(--fg);
             font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
             line-height: 17px;
             animation: color-change 20s infinite;
+            transition: background 0.3s, color 0.3s;
         }
-        [data-theme="dark"] body {
-            background: #111;
-            color: #f0f0ee;
-            animation: color-change 20s infinite;
-        }
-        [data-theme="dark"] .pg-list { border-color: rgba(255,255,255,0.15); }
-        [data-theme="dark"] .pg-row  { border-color: rgba(255,255,255,0.1); }
-        [data-theme="dark"] .pg-topbar { background: #0d0d0d; border-bottom-color: rgba(255,255,255,0.08); }
 
         @keyframes color-change {
             0%   { color: var(--fg, black); }
-            50%  { color: blue;  }
+            50%  { color: blue; }
             100% { color: var(--fg, black); }
         }
 
-        ::-webkit-scrollbar { width: 8px; height: 5px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: blue; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,255,.52); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: blue; border-radius: 0; }
 
         a { color: inherit; text-decoration: none; }
 
         /* ── Grain ── */
         .grain {
             position: fixed;
-            inset: 0;
+            inset: -20%;
+            width: 140%;
+            height: 140%;
             pointer-events: none;
             z-index: 5;
             opacity: 0.038;
-            background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='250'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/></filter><rect width='250' height='250' filter='url(%23n)'/></svg>");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");
             background-repeat: repeat;
             animation: grain-anim 0.18s steps(1) infinite;
         }
@@ -73,27 +81,49 @@
             88% { background-position:  50px  70px; }
         }
 
-        /* ── Fixed topbar (breadcrumb) ── */
+        /* ── Pixel trail canvas ── */
+        #cursor-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* ── Fixed topbar ── */
         .pg-topbar {
             position: fixed;
             top: 0; left: 0; right: 0;
             height: 32px;
-            background: #F6F6F6;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            background: var(--topbar-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0 16px;
             z-index: 110;
             font-size: 11px;
         }
         .pg-topbar a { color: inherit; text-decoration: none; }
         .pg-topbar a:hover { color: orangered; }
-        .pg-topbar .nav-left { display: flex; align-items: center; gap: 8px; }
-        .pg-topbar .nav-sep { opacity: 0.3; }
-        .pg-topbar .nav-current { opacity: 0.45; }
-        .pg-topbar .nav-right a { color: inherit; text-decoration: none; }
-        .pg-topbar .nav-right a:hover { color: orangered; }
+        .pg-topbar .nav-left { display: flex; align-items: center; }
+        .nav-sep { opacity: 0.35; margin: 0 6px; }
+        .nav-current { font-weight: bold; }
+        .nav-right { display: flex; align-items: center; }
+
+        #theme-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--fg);
+            padding: 0 6px;
+            line-height: 1;
+            opacity: 0.55;
+            transition: opacity 0.2s;
+        }
+        #theme-btn:hover { opacity: 1; }
 
         /* ── Page shell ── */
         .pg-shell {
@@ -108,7 +138,7 @@
         .pg-lede {
             font-size: 12px;
             line-height: 18px;
-            opacity: 0.45;
+            color: var(--fg-dim);
             margin-bottom: 48px;
             max-width: 480px;
         }
@@ -123,11 +153,18 @@
             padding: 11px 0;
             border-top: 1px solid currentColor;
             cursor: pointer;
+            text-decoration: none;
+            color: inherit;
         }
         .pg-row:last-child { border-bottom: 1px solid currentColor; }
         .pg-row:hover .pg-title-link { color: orangered; }
 
-        .pg-meta { font-size: 10px; opacity: 0.4; letter-spacing: 0.04em; padding-right: 16px; }
+        .pg-meta {
+            font-size: 10px;
+            opacity: 0.4;
+            letter-spacing: 0.04em;
+            padding-right: 16px;
+        }
 
         .pg-title-link {
             font-size: 13px;
@@ -164,310 +201,7 @@
             height: 160px;
             object-fit: cover;
             border: 1px solid currentColor;
-            background: #e8e8e8;
-        }
-
-        /* ──────────────────────────────────────────────
-           macOS X Window System
-        ────────────────────────────────────────────── */
-
-        /* The overlay layer — fills viewport, windows sit inside */
-        #win-layer {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        /* Individual window */
-        .macos-win {
-            position: absolute;
-            width: 680px;
-            max-height: 76vh;
-            border-radius: 10px;
-            overflow: hidden;
-            pointer-events: all;
-            box-shadow:
-                0 0 0 0.5px rgba(0,0,0,0.18),
-                0 3px 8px rgba(0,0,0,0.12),
-                0 22px 52px rgba(0,0,0,0.28);
-            background: rgba(240,240,238,0.84);
-            backdrop-filter: blur(26px) saturate(1.7);
-            -webkit-backdrop-filter: blur(26px) saturate(1.7);
-            animation: win-open 0.16s cubic-bezier(0.2,0,0.2,1) forwards;
-            display: flex;
-            flex-direction: column;
-        }
-        .macos-win.win-gallery-wide { width: 780px; }
-        .macos-win.win-text-narrow  { width: 600px; }
-
-        @keyframes win-open {
-            from { opacity: 0; transform: scale(0.96); }
-            to   { opacity: 1; transform: scale(1); }
-        }
-        @keyframes win-close {
-            from { opacity: 1; transform: scale(1); }
-            to   { opacity: 0; transform: scale(0.95); }
-        }
-        .macos-win.closing {
-            animation: win-close 0.12s ease-in forwards;
-            pointer-events: none;
-        }
-
-        /* Title bar */
-        .win-titlebar {
-            height: 28px;
-            min-height: 28px;
-            background: linear-gradient(to bottom, #efefef 0%, #d6d6d6 100%);
-            border-bottom: 1px solid #b0b0b0;
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-            cursor: grab;
-            user-select: none;
-            flex-shrink: 0;
-        }
-        .win-titlebar:active { cursor: grabbing; }
-
-        .win-controls {
-            display: flex;
-            gap: 7px;
-            align-items: center;
-            flex-shrink: 0;
-        }
-        .win-btn {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: 0.5px solid rgba(0,0,0,0.18);
-            cursor: pointer;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0; /* hide label text */
-            transition: filter 0.1s;
-        }
-        .win-btn:hover { filter: brightness(0.88); }
-        .win-close  { background: #FF5F57; }
-        .win-min    { background: #FFBD2E; }
-        .win-max    { background: #28CA41; }
-
-        /* Show symbols on hover */
-        .win-close:hover::after  { content: '×'; font-size: 10px; color: rgba(0,0,0,0.55); line-height:1; }
-        .win-min:hover::after    { content: '−'; font-size: 10px; color: rgba(0,0,0,0.55); line-height:1; }
-        .win-max:hover::after    { content: '+'; font-size: 10px; color: rgba(0,0,0,0.55); line-height:1; font-weight:700; }
-
-        .win-title {
-            flex: 1;
-            text-align: center;
-            font-size: 11px;
-            font-weight: 600;
-            color: #3a3a3a;
-            letter-spacing: 0.01em;
-        }
-        .win-title-spacer { width: 51px; flex-shrink: 0; } /* mirrors controls width */
-
-        /* Scrollable window body */
-        .win-body {
-            overflow-y: auto;
-            flex: 1;
-            padding: 22px 26px 28px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 12px;
-            line-height: 18px;
-            color: #1c1c1c; /* fixed — no color animation inside window */
-        }
-        .win-body::-webkit-scrollbar { width: 6px; }
-        .win-body::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
-        .win-body::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.25); border-radius: 3px; }
-
-        /* ── Window content elements ── */
-
-        .win-meta {
-            font-size: 10px;
-            color: #888;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-
-        .win-h2 {
-            font-size: 17px;
-            font-weight: 600;
-            line-height: 22px;
-            color: #111;
-            margin-bottom: 14px;
-        }
-
-        .win-desc {
-            font-size: 12px;
-            line-height: 18px;
-            color: #444;
-            margin-bottom: 18px;
-            max-width: 480px;
-        }
-
-        .win-text p {
-            font-size: 12px;
-            line-height: 19px;
-            color: #2a2a2a;
-            margin-bottom: 12px;
-            max-width: 500px;
-        }
-        .win-text strong {
-            font-weight: 600;
-            display: block;
-            margin: 14px 0 10px;
-            font-size: 12px;
-            line-height: 19px;
-        }
-
-        .win-lead-img {
-            width: calc(100% + 52px);
-            margin: -22px -26px 20px;
-        }
-        .win-lead-img img {
-            display: block;
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .win-collaborator {
-            font-size: 11px;
-            color: #888;
-            font-style: italic;
-            margin-top: 16px;
-            margin-bottom: 16px;
-        }
-
-        /* Gallery grid */
-        .win-gallery {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            margin-top: 16px;
-            margin-bottom: 18px;
-        }
-        .win-gallery-item img {
-            display: block;
-            width: 100%;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-            background: #e0e0e0;
-        }
-        .win-gallery-item:first-child:nth-last-child(1) {
-            grid-column: 1 / -1;
-        }
-        .win-gallery-item:first-child:nth-last-child(odd):last-child {
-            grid-column: 1 / -1;
-        }
-
-        /* Single full-width image */
-        .win-hero-img {
-            width: calc(100% + 52px);
-            margin: -22px -26px 20px;
-        }
-        .win-hero-img img {
-            display: block;
-            width: 100%;
-            max-height: 320px;
-            object-fit: cover;
-        }
-
-        /* Skeleton placeholder */
-        .win-skeleton-block {
-            width: 100%;
-            height: 160px;
-            background: linear-gradient(135deg, #e8e8e6, #d8d8d6, #e4e4e2);
-            background-size: 200% 200%;
-            animation: skeleton-shift 3s ease infinite;
-            margin-bottom: 18px;
-            border-radius: 2px;
-        }
-        @keyframes skeleton-shift {
-            0%  { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100%{ background-position: 0% 50%; }
-        }
-        .win-placeholder { color: #aaa; font-style: italic; }
-
-        /* Fallback link */
-        .win-fallback {
-            display: inline-block;
-            margin-top: 16px;
-            font-size: 11px;
-            color: #888;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 1px;
-            text-decoration: none;
-            transition: color 0.1s, border-color 0.1s;
-        }
-        .win-fallback:hover { color: #333; border-color: #333; }
-
-        @media (max-width: 760px) {
-            .macos-win, .macos-win.win-gallery-wide, .macos-win.win-text-narrow {
-                width: calc(100vw - 24px);
-                left: 12px !important;
-            }
-            .pg-shell { padding: 30px 24px 80px; }
-            .pg-header { flex-direction: column; gap: 14px; margin-bottom: 40px; }
-            .pg-row { grid-template-columns: 1fr; gap: 2px; }
-            #pg-thumb { display: none; }
-        }
-    
-        /* ── Dark mode ── */
-        :root {
-            --bg: #F6F6F6;
-            --fg: #000;
-            --fg-dim: #999;
-            --border: rgba(0,0,0,0.1);
-            --topbar-bg: #F6F6F6;
-            --topbar-fg: #000;
-        }
-        [data-theme="dark"] {
-            --bg: #111;
-            --fg: #f0f0ee;
-            --fg-dim: #666;
-            --border: rgba(255,255,255,0.08);
-            --topbar-bg: #0d0d0d;
-            --topbar-fg: #f0f0ee;
-        }
-        html, body { background: var(--bg); color: var(--fg); }
-        @keyframes color-cycle {
-            0%,100% { color: var(--fg); }
-            50%     { color: blue; }
-        }
-        /* ── Dark mode topbar ── */
-        .pg-topbar, .pg-nav {
-            background: var(--topbar-bg);
-            border-bottom-color: var(--border);
-            color: var(--topbar-fg);
-        }
-        .pg-nav .nav-right, .pg-nav .nav-current, .pg-nav .nav-sep,
-        .pg-topbar .nav-right, .pg-topbar .nav-current, .pg-topbar .nav-sep {
-            color: var(--topbar-fg);
-        }
-        /* Dark mode toggle */
-        #theme-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 11px;
-            color: inherit;
-            opacity: 0.5;
-            padding: 0;
-            transition: opacity 0.15s;
-        }
-        #theme-btn:hover { opacity: 1; color: orangered; }
-        /* ── Pixel cursor trail canvas ── */
-        #cursor-canvas {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 999;
+            background: var(--bg);
         }
     </style>
 </head>
@@ -478,98 +212,97 @@
 
 <nav class="pg-topbar">
     <div class="nav-left">
-        <a href="/index.html">← home</a>
+        <a href="../">← home</a>
         <span class="nav-sep">·</span>
         <span class="nav-current">playground</span>
+        <span class="nav-sep">|</span>
+        <a href="../portfolio/">portfolio</a>
     </div>
     <div class="nav-right">
         <button id="theme-btn" aria-label="Toggle colour mode">◐</button>
         <span class="nav-sep">·</span>
-        <a href="/index.html">Emily Howkins Lange</a>
+        <span>Emily Howkins Lange</span>
     </div>
 </nav>
 
 <div class="pg-shell">
 
-    <p class="pg-lede">Earlier work, experiments, and student projects — 2018–2021. Click any project to open it.</p>
+    <p class="pg-lede">Earlier work, experiments, and student projects — 2018–2021.</p>
 
     <ol class="pg-list">
 
-        <li class="pg-row" data-project="thesis" data-thumb="/playground/images/thesis/thumbnail.jpg">
+        <li class="pg-row" data-thumb="images/thesis/thumbnail.jpg">
             <span class="pg-meta">2021 / Thesis</span>
-            <a class="pg-title-link" href="/playground/projects/thesis.html" data-text="Designing for low self-esteem"></a>
+            <a class="pg-title-link" href="projects/thesis.html" data-text="Designing for low self-esteem"></a>
         </li>
 
-        <li class="pg-row" data-project="portable" data-thumb="/playground/images/portable/thumbnail.png">
+        <li class="pg-row" data-thumb="images/portable/thumbnail.png">
             <span class="pg-meta">2021 / Product Design</span>
-            <a class="pg-title-link" href="/playground/projects/portable.html" data-text="Portable."></a>
+            <a class="pg-title-link" href="projects/portable.html" data-text="Portable."></a>
         </li>
 
-        <li class="pg-row" data-project="mikkeller" data-thumb="/playground/images/mikkeller/thumbnail.png">
+        <li class="pg-row" data-thumb="images/mikkeller/thumbnail.png">
             <span class="pg-meta">2020 / Product Design</span>
-            <a class="pg-title-link" href="/playground/projects/mikkeller.html" data-text="Mikkeller Brewery"></a>
+            <a class="pg-title-link" href="projects/mikkeller.html" data-text="Mikkeller Brewery"></a>
         </li>
 
-        <li class="pg-row" data-project="skiveteater" data-thumb="/playground/images/teater/12.jpg">
+        <li class="pg-row" data-thumb="images/teater/12.jpg">
             <span class="pg-meta">2021 / Branding</span>
-            <a class="pg-title-link" href="/playground/projects/skiveteater.html" data-text="Skive Theater"></a>
+            <a class="pg-title-link" href="projects/skiveteater.html" data-text="Skive Theater"></a>
         </li>
 
-        <li class="pg-row" data-project="ecodistricts" data-thumb="/playground/images/EcoDistricts/thumbnail.png">
+        <li class="pg-row" data-thumb="images/EcoDistricts/thumbnail.png">
             <span class="pg-meta">2018 / Branding</span>
-            <a class="pg-title-link" href="/playground/projects/ecodistricts.html" data-text="EcoDistricts"></a>
+            <a class="pg-title-link" href="projects/ecodistricts.html" data-text="EcoDistricts"></a>
         </li>
 
-        <li class="pg-row" data-project="multivitamin" data-thumb="/playground/images/informationdesign/thumbnail.png">
+        <li class="pg-row" data-thumb="images/informationdesign/thumbnail.png">
             <span class="pg-meta">2018 / Branding</span>
-            <a class="pg-title-link" href="/playground/projects/multivitamin.html" data-text="Information Redesign"></a>
+            <a class="pg-title-link" href="projects/multivitamin.html" data-text="Information Redesign"></a>
         </li>
 
-        <li class="pg-row" data-project="breakupwithplastic" data-thumb="/playground/images/breakupwithplastic/thumbnail.png">
+        <li class="pg-row" data-thumb="images/breakupwithplastic/thumbnail.png">
             <span class="pg-meta">2018 / Campaign</span>
-            <a class="pg-title-link" href="/playground/projects/breakupwithplastic.html" data-text="#breakUpWithPlastic"></a>
+            <a class="pg-title-link" href="projects/breakupwithplastic.html" data-text="#breakUpWithPlastic"></a>
         </li>
 
-        <li class="pg-row" data-project="tune" data-thumb="/playground/images/tune/front_stand.jpg">
+        <li class="pg-row" data-thumb="images/tune/front_stand.jpg">
             <span class="pg-meta">2021 / Graphic Design</span>
-            <a class="pg-title-link" href="/playground/projects/tune.html" data-text="Tune"></a>
+            <a class="pg-title-link" href="projects/tune.html" data-text="Tune"></a>
         </li>
 
-        <li class="pg-row" data-project="cerealbox" data-thumb="/playground/images/cerealbox/cerealthumb.png">
+        <li class="pg-row" data-thumb="images/cerealbox/cerealthumb.png">
             <span class="pg-meta">2021 / Graphic Design</span>
-            <a class="pg-title-link" href="/playground/projects/cerealbox.html" data-text="A Cereal Box"></a>
+            <a class="pg-title-link" href="projects/cerealbox.html" data-text="A Cereal Box"></a>
         </li>
 
-        <li class="pg-row" data-project="lp" data-thumb="/playground/images/lime_devo/devothumb.png">
+        <li class="pg-row" data-thumb="images/lime_devo/devothumb.png">
             <span class="pg-meta">2021 / Graphic Design</span>
-            <a class="pg-title-link" href="/playground/projects/lp_limedevo.html" data-text="LP Cover Design"></a>
+            <a class="pg-title-link" href="projects/lp_limedevo.html" data-text="LP Cover Design"></a>
         </li>
 
-        <li class="pg-row" data-project="dubois" data-thumb="/playground/images/dubois/thumbnail.png">
+        <li class="pg-row" data-thumb="images/dubois/thumbnail.png">
             <span class="pg-meta">2018 / Graphic Design</span>
-            <a class="pg-title-link" href="/playground/projects/dubois.html" data-text="DuBois"></a>
+            <a class="pg-title-link" href="projects/dubois.html" data-text="DuBois"></a>
         </li>
 
-        <li class="pg-row" data-project="breathe" data-thumb="/playground/images/breathe/Screenshot 2022-01-11 at 15.36.23.png">
+        <li class="pg-row" data-thumb="images/breathe/Screenshot 2022-01-11 at 15.36.23.png">
             <span class="pg-meta">2021 / Speculative</span>
-            <a class="pg-title-link" href="/playground/projects/breathe.html" data-text="Breathe"></a>
+            <a class="pg-title-link" href="projects/breathe.html" data-text="Breathe"></a>
         </li>
 
-        <li class="pg-row" data-project="fanfare" data-thumb="/playground/images/fanfare/5715_edit.png">
+        <li class="pg-row" data-thumb="images/fanfare/5715_edit.png">
             <span class="pg-meta">2021 / Exhibition</span>
-            <a class="pg-title-link" href="/playground/projects/fanfare.html" data-text="Typographic Kitchen"></a>
+            <a class="pg-title-link" href="projects/fanfare.html" data-text="Typographic Kitchen"></a>
         </li>
 
-        <li class="pg-row" data-project="chaos" data-thumb="/playground/images/Chaos/thumbnail.jpg">
+        <li class="pg-row" data-thumb="images/Chaos/thumbnail.jpg">
             <span class="pg-meta">2018 / Exhibition</span>
-            <a class="pg-title-link" href="/playground/projects/chaos.html" data-text="Chaos"></a>
+            <a class="pg-title-link" href="projects/chaos.html" data-text="Chaos"></a>
         </li>
 
     </ol>
 </div>
-
-<!-- Window layer -->
-<div id="win-layer" aria-live="polite"></div>
 
 <!-- Hover thumbnail -->
 <div id="pg-thumb"><img id="pg-thumb-img" src="" alt=""></div>
@@ -578,366 +311,17 @@
 (function () {
     'use strict';
 
-    /* ────────────────────────────────────────
-       PROJECT DATA
-    ──────────────────────────────────────── */
-    const PROJECTS = {
-
-        thesis: {
-            title: 'Designing for low self-esteem',
-            year: '2021', category: 'Thesis',
-            href: '/playground/projects/thesis.html',
-            winClass: 'win-text-narrow',
-            layout: 'text',
-            leadImage: '/playground/images/thesis/lamp.png',
-            body: `
-                <p>Experiences of low self-esteem are often associated with a growing tendency to perform in social contexts — at school, at work, on social media.</p>
-                <p>This thesis explored how a digital artifact could be designed with greater ethical responsibility towards the user's emotional experience, investigating whether specific design features contribute to low self-esteem.</p>
-                <strong>How can we assist young women in practising self-appreciation through a digital artifact, and how can this improve their self-esteem and happiness long-term?</strong>
-                <p>We applied methods grounded in design research: a four-week cultural probe deployed with five young women in Denmark, followed by a participatory workshop. This led to design arguments grounded in empirical data, supported by a design workbook.</p>
-            `,
-            collaborator: 'In collaboration with Anne Katrine Svejgaard Barrett.'
-        },
-
-        portable: {
-            title: 'Portable.',
-            year: '2021', category: 'Product Design',
-            href: '/playground/projects/portable.html',
-            winClass: 'win-gallery-wide',
-            layout: 'gallery',
-            desc: 'A board game designed to connect people in physical space — mechanics, visual identity, and social media campaign.',
-            images: [
-                '/playground/images/portable/thumbnail.png',
-                '/playground/images/portable/Artboard 10.png',
-                '/playground/images/portable/Artboard 11.png',
-                '/playground/images/portable/Artboard 12 copy 2.png',
-            ]
-        },
-
-        mikkeller: {
-            title: 'Mikkeller Brewery',
-            year: '2020', category: 'Product Design',
-            href: '/playground/projects/mikkeller.html',
-            winClass: 'win-gallery-wide',
-            layout: 'gallery',
-            desc: 'UX research and interface redesign for Mikkeller Brewery — exploring how to make craft beer culture more accessible digitally.',
-            images: [
-                '/playground/images/mikkeller/thumbnail.png',
-                '/playground/images/mikkeller/beerpage.png',
-                '/playground/images/mikkeller/prototype_1.png',
-                '/playground/images/mikkeller/prototype_2.png',
-            ]
-        },
-
-        skiveteater: {
-            title: 'Skive Theater',
-            year: '2021', category: 'Branding',
-            href: '/playground/projects/skiveteater.html',
-            winClass: 'win-gallery-wide',
-            layout: 'gallery',
-            desc: 'Brand identity and poster series for Skive Theater — a local theatre in Skive Municipality.',
-            images: [
-                '/playground/images/teater/12.jpg',
-                '/playground/images/teater/13.jpg',
-                '/playground/images/teater/14.jpg',
-                '/playground/images/teater/15.jpg',
-            ]
-        },
-
-        ecodistricts: {
-            title: 'EcoDistricts',
-            year: '2018', category: 'Branding',
-            href: '/playground/projects/ecodistricts.html',
-            winClass: 'win-gallery-wide',
-            layout: 'gallery',
-            desc: 'Information design and brochure system for EcoDistricts — translating sustainability frameworks into readable print material.',
-            images: [
-                '/playground/images/EcoDistricts/thumbnail.png',
-                '/playground/images/EcoDistricts/Emily_Brochure2.png',
-                '/playground/images/EcoDistricts/Emily_Brochure3.png',
-                '/playground/images/EcoDistricts/Emily_Brochure4.png',
-            ]
-        },
-
-        multivitamin: {
-            title: 'Information Redesign',
-            year: '2018', category: 'Branding',
-            href: '/playground/projects/multivitamin.html',
-            winClass: '',
-            layout: 'gallery',
-            desc: 'Redesigning dense informational content into clear, accessible visual communication.',
-            images: [
-                '/playground/images/informationdesign/thumbnail.png',
-                '/playground/images/informationdesign/Project 1 - Process Book.png',
-                '/playground/images/informationdesign/Project 1 - Process Book2.png',
-            ]
-        },
-
-        breakupwithplastic: {
-            title: '#breakUpWithPlastic',
-            year: '2018', category: 'Campaign',
-            href: '/playground/projects/breakupwithplastic.html',
-            winClass: 'win-gallery-wide',
-            layout: 'gallery',
-            desc: 'Campaign design raising awareness about single-use plastic — visual identity, process documentation, and advocacy materials.',
-            images: [
-                '/playground/images/breakupwithplastic/thumbnail.png',
-                '/playground/images/breakupwithplastic/Processbook.png',
-                '/playground/images/breakupwithplastic/Processbook2.png',
-            ]
-        },
-
-        tune: {
-            title: 'Tune',
-            year: '2021', category: 'Graphic Design',
-            href: '/playground/projects/tune.html',
-            winClass: 'win-gallery-wide',
-            layout: 'gallery',
-            desc: 'A graphic design publication portraying a curated collection of songs through typography, image, and tactile book design.',
-            images: [
-                '/playground/images/tune/front_stand.jpg',
-                '/playground/images/tune/front_stack.jpg',
-                '/playground/images/tune/back.jpg',
-                '/playground/images/tune/front_far.jpg',
-            ]
-        },
-
-        cerealbox: {
-            title: 'A Cereal Box',
-            year: '2021', category: 'Graphic Design',
-            href: '/playground/projects/cerealbox.html',
-            winClass: '',
-            layout: 'gallery',
-            desc: 'Packaging redesign — rethinking how a familiar everyday object communicates personality and information.',
-            images: [
-                '/playground/images/cerealbox/cerealthumb.png',
-                '/playground/images/cerealbox/back-100.jpg',
-                '/playground/images/cerealbox/cerealbox2-03.png',
-            ]
-        },
-
-        lp: {
-            title: 'LP Cover Design',
-            year: '2021', category: 'Graphic Design',
-            href: '/playground/projects/lp_limedevo.html',
-            winClass: '',
-            layout: 'gallery',
-            desc: 'Vinyl LP cover design for Lime Devo — front, back, and inner sleeve.',
-            images: [
-                '/playground/images/lime_devo/devothumb.png',
-                '/playground/images/lime_devo/back.png',
-                '/playground/images/lime_devo/front.png',
-            ]
-        },
-
-        dubois: {
-            title: 'DuBois',
-            year: '2018', category: 'Graphic Design',
-            href: '/playground/projects/dubois.html',
-            winClass: '',
-            layout: 'gallery',
-            desc: 'Typography and graphic design project.',
-            images: [
-                '/playground/images/dubois/thumbnail.png',
-            ]
-        },
-
-        breathe: {
-            title: 'Breathe',
-            year: '2021', category: 'Speculative Design',
-            href: '/playground/projects/breathe.html',
-            winClass: 'win-text-narrow',
-            layout: 'gallery',
-            desc: 'Selling air. A speculative design film exploring value, scarcity, and the commodification of nature.',
-            images: [
-                '/playground/images/breathe/Screenshot 2022-01-11 at 15.36.23.png',
-            ]
-        },
-
-        fanfare: {
-            title: 'Typographic Kitchen',
-            year: '2021', category: 'Exhibition',
-            href: '/playground/projects/fanfare.html',
-            winClass: 'win-gallery-wide',
-            layout: 'gallery',
-            desc: 'Typographic exhibition at Krabbesholm Højskole — exploring letterform, texture, and spatial typography.',
-            images: [
-                '/playground/images/fanfare/5715_edit.png',
-                '/playground/images/fanfare/5717_edit.png',
-                '/playground/images/fanfare/Aa.png',
-            ]
-        },
-
-        chaos: {
-            title: 'Chaos',
-            year: '2018', category: 'Exhibition',
-            href: '/playground/projects/chaos.html',
-            winClass: 'win-gallery-wide',
-            layout: 'gallery',
-            desc: 'Interactive exhibition design — material exploration, construction, and spatial installation.',
-            images: [
-                '/playground/images/Chaos/thumbnail.jpg',
-                '/playground/images/Chaos/exhibition1.jpg',
-                '/playground/images/Chaos/construction1.png',
-            ]
-        },
-    };
-
-    /* ────────────────────────────────────────
-       WINDOW SYSTEM
-    ──────────────────────────────────────── */
-    const winLayer = document.getElementById('win-layer');
-    let zTop = 10;
-    let spawnCount = 0;
-    const openWindows = new Map(); // key → el
-
-    function spawnWindow(key) {
-        if (openWindows.has(key)) {
-            bringToFront(openWindows.get(key));
-            return;
-        }
-        const p = PROJECTS[key];
-        if (!p) return;
-
-        const win = document.createElement('div');
-        win.className = 'macos-win' + (p.winClass ? ' ' + p.winClass : '');
-        win.style.zIndex = ++zTop;
-
-        // Cascade position
-        const cascade = (spawnCount % 9) * 28;
-        const winW = p.winClass === 'win-gallery-wide' ? 780 :
-                     p.winClass === 'win-text-narrow'  ? 600 : 680;
-        const startL = Math.max(16, (window.innerWidth  - winW) / 2 - 30 + cascade);
-        const startT = Math.max(16, (window.innerHeight - 520) / 2 - 60 + cascade);
-        win.style.left = startL + 'px';
-        win.style.top  = startT + 'px';
-
-        win.innerHTML = buildHTML(p);
-        winLayer.appendChild(win);
-        openWindows.set(key, win);
-        spawnCount++;
-
-        win.querySelector('.win-close').addEventListener('click', () => closeWindow(key, win));
-        win.querySelector('.win-min').addEventListener('click', () => { /* noop for now */ });
-        win.querySelector('.win-max').addEventListener('click', () => { /* noop for now */ });
-        win.addEventListener('mousedown', () => bringToFront(win));
-        makeDraggable(win);
-    }
-
-    function closeWindow(key, win) {
-        win.classList.add('closing');
-        win.addEventListener('animationend', () => {
-            win.remove();
-            openWindows.delete(key);
-        }, { once: true });
-    }
-
-    function bringToFront(win) {
-        win.style.zIndex = ++zTop;
-    }
-
-    function makeDraggable(win) {
-        const bar = win.querySelector('.win-titlebar');
-        let dragging = false, ox = 0, oy = 0;
-
-        bar.addEventListener('mousedown', e => {
-            if (e.target.closest('.win-controls')) return;
-            dragging = true;
-            const r = win.getBoundingClientRect();
-            ox = e.clientX - r.left;
-            oy = e.clientY - r.top;
-            win.style.transition = 'none';
-            bringToFront(win);
-            e.preventDefault();
-        });
-
-        document.addEventListener('mousemove', e => {
-            if (!dragging) return;
-            const nx = e.clientX - ox;
-            const ny = e.clientY - oy;
-            win.style.left = Math.max(-win.offsetWidth + 80, Math.min(window.innerWidth - 80, nx)) + 'px';
-            win.style.top  = Math.max(0, Math.min(window.innerHeight - 28, ny)) + 'px';
-        });
-
-        document.addEventListener('mouseup', () => { dragging = false; });
-    }
-
-    /* ── HTML builder ── */
-    function buildHTML(p) {
-        const controls = `
-            <div class="win-titlebar">
-                <div class="win-controls">
-                    <span class="win-btn win-close" title="Close"></span>
-                    <span class="win-btn win-min"   title="Minimise"></span>
-                    <span class="win-btn win-max"   title="Expand"></span>
-                </div>
-                <div class="win-title">${p.title}</div>
-                <div class="win-title-spacer"></div>
-            </div>`;
-
-        let body = '';
-        if (p.layout === 'text') {
-            body = renderText(p);
-        } else if (p.layout === 'gallery') {
-            body = renderGallery(p);
-        } else {
-            body = renderSkeleton(p);
-        }
-
-        return controls + `<div class="win-body">${body}</div>`;
-    }
-
-    function renderText(p) {
-        const lead = p.leadImage
-            ? `<div class="win-lead-img"><img src="${p.leadImage}" alt="${p.title}" loading="lazy"></div>`
-            : '';
-        const collab = p.collaborator
-            ? `<p class="win-collaborator">${p.collaborator}</p>` : '';
-        return `
-            ${lead}
-            <div class="win-meta">${p.year} / ${p.category}</div>
-            <h2 class="win-h2">${p.title}</h2>
-            <div class="win-text">${p.body}</div>
-            ${collab}
-            <a class="win-fallback" href="${p.href}" target="_blank">View full page ↗</a>
-        `;
-    }
-
-    function renderGallery(p) {
-        const imgs = (p.images || []).map(src =>
-            `<div class="win-gallery-item"><img src="${src}" alt="" loading="lazy"></div>`
-        ).join('');
-        const desc = p.desc ? `<p class="win-desc">${p.desc}</p>` : '';
-        return `
-            <div class="win-meta">${p.year} / ${p.category}</div>
-            <h2 class="win-h2">${p.title}</h2>
-            ${desc}
-            <div class="win-gallery">${imgs}</div>
-            <a class="win-fallback" href="${p.href}" target="_blank">View full page ↗</a>
-        `;
-    }
-
-    function renderSkeleton(p) {
-        return `
-            <div class="win-skeleton-block"></div>
-            <div class="win-meta">${p.year} / ${p.category}</div>
-            <h2 class="win-h2">${p.title}</h2>
-            <p class="win-desc win-placeholder">Being documented — check back soon.</p>
-            <a class="win-fallback" href="${p.href}" target="_blank">View full page ↗</a>
-        `;
-    }
-
-    /* Wire row clicks */
+    /* ── Row clicks → navigate ── */
     document.querySelectorAll('.pg-row').forEach(row => {
         row.addEventListener('click', e => {
-            e.preventDefault();
-            spawnWindow(row.dataset.project);
+            const link = row.querySelector('.pg-title-link');
+            if (link && !e.target.closest('a')) {
+                window.location.href = link.getAttribute('href');
+            }
         });
     });
 
-    /* ────────────────────────────────────────
-       TYPEWRITER
-    ──────────────────────────────────────── */
+    /* ── Typewriter ── */
     const SPEED = 32;
 
     function typeText(el, text) {
@@ -987,15 +371,13 @@
     rows.forEach(r => observer.observe(r));
     setTimeout(initVisible, 80);
 
-    /* ────────────────────────────────────────
-       HOVER THUMBNAIL
-    ──────────────────────────────────────── */
+    /* ── Hover thumbnail ── */
     const thumb    = document.getElementById('pg-thumb');
     const thumbImg = document.getElementById('pg-thumb-img');
     const TW = 222, TH = 162, OFF = 26;
 
     document.addEventListener('mousemove', e => {
-        const x = (e.clientX + OFF + TW > window.innerWidth)  ? e.clientX - OFF - TW : e.clientX + OFF;
+        const x = (e.clientX + OFF + TW > window.innerWidth) ? e.clientX - OFF - TW : e.clientX + OFF;
         const y = Math.max(0, Math.min(window.innerHeight - TH, e.clientY - TH / 2));
         thumb.style.transform = `translate(${x}px,${y}px)`;
     });
@@ -1006,6 +388,55 @@
         });
         row.addEventListener('mouseleave', () => thumb.classList.remove('visible'));
     });
+
+    /* ── Pixel trail ── */
+    (function() {
+        const canvas = document.getElementById('cursor-canvas');
+        const ctx = canvas.getContext('2d');
+        let W, H;
+        function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
+        const PALETTE_LIGHT = ['#000000','#000000','#000000','#000000','#0000ff','#ff4500'];
+        const PALETTE_DARK  = ['#ffffff','#ffffff','#ffffff','#e0e0ff','#0000ff','#ff4500'];
+
+        let pixels = [], lastX = null, lastY = null;
+        document.addEventListener('mousemove', e => {
+            const x = e.clientX, y = e.clientY;
+            const spd = lastX != null ? Math.hypot(x - lastX, y - lastY) : 0;
+            const n = Math.min(4, Math.ceil(spd / 6));
+            const pal = isDark() ? PALETTE_DARK : PALETTE_LIGHT;
+            for (let i = 0; i < n; i++) {
+                pixels.push({ x: x + (Math.random()-0.5)*8, y: y + (Math.random()-0.5)*8, s: 4, alpha: 0.85, color: pal[Math.floor(Math.random()*pal.length)] });
+            }
+            lastX = x; lastY = y;
+        });
+        (function draw() {
+            ctx.clearRect(0,0,W,H);
+            for (let i = pixels.length-1; i >= 0; i--) {
+                const p = pixels[i]; p.alpha -= 0.045;
+                if (p.alpha <= 0) { pixels.splice(i,1); continue; }
+                ctx.globalAlpha = p.alpha; ctx.fillStyle = p.color;
+                ctx.fillRect(Math.round(p.x), Math.round(p.y), p.s, p.s);
+            }
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(draw);
+        })();
+    })();
+
+    /* ── Dark mode toggle ── */
+    (function() {
+        const btn = document.getElementById('theme-btn');
+        const html = document.documentElement;
+        function getTheme() {
+            return html.getAttribute('data-theme') ||
+                (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        }
+        function setTheme(t) { html.setAttribute('data-theme', t); localStorage.setItem('theme', t); }
+        btn.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+    })();
 
 }());
 </script>

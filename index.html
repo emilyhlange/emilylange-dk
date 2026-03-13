@@ -19,529 +19,534 @@
     </script>
 
     <style>
+        /* ── Variables ── */
+        :root {
+            --bg: #F6F6F6;
+            --fg: #000;
+            --fg-dim: #888;
+            --border: rgba(0,0,0,0.12);
+            --topbar-bg: rgba(246,246,246,0.85);
+            --topbar-fg: #000;
+            --card-bg: #fff;
+            --card-shadow: rgba(0,0,0,0.08);
+        }
+        [data-theme="dark"] {
+            --bg: #111;
+            --fg: #f0f0ee;
+            --fg-dim: #666;
+            --border: rgba(255,255,255,0.1);
+            --topbar-bg: rgba(13,13,13,0.88);
+            --topbar-fg: #f0f0ee;
+            --card-bg: #1a1a1a;
+            --card-shadow: rgba(0,0,0,0.4);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html, body {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: #F6F6F6;
-            color: #fff;
+            background: var(--bg);
+            color: var(--fg);
             font-family: Arial, Helvetica, sans-serif;
             font-size: 11px;
             line-height: 1.5;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        @keyframes color-change {
+            0%   { color: var(--fg, black); }
+            50%  { color: blue; }
+            100% { color: var(--fg, black); }
         }
 
         /* ── Intro overlay ── */
         #intro {
             position: fixed;
             inset: 0;
-            background: #0d0d0d;
+            background: var(--bg);
             z-index: 9000;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.7s ease;
+            transition: opacity 0.6s ease;
         }
         #intro.fade-out { opacity: 0; pointer-events: none; }
         #intro-text {
             font-size: 13px;
             letter-spacing: 0.04em;
-            color: rgba(255,255,255,0.85);
+            color: var(--fg);
+            font-family: Arial, Helvetica, sans-serif;
+            animation: color-change 20s infinite;
         }
         #intro-cursor {
             display: inline-block;
             width: 1px;
             height: 13px;
-            background: rgba(255,255,255,0.7);
+            background: var(--fg);
             margin-left: 2px;
             vertical-align: middle;
             animation: blink 0.7s step-end infinite;
         }
         @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
 
-        /* ── Fixed topbar — frosted dark glass ── */
-        .pg-topbar {
+        /* ── Grain overlay ── */
+        .grain {
+            position: fixed;
+            inset: -20%;
+            width: 140%;
+            height: 140%;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.038;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+            animation: grain-drift 0.18s steps(1) infinite;
+        }
+        @keyframes grain-drift {
+            0%  { background-position:   0%   0%; }
+            10% { background-position: -5%  -10%; }
+            20% { background-position: -15%   5%; }
+            30% { background-position:  7%  -25%; }
+            40% { background-position: -5%  25%; }
+            50% { background-position: -15%  10%; }
+            60% { background-position:  15% -25%; }
+            70% { background-position:  0%   15%; }
+            80% { background-position:  3%   35%; }
+            90% { background-position: -18%  10%; }
+           100% { background-position:  0%  -20%; }
+        }
+
+        /* ── Pixel trail canvas ── */
+        #trail-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        /* ── Topbar ── */
+        .pg-nav {
             position: fixed;
             top: 0; left: 0; right: 0;
             height: 32px;
-            background: rgba(10,10,10,0.72);
-            backdrop-filter: blur(14px) saturate(1.2);
-            -webkit-backdrop-filter: blur(14px) saturate(1.2);
-            border-bottom: 1px solid rgba(255,255,255,0.07);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 18px;
-            z-index: 110;
+            padding: 0 16px;
             font-size: 11px;
-            color: rgba(255,255,255,0.75);
+            background: var(--topbar-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 200;
+            color: var(--topbar-fg);
         }
-        .pg-topbar a { color: inherit; text-decoration: none; }
-        .pg-topbar a:hover { color: orangered; }
-        .pg-topbar .nav-right { display: flex; align-items: center; gap: 10px; }
-        .pg-topbar .nav-sep { opacity: 0.25; }
-
-        /* Dark mode toggle */
+        .pg-nav a { color: inherit; text-decoration: none; }
+        .pg-nav a:hover { color: orangered; }
+        .nav-sep { opacity: 0.35; margin: 0 6px; }
+        .nav-current { font-weight: bold; }
+        .nav-right { display: flex; align-items: center; gap: 0; }
         #theme-btn {
             background: none;
             border: none;
             cursor: pointer;
-            font-family: inherit;
-            font-size: 11px;
-            color: inherit;
-            opacity: 0.5;
-            padding: 0;
-            transition: opacity 0.15s;
+            font-size: 13px;
+            color: var(--topbar-fg);
+            padding: 0 6px;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.2s;
         }
-        #theme-btn:hover { opacity: 1; color: orangered; }
+        #theme-btn:hover { opacity: 1; }
 
-        /* ── Canvas — pixel cursor trail ── */
-        #cursor-canvas {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 7;
-        }
-
-        /* ── Grain ── */
-        .grain {
-            position: fixed;
-            inset: -40%;
-            width: 180%;
-            height: 180%;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-            background-size: 200px 200px;
-            opacity: 0.05;
-            pointer-events: none;
-            z-index: 6;
-            animation: grain-drift 0.18s steps(1) infinite;
-        }
-        @keyframes grain-drift {
-            0%  { transform: translate(0,0);     }  10% { transform: translate(-3%,-4%); }
-            20% { transform: translate(4%,3%);   }  30% { transform: translate(-2%,5%);  }
-            40% { transform: translate(5%,-2%);  }  50% { transform: translate(-4%,1%);  }
-            60% { transform: translate(2%,-5%);  }  70% { transform: translate(-5%,3%);  }
-            80% { transform: translate(3%,4%);   }  90% { transform: translate(-1%,-3%); }
-            100%{ transform: translate(0,0);     }
-        }
-
-        /* ── Collage — project images behind the overlay ── */
-        .collage {
-            position: fixed;
-            inset: 0;
-            z-index: 2;
-            pointer-events: none;
-        }
-        .collage-item {
-            position: absolute;
-            display: block;
-        }
-        .collage-item img,
-        .collage-item video {
-            display: block;
-            pointer-events: none;
-        }
-
-        /* ── Morphing blob ── */
-        #blob {
-            position: fixed;
-            width: 680px;
-            height: 680px;
-            background: radial-gradient(ellipse at center,
-                rgba(60,80,255,0.18) 0%,
-                rgba(40,60,255,0.07) 40%,
-                transparent 70%);
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            pointer-events: none;
-            z-index: 3;
-            animation: blob-morph 13s ease-in-out infinite;
-            filter: blur(50px);
-        }
-        @keyframes blob-morph {
-            0%,100%{ border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-            16%    { border-radius: 58% 42% 28% 72% / 44% 64% 36% 56%; }
-            33%    { border-radius: 76% 24% 55% 45% / 56% 28% 72% 44%; }
-            50%    { border-radius: 42% 58% 38% 62% / 66% 42% 58% 34%; }
-            66%    { border-radius: 24% 76% 62% 38% / 38% 72% 28% 62%; }
-            82%    { border-radius: 55% 45% 30% 70% / 52% 36% 64% 48%; }
-        }
-
-        /* ── Reveal overlay — spotlight cut-out ── */
-        #reveal-overlay {
-            position: fixed;
-            inset: 0;
-            background: #0d0d0d;
-            z-index: 4;
-            pointer-events: none;
-            transition: --cx 0s, --cy 0s;
-            -webkit-mask-image: radial-gradient(
-                circle 200px at var(--cx, -400px) var(--cy, -400px),
-                transparent 0%,
-                rgba(0,0,0,0.65) 60%,
-                black 100%
-            );
-            mask-image: radial-gradient(
-                circle 200px at var(--cx, -400px) var(--cy, -400px),
-                transparent 0%,
-                rgba(0,0,0,0.65) 60%,
-                black 100%
-            );
-        }
-
-        /* ── Hero text ── */
+        /* ── Hero ── */
         .hero {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 50;
             text-align: center;
+            z-index: 10;
             pointer-events: none;
         }
-        .hero-name {
-            font-size: 28px;
-            font-weight: 400;
-            color: rgba(255,255,255,0.9);
-            letter-spacing: -0.01em;
-            line-height: 1.2;
+        .hero h1 {
+            font-size: clamp(22px, 3.5vw, 42px);
+            font-weight: normal;
+            letter-spacing: 0.01em;
+            color: var(--fg);
+            animation: color-change 20s infinite;
+            line-height: 1.15;
         }
-        .hero-role {
+        .hero .role {
             font-size: 10px;
-            color: rgba(255,255,255,0.35);
-            margin-top: 10px;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
+            color: var(--fg-dim);
+            margin-top: 8px;
         }
-        .hero-cta {
-            margin-top: 28px;
+        .hero .cta {
+            margin-top: 24px;
             display: flex;
-            gap: 0;
+            gap: 12px;
             justify-content: center;
             pointer-events: all;
         }
-        .btn {
-            font-family: Arial, Helvetica, sans-serif;
+        .cta-btn {
+            display: inline-block;
             font-size: 11px;
-            font-weight: 400;
-            color: rgba(255,255,255,0.7);
+            padding: 7px 16px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--fg);
             text-decoration: none;
-            padding: 8px 18px;
-            border: 1px solid rgba(255,255,255,0.18);
-            background: rgba(255,255,255,0.05);
+            letter-spacing: 0.06em;
+            transition: background 0.18s, color 0.18s, border-color 0.18s;
             cursor: pointer;
-            white-space: nowrap;
-            transition: background 0.15s, color 0.15s, border-color 0.15s;
-            display: block;
-            backdrop-filter: blur(4px);
         }
-        .btn:first-child { border-radius: 4px 0 0 4px; }
-        .btn:last-child  { border-radius: 0 4px 4px 0; border-left: none; }
-        .btn:hover {
-            background: rgba(255,255,255,0.12);
-            color: #fff;
-            border-color: rgba(255,255,255,0.35);
+        .cta-btn:hover {
+            background: var(--fg);
+            color: var(--bg);
+            border-color: var(--fg);
         }
-        .btn--primary {
-            background: rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.85);
-            border-color: rgba(255,255,255,0.28);
-        }
-        .btn--primary:hover {
-            background: rgba(255,255,255,0.18);
-            color: #fff;
-        }
-        .btn[data-tooltip] { position: relative; }
-        .btn[data-tooltip]::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: calc(100% + 6px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.15);
-            backdrop-filter: blur(6px);
-            color: rgba(255,255,255,0.7);
-            font-size: 10px;
-            white-space: nowrap;
-            padding: 4px 8px;
-            border-radius: 4px;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.15s;
-        }
-        .btn[data-tooltip]:hover::after { opacity: 1; }
 
-        /* ── Corner overlays ── */
-        .corner {
+        /* ── Scattered cards ── */
+        #cards-field {
             position: fixed;
-            z-index: 100;
+            inset: 32px 0 0;
+            z-index: 5;
+            pointer-events: none;
         }
-        .corner--tr { top: 50px; right: 18px; text-align: right; }
-        .corner--bl { bottom: 18px; left: 18px; }
-        .corner--br { bottom: 18px; right: 18px; text-align: right; }
-        .corner p, .corner a {
-            font-size: 10px;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.32);
-            text-decoration: none;
+        .work-card {
+            position: absolute;
+            width: 160px;
+            pointer-events: all;
+            cursor: pointer;
+            will-change: transform;
+            transition: box-shadow 0.2s;
         }
-        .corner a:hover { color: orangered; }
-        .corner .label {
-            font-size: 9px;
+        .work-card .card-img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
             display: block;
-            margin-bottom: 2px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: rgba(255,255,255,0.18);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
         }
+        .work-card .card-label {
+            display: block;
+            font-size: 10px;
+            color: var(--fg-dim);
+            padding: 5px 2px 0;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .work-card:hover .card-label { opacity: 1; }
+        .work-card:hover .card-img {
+            border-color: var(--fg);
+            box-shadow: 0 4px 20px var(--card-shadow);
+        }
+
+        /* Card entrance animation */
+        @keyframes card-in {
+            from { opacity: 0; transform: translateY(18px) rotate(var(--base-r)); }
+            to   { opacity: 1; transform: translateY(0) rotate(var(--base-r)); }
+        }
+        .work-card {
+            opacity: 0;
+        }
+        .work-card.visible {
+            animation: card-in 0.5s ease forwards;
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: blue; border-radius: 0; }
     </style>
 </head>
 <body>
 
-<!-- ── Intro ── -->
+<!-- Intro overlay -->
 <div id="intro">
     <span id="intro-text"></span><span id="intro-cursor"></span>
 </div>
 
-<!-- ── Topbar ── -->
-<nav class="pg-topbar">
-    <div class="nav-left">emily howkins lange</div>
+<!-- Grain -->
+<div class="grain"></div>
+
+<!-- Pixel trail canvas -->
+<canvas id="trail-canvas"></canvas>
+
+<!-- Topbar -->
+<nav class="pg-nav">
+    <div class="nav-left">
+        <span class="nav-current">home</span>
+        <span class="nav-sep">·</span>
+        <a href="portfolio/">portfolio</a>
+        <span class="nav-sep">|</span>
+        <a href="playground/">playground</a>
+    </div>
     <div class="nav-right">
-        <button id="theme-btn" aria-label="Toggle colour mode">◐</button>
+        <button id="theme-btn" title="Toggle dark mode">◐</button>
         <span class="nav-sep">·</span>
-        <a href="/portfolio/index.html">portfolio ↗</a>
-        <span class="nav-sep">·</span>
-        <a href="/playground/index.html">playground ↗</a>
+        <span>Emily Howkins Lange</span>
     </div>
 </nav>
 
-<!-- ── Pixel trail canvas ── -->
-<canvas id="cursor-canvas"></canvas>
-
-<!-- ── Grain ── -->
-<div class="grain" aria-hidden="true"></div>
-
-<!-- ── Blob ── -->
-<div id="blob"></div>
-
-<!-- ── Image collage (revealed by spotlight) ── -->
-<div class="collage" aria-hidden="true">
-    <!-- Top-left: chaos -->
-    <div class="collage-item" style="top:8%; left:3%; transform:rotate(-2.5deg);">
-        <img src="/playground/images/Chaos/exhibition2.jpg" height="210" alt="">
-    </div>
-    <!-- Top-right: tune -->
-    <div class="collage-item" style="top:6%; right:6%; transform:rotate(1.8deg);">
-        <video src="/playground/images/tune/front_stand.mp4" height="260" autoplay muted loop></video>
-    </div>
-    <!-- Mid-left: portable -->
-    <div class="collage-item" style="top:42%; left:7%; transform:rotate(1.2deg);">
-        <img src="/playground/images/portable/shoot1.jpg" height="180" alt="">
-    </div>
-    <!-- Mid-right: breathe -->
-    <div class="collage-item" style="top:38%; right:4%; transform:rotate(-1.6deg);">
-        <video src="/playground/images/breathe/breathe_final.mp4" height="195" autoplay muted loop></video>
-    </div>
-    <!-- Bottom: thesis -->
-    <div class="collage-item" style="bottom:6%; left:50%; transform:translateX(-50%) rotate(0.8deg);">
-        <img src="/playground/images/thesis/lamp.png" height="195" alt="">
-    </div>
-    <!-- Extra: chaos prototyping -->
-    <div class="collage-item" style="bottom:10%; left:3%; transform:rotate(-1.2deg);">
-        <img src="/playground/images/Chaos/exhibition1.jpg" height="145" alt="">
-    </div>
-    <!-- Extra: portable wall -->
-    <div class="collage-item" style="bottom:8%; right:5%; transform:rotate(2deg);">
-        <img src="/playground/images/portable/wall2.jpg" height="155" alt="">
-    </div>
-</div>
-
-<!-- ── Reveal overlay ── -->
-<div id="reveal-overlay"></div>
-
-<!-- ── Hero text ── -->
+<!-- Hero -->
 <div class="hero">
-    <p class="hero-name">Emily Howkins Lange</p>
-    <p class="hero-role">Product Designer &nbsp;·&nbsp; Design Systems &nbsp;·&nbsp; Copenhagen</p>
-    <div class="hero-cta">
-        <a href="/portfolio/index.html" class="btn btn--primary" data-tooltip="case studies & CV">Portfolio ↗</a>
-        <a href="/playground/index.html" class="btn" data-tooltip="experiments & personal projects">Playground ↗</a>
+    <h1 id="hero-name">&nbsp;</h1>
+    <p class="role">designer &nbsp;·&nbsp; developer</p>
+    <div class="cta">
+        <a href="portfolio/" class="cta-btn">portfolio →</a>
+        <a href="playground/" class="cta-btn">playground →</a>
     </div>
 </div>
 
-<!-- ── Corners ── -->
-<div class="corner corner--tr">
-    <p>move to discover</p>
-</div>
-<div class="corner corner--bl">
-    <span class="label">contact</span>
-    <a href="mailto:emilyhowkinslange@gmail.com">emilyhowkinslange@gmail.com</a><br>
-    <a href="https://www.linkedin.com/in/emilyhowkinslange/" target="_blank">linkedin/emilyhowkinslange</a>
-</div>
-<div class="corner corner--br">
-    <p>Open to new opportunities</p>
-</div>
+<!-- Scattered work cards -->
+<div id="cards-field"></div>
 
 <script>
-/* ══════════════════════════════════════════════
-   INTRO — types name, then dissolves
-══════════════════════════════════════════════ */
-(function () {
-    const intro  = document.getElementById('intro');
-    const textEl = document.getElementById('intro-text');
-    const NAME   = 'emily howkins lange';
+// ── Card data ──────────────────────────────────────────
+const CARDS = [
+    { img: 'playground/images/breakupwithplastic/thumbnail.png', title: 'Break Up With Plastic', link: 'playground/projects/breakupwithplastic.html', bx: 7,  by: 14, r: -7  },
+    { img: 'playground/images/Chaos/thumbnail.jpg',              title: 'Chaotic Motion',        link: 'playground/projects/chaos.html',            bx: 76, by: 10, r:  6  },
+    { img: 'playground/images/pornolampen/thumbnail.jpg',        title: 'The Porn Lamp',         link: 'playground/projects/pornolampen.html',      bx: 3,  by: 55, r: -5  },
+    { img: 'playground/images/dubois/thumbnail.png',             title: 'W.E.B. Du Bois',        link: 'playground/projects/dubois.html',           bx: 80, by: 58, r:  7  },
+    { img: 'playground/images/thesis/thumbnail.jpg',             title: 'Low Self-Esteem',       link: 'playground/projects/thesis.html',           bx: 12, by: 74, r: -3  },
+    { img: 'playground/images/EcoDistricts/thumbnail.png',       title: 'Eco Districts',         link: 'playground/projects/ecodistricts.html',     bx: 67, by: 75, r:  4  },
+    { img: 'playground/images/portable/thumbnail.png',           title: 'portable.',             link: 'playground/projects/portable.html',         bx: 43, by: 80, r: -6  },
+    { img: 'playground/images/timely_awareness/thumbnail.jpg',   title: 'Timely Awareness',      link: 'playground/projects/tune.html',             bx: 60, by: 8,  r:  3  },
+];
+
+// ── Build cards ─────────────────────────────────────────
+const field = document.getElementById('cards-field');
+const cardEls = [];
+
+CARDS.forEach((c, i) => {
+    const el = document.createElement('div');
+    el.className = 'work-card';
+    el.style.setProperty('--base-r', c.r + 'deg');
+    el.innerHTML = `
+        <img class="card-img" src="${c.img}" alt="${c.title}" loading="lazy" draggable="false">
+        <span class="card-label">${c.title}</span>
+    `;
+    el.addEventListener('click', () => { window.location.href = c.link; });
+    field.appendChild(el);
+
+    // Viewport-relative position (percentage)
+    const vw = window.innerWidth, vh = window.innerHeight - 32;
+    const startX = (c.bx / 100) * vw;
+    const startY = (c.by / 100) * vh;
+
+    cardEls.push({
+        el,
+        bx: startX,  // base X (px)
+        by: startY,  // base Y (px)
+        cx: startX,  // current X
+        cy: startY,  // current Y
+        vx: 0, vy: 0,// velocity
+        r: c.r,
+        floatOffset: i * 0.7 + Math.random() * 2,
+    });
+
+    el.style.left = startX + 'px';
+    el.style.top  = startY + 'px';
+    el.style.transform = `rotate(${c.r}deg)`;
+
+    // Staggered entrance
+    setTimeout(() => { el.classList.add('visible'); }, 600 + i * 80);
+});
+
+// ── Mouse tracking ──────────────────────────────────────
+let mx = -999, my = -999;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY - 32; });
+
+// ── Animation loop ──────────────────────────────────────
+let t = 0;
+function animateCards() {
+    t += 0.01;
+    const vw = window.innerWidth, vh = window.innerHeight - 32;
+
+    cardEls.forEach((card, i) => {
+        // Gentle floating offset (Lissajous-like)
+        const floatX = Math.sin(t * 0.6 + card.floatOffset) * 8;
+        const floatY = Math.cos(t * 0.45 + card.floatOffset * 1.3) * 6;
+
+        // Target = base + float
+        let tx = card.bx + floatX;
+        let ty = card.by + floatY;
+
+        // Cursor repulsion
+        const cardCX = card.cx + 80; // card center
+        const cardCY = card.cy + 60;
+        const dx = cardCX - mx;
+        const dy = cardCY - my;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const repelRadius = 180;
+
+        if (dist < repelRadius && dist > 1) {
+            const force = (repelRadius - dist) / repelRadius;
+            const push = force * force * 120;
+            tx += (dx / dist) * push;
+            ty += (dy / dist) * push;
+        }
+
+        // Lerp toward target (spring-like)
+        const ease = 0.06;
+        card.cx += (tx - card.cx) * ease;
+        card.cy += (ty - card.cy) * ease;
+
+        // Keep within viewport with padding
+        const pad = 10;
+        card.cx = Math.max(pad, Math.min(vw - 170, card.cx));
+        card.cy = Math.max(pad, Math.min(vh - 140, card.cy));
+
+        card.el.style.left = card.cx + 'px';
+        card.el.style.top  = card.cy + 'px';
+    });
+
+    requestAnimationFrame(animateCards);
+}
+animateCards();
+
+// Recalculate base positions on resize
+window.addEventListener('resize', () => {
+    const vw = window.innerWidth, vh = window.innerHeight - 32;
+    cardEls.forEach((card, i) => {
+        card.bx = (CARDS[i].bx / 100) * vw;
+        card.by = (CARDS[i].by / 100) * vh;
+    });
+});
+
+// ── Name scramble ────────────────────────────────────────
+const CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789-–.';
+const REAL_NAME = 'Emily Howkins Lange';
+const heroEl = document.getElementById('hero-name');
+
+function scrambleName() {
+    let iterations = 0;
+    const total = 18;
+    const interval = setInterval(() => {
+        heroEl.textContent = REAL_NAME.split('').map((ch, idx) => {
+            if (ch === ' ') return ' ';
+            if (idx < iterations) return ch;
+            return CHARS[Math.floor(Math.random() * CHARS.length)];
+        }).join('');
+        iterations += 0.4;
+        if (iterations >= REAL_NAME.length) {
+            heroEl.textContent = REAL_NAME;
+            clearInterval(interval);
+        }
+    }, 40);
+}
+
+// ── Intro sequence ──────────────────────────────────────
+const introEl   = document.getElementById('intro');
+const introText = document.getElementById('intro-text');
+const seen = sessionStorage.getItem('intro-seen');
+
+if (seen) {
+    introEl.style.display = 'none';
+    scrambleName();
+} else {
+    const fullName = 'emily howkins lange';
     let i = 0;
-
-    if (sessionStorage.getItem('intro-seen')) {
-        intro.style.display = 'none';
-        return;
-    }
-
     function typeNext() {
-        if (i < NAME.length) {
-            textEl.textContent += NAME[i++];
-            setTimeout(typeNext, 60 + Math.random() * 60);
+        if (i <= fullName.length) {
+            introText.textContent = fullName.slice(0, i);
+            i++;
+            setTimeout(typeNext, 55 + Math.random() * 65);
         } else {
             setTimeout(() => {
-                intro.classList.add('fade-out');
+                introEl.classList.add('fade-out');
+                sessionStorage.setItem('intro-seen', '1');
                 setTimeout(() => {
-                    intro.style.display = 'none';
-                    sessionStorage.setItem('intro-seen', '1');
-                }, 750);
-            }, 550);
+                    introEl.style.display = 'none';
+                    scrambleName();
+                }, 700);
+            }, 600);
         }
     }
-    setTimeout(typeNext, 280);
-}());
+    setTimeout(typeNext, 250);
+}
 
-
-/* ══════════════════════════════════════════════
-   SPOTLIGHT REVEAL
-   CSS mask follows cursor, revealing work beneath
-══════════════════════════════════════════════ */
-(function () {
-    const overlay = document.getElementById('reveal-overlay');
-    let radius = 200;
-    const TARGET = 200;
-
-    document.addEventListener('mousemove', e => {
-        overlay.style.setProperty('--cx', e.clientX + 'px');
-        overlay.style.setProperty('--cy', e.clientY + 'px');
-    });
-
-    // Expand radius subtly on movement (resets slowly)
-    let vel = 0, lastX = 0, lastY = 0;
-    document.addEventListener('mousemove', e => {
-        vel = Math.hypot(e.clientX - lastX, e.clientY - lastY);
-        lastX = e.clientX; lastY = e.clientY;
-    });
-
-    function updateRadius() {
-        const target = Math.min(TARGET + vel * 0.6, 300);
-        radius += (target - radius) * 0.08;
-        vel *= 0.88;
-        const mask = `radial-gradient(circle ${Math.round(radius)}px at var(--cx, -400px) var(--cy, -400px), transparent 0%, rgba(0,0,0,0.65) 60%, black 100%)`;
-        overlay.style.webkitMaskImage = mask;
-        overlay.style.maskImage = mask;
-        requestAnimationFrame(updateRadius);
+// ── Pixel trail ─────────────────────────────────────────
+(function() {
+    const canvas = document.getElementById('trail-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
     }
-    updateRadius();
-}());
-
-
-/* ══════════════════════════════════════════════
-   MORPHING BLOB — lazy cursor follow
-══════════════════════════════════════════════ */
-(function () {
-    const blob = document.getElementById('blob');
-    let cx = window.innerWidth / 2, cy = window.innerHeight / 2;
-    let tx = cx, ty = cy;
-    document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
-    function tick() {
-        cx += (tx - cx) * 0.022;
-        cy += (ty - cy) * 0.022;
-        blob.style.left = (cx - 340) + 'px';
-        blob.style.top  = (cy - 340) + 'px';
-        requestAnimationFrame(tick);
-    }
-    tick();
-}());
-
-
-/* ══════════════════════════════════════════════
-   PIXEL CURSOR TRAIL
-   White-ish pixels on dark background
-══════════════════════════════════════════════ */
-(function () {
-    const canvas = document.getElementById('cursor-canvas');
-    const ctx    = canvas.getContext('2d');
-
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     resize();
     window.addEventListener('resize', resize);
 
-    // Light palette for dark homepage
-    const POOL = ['#ffffff','#ffffff','#ffffff','#ffffff',
-                  '#e0e0ff','#0000ff','#ff4500'];
-    const PX   = 5;
-    const particles = [];
-    let lastX = -999, lastY = -999;
+    const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
+    const PALETTE_LIGHT = ['#000000','#000000','#000000','#000000','#0000ff','#ff4500'];
+    const PALETTE_DARK  = ['#ffffff','#ffffff','#ffffff','#e0e0ff','#0000ff','#ff4500'];
+
+    let pixels = [];
+    let lastX = null, lastY = null;
 
     document.addEventListener('mousemove', e => {
-        const dist  = Math.hypot(e.clientX - lastX, e.clientY - lastY);
-        const count = Math.min(7, 1 + Math.floor(dist / 9));
-        for (let n = 0; n < count; n++) {
-            const ox = Math.round((Math.random() - 0.5) * 6) * PX;
-            const oy = Math.round((Math.random() - 0.5) * 6) * PX;
-            particles.push({
-                x:     Math.round(e.clientX / PX) * PX + ox,
-                y:     Math.round(e.clientY / PX) * PX + oy,
-                color: POOL[Math.floor(Math.random() * POOL.length)],
-                alpha: 0.45 + Math.random() * 0.4,
-                decay: 0.028 + Math.random() * 0.025
+        const x = e.clientX, y = e.clientY;
+        const spd = lastX != null ? Math.hypot(x - lastX, y - lastY) : 0;
+        const n = Math.min(4, Math.ceil(spd / 6));
+        const pal = isDark() ? PALETTE_DARK : PALETTE_LIGHT;
+        for (let i = 0; i < n; i++) {
+            pixels.push({
+                x: x + (Math.random() - 0.5) * 8,
+                y: y + (Math.random() - 0.5) * 8,
+                s: 4,
+                alpha: 0.85,
+                color: pal[Math.floor(Math.random() * pal.length)]
             });
         }
-        lastX = e.clientX; lastY = e.clientY;
+        lastX = x; lastY = y;
     });
 
-    function render() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = particles.length - 1; i >= 0; i--) {
-            const p = particles[i];
+    (function draw() {
+        ctx.clearRect(0, 0, W, H);
+        for (let i = pixels.length - 1; i >= 0; i--) {
+            const p = pixels[i];
+            p.alpha -= 0.045;
+            if (p.alpha <= 0) { pixels.splice(i, 1); continue; }
             ctx.globalAlpha = p.alpha;
-            ctx.fillStyle   = p.color;
-            ctx.fillRect(p.x, p.y, PX, PX);
-            p.alpha -= p.decay;
-            if (p.alpha <= 0) particles.splice(i, 1);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(Math.round(p.x), Math.round(p.y), p.s, p.s);
         }
         ctx.globalAlpha = 1;
-        requestAnimationFrame(render);
-    }
-    render();
-}());
+        requestAnimationFrame(draw);
+    })();
+})();
 
-
-/* ══════════════════════════════════════════════
-   DARK MODE TOGGLE
-   Reads system preference, respects saved choice,
-   stored in localStorage, syncs across tabs
-══════════════════════════════════════════════ */
-(function () {
+// ── Dark mode toggle ────────────────────────────────────
+(function() {
     const btn = document.getElementById('theme-btn');
-    // Homepage is always dark-overlay, toggle only queues preference for other pages
+    const html = document.documentElement;
+
+    function getTheme() {
+        return html.getAttribute('data-theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    }
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+    }
+
     btn.addEventListener('click', () => {
-        const html    = document.documentElement;
-        const current = html.getAttribute('data-theme');
-        const next    = (current === 'dark') ? 'light' : 'dark';
-        html.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-        btn.textContent = next === 'dark' ? '○' : '◐';
+        setTheme(getTheme() === 'dark' ? 'light' : 'dark');
     });
-    // Sync initial icon
-    const t = document.documentElement.getAttribute('data-theme');
-    btn.textContent = t === 'dark' ? '○' : '◐';
-}());
+})();
 </script>
+
 </body>
 </html>
