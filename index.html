@@ -133,77 +133,69 @@
         .content { width:100%; max-width:440px; }
 
         /* ── Identity ── */
-        .identity { margin-bottom:24px; }
+        .identity { margin-bottom: 32px; }
         .identity-name {
-            font-size:20px; font-weight:600; line-height:1.3;
-            display:block; margin-bottom:4px;
+            font-size: 18px; font-weight: 500; line-height: 1.3;
+            display: block; margin-bottom: 5px;
+            letter-spacing: -0.01em;
         }
         .identity-sub {
-            font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
-            color:var(--fg-dim); opacity:0.5;
+            font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase;
+            color: var(--fg-dim); opacity: 0.45;
         }
 
-        /* ── Tab switcher (Elliott Mangham-style) ── */
-        .nav-tabs {
-            display: flex;
-            width: fit-content;
-        }
-        .nav-tab {
-            font-family: inherit;
-            font-size: 11px;
-            line-height: 17px;
-            padding: 5px 14px;
-            cursor: pointer;
-            border: 1px solid var(--fg);
-            margin-right: -1px;
-            background: transparent;
+        /* ── Section links ── */
+        .section-links { width: 100%; }
+
+        .section-link {
+            display: block;
+            padding: 16px 0 14px;
+            border-top: 1px solid var(--fg);
+            text-decoration: none;
             color: var(--fg);
-            opacity: 0.38;
-            transition: background 0.12s, color 0.12s, opacity 0.12s;
-            letter-spacing: 0.04em;
-        }
-        .nav-tab.active {
-            background: var(--fg);
-            color: var(--bg);
-            opacity: 1;
-            position: relative;
-            z-index: 1;
-        }
-        .nav-tab:hover:not(.active) { opacity: 0.72; }
-
-        /* ── Tab panels ── */
-        .nav-panels {
-            border: 1px solid var(--fg);
-            border-top: none;
-            padding: 20px 16px 18px;
-            min-height: 96px;
-        }
-        .nav-panel { display: none; }
-        .nav-panel.active {
-            display: flex; flex-direction: column; gap: 5px;
-            animation: fadein 0.18s ease;
-        }
-        @keyframes fadein { from{opacity:0;transform:translateY(3px)} to{opacity:1;transform:none} }
-
-        .panel-desc {
-            font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
-            color: var(--fg-dim); opacity: 0.65;
-        }
-        .panel-year {
-            font-size: 9px; letter-spacing: 0.1em;
-            color: var(--fg-dim); opacity: 0.4;
-        }
-        .panel-go {
-            font-size: 11px; color: var(--fg); text-decoration: none;
-            margin-top: 12px; display: inline-flex; align-items: center; gap: 5px;
             transition: color 0.15s;
+            position: relative;
+            overflow: hidden;
         }
-        .panel-go:hover { color: orangered; }
-        .panel-arrow {
+        .section-link:last-child { border-bottom: 1px solid var(--fg); }
+
+        /* sweep bar on hover */
+        .section-link::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--fg);
+            transform: translateX(-101%);
+            transition: transform 0.32s cubic-bezier(0.76, 0, 0.24, 1);
+            z-index: 0;
+        }
+        .section-link:hover::before { transform: translateX(0); }
+        .section-link:hover { color: var(--bg); }
+
+        .section-link-inner {
+            position: relative; z-index: 1;
+            display: flex; align-items: baseline;
+            justify-content: space-between; gap: 12px;
+        }
+
+        .section-title {
+            font-size: 20px; font-weight: 500;
+            line-height: 1.2; letter-spacing: -0.02em;
+        }
+
+        .section-arrow {
+            font-size: 16px;
             display: inline-block;
-            transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+            transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1);
+            flex-shrink: 0;
         }
-        .panel-go:hover .panel-arrow { transform: translateX(4px); }
+        .section-link:hover .section-arrow { transform: translateX(5px); }
+
+        .section-desc {
+            font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase;
+            opacity: 0.42; margin-top: 5px;
+            position: relative; z-index: 1;
+        }
 
         ::-webkit-scrollbar { display:none; }
     </style>
@@ -244,29 +236,28 @@
     </div>
 
     <div class="center-wrap">
-        <div class="content">
+        <div class="content" id="content-parallax">
 
             <div class="identity">
                 <span class="identity-name" id="hero-name">&nbsp;</span>
                 <span class="identity-sub">product designer</span>
             </div>
 
-            <div class="nav-tabs">
-                <button class="nav-tab active" data-panel="portfolio">portfolio</button>
-                <button class="nav-tab" data-panel="playground">playground</button>
-            </div>
-
-            <div class="nav-panels">
-                <div class="nav-panel active" id="panel-portfolio">
-                    <span class="panel-desc">UX · design systems · product design</span>
-                    <span class="panel-year">2022 — present</span>
-                    <a class="panel-go" href="portfolio/">view work <span class="panel-arrow">→</span></a>
-                </div>
-                <div class="nav-panel" id="panel-playground">
-                    <span class="panel-desc">graphic design · experiments · student work</span>
-                    <span class="panel-year">2018 — 2021</span>
-                    <a class="panel-go" href="playground/">view projects <span class="panel-arrow">→</span></a>
-                </div>
+            <div class="section-links">
+                <a class="section-link" href="portfolio/">
+                    <div class="section-link-inner">
+                        <span class="section-title">portfolio</span>
+                        <span class="section-arrow">→</span>
+                    </div>
+                    <div class="section-desc">UX · design systems · product design · 2022–present</div>
+                </a>
+                <a class="section-link" href="playground/">
+                    <div class="section-link-inner">
+                        <span class="section-title">playground</span>
+                        <span class="section-arrow">→</span>
+                    </div>
+                    <div class="section-desc">graphic design · experiments · student work · 2018–2021</div>
+                </a>
             </div>
 
         </div>
@@ -482,15 +473,21 @@ if (sessionStorage.getItem('intro-seen')) {
     }());
 }
 
-// ── Tab switcher ──────────────────────────────────────────────────────────
-document.querySelectorAll('.nav-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.nav-panel').forEach(p => p.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+// ── Mouse parallax on content ─────────────────────────────────────────────
+(function () {
+    const el = document.getElementById('content-parallax');
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    document.addEventListener('mousemove', e => {
+        tx = (e.clientX / window.innerWidth  - 0.5) * 18;
+        ty = (e.clientY / window.innerHeight - 0.5) * 12;
     });
-});
+    (function loop() {
+        cx += (tx - cx) * 0.06;
+        cy += (ty - cy) * 0.06;
+        el.style.transform = `translate(${cx.toFixed(2)}px, ${cy.toFixed(2)}px)`;
+        requestAnimationFrame(loop);
+    }());
+}());
 
 // ── Pixel trail ───────────────────────────────────────────────────────────
 (function () {

@@ -186,6 +186,7 @@
             --topbar-bg: #0d0d0d;
             --topbar-fg: #f0f0ee;
         }
+        html { overflow-y: scroll; }
         html, body { background: var(--bg); color: var(--fg); }
         @keyframes color-cycle {
             0%,100% { color: var(--fg); }
@@ -280,6 +281,114 @@
             margin: 0;
         }
 
+
+        /* ── Project page improvements ── */
+
+        /* Header */
+        .proj-header {
+            padding: 20px 0 24px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 32px;
+        }
+        .proj-header-title {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            margin-bottom: 10px;
+        }
+        .proj-header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 20px;
+        }
+        .proj-meta-item {
+            font-size: 10px;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            opacity: 0.42;
+        }
+        .proj-meta-item span {
+            opacity: 0.7;
+            font-weight: 600;
+        }
+
+        /* Body text */
+        .pg-content p, .pg-content .project-description {
+            font-size: 12px;
+            line-height: 1.85;
+            margin-bottom: 14px;
+            max-width: 620px;
+            color: var(--fg);
+        }
+        .pg-content #project-title, .pg-content .project-title {
+            display: none; /* hidden — replaced by .proj-header */
+        }
+
+        /* Images */
+        .pg-content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        .pg-content video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Row layout — flex rows of images */
+        .pg-content .row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+            align-items: flex-start;
+        }
+        .pg-content .row .item {
+            flex: 1;
+            padding: 0;
+            min-width: 0;
+        }
+        .pg-content .row .item img,
+        .pg-content .row .item video {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Single full-width item */
+        .pg-content .item {
+            padding: 0;
+            margin-bottom: 8px;
+        }
+        .pg-content .item img,
+        .pg-content .item video {
+            width: 100%;
+        }
+
+        /* iframes */
+        .pg-content iframe {
+            display: block;
+            width: 100%;
+            border: none;
+        }
+
+        /* plastic-img */
+        .pg-content .plastic-img {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        /* section spacing */
+        .pg-content .row + p,
+        .pg-content .item + p {
+            margin-top: 24px;
+        }
+
+        /* Download links */
+        .pg-content a strong { text-decoration: underline; text-underline-offset: 2px; }
+
     </style>
 </head>
 <body>
@@ -333,6 +442,13 @@
 <div class="right">
 
 <div class="pg-content">
+<div class="proj-header">
+    <h1 class="proj-header-title">Skive Theater</h1>
+    <div class="proj-header-meta">
+        <span class="proj-meta-item"><span>Year</span> — 2021</span>
+        <span class="proj-meta-item"><span>Type</span> — Branding</span>
+    </div>
+</div>
 <div class="row">
           <div class="item">
             <p id="project-title">Branding for Skive Theater [2021] </p>
