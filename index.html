@@ -49,9 +49,9 @@
             position: fixed; pointer-events: none;
             width: 600px; height: 600px; border-radius: 50%;
             background: radial-gradient(circle,
-                rgba(255,245,230,0.20) 0%,
-                rgba(200,216,228,0.08) 32%,
-                transparent 68%
+                rgba(255,248,235,0.32) 0%,
+                rgba(200,216,228,0.14) 30%,
+                transparent 65%
             );
             z-index: 3;
             mix-blend-mode: lighten;
@@ -144,58 +144,40 @@
             color: var(--fg-dim); opacity: 0.45;
         }
 
-        /* ── Section links ── */
-        .section-links { width: 100%; }
-
-        .section-link {
-            display: block;
-            padding: 16px 0 14px;
-            border-top: 1px solid var(--fg);
-            text-decoration: none;
-            color: var(--fg);
-            transition: color 0.15s;
-            position: relative;
-            overflow: hidden;
-        }
-        .section-link:last-child { border-bottom: 1px solid var(--fg); }
-
-        /* sweep bar on hover */
-        .section-link::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--fg);
-            transform: translateX(-101%);
-            transition: transform 0.32s cubic-bezier(0.76, 0, 0.24, 1);
-            z-index: 0;
-        }
-        .section-link:hover::before { transform: translateX(0); }
-        .section-link:hover { color: var(--bg); }
-
-        .section-link-inner {
-            position: relative; z-index: 1;
-            display: flex; align-items: baseline;
-            justify-content: space-between; gap: 12px;
+        /* ── Identity ── */
+        .identity-name { font-size: 22px; }
+        .identity-sub {
+            font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase;
+            color: var(--fg); opacity: 0.58;
         }
 
-        .section-title {
-            font-size: 20px; font-weight: 500;
-            line-height: 1.2; letter-spacing: -0.02em;
+        /* ── Enter link ── */
+        .enter-area { margin-top: 36px; }
+        .enter-link {
+            display: inline-flex; align-items: center; gap: 9px;
+            font-size: 12px; letter-spacing: 0.1em;
+            color: var(--fg); text-decoration: none;
+            border-bottom: 1px solid var(--fg); padding-bottom: 4px;
+            transition: color 0.22s ease, border-color 0.22s ease,
+                        letter-spacing 0.38s cubic-bezier(0.25,0.46,0.45,0.94);
         }
-
-        .section-arrow {
-            font-size: 16px;
+        .enter-link:hover {
+            color: #8B2E3F; border-color: #8B2E3F;
+            letter-spacing: 0.22em;
+        }
+        .enter-link .arrow {
             display: inline-block;
             transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1);
-            flex-shrink: 0;
         }
-        .section-link:hover .section-arrow { transform: translateX(5px); }
+        .enter-link:hover .arrow { transform: translateX(4px); }
 
-        .section-desc {
-            font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase;
-            opacity: 0.42; margin-top: 5px;
-            position: relative; z-index: 1;
+        /* ── Play hint ── */
+        .play-hint {
+            font-size: 9px; letter-spacing: 0.08em;
+            color: var(--fg); opacity: 0; margin-top: 32px;
+            transition: opacity 1.2s ease;
         }
+        .play-hint.visible { opacity: 0.32; }
 
         ::-webkit-scrollbar { display:none; }
     </style>
@@ -243,22 +225,13 @@
                 <span class="identity-sub">product designer</span>
             </div>
 
-            <div class="section-links">
-                <a class="section-link" href="portfolio/">
-                    <div class="section-link-inner">
-                        <span class="section-title">portfolio</span>
-                        <span class="section-arrow">→</span>
-                    </div>
-                    <div class="section-desc">UX · design systems · product design · 2022–present</div>
-                </a>
-                <a class="section-link" href="playground/">
-                    <div class="section-link-inner">
-                        <span class="section-title">playground</span>
-                        <span class="section-arrow">→</span>
-                    </div>
-                    <div class="section-desc">graphic design · experiments · student work · 2018–2021</div>
+            <div class="enter-area">
+                <a class="enter-link" href="portfolio/">
+                    enter <span class="arrow">→</span>
                 </a>
             </div>
+
+            <p class="play-hint" id="play-hint">Draw with your cursor — enter when ready</p>
 
         </div>
     </div>
@@ -320,7 +293,7 @@
 
         void main() {
             vec2 uv = gl_FragCoord.xy / uRes;
-            float t  = uTime * 0.065;
+            float t  = uTime * 0.11;
 
             /* Aspect-corrected, centred coord */
             vec2 p = (uv - 0.5) * vec2(uRes.x / uRes.y, 1.0) * 2.6;
@@ -349,9 +322,10 @@
             vec3 warm = mix(warmL, warmD, uDark);
 
             vec3 col = bg;
-            col = mix(col, dust, smoothstep(0.35, 0.75, f)            * 0.22);
-            col = mix(col, warm, smoothstep(0.45, 0.85, length(q))    * 0.18);
-            col = mix(col, sage, smoothstep(0.40, 0.78, r.x + 0.5)   * 0.16);
+            col = mix(col, dust, smoothstep(0.30, 0.72, f)            * 0.44);
+            col = mix(col, warm, smoothstep(0.42, 0.82, length(q))    * 0.36);
+            col = mix(col, sage, smoothstep(0.38, 0.76, r.x + 0.5)   * 0.30);
+            col = mix(col, warm, smoothstep(0.55, 0.90, r.y + 0.5)   * 0.22);
 
             gl_FragColor = vec4(col, 1.0);
         }
@@ -454,6 +428,10 @@ const heroEl  = document.getElementById('hero-name');
 function reveal() {
     pageEl.classList.add('visible');
     setTimeout(() => scrambleTo(heroEl, 'Emily Howkins Lange', 650), 80);
+    setTimeout(() => {
+        const hint = document.getElementById('play-hint');
+        if (hint) hint.classList.add('visible');
+    }, 2800);
 }
 
 if (sessionStorage.getItem('intro-seen')) {
@@ -514,6 +492,21 @@ if (sessionStorage.getItem('intro-seen')) {
             });
         }
         lx = e.clientX; ly = e.clientY;
+    });
+    // Click burst
+    addEventListener('click', function(e) {
+        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+        const pal = dark() ? PD : PL;
+        for (let i = 0; i < 36; i++) {
+            const angle = (i / 36) * Math.PI * 2;
+            const r = 4 + Math.random() * 28;
+            px.push({
+                x: e.clientX + Math.cos(angle) * r * 0.4 + (Math.random()-0.5)*6,
+                y: e.clientY + Math.sin(angle) * r * 0.4 + (Math.random()-0.5)*6,
+                s: 3 + Math.floor(Math.random() * 5), a: 0.9,
+                c: pal[Math.floor(Math.random() * pal.length)]
+            });
+        }
     });
     (function draw() {
         ctx.clearRect(0, 0, W, H);

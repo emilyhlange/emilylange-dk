@@ -545,9 +545,9 @@
 
             <span class="sidebar-label">projects</span>
             <ul>
-                <li class="project-item"><a href="#" onclick="showSection('work'); scrollTo('project-01'); return false;">01 — collaboration model</a></li>
-                <li class="project-item"><a href="#" onclick="showSection('work'); scrollTo('project-02'); return false;">02 — product language</a></li>
-                <li class="project-item"><a href="#" onclick="showSection('work'); scrollTo('project-03'); return false;">03 — foundations</a></li>
+                <li class="project-item"><a href="#" onclick="showSection('work'); setTimeout(function(){ var el=document.getElementById('project-01'); if(el) el.scrollIntoView({behavior:'smooth'}); },60); return false;">01 — collaboration model</a></li>
+                <li class="project-item"><a href="#" onclick="showSection('work'); setTimeout(function(){ var el=document.getElementById('project-02'); if(el) el.scrollIntoView({behavior:'smooth'}); },60); return false;">02 — product language</a></li>
+                <li class="project-item"><a href="#" onclick="showSection('work'); setTimeout(function(){ var el=document.getElementById('project-03'); if(el) el.scrollIntoView({behavior:'smooth'}); },60); return false;">03 — foundations</a></li>
             </ul>
 
             <span class="sidebar-label">contact</span>

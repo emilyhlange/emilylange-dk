@@ -25,32 +25,26 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
             line-height: 17px;
-            animation: color-change 20s infinite;
         }
         [data-theme="dark"] body {
             background-color: #151008;
             color: #F2EDE3;
-        }
-        @keyframes color-change {
-            0%   { color: var(--fg, black); }
-            50%  { color: #6B92A8; }
-            100% { color: var(--fg, black); }
         }
 
         /* ── CSS Variables ── */
         :root {
             --bg: #EDE8DF;
             --fg: #1C1409;
-            --fg-dim: #9B8B7A;
-            --border: rgba(28,20,9,0.10);
+            --fg-dim: #7A6655;
+            --border: rgba(28,20,9,0.12);
             --topbar-bg: #EDE8DF;
             --topbar-fg: #1C1409;
         }
         [data-theme="dark"] {
             --bg: #151008;
             --fg: #F2EDE3;
-            --fg-dim: #6A5B4C;
-            --border: rgba(242,237,227,0.08);
+            --fg-dim: #8A7B6C;
+            --border: rgba(242,237,227,0.10);
             --topbar-bg: #110D07;
             --topbar-fg: #F2EDE3;
         }
@@ -108,11 +102,10 @@
         li.project-item a:hover, li.sidebar-item a:hover { color: #8B2E3F; }
         .sidebar-label {
             font-size: 10px;
-            opacity: 0.4;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 16px;
-            margin-bottom: 4px;
+            opacity: 0.52;
+            letter-spacing: 0.03em;
+            margin-top: 18px;
+            margin-bottom: 6px;
             display: block;
         }
 
@@ -271,24 +264,18 @@
                 <span>Playground — 2018–2021</span>
             </div>
 
-            <span class="sidebar-label">navigate</span>
+            <span class="sidebar-label">Navigate</span>
             <ul>
-                <li class="sidebar-item"><a href="../">home</a></li>
-                <li class="sidebar-item"><a href="../portfolio/">portfolio</a></li>
+                <li class="sidebar-item"><a href="../">Home</a></li>
+                <li class="sidebar-item"><a href="../portfolio/">Portfolio</a></li>
             </ul>
 
-            <span class="sidebar-label">projects</span>
+            <span class="sidebar-label">Projects</span>
             <ul>
                 <li class="project-item"><a href="projects/thesis.html">Designing for Low Self-Esteem</a></li>
                 <li class="project-item"><a href="projects/portable.html">Portable.</a></li>
                 <li class="project-item"><a href="projects/fanfare.html">Typographic Kitchen</a></li>
                 <li class="project-item"><a href="projects/tune.html">Tune</a></li>
-                <li class="project-item"><a href="projects/pornolampen.html">Pornolampen</a></li>
-            </ul>
-
-            <span class="sidebar-label">contact</span>
-            <ul>
-                <li class="sidebar-item"><a href="../portfolio/">portfolio</a></li>
             </ul>
         </div>
     </div>
@@ -303,7 +290,7 @@
 
                 <a class="pg-tile" href="projects/thesis.html">
                     <div class="pg-tile-img">
-                        <img src="images/thesis/lamp.png" alt="Designing for Low Self-Esteem" loading="lazy">
+                        <img src="images/svgs/thumb-thesis.svg" alt="Designing for Low Self-Esteem" loading="lazy">
                     </div>
                     <div class="pg-tile-info">
                         <span class="pg-tile-title">Designing for Low Self-Esteem</span>
@@ -313,17 +300,17 @@
 
                 <a class="pg-tile" href="projects/portable.html">
                     <div class="pg-tile-img">
-                        <img src="images/portable/IMG_6008.JPG" alt="Portable." loading="lazy">
+                        <img src="images/svgs/thumb-portable.svg" alt="Portable." loading="lazy">
                     </div>
                     <div class="pg-tile-info">
                         <span class="pg-tile-title">Portable.</span>
-                        <span class="pg-tile-meta">2021 · Product Design</span>
+                        <span class="pg-tile-meta">2021 · Product design</span>
                     </div>
                 </a>
 
                 <a class="pg-tile" href="projects/fanfare.html">
                     <div class="pg-tile-img">
-                        <img src="images/fanfare/5715_edit.png" alt="Typographic Kitchen" loading="lazy">
+                        <img src="images/svgs/thumb-fanfare.svg" alt="Typographic Kitchen" loading="lazy">
                     </div>
                     <div class="pg-tile-info">
                         <span class="pg-tile-title">Typographic Kitchen</span>
@@ -333,21 +320,11 @@
 
                 <a class="pg-tile" href="projects/tune.html">
                     <div class="pg-tile-img">
-                        <img src="images/tune/front_stand.jpg" alt="Tune" loading="lazy">
+                        <img src="images/svgs/thumb-tune.svg" alt="Tune" loading="lazy">
                     </div>
                     <div class="pg-tile-info">
                         <span class="pg-tile-title">Tune</span>
-                        <span class="pg-tile-meta">2021 · Graphic Design</span>
-                    </div>
-                </a>
-
-                <a class="pg-tile" href="projects/pornolampen.html">
-                    <div class="pg-tile-img">
-                        <img src="images/pornolampen/exhibition1.jpg" alt="Pornolampen" loading="lazy">
-                    </div>
-                    <div class="pg-tile-info">
-                        <span class="pg-tile-title">Pornolampen</span>
-                        <span class="pg-tile-meta">2021 · 3D Design</span>
+                        <span class="pg-tile-meta">2021 · Graphic design</span>
                     </div>
                 </a>
 
