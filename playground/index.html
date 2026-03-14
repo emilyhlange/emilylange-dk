@@ -30,9 +30,7 @@
         [data-theme="dark"] body {
             background-color: #111;
             color: #f0f0ee;
-            animation: color-change 20s infinite;
         }
-
         @keyframes color-change {
             0%   { color: var(--fg, black); }
             50%  { color: blue; }
@@ -43,7 +41,7 @@
         :root {
             --bg: #F6F6F6;
             --fg: #000;
-            --fg-dim: #999;
+            --fg-dim: #888;
             --border: rgba(0,0,0,0.1);
             --topbar-bg: #F6F6F6;
             --topbar-fg: #000;
@@ -64,17 +62,15 @@
         ::-webkit-scrollbar-thumb { background: blue; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,255,0.519); }
 
-        a { color: inherit; text-decoration: inherit; }
-        a:hover { color: orangered; }
+        a { color: inherit; text-decoration: none; }
 
         /* ── Layout ── */
         .flex-container {
             display: flex;
             max-width: 1200px;
-            margin: 62px auto 30px;
+            margin: 62px auto 60px;
             padding: 0 40px 0 50px;
         }
-
         .left {
             flex: 0 0 170px;
             padding-right: 24px;
@@ -82,19 +78,16 @@
             position: fixed;
             top: 62px;
         }
-
         .right {
             flex: 1;
             margin-left: 240px;
             min-width: 0;
         }
-
         @media (max-width: 1100px) {
             .flex-container { flex-direction: column; padding: 0 20px; }
             .left { flex: 100%; padding-bottom: 20px; padding-right: 0; position: relative; top: auto; }
             .right { flex: 100%; margin-left: 0; }
         }
-
         .item { padding: 10px; }
 
         /* ── Sidebar ── */
@@ -104,24 +97,14 @@
             line-height: 17px;
             margin-bottom: 16px;
         }
-        .sidebar-name span {
-            font-weight: normal;
-            display: block;
-        }
-
+        .sidebar-name span { font-weight: normal; display: block; }
         ul { list-style: none; }
-
-        li.project-item {
+        li.project-item, li.sidebar-item {
             font-size: 12px;
             font-family: Arial, Helvetica, sans-serif;
             line-height: 17px;
         }
-        li.sidebar-item {
-            font-size: 12px;
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 17px;
-        }
-
+        li.project-item a:hover, li.sidebar-item a:hover { color: orangered; }
         .sidebar-label {
             font-size: 10px;
             opacity: 0.4;
@@ -147,12 +130,11 @@
             font-size: 11px;
             color: var(--topbar-fg);
         }
-        .pg-topbar a { color: inherit; text-decoration: none; }
+        .pg-topbar a { color: inherit; }
         .pg-topbar a:hover { color: orangered; }
         .pg-topbar .nav-left { display: flex; align-items: center; gap: 8px; }
         .pg-topbar .nav-sep { opacity: 0.3; }
         .pg-topbar .nav-current { opacity: 0.45; }
-
         #theme-btn {
             background: none; border: none; cursor: pointer;
             font-family: inherit; font-size: 11px;
@@ -173,110 +155,87 @@
             animation: grain-drift 0.18s steps(1) infinite;
         }
         @keyframes grain-drift {
-            0%   { transform: translate(0, 0); }
-            10%  { transform: translate(-3%, -4%); }
-            20%  { transform: translate(4%, 3%); }
-            30%  { transform: translate(-2%, 5%); }
-            40%  { transform: translate(5%, -2%); }
-            50%  { transform: translate(-4%, 1%); }
-            60%  { transform: translate(2%, -5%); }
-            70%  { transform: translate(-5%, 3%); }
-            80%  { transform: translate(3%, 4%); }
-            90%  { transform: translate(-1%, -3%); }
-            100% { transform: translate(0, 0); }
+            0%   { transform: translate(0,0); }   10% { transform: translate(-3%,-4%); }
+            20%  { transform: translate(4%,3%); }  30% { transform: translate(-2%,5%); }
+            40%  { transform: translate(5%,-2%); } 50% { transform: translate(-4%,1%); }
+            60%  { transform: translate(2%,-5%); } 70% { transform: translate(-5%,3%); }
+            80%  { transform: translate(3%,4%); }  90% { transform: translate(-1%,-3%); }
+            100% { transform: translate(0,0); }
         }
 
         /* ── Pixel trail canvas ── */
-        #cursor-canvas {
-            position: fixed; inset: 0;
-            pointer-events: none; z-index: 999;
-        }
+        #cursor-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 999; }
 
         /* ── Lede ── */
         .pg-lede {
             font-size: 12px;
             line-height: 17px;
             color: var(--fg-dim);
-            margin-bottom: 18px;
-            max-width: 480px;
-            opacity: 0.7;
+            margin-bottom: 22px;
+            max-width: 420px;
         }
 
         /* ── Image grid ── */
         .pg-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2px;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 2px;
+            row-gap: 28px;
         }
 
         .pg-tile {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 4/3;
             display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .pg-tile-img {
+            aspect-ratio: 4/3;
+            overflow: hidden;
             background: var(--border);
         }
 
-        .pg-tile img {
+        .pg-tile-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        filter 0.4s ease;
+            filter: saturate(0.85);
         }
 
-        .pg-tile:hover img {
+        .pg-tile:hover .pg-tile-img img {
             transform: scale(1.04);
+            filter: saturate(1);
         }
 
-        .pg-tile-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0);
+        .pg-tile-info {
+            margin-top: 8px;
             display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 14px 12px;
-            transition: background 0.3s ease;
-        }
-
-        .pg-tile:hover .pg-tile-overlay {
-            background: rgba(0, 0, 0, 0.60);
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
         }
 
         .pg-tile-title {
-            font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
-            font-weight: 600;
-            color: #fff;
-            line-height: 1.35;
-            opacity: 0;
-            transform: translateY(7px);
-            transition: opacity 0.22s ease, transform 0.22s ease;
+            font-weight: 400;
+            line-height: 17px;
+            transition: color 0.15s ease;
         }
+
+        .pg-tile:hover .pg-tile-title { color: orangered; }
 
         .pg-tile-meta {
-            font-family: Arial, Helvetica, sans-serif;
             font-size: 10px;
-            color: rgba(255, 255, 255, 0.65);
-            margin-top: 3px;
-            opacity: 0;
-            transform: translateY(7px);
-            transition: opacity 0.22s ease 0.04s, transform 0.22s ease 0.04s;
-            letter-spacing: 0.03em;
+            opacity: 0.38;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
-        .pg-tile:hover .pg-tile-title,
-        .pg-tile:hover .pg-tile-meta {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive grid */
-        @media (max-width: 900px) {
-            .pg-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
             .pg-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -321,20 +280,19 @@
             <ul>
                 <li class="project-item"><a href="projects/thesis.html">Designing for Low Self-Esteem</a></li>
                 <li class="project-item"><a href="projects/portable.html">Portable.</a></li>
-                <li class="project-item"><a href="projects/mikkeller.html">Mikkeller Brewery</a></li>
                 <li class="project-item"><a href="projects/skiveteater.html">Skive Theater</a></li>
-                <li class="project-item"><a href="projects/ecodistricts.html">EcoDistricts</a></li>
-                <li class="project-item"><a href="projects/multivitamin.html">Information Redesign</a></li>
-                <li class="project-item"><a href="projects/breakupwithplastic.html">#breakUpWithPlastic</a></li>
                 <li class="project-item"><a href="projects/tune.html">Tune</a></li>
                 <li class="project-item"><a href="projects/cerealbox.html">A Cereal Box</a></li>
                 <li class="project-item"><a href="projects/lp_limedevo.html">LP Cover Design</a></li>
-                <li class="project-item"><a href="projects/dubois.html">W.E.B. Du Bois</a></li>
-                <li class="project-item"><a href="projects/breathe.html">Breathe</a></li>
                 <li class="project-item"><a href="projects/fanfare.html">Typographic Kitchen</a></li>
                 <li class="project-item"><a href="projects/chaos.html">Chaotic Motion</a></li>
                 <li class="project-item"><a href="projects/pornolampen.html">Pornolampen</a></li>
                 <li class="project-item"><a href="projects/sharePear.html">SharePear</a></li>
+                <li class="project-item"><a href="projects/ecodistricts.html">EcoDistricts</a></li>
+                <li class="project-item"><a href="projects/multivitamin.html">Information Redesign</a></li>
+                <li class="project-item"><a href="projects/breakupwithplastic.html">#breakUpWithPlastic</a></li>
+                <li class="project-item"><a href="projects/dubois.html">W.E.B. Du Bois</a></li>
+                <li class="project-item"><a href="projects/breathe.html">Breathe</a></li>
             </ul>
 
             <span class="sidebar-label">contact</span>
@@ -346,129 +304,139 @@
 
     <!-- ── Right content ── -->
     <div class="right">
-        <div class="item" style="padding-left:0; padding-right:0;">
+        <div class="item" style="padding-left:0;padding-right:0;">
 
             <p class="pg-lede">Earlier work, experiments, and student projects — 2018–2021.</p>
 
             <div class="pg-grid">
 
                 <a class="pg-tile" href="projects/thesis.html">
-                    <img src="images/thesis/thumbnail.jpg" alt="Designing for Low Self-Esteem" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">Designing for Low Self-Esteem</div>
-                        <div class="pg-tile-meta">2021 &middot; Thesis</div>
+                    <div class="pg-tile-img">
+                        <img src="images/thesis/lamp.png" alt="Designing for Low Self-Esteem" loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">Designing for Low Self-Esteem</span>
+                        <span class="pg-tile-meta">2021 · Thesis</span>
                     </div>
                 </a>
 
                 <a class="pg-tile" href="projects/portable.html">
-                    <img src="images/portable/thumbnail.png" alt="Portable." loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">Portable.</div>
-                        <div class="pg-tile-meta">2021 &middot; Product Design</div>
+                    <div class="pg-tile-img">
+                        <img src="images/portable/IMG_6008.JPG" alt="Portable." loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">Portable.</span>
+                        <span class="pg-tile-meta">2021 · Product Design</span>
                     </div>
                 </a>
 
                 <a class="pg-tile" href="projects/skiveteater.html">
-                    <img src="images/teater/12.jpg" alt="Skive Theater" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">Skive Theater</div>
-                        <div class="pg-tile-meta">2021 &middot; Branding</div>
+                    <div class="pg-tile-img">
+                        <img src="images/teater/12.jpg" alt="Skive Theater" loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">Skive Theater</span>
+                        <span class="pg-tile-meta">2021 · Branding</span>
                     </div>
                 </a>
 
                 <a class="pg-tile" href="projects/tune.html">
-                    <img src="images/tune/tune_thumbnail.png" alt="Tune" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">Tune</div>
-                        <div class="pg-tile-meta">2021 &middot; Graphic Design</div>
+                    <div class="pg-tile-img">
+                        <img src="images/tune/front_stand.jpg" alt="Tune" loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">Tune</span>
+                        <span class="pg-tile-meta">2021 · Graphic Design</span>
                     </div>
                 </a>
 
                 <a class="pg-tile" href="projects/cerealbox.html">
-                    <img src="images/cerealbox/cerealthumb.png" alt="A Cereal Box" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">A Cereal Box</div>
-                        <div class="pg-tile-meta">2021 &middot; Graphic Design</div>
+                    <div class="pg-tile-img">
+                        <img src="images/cerealbox/cerealbox2-03.png" alt="A Cereal Box" loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">A Cereal Box</span>
+                        <span class="pg-tile-meta">2021 · Graphic Design</span>
                     </div>
                 </a>
 
                 <a class="pg-tile" href="projects/lp_limedevo.html">
-                    <img src="images/lime_devo/devothumb.png" alt="LP Cover Design" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">LP Cover Design</div>
-                        <div class="pg-tile-meta">2021 &middot; Graphic Design</div>
+                    <div class="pg-tile-img">
+                        <img src="images/lime_devo/front.png" alt="LP Cover Design" loading="lazy">
                     </div>
-                </a>
-
-                <a class="pg-tile" href="projects/breathe.html">
-                    <img src="images/breathe/Screenshot 2022-01-11 at 15.36.23.png" alt="Breathe" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">Breathe</div>
-                        <div class="pg-tile-meta">2021 &middot; Speculative</div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">LP Cover Design</span>
+                        <span class="pg-tile-meta">2021 · Graphic Design</span>
                     </div>
                 </a>
 
                 <a class="pg-tile" href="projects/fanfare.html">
-                    <img src="images/fanfare/5715_edit.png" alt="Typographic Kitchen" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">Typographic Kitchen</div>
-                        <div class="pg-tile-meta">2021 &middot; Exhibition</div>
+                    <div class="pg-tile-img">
+                        <img src="images/fanfare/5715_edit.png" alt="Typographic Kitchen" loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">Typographic Kitchen</span>
+                        <span class="pg-tile-meta">2021 · Exhibition</span>
                     </div>
                 </a>
 
                 <a class="pg-tile" href="projects/pornolampen.html">
-                    <img src="images/pornolampen/thumbnail.jpg" alt="Pornolampen" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">Pornolampen</div>
-                        <div class="pg-tile-meta">2021 &middot; 3D Design</div>
+                    <div class="pg-tile-img">
+                        <img src="images/pornolampen/exhibition1.jpg" alt="Pornolampen" loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">Pornolampen</span>
+                        <span class="pg-tile-meta">2021 · 3D Design</span>
                     </div>
                 </a>
 
                 <a class="pg-tile" href="projects/sharePear.html">
-                    <img src="images/sharepear/thumbnail.jpg" alt="SharePear" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">SharePear</div>
-                        <div class="pg-tile-meta">2020 &middot; UX Design</div>
+                    <div class="pg-tile-img">
+                        <img src="images/sharepear/SharePear.jpg" alt="SharePear" loading="lazy">
                     </div>
-                </a>
-
-                <a class="pg-tile" href="projects/ecodistricts.html">
-                    <img src="images/EcoDistricts/thumbnail.png" alt="EcoDistricts" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">EcoDistricts</div>
-                        <div class="pg-tile-meta">2018 &middot; Branding</div>
-                    </div>
-                </a>
-
-                <a class="pg-tile" href="projects/multivitamin.html">
-                    <img src="images/informationdesign/thumbnail.png" alt="Information Redesign" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">Information Redesign</div>
-                        <div class="pg-tile-meta">2018 &middot; Editorial</div>
-                    </div>
-                </a>
-
-                <a class="pg-tile" href="projects/breakupwithplastic.html">
-                    <img src="images/breakupwithplastic/thumbnail.png" alt="#breakUpWithPlastic" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">#breakUpWithPlastic</div>
-                        <div class="pg-tile-meta">2018 &middot; Campaign</div>
-                    </div>
-                </a>
-
-                <a class="pg-tile" href="projects/dubois.html">
-                    <img src="images/dubois/thumbnail.png" alt="W.E.B. Du Bois" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">W.E.B. Du Bois</div>
-                        <div class="pg-tile-meta">2018 &middot; Data Visualisation</div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">SharePear</span>
+                        <span class="pg-tile-meta">2020 · UX Design</span>
                     </div>
                 </a>
 
                 <a class="pg-tile" href="projects/chaos.html">
-                    <img src="images/Chaos/thumbnail.jpg" alt="Chaotic Motion" loading="lazy">
-                    <div class="pg-tile-overlay">
-                        <div class="pg-tile-title">Chaotic Motion</div>
-                        <div class="pg-tile-meta">2018 &middot; Exhibition</div>
+                    <div class="pg-tile-img">
+                        <img src="images/Chaos/exhibition1.jpg" alt="Chaotic Motion" loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">Chaotic Motion</span>
+                        <span class="pg-tile-meta">2018 · Exhibition</span>
+                    </div>
+                </a>
+
+                <a class="pg-tile" href="projects/ecodistricts.html">
+                    <div class="pg-tile-img">
+                        <img src="images/EcoDistricts/Emily_Brochure.png" alt="EcoDistricts" loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">EcoDistricts</span>
+                        <span class="pg-tile-meta">2018 · Branding</span>
+                    </div>
+                </a>
+
+                <a class="pg-tile" href="projects/multivitamin.html">
+                    <div class="pg-tile-img">
+                        <img src="images/informationdesign/Project 1 - Process Book.png" alt="Information Redesign" loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">Information Redesign</span>
+                        <span class="pg-tile-meta">2018 · Editorial</span>
+                    </div>
+                </a>
+
+                <a class="pg-tile" href="projects/breakupwithplastic.html">
+                    <div class="pg-tile-img">
+                        <img src="images/breakupwithplastic/Processbook.png" alt="#breakUpWithPlastic" loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">#breakUpWithPlastic</span>
+                        <span class="pg-tile-meta">2018 · Campaign</span>
                     </div>
                 </a>
 
