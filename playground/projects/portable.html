@@ -19,7 +19,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html, body {
-            background: #F6F6F6;
+            background: #EDE8DF;
             color: black;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
@@ -27,16 +27,16 @@
             animation: color-change 20s infinite;
         }
         [data-theme="dark"] body {
-            background: #111;
-            color: #f0f0ee;
+            background: #151008;
+            color: #F2EDE3;
             animation: color-change 20s infinite;
         }
-        [data-theme="dark"] .pg-nav { background: #0d0d0d; border-bottom-color: rgba(255,255,255,0.08); }
-        [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #f0f0ee; }
+        [data-theme="dark"] .pg-nav { background: #151008; border-bottom-color: rgba(255,255,255,0.08); }
+        [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #F2EDE3; }
 
         @keyframes color-change {
             0%   { color: var(--fg, black); }
-            50%  { color: blue; }
+            50%  { color: #6B92A8; }
             100% { color: var(--fg, black); }
         }
 
@@ -70,8 +70,8 @@
         /* Scrollbar */
         ::-webkit-scrollbar { width: 10px; height: 5px; }
         ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: blue; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,255,0.52); }
+        ::-webkit-scrollbar-thumb { background: #8B2E3F; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(139,46,63,0.55); }
 
         /* Nav bar */
         .pg-nav {
@@ -80,7 +80,7 @@
             left: 0;
             right: 0;
             height: 32px;
-            background: #F6F6F6;
+            background: #EDE8DF;
             border-bottom: 1px solid rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
@@ -93,12 +93,12 @@
             color: inherit;
             text-decoration: none;
         }
-        .pg-nav a:hover { color: orangered; }
+        .pg-nav a:hover { color: #8B2E3F; }
         .pg-nav .nav-left { display: flex; align-items: center; gap: 8px; }
         .pg-nav .nav-sep { opacity: 0.3; }
         .pg-nav .nav-current { opacity: 0.45; }
         .pg-nav .nav-right a { color: inherit; text-decoration: none; }
-        .pg-nav .nav-right a:hover { color: orangered; }
+        .pg-nav .nav-right a:hover { color: #8B2E3F; }
 
         /* Content */
         .pg-content {
@@ -164,27 +164,27 @@
 
         /* links */
         a { color: inherit; text-decoration: none; }
-        a:hover { color: orangered; }
+        a:hover { color: #8B2E3F; }
 
         strong { font-weight: 700; }
         i, em { font-style: italic; }
     
         /* ── Dark mode ── */
         :root {
-            --bg: #F6F6F6;
-            --fg: #000;
-            --fg-dim: #999;
-            --border: rgba(0,0,0,0.1);
-            --topbar-bg: #F6F6F6;
-            --topbar-fg: #000;
+            --bg: #EDE8DF;
+            --fg: #1C1409;
+            --fg-dim: #9B8B7A;
+            --border: rgba(28,20,9,0.10);
+            --topbar-bg: #EDE8DF;
+            --topbar-fg: #1C1409;
         }
         [data-theme="dark"] {
-            --bg: #111;
-            --fg: #f0f0ee;
-            --fg-dim: #666;
-            --border: rgba(255,255,255,0.08);
-            --topbar-bg: #0d0d0d;
-            --topbar-fg: #f0f0ee;
+            --bg: #151008;
+            --fg: #F2EDE3;
+            --fg-dim: #6A5B4C;
+            --border: rgba(242,237,227,0.08);
+            --topbar-bg: #110D07;
+            --topbar-fg: #F2EDE3;
         }
         html { overflow-y: scroll; }
         html, body { background: var(--bg); color: var(--fg); }
@@ -214,7 +214,7 @@
             padding: 0;
             transition: opacity 0.15s;
         }
-        #theme-btn:hover { opacity: 1; color: orangered; }
+        #theme-btn:hover { opacity: 1; color: #8B2E3F; }
         /* ── Pixel cursor trail canvas ── */
         #cursor-canvas {
             position: fixed;
@@ -273,7 +273,7 @@
             display: block;
         }
         li.project-item a { color: inherit; text-decoration: none; }
-        li.project-item a:hover { color: orangered; }
+        li.project-item a:hover { color: #8B2E3F; }
         li.project-item.current > a { font-weight: bold; }
         .pg-content {
             padding: 20px 0 80px;
@@ -389,6 +389,59 @@
         /* Download links */
         .pg-content a strong { text-decoration: underline; text-underline-offset: 2px; }
 
+
+        /* ── Editorial layout ── */
+        .proj-lead {
+            font-size: 13px;
+            line-height: 1.85;
+            max-width: 580px;
+            margin: 0 0 36px;
+            color: var(--fg);
+        }
+        .proj-full { margin: 0 0 8px; }
+        .proj-full img { width: 100%; height: auto; display: block; }
+        .proj-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px; margin-bottom: 8px;
+        }
+        .proj-pair img { width: 100%; height: 320px; object-fit: cover; display: block; }
+        .proj-pair img.natural { height: auto; object-fit: unset; }
+        .proj-trio {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px; margin-bottom: 8px;
+        }
+        .proj-trio img { width: 100%; height: 240px; object-fit: cover; display: block; }
+        .proj-section-label {
+            font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+            opacity: 0.35; margin: 36px 0 10px; font-weight: 400; display: block;
+        }
+        .proj-body-text {
+            font-size: 12px; line-height: 1.85;
+            max-width: 580px; margin-bottom: 14px; color: var(--fg);
+        }
+        .proj-download {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; color: var(--fg); text-decoration: none;
+            border-bottom: 1px solid currentColor; padding-bottom: 2px;
+            margin-top: 8px; margin-right: 16px; transition: color 0.15s;
+        }
+        .proj-download:hover { color: #8B2E3F; border-color: #8B2E3F; }
+        .proj-iframe-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px; margin-bottom: 16px;
+        }
+        .proj-next {
+            margin-top: 60px; padding-top: 18px;
+            border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: baseline;
+            font-size: 11px;
+        }
+        .proj-next a { color: var(--fg-dim); text-decoration: none; transition: color 0.15s; }
+        .proj-next a:hover { color: #8B2E3F; }
+
     </style>
 </head>
 <body>
@@ -419,23 +472,11 @@
         </div>
         <span class="sidebar-label">projects</span>
         <ul>
-            <li class="project-item"><a href="thesis.html">Designing for Low Self-Esteem</a></li>
+            <li class="project-item "><a href="thesis.html">Designing for Low Self-Esteem</a></li>
             <li class="project-item current"><a href="portable.html">Portable.</a></li>
-            <li class="project-item"><a href="skiveteater.html">Skive Theater</a></li>
-            <li class="project-item"><a href="ecodistricts.html">EcoDistricts</a></li>
-            <li class="project-item"><a href="multivitamin.html">Information Redesign</a></li>
-            <li class="project-item"><a href="breakupwithplastic.html">#breakUpWithPlastic</a></li>
-            <li class="project-item"><a href="tune.html">Tune</a></li>
-            <li class="project-item"><a href="cerealbox.html">A Cereal Box</a></li>
-            <li class="project-item"><a href="lp_limedevo.html">LP Cover Design</a></li>
-            <li class="project-item"><a href="dubois.html">W.E.B. Du Bois</a></li>
-            <li class="project-item"><a href="breathe.html">Breathe</a></li>
-            <li class="project-item"><a href="fanfare.html">Typographic Kitchen</a></li>
-            <li class="project-item"><a href="chaos.html">Chaotic Motion</a></li>
-            <li class="project-item"><a href="cwcj.html">Capt. Jack — Copenhagen</a></li>
-            <li class="project-item"><a href="pornolampen.html">The Porn Lamp</a></li>
-            <li class="project-item"><a href="sharePear.html">SharePear</a></li>
-            <li class="project-item"><a href="spaghetti.html">Spaghetti</a></li>
+            <li class="project-item "><a href="fanfare.html">Typographic Kitchen</a></li>
+            <li class="project-item "><a href="tune.html">Tune</a></li>
+            <li class="project-item "><a href="pornolampen.html">Pornolampen</a></li>
         </ul>
     </div>
 </div>
@@ -448,89 +489,50 @@
         <span class="proj-meta-item"><span>Year</span> — 2021</span>
         <span class="proj-meta-item"><span>Type</span> — Product Design</span>
     </div>
-</div>
-<div class="row">
-          <div class="item">
-            <p id="project-title">Portable. [2021] </p>
-            <p class="project-description"> Portable. is a simple game, with the intent of fostering connection between people. The name Portable. is derived from its inherent mobility, which was a core design feature for the game. Users should be able to move it around, adapt to surroundings, and play whenever, wherever, with whomever. Another design feature is that of transparency. The transparent elements in the material, makes it so users can engage with their surroundings more easily. Further, transparency can be translated to that of 'openness', as is part of what our game tries to support and engage from the users. </p>
-        
-            <p class="project-description"> The game is simple enough - roll a dice, and progress through the maze. Every space you land on, you draw a card. The card will tell you how you are to interact with your tablemates. There are four types of cards you can draw: ACT embrace the playfulness of this category, and carry out the activity. PERCEIVE how do you view your tablemates? INQUIRE get to know your tablemates. If you draw the card, you choose who should answer the question. JOKER this card is indicated by the Portable. logo. The player can introduce a rule to the game. Use your imagination.</p>
-          </div>
-         </div>
 
-            <div class="row">
-            <div class="item">
-            <img style="width: 100%; max-height: 400px; object-fit: cover" src="../images/portable/shoot1.jpg">
-            </div>
-               
-            <div class="item">
-            <img style="width: 100%; max-height: 400px; object-fit: cover" src="../images/portable/wall2.jpg">
-            </div>   
-            </div>
-           
-            <div class="row">
-            <div class="item">
-            <p class="project-description">Alongside the game, we focused on branding and building a social media campaign that would engage our potential users. This included an instagram profile and a set of posters that mimicked the cards from the game. On the profile we featured students acting out the cards next to the posters, which we had placed around the school.</p>
-            </div>  
-            <div class="item">
-            <img style="width: 100%; max-height: 400px; object-fit: cover" src="../images/portable/wall1.jpg">
-            </div>  
-            <div class="item">
-            <img style="width: 100%; max-height: 400px; object-fit: cover" src="../images/portable/wall3.jpg">
-            </div>   
-            </div>
-           
-            <div class="row">
-            <div class="item">
-            <p class="project-description"> The following images are from an exhibition, in which the game was presented to users, and played by some. Additionally, I have included images from the branding of our game, as in that we primarily wanted to target the young 'moving' generation, it needed to be aesthetically pleasing and therefore branding was crucial. The Instagram page can be found <a href="https://www.instagram.com/portable.gamechanger/">@portable.gamechanger</a>.</p>
-    
-           </div>
-           </div>
-           
-            <div class="row">
-            <div class="item">
-            <img style="width: 100%; max-height: 400px; object-fit: cover" src="../images/portable/IMG_6139.JPG">
-            </div>
-               
-            <div class="item">
-            <img style="width: 100%; max-height: 400px; object-fit: cover" src="../images/portable/IMG_6018.JPG">
-            </div>   
-            </div>
-           
-            <div class="row">
-            <div class="item">
-            <img style="width: 100%; max-height: 500px; object-fit: cover" src="../images/portable/Artboard%2012%20copy%203.png">
-            </div>
-               
-            <div class="item">
-            <img style="width: 100%; max-height: 500px; object-fit: cover" src="../images/portable/Artboard%2010.png">
-            </div>   
-             
-            <div class="item">
-            <img style="width: 100%; max-height: 500px; object-fit: cover" src="../images/portable/Artboard%2020%20copy%203.png">
-            </div>  
-            </div>
-           
-           
-            <div class="row">
-            <div class="item">
-            <img style="width: 100%; max-height: 400px; object-fit: cover" src="../images/portable/IMG_6182.JPG">
-            </div>
-               
-            <div class="item">
-            <img style="width: 100%; max-height: 400px; object-fit: cover" src="../images/portable/IMG_6266.JPG">
-            </div>   
-            </div>
-            
-            <div class="row">
-            <div class="item">
-            <img style="width: 100%; max-height: 400px; object-fit: cover" src="../images/portable/IMG_6255.JPG">
-            </div>
-               
-            <div class="item">
-            <img style="width: 100%; max-height: 400px; object-fit: cover" src="../images/portable/IMG_6008.JPG">
-            </div>   
-            </div>
+<p class="proj-lead">A portable, transparent game designed for human connection. Built for the generation that moves — works in any space, with any group, whenever.</p>
+
+<div class="proj-pair">
+    <img src="../images/portable/IMG_6139.JPG" alt="Portable game in use">
+    <img src="../images/portable/IMG_6018.JPG" alt="Portable game components">
+</div>
+
+<span class="proj-section-label">The Concept</span>
+<p class="proj-body-text">The design language came directly from the core idea: transparency. The game's physical components are see-through — keeping players present in their surroundings, not lost inside a box. Transparent materials also carry a second meaning: openness, honesty, the willingness to be known by the people around you.</p>
+<p class="proj-body-text">Portability was the other constraint. Not tied to a table, not dependent on equipment. Light enough to carry, adaptable to any surface or setting.</p>
+
+<div class="proj-pair">
+    <img src="../images/portable/shoot1.jpg" alt="Portable components">
+    <img src="../images/portable/shoot2.jpg" alt="Portable gameplay">
+</div>
+
+<span class="proj-section-label">How It Works</span>
+<p class="proj-body-text">Roll a die. Move through the maze. Draw a card. Cards come in four types: <strong>ACT</strong> — carry out an activity. <strong>PERCEIVE</strong> — reflect on a tablemate. <strong>INQUIRE</strong> — ask a question; you choose who answers. <strong>JOKER</strong> — introduce a new rule; use your imagination. Simple enough to start in seconds. Open enough to matter.</p>
+
+<div class="proj-trio">
+    <img src="../images/portable/wall1.jpg" alt="Campaign poster">
+    <img src="../images/portable/wall2.jpg" alt="Campaign poster">
+    <img src="../images/portable/wall3.jpg" alt="Campaign poster">
+</div>
+
+<span class="proj-section-label">Campaign</span>
+<p class="proj-body-text">Alongside the game, a social media presence was built to reach a young, mobile audience. An Instagram profile (<a href="https://www.instagram.com/portable.gamechanger/" target="_blank">@portable.gamechanger</a>) featured students acting out the cards against a series of posters placed around the school — the game's visual language leaking into everyday space.</p>
+
+<div class="proj-pair">
+    <img src="../images/portable/Artboard%2010.png" alt="Portable card design" class="natural">
+    <img src="../images/portable/Artboard%2012%20copy%203.png" alt="Portable card design" class="natural">
+</div>
+
+<div class="proj-pair">
+    <img src="../images/portable/IMG_6083.JPG" alt="Exhibition">
+    <img src="../images/portable/IMG_6054.JPG" alt="Exhibition">
+</div>
+
+<div class="proj-next">
+    <a href="thesis.html">← Thesis</a>
+    <a href="fanfare.html">Next: Typographic Kitchen →</a>
+</div>
+
 </div>
 
 

@@ -15,14 +15,14 @@
     <meta name="description" content="Portfolio of Emily Howkins Lange, product designer specialising in Design Systems.">
     <style>
         :root {
-            --bg: #F3F3F0;
-            --fg: #000;
-            --fg-dim: #999;
+            --bg: #EDE8DF;
+            --fg: #1C1409;
+            --fg-dim: #9B8B7A;
             --border: rgba(0,0,0,0.10);
         }
         [data-theme="dark"] {
-            --bg: #0d0d0d;
-            --fg: #f0f0ee;
+            --bg: #151008;
+            --fg: #F2EDE3;
             --fg-dim: #555;
             --border: rgba(255,255,255,0.09);
         }
@@ -49,8 +49,8 @@
             position: fixed; pointer-events: none;
             width: 600px; height: 600px; border-radius: 50%;
             background: radial-gradient(circle,
-                rgba(255,255,255,0.22) 0%,
-                rgba(160,185,255,0.09) 30%,
+                rgba(255,245,230,0.20) 0%,
+                rgba(200,216,228,0.08) 32%,
                 transparent 68%
             );
             z-index: 3;
@@ -109,11 +109,11 @@
             padding:0 20px;
             border-bottom:1px solid var(--border);
             font-size:11px;
-            background: rgba(243,243,240,0.55);
+            background: rgba(237,232,223,0.60);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
         }
-        [data-theme="dark"] .topbar { background: rgba(13,13,13,0.65); }
+        [data-theme="dark"] .topbar { background: rgba(17,12,5,0.72); }
         .topbar a { color:inherit; text-decoration:none; }
         .topbar a:hover { color:orangered; }
         .nav-sep { opacity:0.3; margin:0 6px; }
@@ -332,26 +332,26 @@
                           fbm(p + 2.1 * q + vec2(8.3, 2.8) + t * 0.4));
             float f = (fbm(p + 3.0 * r) + 1.0) * 0.5;
 
-            /* Light-mode palette */
-            vec3 bgL   = vec3(0.953, 0.953, 0.941);
-            vec3 blueL = vec3(0.392, 0.471, 1.000);
-            vec3 warmL = vec3(1.000, 0.549, 0.275);
-            vec3 tealL = vec3(0.392, 0.824, 0.647);
-            /* Dark-mode palette */
-            vec3 bgD   = vec3(0.051, 0.051, 0.047);
-            vec3 blueD = vec3(0.255, 0.353, 0.900);
-            vec3 warmD = vec3(0.706, 0.353, 0.157);
-            vec3 tealD = vec3(0.196, 0.549, 0.412);
+            /* Light palette — linen, dusty blue, sage, terracotta */
+            vec3 bgL    = vec3(0.929, 0.910, 0.875);
+            vec3 dustL  = vec3(0.420, 0.600, 0.675);
+            vec3 sageL  = vec3(0.545, 0.678, 0.498);
+            vec3 warmL  = vec3(0.800, 0.510, 0.380);
+            /* Dark palette */
+            vec3 bgD    = vec3(0.082, 0.063, 0.031);
+            vec3 dustD  = vec3(0.208, 0.329, 0.408);
+            vec3 sageD  = vec3(0.247, 0.361, 0.239);
+            vec3 warmD  = vec3(0.471, 0.220, 0.157);
 
             vec3 bg   = mix(bgL,   bgD,   uDark);
-            vec3 blue = mix(blueL, blueD, uDark);
+            vec3 dust = mix(dustL, dustD, uDark);
+            vec3 sage = mix(sageL, sageD, uDark);
             vec3 warm = mix(warmL, warmD, uDark);
-            vec3 teal = mix(tealL, tealD, uDark);
 
             vec3 col = bg;
-            col = mix(col, blue, smoothstep(0.35, 0.75, f)            * 0.26);
-            col = mix(col, warm, smoothstep(0.45, 0.85, length(q))    * 0.21);
-            col = mix(col, teal, smoothstep(0.40, 0.78, r.x + 0.5)   * 0.17);
+            col = mix(col, dust, smoothstep(0.35, 0.75, f)            * 0.22);
+            col = mix(col, warm, smoothstep(0.45, 0.85, length(q))    * 0.18);
+            col = mix(col, sage, smoothstep(0.40, 0.78, r.x + 0.5)   * 0.16);
 
             gl_FragColor = vec4(col, 1.0);
         }
@@ -497,8 +497,8 @@ if (sessionStorage.getItem('intro-seen')) {
     const rsz = () => { W = c.width = innerWidth; H = c.height = innerHeight; };
     rsz(); addEventListener('resize', rsz);
     const dark = () => document.documentElement.getAttribute('data-theme') === 'dark';
-    const PL = ['#000','#000','#000','#0000ff','#0000ff','#ff4500','#ff4500'];
-    const PD = ['#fff','#fff','#e0e0ff','#6699ff','#0000ff','#ff4500','#ff4500'];
+    const PL = ['#1C1409','#1C1409','#1C1409','#6B92A8','#6B92A8','#8B2E3F','#8B2E3F'];
+    const PD = ['#F2EDE3','#F2EDE3','#C8D8E4','#6B92A8','#6B92A8','#8B2E3F','#8B2E3F'];
     let px = [], lx = null, ly = null;
     addEventListener('mousemove', e => {
         const spd = lx != null ? Math.hypot(e.clientX - lx, e.clientY - ly) : 0;

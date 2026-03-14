@@ -19,7 +19,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html, body {
-            background: #F6F6F6;
+            background: #EDE8DF;
             color: black;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
@@ -27,16 +27,16 @@
             animation: color-change 20s infinite;
         }
         [data-theme="dark"] body {
-            background: #111;
-            color: #f0f0ee;
+            background: #151008;
+            color: #F2EDE3;
             animation: color-change 20s infinite;
         }
-        [data-theme="dark"] .pg-nav { background: #0d0d0d; border-bottom-color: rgba(255,255,255,0.08); }
-        [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #f0f0ee; }
+        [data-theme="dark"] .pg-nav { background: #151008; border-bottom-color: rgba(255,255,255,0.08); }
+        [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #F2EDE3; }
 
         @keyframes color-change {
             0%   { color: var(--fg, black); }
-            50%  { color: blue; }
+            50%  { color: #6B92A8; }
             100% { color: var(--fg, black); }
         }
 
@@ -70,8 +70,8 @@
         /* Scrollbar */
         ::-webkit-scrollbar { width: 10px; height: 5px; }
         ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: blue; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,255,0.52); }
+        ::-webkit-scrollbar-thumb { background: #8B2E3F; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(139,46,63,0.55); }
 
         /* Nav bar */
         .pg-nav {
@@ -80,7 +80,7 @@
             left: 0;
             right: 0;
             height: 32px;
-            background: #F6F6F6;
+            background: #EDE8DF;
             border-bottom: 1px solid rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
@@ -93,12 +93,12 @@
             color: inherit;
             text-decoration: none;
         }
-        .pg-nav a:hover { color: orangered; }
+        .pg-nav a:hover { color: #8B2E3F; }
         .pg-nav .nav-left { display: flex; align-items: center; gap: 8px; }
         .pg-nav .nav-sep { opacity: 0.3; }
         .pg-nav .nav-current { opacity: 0.45; }
         .pg-nav .nav-right a { color: inherit; text-decoration: none; }
-        .pg-nav .nav-right a:hover { color: orangered; }
+        .pg-nav .nav-right a:hover { color: #8B2E3F; }
 
         /* Content */
         .pg-content {
@@ -164,27 +164,27 @@
 
         /* links */
         a { color: inherit; text-decoration: none; }
-        a:hover { color: orangered; }
+        a:hover { color: #8B2E3F; }
 
         strong { font-weight: 700; }
         i, em { font-style: italic; }
     
         /* ── Dark mode ── */
         :root {
-            --bg: #F6F6F6;
-            --fg: #000;
-            --fg-dim: #999;
-            --border: rgba(0,0,0,0.1);
-            --topbar-bg: #F6F6F6;
-            --topbar-fg: #000;
+            --bg: #EDE8DF;
+            --fg: #1C1409;
+            --fg-dim: #9B8B7A;
+            --border: rgba(28,20,9,0.10);
+            --topbar-bg: #EDE8DF;
+            --topbar-fg: #1C1409;
         }
         [data-theme="dark"] {
-            --bg: #111;
-            --fg: #f0f0ee;
-            --fg-dim: #666;
-            --border: rgba(255,255,255,0.08);
-            --topbar-bg: #0d0d0d;
-            --topbar-fg: #f0f0ee;
+            --bg: #151008;
+            --fg: #F2EDE3;
+            --fg-dim: #6A5B4C;
+            --border: rgba(242,237,227,0.08);
+            --topbar-bg: #110D07;
+            --topbar-fg: #F2EDE3;
         }
         html { overflow-y: scroll; }
         html, body { background: var(--bg); color: var(--fg); }
@@ -214,7 +214,7 @@
             padding: 0;
             transition: opacity 0.15s;
         }
-        #theme-btn:hover { opacity: 1; color: orangered; }
+        #theme-btn:hover { opacity: 1; color: #8B2E3F; }
         /* ── Pixel cursor trail canvas ── */
         #cursor-canvas {
             position: fixed;
@@ -273,7 +273,7 @@
             display: block;
         }
         li.project-item a { color: inherit; text-decoration: none; }
-        li.project-item a:hover { color: orangered; }
+        li.project-item a:hover { color: #8B2E3F; }
         li.project-item.current > a { font-weight: bold; }
         .pg-content {
             padding: 20px 0 80px;

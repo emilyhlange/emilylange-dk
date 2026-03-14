@@ -19,7 +19,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html, body {
-            background: #F6F6F6;
+            background: #EDE8DF;
             color: black;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
@@ -27,16 +27,16 @@
             animation: color-change 20s infinite;
         }
         [data-theme="dark"] body {
-            background: #111;
-            color: #f0f0ee;
+            background: #151008;
+            color: #F2EDE3;
             animation: color-change 20s infinite;
         }
-        [data-theme="dark"] .pg-nav { background: #0d0d0d; border-bottom-color: rgba(255,255,255,0.08); }
-        [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #f0f0ee; }
+        [data-theme="dark"] .pg-nav { background: #151008; border-bottom-color: rgba(255,255,255,0.08); }
+        [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #F2EDE3; }
 
         @keyframes color-change {
             0%   { color: var(--fg, black); }
-            50%  { color: blue; }
+            50%  { color: #6B92A8; }
             100% { color: var(--fg, black); }
         }
 
@@ -70,8 +70,8 @@
         /* Scrollbar */
         ::-webkit-scrollbar { width: 10px; height: 5px; }
         ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: blue; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,255,0.52); }
+        ::-webkit-scrollbar-thumb { background: #8B2E3F; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(139,46,63,0.55); }
 
         /* Nav bar */
         .pg-nav {
@@ -80,7 +80,7 @@
             left: 0;
             right: 0;
             height: 32px;
-            background: #F6F6F6;
+            background: #EDE8DF;
             border-bottom: 1px solid rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
@@ -93,12 +93,12 @@
             color: inherit;
             text-decoration: none;
         }
-        .pg-nav a:hover { color: orangered; }
+        .pg-nav a:hover { color: #8B2E3F; }
         .pg-nav .nav-left { display: flex; align-items: center; gap: 8px; }
         .pg-nav .nav-sep { opacity: 0.3; }
         .pg-nav .nav-current { opacity: 0.45; }
         .pg-nav .nav-right a { color: inherit; text-decoration: none; }
-        .pg-nav .nav-right a:hover { color: orangered; }
+        .pg-nav .nav-right a:hover { color: #8B2E3F; }
 
         /* Content */
         .pg-content {
@@ -164,27 +164,27 @@
 
         /* links */
         a { color: inherit; text-decoration: none; }
-        a:hover { color: orangered; }
+        a:hover { color: #8B2E3F; }
 
         strong { font-weight: 700; }
         i, em { font-style: italic; }
     
         /* ── Dark mode ── */
         :root {
-            --bg: #F6F6F6;
-            --fg: #000;
-            --fg-dim: #999;
-            --border: rgba(0,0,0,0.1);
-            --topbar-bg: #F6F6F6;
-            --topbar-fg: #000;
+            --bg: #EDE8DF;
+            --fg: #1C1409;
+            --fg-dim: #9B8B7A;
+            --border: rgba(28,20,9,0.10);
+            --topbar-bg: #EDE8DF;
+            --topbar-fg: #1C1409;
         }
         [data-theme="dark"] {
-            --bg: #111;
-            --fg: #f0f0ee;
-            --fg-dim: #666;
-            --border: rgba(255,255,255,0.08);
-            --topbar-bg: #0d0d0d;
-            --topbar-fg: #f0f0ee;
+            --bg: #151008;
+            --fg: #F2EDE3;
+            --fg-dim: #6A5B4C;
+            --border: rgba(242,237,227,0.08);
+            --topbar-bg: #110D07;
+            --topbar-fg: #F2EDE3;
         }
         html { overflow-y: scroll; }
         html, body { background: var(--bg); color: var(--fg); }
@@ -214,7 +214,7 @@
             padding: 0;
             transition: opacity 0.15s;
         }
-        #theme-btn:hover { opacity: 1; color: orangered; }
+        #theme-btn:hover { opacity: 1; color: #8B2E3F; }
         /* ── Pixel cursor trail canvas ── */
         #cursor-canvas {
             position: fixed;
@@ -273,7 +273,7 @@
             display: block;
         }
         li.project-item a { color: inherit; text-decoration: none; }
-        li.project-item a:hover { color: orangered; }
+        li.project-item a:hover { color: #8B2E3F; }
         li.project-item.current > a { font-weight: bold; }
         .pg-content {
             padding: 20px 0 80px;
@@ -389,6 +389,59 @@
         /* Download links */
         .pg-content a strong { text-decoration: underline; text-underline-offset: 2px; }
 
+
+        /* ── Editorial layout ── */
+        .proj-lead {
+            font-size: 13px;
+            line-height: 1.85;
+            max-width: 580px;
+            margin: 0 0 36px;
+            color: var(--fg);
+        }
+        .proj-full { margin: 0 0 8px; }
+        .proj-full img { width: 100%; height: auto; display: block; }
+        .proj-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px; margin-bottom: 8px;
+        }
+        .proj-pair img { width: 100%; height: 320px; object-fit: cover; display: block; }
+        .proj-pair img.natural { height: auto; object-fit: unset; }
+        .proj-trio {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px; margin-bottom: 8px;
+        }
+        .proj-trio img { width: 100%; height: 240px; object-fit: cover; display: block; }
+        .proj-section-label {
+            font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+            opacity: 0.35; margin: 36px 0 10px; font-weight: 400; display: block;
+        }
+        .proj-body-text {
+            font-size: 12px; line-height: 1.85;
+            max-width: 580px; margin-bottom: 14px; color: var(--fg);
+        }
+        .proj-download {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; color: var(--fg); text-decoration: none;
+            border-bottom: 1px solid currentColor; padding-bottom: 2px;
+            margin-top: 8px; margin-right: 16px; transition: color 0.15s;
+        }
+        .proj-download:hover { color: #8B2E3F; border-color: #8B2E3F; }
+        .proj-iframe-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px; margin-bottom: 16px;
+        }
+        .proj-next {
+            margin-top: 60px; padding-top: 18px;
+            border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: baseline;
+            font-size: 11px;
+        }
+        .proj-next a { color: var(--fg-dim); text-decoration: none; transition: color 0.15s; }
+        .proj-next a:hover { color: #8B2E3F; }
+
     </style>
 </head>
 <body>
@@ -420,22 +473,10 @@
         <span class="sidebar-label">projects</span>
         <ul>
             <li class="project-item current"><a href="thesis.html">Designing for Low Self-Esteem</a></li>
-            <li class="project-item"><a href="portable.html">Portable.</a></li>
-            <li class="project-item"><a href="skiveteater.html">Skive Theater</a></li>
-            <li class="project-item"><a href="ecodistricts.html">EcoDistricts</a></li>
-            <li class="project-item"><a href="multivitamin.html">Information Redesign</a></li>
-            <li class="project-item"><a href="breakupwithplastic.html">#breakUpWithPlastic</a></li>
-            <li class="project-item"><a href="tune.html">Tune</a></li>
-            <li class="project-item"><a href="cerealbox.html">A Cereal Box</a></li>
-            <li class="project-item"><a href="lp_limedevo.html">LP Cover Design</a></li>
-            <li class="project-item"><a href="dubois.html">W.E.B. Du Bois</a></li>
-            <li class="project-item"><a href="breathe.html">Breathe</a></li>
-            <li class="project-item"><a href="fanfare.html">Typographic Kitchen</a></li>
-            <li class="project-item"><a href="chaos.html">Chaotic Motion</a></li>
-            <li class="project-item"><a href="cwcj.html">Capt. Jack — Copenhagen</a></li>
-            <li class="project-item"><a href="pornolampen.html">The Porn Lamp</a></li>
-            <li class="project-item"><a href="sharePear.html">SharePear</a></li>
-            <li class="project-item"><a href="spaghetti.html">Spaghetti</a></li>
+            <li class="project-item "><a href="portable.html">Portable.</a></li>
+            <li class="project-item "><a href="fanfare.html">Typographic Kitchen</a></li>
+            <li class="project-item "><a href="tune.html">Tune</a></li>
+            <li class="project-item "><a href="pornolampen.html">Pornolampen</a></li>
         </ul>
     </div>
 </div>
@@ -449,39 +490,34 @@
         <span class="proj-meta-item"><span>Type</span> — Thesis / UX Research</span>
                     <span class="proj-meta-item"><span>Collaboration</span> — with Anne Katrine Svejgaard Barrett</span>
     </div>
+
+<p class="proj-lead">A master's thesis exploring how digital products shape self-esteem in young women — and how intentional design might instead support it.</p>
+
+<div class="proj-full">
+    <img src="../images/thesis/lamp.png" alt="Designing for Low Self-Esteem — probe kit">
 </div>
-<div class="row">
-          <div class="item">
-            <p id="project-title">Master Thesis: Designing for low self-esteem [2021]</p>
-            <p class="project-description"> Experiences of low self-esteem and low self-worth are often associated with a growing tendency of needing to perform more and better in social contexts, in school and academia, at work and on social media.
 
-To delve further into this problem, we began to ask ourselves questions that would either refute or confirm our assumptions on this issue. These questions included, What affects young adult’s self-confidence and self-esteem? What are methods for improving self-esteem? What digital tools exist in helping young adults address these feelings, and do they actually work? 
+<span class="proj-section-label">The Question</span>
+<p class="proj-body-text">Experiences of low self-esteem are often tied to a growing pressure to perform — in social contexts, at work, on social media. As aspiring digital designers, we felt a responsibility to ask whether specific design choices actively worsen this. Our central question:</p>
+<p class="proj-body-text"><em>How can we assist young women in practising self-appreciation through a digital artifact, and how can this improve their self-esteem and happiness long-term?</em></p>
 
-We initially found that social media usage and social pressures to overperform in various areas might be part of the issue. As aspiring digital designers, we naturally found an interest and a certain feeling of responsibility to investigate whether specific design features could be a causing factor in experiencing low self-esteem. Further, we wanted to explore how a digital artifact could be designed with more ethichhal responsibility towards the user’s intended and unintended emotional experience.
+<span class="proj-section-label">Research Method</span>
+<p class="proj-body-text">Rather than observing from the outside, we gave participants tools to document their own experience. A cultural probe — containing reflective activities, a disposable camera, postcards, and a diary — was deployed with five young women in Denmark over four weeks. The probe allowed us to access intimate, everyday moments of self-worth that a standard interview never could.</p>
+<p class="proj-body-text">A participatory workshop followed, where we evaluated the insights together. This grounded everything in lived experience rather than assumption.</p>
 
-In this thesis project, we are working with the following research question. 
-<br><br>
+<span class="proj-section-label">Outcome</span>
+<p class="proj-body-text">The research produced a set of design arguments — principles for how digital products can be built with ethical responsibility towards a user's emotional life. These arguments are collected in a Design Workbook: a speculative design artifact containing interaction concepts, interface principles, and open questions intended to guide future design practice.</p>
 
-<strong>How can we assist young women in practicing self-appreciation through a digital artifact, and how can this improve their self-esteem and happiness long-term?</strong>
-<br><br>
+<div class="proj-iframe-row">
+    <iframe src="../images/thesis/probekit_com.pdf" height="600px" title="Cultural Probe Kit"></iframe>
+    <iframe src="../images/thesis/Workbook.pdf" height="600px" title="Design Workbook"></iframe>
+</div>
 
-Summary:
+<div class="proj-next">
+    <span>Playground — 2018–2021</span>
+    <a href="portable.html">Next: Portable. →</a>
+</div>
 
-In attempting to answer our research question, we explore the qualities and dynamics of self-esteem in young women, with the intention of creating a design artifact that can assist in practicing self-appreciation, as a means of addressing feelings of low self-esteem. We did this by applying methods grounded in design research. Our primary method for gathering empirical data was development and use of a cultural probe deployed with five young women based in Denmark for four weeks. This was followed by a participatory workshop to evaluate the experiences with the designed features in the cultural probe. Finally, this has led to a collection of design arguments grounded in our empirical data. These design arguments are supported by a design workbook, elaborating on possible applications of our design arguments.
-
-			</p>
-            <p class="project-description">In collaboration with Anne Katrine Svejgaard Barrett.</p>         
-          </div>
-         </div>
-        
-         <div class="row">
-            <div class="item" style="width: 50%;">
-            <iframe src="../images/thesis/probekit_com.pdf" width="100%" height="700px"></iframe>
-            </div>
-            <div class="item" style="width: 50%;">
-            <iframe src="../images/thesis/Workbook.pdf" width="100%" height="700px"></iframe>
-            </div>
-       </div>
 </div>
 
 

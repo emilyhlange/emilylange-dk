@@ -19,7 +19,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html, body {
-            background: #F6F6F6;
+            background: #EDE8DF;
             color: black;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
@@ -27,16 +27,16 @@
             animation: color-change 20s infinite;
         }
         [data-theme="dark"] body {
-            background: #111;
-            color: #f0f0ee;
+            background: #151008;
+            color: #F2EDE3;
             animation: color-change 20s infinite;
         }
-        [data-theme="dark"] .pg-nav { background: #0d0d0d; border-bottom-color: rgba(255,255,255,0.08); }
-        [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #f0f0ee; }
+        [data-theme="dark"] .pg-nav { background: #151008; border-bottom-color: rgba(255,255,255,0.08); }
+        [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #F2EDE3; }
 
         @keyframes color-change {
             0%   { color: var(--fg, black); }
-            50%  { color: blue; }
+            50%  { color: #6B92A8; }
             100% { color: var(--fg, black); }
         }
 
@@ -70,8 +70,8 @@
         /* Scrollbar */
         ::-webkit-scrollbar { width: 10px; height: 5px; }
         ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: blue; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,255,0.52); }
+        ::-webkit-scrollbar-thumb { background: #8B2E3F; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(139,46,63,0.55); }
 
         /* Nav bar */
         .pg-nav {
@@ -80,7 +80,7 @@
             left: 0;
             right: 0;
             height: 32px;
-            background: #F6F6F6;
+            background: #EDE8DF;
             border-bottom: 1px solid rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
@@ -93,12 +93,12 @@
             color: inherit;
             text-decoration: none;
         }
-        .pg-nav a:hover { color: orangered; }
+        .pg-nav a:hover { color: #8B2E3F; }
         .pg-nav .nav-left { display: flex; align-items: center; gap: 8px; }
         .pg-nav .nav-sep { opacity: 0.3; }
         .pg-nav .nav-current { opacity: 0.45; }
         .pg-nav .nav-right a { color: inherit; text-decoration: none; }
-        .pg-nav .nav-right a:hover { color: orangered; }
+        .pg-nav .nav-right a:hover { color: #8B2E3F; }
 
         /* Content */
         .pg-content {
@@ -164,27 +164,27 @@
 
         /* links */
         a { color: inherit; text-decoration: none; }
-        a:hover { color: orangered; }
+        a:hover { color: #8B2E3F; }
 
         strong { font-weight: 700; }
         i, em { font-style: italic; }
     
         /* ── Dark mode ── */
         :root {
-            --bg: #F6F6F6;
-            --fg: #000;
-            --fg-dim: #999;
-            --border: rgba(0,0,0,0.1);
-            --topbar-bg: #F6F6F6;
-            --topbar-fg: #000;
+            --bg: #EDE8DF;
+            --fg: #1C1409;
+            --fg-dim: #9B8B7A;
+            --border: rgba(28,20,9,0.10);
+            --topbar-bg: #EDE8DF;
+            --topbar-fg: #1C1409;
         }
         [data-theme="dark"] {
-            --bg: #111;
-            --fg: #f0f0ee;
-            --fg-dim: #666;
-            --border: rgba(255,255,255,0.08);
-            --topbar-bg: #0d0d0d;
-            --topbar-fg: #f0f0ee;
+            --bg: #151008;
+            --fg: #F2EDE3;
+            --fg-dim: #6A5B4C;
+            --border: rgba(242,237,227,0.08);
+            --topbar-bg: #110D07;
+            --topbar-fg: #F2EDE3;
         }
         html { overflow-y: scroll; }
         html, body { background: var(--bg); color: var(--fg); }
@@ -214,7 +214,7 @@
             padding: 0;
             transition: opacity 0.15s;
         }
-        #theme-btn:hover { opacity: 1; color: orangered; }
+        #theme-btn:hover { opacity: 1; color: #8B2E3F; }
         /* ── Pixel cursor trail canvas ── */
         #cursor-canvas {
             position: fixed;
@@ -273,7 +273,7 @@
             display: block;
         }
         li.project-item a { color: inherit; text-decoration: none; }
-        li.project-item a:hover { color: orangered; }
+        li.project-item a:hover { color: #8B2E3F; }
         li.project-item.current > a { font-weight: bold; }
         .pg-content {
             padding: 20px 0 80px;
@@ -389,6 +389,59 @@
         /* Download links */
         .pg-content a strong { text-decoration: underline; text-underline-offset: 2px; }
 
+
+        /* ── Editorial layout ── */
+        .proj-lead {
+            font-size: 13px;
+            line-height: 1.85;
+            max-width: 580px;
+            margin: 0 0 36px;
+            color: var(--fg);
+        }
+        .proj-full { margin: 0 0 8px; }
+        .proj-full img { width: 100%; height: auto; display: block; }
+        .proj-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px; margin-bottom: 8px;
+        }
+        .proj-pair img { width: 100%; height: 320px; object-fit: cover; display: block; }
+        .proj-pair img.natural { height: auto; object-fit: unset; }
+        .proj-trio {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px; margin-bottom: 8px;
+        }
+        .proj-trio img { width: 100%; height: 240px; object-fit: cover; display: block; }
+        .proj-section-label {
+            font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+            opacity: 0.35; margin: 36px 0 10px; font-weight: 400; display: block;
+        }
+        .proj-body-text {
+            font-size: 12px; line-height: 1.85;
+            max-width: 580px; margin-bottom: 14px; color: var(--fg);
+        }
+        .proj-download {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; color: var(--fg); text-decoration: none;
+            border-bottom: 1px solid currentColor; padding-bottom: 2px;
+            margin-top: 8px; margin-right: 16px; transition: color 0.15s;
+        }
+        .proj-download:hover { color: #8B2E3F; border-color: #8B2E3F; }
+        .proj-iframe-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px; margin-bottom: 16px;
+        }
+        .proj-next {
+            margin-top: 60px; padding-top: 18px;
+            border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: baseline;
+            font-size: 11px;
+        }
+        .proj-next a { color: var(--fg-dim); text-decoration: none; transition: color 0.15s; }
+        .proj-next a:hover { color: #8B2E3F; }
+
     </style>
 </head>
 <body>
@@ -419,23 +472,11 @@
         </div>
         <span class="sidebar-label">projects</span>
         <ul>
-            <li class="project-item"><a href="thesis.html">Designing for Low Self-Esteem</a></li>
-            <li class="project-item"><a href="portable.html">Portable.</a></li>
-            <li class="project-item"><a href="skiveteater.html">Skive Theater</a></li>
-            <li class="project-item"><a href="ecodistricts.html">EcoDistricts</a></li>
-            <li class="project-item"><a href="multivitamin.html">Information Redesign</a></li>
-            <li class="project-item"><a href="breakupwithplastic.html">#breakUpWithPlastic</a></li>
-            <li class="project-item"><a href="tune.html">Tune</a></li>
-            <li class="project-item"><a href="cerealbox.html">A Cereal Box</a></li>
-            <li class="project-item"><a href="lp_limedevo.html">LP Cover Design</a></li>
-            <li class="project-item"><a href="dubois.html">W.E.B. Du Bois</a></li>
-            <li class="project-item"><a href="breathe.html">Breathe</a></li>
+            <li class="project-item "><a href="thesis.html">Designing for Low Self-Esteem</a></li>
+            <li class="project-item "><a href="portable.html">Portable.</a></li>
             <li class="project-item current"><a href="fanfare.html">Typographic Kitchen</a></li>
-            <li class="project-item"><a href="chaos.html">Chaotic Motion</a></li>
-            <li class="project-item"><a href="cwcj.html">Capt. Jack — Copenhagen</a></li>
-            <li class="project-item"><a href="pornolampen.html">The Porn Lamp</a></li>
-            <li class="project-item"><a href="sharePear.html">SharePear</a></li>
-            <li class="project-item"><a href="spaghetti.html">Spaghetti</a></li>
+            <li class="project-item "><a href="tune.html">Tune</a></li>
+            <li class="project-item "><a href="pornolampen.html">Pornolampen</a></li>
         </ul>
     </div>
 </div>
@@ -449,66 +490,55 @@
         <span class="proj-meta-item"><span>Type</span> — Exhibition / Typography</span>
                     <span class="proj-meta-item"><span>Collaboration</span> — with Fanfare, Amsterdam</span>
     </div>
-</div>
-<div class="row">
-          <div class="item">
-            <p id="project-title">Typographic Kitchen [2021] </p>
-            <p class="project-description"> In collaboration with Fanfare, an Amsterdam-based graphic design bureau, we created a typography named "GlossyKrabbesholm-Favorit". The letters that I (personally) created, weret those of Aa and Ss. The 'A' was based around the descriptive: "Thin/fat". The uppercase "S" was created around the descriptive: "electric", and the lowercase "s" was created around the descriptive: "scattered". The typography was presented in a spatial exhibition in which we placed the letters around the classroom in a way that allowed people to navigate around the font. The typography was also included in a publication collated by Fanfare.</p>
-            <p class="project-description"> <a href="../images/fanfare/GlossyKrabbesholm-Favorit.otf" download><strong>Download</strong></a> the Glossy Krabbesholm Font, <a href="../images/fanfare/GlossyKrabbesholm-Favorit.otf" download></a></p>
-          </div>
-         </div>
 
-           
-            <div class="row">
-            <div class="item">
-            <img style="width: 100%; max-height: 320px; object-fit: cover" src="../images/fanfare/5715_edit.png">
-            </div>
-               
-            <div class="item">
-            <img style="width: 100%; max-height: 320px; object-fit: cover" src="../images/fanfare/IMG_5742.JPG">
-            </div>   
-            </div>
-        
-           
-            <div class="row">
-            <div class="item">
-            <img style="width: 100%; max-height: 320px; object-fit: cover" src="../images/fanfare/IMG_5746.JPG">
-            </div>
-               
-            <div class="item">
-            <img style="width: 100%; max-height: 320px; object-fit: cover" src="../images/fanfare/5717_edit.png">
-            </div>   
-            </div>
-            
-            <div class="row">
-            <div class="item">
-            <img style="width: 100%; max-height: 320px; object-fit: cover" src="../images/fanfare/IMG_5726.JPG">
-            </div>
-               
-            <div class="item">
-            <img style="width: 100%; max-height: 320px; object-fit: cover" src="../images/fanfare/IMG_5728.JPG">
-            </div>   
-            </div>
-           
-            <div class="row">
-            <div class="item">
-            <img style="width: 100%; max-height: 320px; object-fit: cover" src="../images/fanfare/IMG_5686.JPG">
-            </div>
-               
-            <div class="item">
-            <img style="width: 100%; max-height: 320px; object-fit: cover" src="../images/fanfare/IMG_5689.JPG">
-            </div>   
-            </div>
- 
-            <div class="row">
-            <div class="item">
-            <img style="width: 100%; max-height: 320px; object-fit: cover" src="../images/fanfare/IMG_5673.JPG">
-            </div>
-               
-            <div class="item">
-            <img style="width: 100%; max-height: 320px; object-fit: cover" src="../images/fanfare/IMG_5679.JPG">
-            </div>   
-            </div>
+<p class="proj-lead">A custom display typeface designed in collaboration with Fanfare, an Amsterdam-based graphic design bureau. Exhibited spatially and published in print.</p>
+
+<div class="proj-full">
+    <img src="../images/fanfare/5715_edit.png" alt="GlossyKrabbesholm-Favorit exhibition">
+</div>
+
+<span class="proj-section-label">The Brief</span>
+<p class="proj-body-text">Fanfare invited students at Krabbesholm Højskole to each design specific characters for a collective typeface. Each designer received a character assignment and a set of descriptive words — the only constraints from which the forms would emerge.</p>
+
+<span class="proj-section-label">The Letters</span>
+<p class="proj-body-text">My contribution: the A and the S.</p>
+<p class="proj-body-text">The uppercase A was built around the tension between "thin" and "fat" — a letterform that carries contradiction, compressed energy in every stroke. The uppercase S was drawn from "electric" — angular momentum, the sense of current moving through form. The lowercase s came from "scattered" — exploded, dispersed, fragmented in a controlled way.</p>
+
+<div class="proj-pair">
+    <img src="../images/fanfare/Aa.png" alt="Letter A specimen" class="natural">
+    <img src="../images/fanfare/Ss.png" alt="Letter S specimen" class="natural">
+</div>
+
+<p class="proj-body-text">Together, all contributions formed <strong>GlossyKrabbesholm-Favorit</strong> — a display typeface that lived first as a spatial installation, then as a Fanfare publication.</p>
+
+<span class="proj-section-label">Exhibition</span>
+<p class="proj-body-text">The completed letters were placed throughout the classroom as a navigable space — a walk-through typeface. The exhibition asked: what does it feel like to be inside a font?</p>
+
+<div class="proj-trio">
+    <img src="../images/fanfare/IMG_5742.JPG" alt="Exhibition">
+    <img src="../images/fanfare/IMG_5746.JPG" alt="Exhibition">
+    <img src="../images/fanfare/5717_edit.png" alt="Exhibition">
+</div>
+
+<div class="proj-pair">
+    <img src="../images/fanfare/IMG_5726.JPG" alt="Exhibition detail">
+    <img src="../images/fanfare/IMG_5728.JPG" alt="Exhibition detail">
+</div>
+
+<div class="proj-pair">
+    <img src="../images/fanfare/IMG_5686.JPG" alt="Exhibition">
+    <img src="../images/fanfare/IMG_5689.JPG" alt="Exhibition">
+</div>
+
+<p class="proj-body-text">
+    <a class="proj-download" href="../images/fanfare/GlossyKrabbesholm-Favorit.otf" download>↓ Download GlossyKrabbesholm-Favorit.otf</a>
+</p>
+
+<div class="proj-next">
+    <a href="portable.html">← Portable.</a>
+    <a href="tune.html">Next: Tune →</a>
+</div>
+
 </div>
 
 

@@ -20,7 +20,7 @@
 
         /* ── Base ── */
         body {
-            background-color: #F6F6F6;
+            background-color: #EDE8DF;
             color: black;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
@@ -28,31 +28,31 @@
             animation: color-change 20s infinite;
         }
         [data-theme="dark"] body {
-            background-color: #111;
-            color: #f0f0ee;
+            background-color: #151008;
+            color: #F2EDE3;
         }
         @keyframes color-change {
             0%   { color: var(--fg, black); }
-            50%  { color: blue; }
+            50%  { color: #6B92A8; }
             100% { color: var(--fg, black); }
         }
 
         /* ── CSS Variables ── */
         :root {
-            --bg: #F6F6F6;
-            --fg: #000;
-            --fg-dim: #888;
-            --border: rgba(0,0,0,0.1);
-            --topbar-bg: #F6F6F6;
-            --topbar-fg: #000;
+            --bg: #EDE8DF;
+            --fg: #1C1409;
+            --fg-dim: #9B8B7A;
+            --border: rgba(28,20,9,0.10);
+            --topbar-bg: #EDE8DF;
+            --topbar-fg: #1C1409;
         }
         [data-theme="dark"] {
-            --bg: #111;
-            --fg: #f0f0ee;
-            --fg-dim: #666;
-            --border: rgba(255,255,255,0.08);
-            --topbar-bg: #0d0d0d;
-            --topbar-fg: #f0f0ee;
+            --bg: #151008;
+            --fg: #F2EDE3;
+            --fg-dim: #6A5B4C;
+            --border: rgba(242,237,227,0.08);
+            --topbar-bg: #110D07;
+            --topbar-fg: #F2EDE3;
         }
         html { overflow-y: scroll; }
         html, body { background: var(--bg); color: var(--fg); }
@@ -60,8 +60,8 @@
         /* Scrollbar */
         ::-webkit-scrollbar { width: 10px; height: 5px; }
         ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: blue; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,255,0.519); }
+        ::-webkit-scrollbar-thumb { background: #8B2E3F; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(139,46,63,0.55); }
 
         a { color: inherit; text-decoration: none; }
 
@@ -105,7 +105,7 @@
             font-family: Arial, Helvetica, sans-serif;
             line-height: 17px;
         }
-        li.project-item a:hover, li.sidebar-item a:hover { color: orangered; }
+        li.project-item a:hover, li.sidebar-item a:hover { color: #8B2E3F; }
         .sidebar-label {
             font-size: 10px;
             opacity: 0.4;
@@ -132,7 +132,7 @@
             color: var(--topbar-fg);
         }
         .pg-topbar a { color: inherit; }
-        .pg-topbar a:hover { color: orangered; }
+        .pg-topbar a:hover { color: #8B2E3F; }
         .pg-topbar .nav-left { display: flex; align-items: center; gap: 8px; }
         .pg-topbar .nav-sep { opacity: 0.3; }
         .pg-topbar .nav-current { opacity: 0.45; }
@@ -142,7 +142,7 @@
             color: inherit; opacity: 0.5; padding: 0;
             transition: opacity 0.15s;
         }
-        #theme-btn:hover { opacity: 1; color: orangered; }
+        #theme-btn:hover { opacity: 1; color: #8B2E3F; }
 
         /* ── Grain overlay ── */
         .grain {
@@ -226,7 +226,7 @@
             transition: color 0.15s ease;
         }
 
-        .pg-tile:hover .pg-tile-title { color: orangered; }
+        .pg-tile:hover .pg-tile-title { color: #8B2E3F; }
 
         .pg-tile-meta {
             font-size: 10px;
@@ -281,19 +281,9 @@
             <ul>
                 <li class="project-item"><a href="projects/thesis.html">Designing for Low Self-Esteem</a></li>
                 <li class="project-item"><a href="projects/portable.html">Portable.</a></li>
-                <li class="project-item"><a href="projects/skiveteater.html">Skive Theater</a></li>
-                <li class="project-item"><a href="projects/tune.html">Tune</a></li>
-                <li class="project-item"><a href="projects/cerealbox.html">A Cereal Box</a></li>
-                <li class="project-item"><a href="projects/lp_limedevo.html">LP Cover Design</a></li>
                 <li class="project-item"><a href="projects/fanfare.html">Typographic Kitchen</a></li>
-                <li class="project-item"><a href="projects/chaos.html">Chaotic Motion</a></li>
+                <li class="project-item"><a href="projects/tune.html">Tune</a></li>
                 <li class="project-item"><a href="projects/pornolampen.html">Pornolampen</a></li>
-                <li class="project-item"><a href="projects/sharePear.html">SharePear</a></li>
-                <li class="project-item"><a href="projects/ecodistricts.html">EcoDistricts</a></li>
-                <li class="project-item"><a href="projects/multivitamin.html">Information Redesign</a></li>
-                <li class="project-item"><a href="projects/breakupwithplastic.html">#breakUpWithPlastic</a></li>
-                <li class="project-item"><a href="projects/dubois.html">W.E.B. Du Bois</a></li>
-                <li class="project-item"><a href="projects/breathe.html">Breathe</a></li>
             </ul>
 
             <span class="sidebar-label">contact</span>
@@ -331,13 +321,13 @@
                     </div>
                 </a>
 
-                <a class="pg-tile" href="projects/skiveteater.html">
+                <a class="pg-tile" href="projects/fanfare.html">
                     <div class="pg-tile-img">
-                        <img src="images/teater/12.jpg" alt="Skive Theater" loading="lazy">
+                        <img src="images/fanfare/5715_edit.png" alt="Typographic Kitchen" loading="lazy">
                     </div>
                     <div class="pg-tile-info">
-                        <span class="pg-tile-title">Skive Theater</span>
-                        <span class="pg-tile-meta">2021 · Branding</span>
+                        <span class="pg-tile-title">Typographic Kitchen</span>
+                        <span class="pg-tile-meta">2021 · Exhibition</span>
                     </div>
                 </a>
 
@@ -351,36 +341,6 @@
                     </div>
                 </a>
 
-                <a class="pg-tile" href="projects/cerealbox.html">
-                    <div class="pg-tile-img">
-                        <img src="images/cerealbox/cerealbox2-03.png" alt="A Cereal Box" loading="lazy">
-                    </div>
-                    <div class="pg-tile-info">
-                        <span class="pg-tile-title">A Cereal Box</span>
-                        <span class="pg-tile-meta">2021 · Graphic Design</span>
-                    </div>
-                </a>
-
-                <a class="pg-tile" href="projects/lp_limedevo.html">
-                    <div class="pg-tile-img">
-                        <img src="images/lime_devo/front.png" alt="LP Cover Design" loading="lazy">
-                    </div>
-                    <div class="pg-tile-info">
-                        <span class="pg-tile-title">LP Cover Design</span>
-                        <span class="pg-tile-meta">2021 · Graphic Design</span>
-                    </div>
-                </a>
-
-                <a class="pg-tile" href="projects/fanfare.html">
-                    <div class="pg-tile-img">
-                        <img src="images/fanfare/5715_edit.png" alt="Typographic Kitchen" loading="lazy">
-                    </div>
-                    <div class="pg-tile-info">
-                        <span class="pg-tile-title">Typographic Kitchen</span>
-                        <span class="pg-tile-meta">2021 · Exhibition</span>
-                    </div>
-                </a>
-
                 <a class="pg-tile" href="projects/pornolampen.html">
                     <div class="pg-tile-img">
                         <img src="images/pornolampen/exhibition1.jpg" alt="Pornolampen" loading="lazy">
@@ -388,56 +348,6 @@
                     <div class="pg-tile-info">
                         <span class="pg-tile-title">Pornolampen</span>
                         <span class="pg-tile-meta">2021 · 3D Design</span>
-                    </div>
-                </a>
-
-                <a class="pg-tile" href="projects/sharePear.html">
-                    <div class="pg-tile-img">
-                        <img src="images/sharepear/SharePear.jpg" alt="SharePear" loading="lazy">
-                    </div>
-                    <div class="pg-tile-info">
-                        <span class="pg-tile-title">SharePear</span>
-                        <span class="pg-tile-meta">2020 · UX Design</span>
-                    </div>
-                </a>
-
-                <a class="pg-tile" href="projects/chaos.html">
-                    <div class="pg-tile-img">
-                        <img src="images/Chaos/exhibition1.jpg" alt="Chaotic Motion" loading="lazy">
-                    </div>
-                    <div class="pg-tile-info">
-                        <span class="pg-tile-title">Chaotic Motion</span>
-                        <span class="pg-tile-meta">2018 · Exhibition</span>
-                    </div>
-                </a>
-
-                <a class="pg-tile" href="projects/ecodistricts.html">
-                    <div class="pg-tile-img">
-                        <img src="images/EcoDistricts/Emily_Brochure.png" alt="EcoDistricts" loading="lazy">
-                    </div>
-                    <div class="pg-tile-info">
-                        <span class="pg-tile-title">EcoDistricts</span>
-                        <span class="pg-tile-meta">2018 · Branding</span>
-                    </div>
-                </a>
-
-                <a class="pg-tile" href="projects/multivitamin.html">
-                    <div class="pg-tile-img">
-                        <img src="images/informationdesign/Project 1 - Process Book.png" alt="Information Redesign" loading="lazy">
-                    </div>
-                    <div class="pg-tile-info">
-                        <span class="pg-tile-title">Information Redesign</span>
-                        <span class="pg-tile-meta">2018 · Editorial</span>
-                    </div>
-                </a>
-
-                <a class="pg-tile" href="projects/breakupwithplastic.html">
-                    <div class="pg-tile-img">
-                        <img src="images/breakupwithplastic/Processbook.png" alt="#breakUpWithPlastic" loading="lazy">
-                    </div>
-                    <div class="pg-tile-info">
-                        <span class="pg-tile-title">#breakUpWithPlastic</span>
-                        <span class="pg-tile-meta">2018 · Campaign</span>
                     </div>
                 </a>
 
@@ -462,8 +372,8 @@
         window.addEventListener('resize', resize);
 
         const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
-        const PALETTE_LIGHT = ['#000000','#000000','#000000','#000000','#0000ff','#ff4500'];
-        const PALETTE_DARK  = ['#ffffff','#ffffff','#ffffff','#e0e0ff','#0000ff','#ff4500'];
+        const PALETTE_LIGHT = ['#1C1409','#1C1409','#1C1409','#6B92A8','#6B92A8','#8B2E3F'];
+        const PALETTE_DARK  = ['#F2EDE3','#F2EDE3','#F2EDE3','#C8D8E4','#6B92A8','#8B2E3F'];
 
         let pixels = [], lastX = null, lastY = null;
         document.addEventListener('mousemove', e => {

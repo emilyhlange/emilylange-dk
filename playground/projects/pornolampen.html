@@ -19,7 +19,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html, body {
-            background: #F6F6F6;
+            background: #EDE8DF;
             color: black;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
@@ -27,16 +27,16 @@
             animation: color-change 20s infinite;
         }
         [data-theme="dark"] body {
-            background: #111;
-            color: #f0f0ee;
+            background: #151008;
+            color: #F2EDE3;
             animation: color-change 20s infinite;
         }
-        [data-theme="dark"] .pg-nav { background: #0d0d0d; border-bottom-color: rgba(255,255,255,0.08); }
-        [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #f0f0ee; }
+        [data-theme="dark"] .pg-nav { background: #151008; border-bottom-color: rgba(255,255,255,0.08); }
+        [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #F2EDE3; }
 
         @keyframes color-change {
             0%   { color: var(--fg, black); }
-            50%  { color: blue; }
+            50%  { color: #6B92A8; }
             100% { color: var(--fg, black); }
         }
 
@@ -70,8 +70,8 @@
         /* Scrollbar */
         ::-webkit-scrollbar { width: 10px; height: 5px; }
         ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: blue; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,255,0.52); }
+        ::-webkit-scrollbar-thumb { background: #8B2E3F; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(139,46,63,0.55); }
 
         /* Nav bar */
         .pg-nav {
@@ -80,7 +80,7 @@
             left: 0;
             right: 0;
             height: 32px;
-            background: #F6F6F6;
+            background: #EDE8DF;
             border-bottom: 1px solid rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
@@ -93,12 +93,12 @@
             color: inherit;
             text-decoration: none;
         }
-        .pg-nav a:hover { color: orangered; }
+        .pg-nav a:hover { color: #8B2E3F; }
         .pg-nav .nav-left { display: flex; align-items: center; gap: 8px; }
         .pg-nav .nav-sep { opacity: 0.3; }
         .pg-nav .nav-current { opacity: 0.45; }
         .pg-nav .nav-right a { color: inherit; text-decoration: none; }
-        .pg-nav .nav-right a:hover { color: orangered; }
+        .pg-nav .nav-right a:hover { color: #8B2E3F; }
 
         /* Content */
         .pg-content {
@@ -164,27 +164,27 @@
 
         /* links */
         a { color: inherit; text-decoration: none; }
-        a:hover { color: orangered; }
+        a:hover { color: #8B2E3F; }
 
         strong { font-weight: 700; }
         i, em { font-style: italic; }
     
         /* ── Dark mode ── */
         :root {
-            --bg: #F6F6F6;
-            --fg: #000;
-            --fg-dim: #999;
-            --border: rgba(0,0,0,0.1);
-            --topbar-bg: #F6F6F6;
-            --topbar-fg: #000;
+            --bg: #EDE8DF;
+            --fg: #1C1409;
+            --fg-dim: #9B8B7A;
+            --border: rgba(28,20,9,0.10);
+            --topbar-bg: #EDE8DF;
+            --topbar-fg: #1C1409;
         }
         [data-theme="dark"] {
-            --bg: #111;
-            --fg: #f0f0ee;
-            --fg-dim: #666;
-            --border: rgba(255,255,255,0.08);
-            --topbar-bg: #0d0d0d;
-            --topbar-fg: #f0f0ee;
+            --bg: #151008;
+            --fg: #F2EDE3;
+            --fg-dim: #6A5B4C;
+            --border: rgba(242,237,227,0.08);
+            --topbar-bg: #110D07;
+            --topbar-fg: #F2EDE3;
         }
         html { overflow-y: scroll; }
         html, body { background: var(--bg); color: var(--fg); }
@@ -214,7 +214,7 @@
             padding: 0;
             transition: opacity 0.15s;
         }
-        #theme-btn:hover { opacity: 1; color: orangered; }
+        #theme-btn:hover { opacity: 1; color: #8B2E3F; }
         /* ── Pixel cursor trail canvas ── */
         #cursor-canvas {
             position: fixed;
@@ -273,7 +273,7 @@
             display: block;
         }
         li.project-item a { color: inherit; text-decoration: none; }
-        li.project-item a:hover { color: orangered; }
+        li.project-item a:hover { color: #8B2E3F; }
         li.project-item.current > a { font-weight: bold; }
         .pg-content {
             padding: 20px 0 80px;
@@ -389,6 +389,59 @@
         /* Download links */
         .pg-content a strong { text-decoration: underline; text-underline-offset: 2px; }
 
+
+        /* ── Editorial layout ── */
+        .proj-lead {
+            font-size: 13px;
+            line-height: 1.85;
+            max-width: 580px;
+            margin: 0 0 36px;
+            color: var(--fg);
+        }
+        .proj-full { margin: 0 0 8px; }
+        .proj-full img { width: 100%; height: auto; display: block; }
+        .proj-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px; margin-bottom: 8px;
+        }
+        .proj-pair img { width: 100%; height: 320px; object-fit: cover; display: block; }
+        .proj-pair img.natural { height: auto; object-fit: unset; }
+        .proj-trio {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px; margin-bottom: 8px;
+        }
+        .proj-trio img { width: 100%; height: 240px; object-fit: cover; display: block; }
+        .proj-section-label {
+            font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+            opacity: 0.35; margin: 36px 0 10px; font-weight: 400; display: block;
+        }
+        .proj-body-text {
+            font-size: 12px; line-height: 1.85;
+            max-width: 580px; margin-bottom: 14px; color: var(--fg);
+        }
+        .proj-download {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; color: var(--fg); text-decoration: none;
+            border-bottom: 1px solid currentColor; padding-bottom: 2px;
+            margin-top: 8px; margin-right: 16px; transition: color 0.15s;
+        }
+        .proj-download:hover { color: #8B2E3F; border-color: #8B2E3F; }
+        .proj-iframe-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px; margin-bottom: 16px;
+        }
+        .proj-next {
+            margin-top: 60px; padding-top: 18px;
+            border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: baseline;
+            font-size: 11px;
+        }
+        .proj-next a { color: var(--fg-dim); text-decoration: none; transition: color 0.15s; }
+        .proj-next a:hover { color: #8B2E3F; }
+
     </style>
 </head>
 <body>
@@ -419,23 +472,11 @@
         </div>
         <span class="sidebar-label">projects</span>
         <ul>
-            <li class="project-item"><a href="thesis.html">Designing for Low Self-Esteem</a></li>
-            <li class="project-item"><a href="portable.html">Portable.</a></li>
-            <li class="project-item"><a href="skiveteater.html">Skive Theater</a></li>
-            <li class="project-item"><a href="ecodistricts.html">EcoDistricts</a></li>
-            <li class="project-item"><a href="multivitamin.html">Information Redesign</a></li>
-            <li class="project-item"><a href="breakupwithplastic.html">#breakUpWithPlastic</a></li>
-            <li class="project-item"><a href="tune.html">Tune</a></li>
-            <li class="project-item"><a href="cerealbox.html">A Cereal Box</a></li>
-            <li class="project-item"><a href="lp_limedevo.html">LP Cover Design</a></li>
-            <li class="project-item"><a href="dubois.html">W.E.B. Du Bois</a></li>
-            <li class="project-item"><a href="breathe.html">Breathe</a></li>
-            <li class="project-item"><a href="fanfare.html">Typographic Kitchen</a></li>
-            <li class="project-item"><a href="chaos.html">Chaotic Motion</a></li>
-            <li class="project-item"><a href="cwcj.html">Capt. Jack — Copenhagen</a></li>
-            <li class="project-item current"><a href="pornolampen.html">The Porn Lamp</a></li>
-            <li class="project-item"><a href="sharePear.html">SharePear</a></li>
-            <li class="project-item"><a href="spaghetti.html">Spaghetti</a></li>
+            <li class="project-item "><a href="thesis.html">Designing for Low Self-Esteem</a></li>
+            <li class="project-item "><a href="portable.html">Portable.</a></li>
+            <li class="project-item "><a href="fanfare.html">Typographic Kitchen</a></li>
+            <li class="project-item "><a href="tune.html">Tune</a></li>
+            <li class="project-item current"><a href="pornolampen.html">Pornolampen</a></li>
         </ul>
     </div>
 </div>
@@ -448,37 +489,47 @@
         <span class="proj-meta-item"><span>Year</span> — 2021</span>
         <span class="proj-meta-item"><span>Type</span> — 3D Design / Spatial</span>
     </div>
+
+<p class="proj-lead">An interactive lamp that illuminates when a resident of a student dormitory visits a pornographic website — designed to de-stigmatise pornography and open conditions for conversation.</p>
+
+<div class="proj-full">
+    <img src="../images/pornolampen/exhibition1.jpg" alt="Pornolampen — exhibition">
 </div>
-<div class="row">
-          <div class="item">
-              <img src="../images/pornolampen/exhibition1.jpg" style="width: 100%"><br><br>
-            <p class="project-description"> Pornolampen skal placeres i et fælles areal på et kollegie. Det kunne være et fælles køkken eller en fælles dagligstue. Dette valg er taget, da vi ønsker at placere pornolampen i en kontekst, hvor der er en form for fællesskab, samtidigt med at individerne stadig har deres eget private rum, hvor de ikke skal gå på kompromis med deres personlige sfære. Når en beboer på kollegiet ser porno, vil pornolampen, som står i et fælles areal, lyse op. Det vil altså være synligt for de øvrige beboere, som opholder sig i fælles arealet, at der er nogen som ser porno, men ikke hvem som ser det.</p>
-                        <img src="../images/pornolampen/kontekst.jpg" style="width: 100%">
 
-              <img src="../images/pornolampen/visionboard.jpg" style="width: 100%">
-            <br><br><p class="project-description">En tiltænkt brugskontekst kunne se ud som følgende: Kollegiebeboer nr. 1, sidder med sin computer på sit værelse. To andre beboere, står og snakker i deres fællesareal på kollegiet. Når beboer nr. 1 går ind på en pornoside, vil en lampe, placeret i fællesarealet, lyse op. De to andre beboere ser dette og begynder efterfølgende at diskutere porno sammen. De andre beboere er indforstået med lampens betydning, og derved kan det potentielt fremme en samtale. Ambitionen med pornolampen er først og fremmest at bidrage til at aftabuisere brugen af porno, ved at skabe et design, som kan fungere som dialogstarter. </p><br>
-              <img src="../images/pornolampen/prototype2.jpg" style="width: 100%;">
-              <br><br><p class="project-description">Processing programmet (1) har til opgave at holde øje med, hvornår computeren besøger Pornhub. Når den gør, sender den et 1-tal og når den ikke gør, sender den et 2-tal videre til Arduino (2). Arduino-koden står for at sende information videre til Arduino-boardet (3). Hvis Arduinoen modtager et 2-tal skal lampen (5) forblive slukket, men hvis den modtager et 1-tal, skal lampen tændes. Denne information modtager Arduinoen, som så står for enten at tænde eller slukke lampen. Arduino-boardet kan kun håndtere 5 volt, men eftersom at vores pære bruger 230 volt, har vi et relæ-modul (4) imellem vores Arduino-board og vores pære, som sørger for, at Arduino-boardet kan håndtere de 230 volt, som kommer ud af stikkontakten og som vores pære bruger.</p>
-              <img src="../images/pornolampen/elektrisk.png" style="width: 100%"><br><br>
-              <img src="../images/pornolampen/exhibition3.jpg" style="width: 100%">
-          </div>
+<span class="proj-section-label">The Concept</span>
+<p class="proj-body-text">Pornolampen was designed for placement in a shared common area of a student dormitory — a kitchen, a living room. When any resident on the shared WiFi visits a pornographic website, the lamp turns on. It does not reveal who — only that someone, somewhere in the building, is watching. Visibility without identity.</p>
+<p class="proj-body-text">The design emerges from a simple question: can an object make a taboo subject easier to discuss? Not by forcing confrontation, but by making the private quietly legible in a shared space — and letting people decide whether to respond.</p>
 
-        <div class="item">
-            <p id="project-title"> Pornolampen [2019]</p>
-              <p class="project-description"> Vi har designet Pornolampen - en interaktiv, penis og vagina-formet lampe, som tænder hver gang en beboer på kollegiets Wi-Fi besøger en porno-hjemmeside. Pornolampen skal placeres i et af kollegiets fællesarealer - dette kan være et fælleskøkken eller en fælles opholdsstue. Hver gang en beboer på kollegiet ser porno på sit værelse, vil lampen lyse op i fællesarealet. Pornolampen vil altså ikke afsløre præcis hvem som ser porno, men vil gøre de resterende beboere på kollegiet, der opholder sig på fællesarealet, opmærksom på, at der er nogen som ser det netop nu.</p>
-        <img src="../images/pornolampen/exhibition2.jpg" style="width: 100%">
-        <img src="../images/pornolampen/exhibition4.png" style="width: 100%">
-            <br><br><p class="project-description"><strong>Design manifesto: </strong> </p><ul class="project-description"><li>vi vil give brugeren et trygt og frit rum til at tale om porno i </li><li>at føle sig komfortable i at tale om noget så privat</li>
-            <li>vi vil ikke tvinge brugerne til at tale om noget de ikke har lyst til; men rettere give dem muligheden</li>
-            <li>dette tale-rum vil ændre den måde vi taler om pornografi på, og vores syn på seksualitet, sex og vores opfattelse og forhold til sin egen krop, og de begær og lyster alle har</li>
-            <li>projektet skal tilbyde en troværdighed til brugeren</li>
-            <li>er formålet at provokere?</li></ul><br>
-        <img src="../images/pornolampen/designproces.jpg" style="width: 100%">
-        <br><br><p class="project-description">Koden bag Pornolampen er skrevet i Arduino og Processing. Programmet måler, hvornår brugerens computer besøger Pornhub. Hver gang dette sker, sender programmet et signal videre til lampen om, at den skal tænde. Når brugeren forlader porno- hjemmesiden vil lampen slukke. Pornolampen vil altså kun være tændt så længe en beboer er inde på siden.</p><br>
-        <img src="../images/pornolampen/prototype3.jpg" style="width: 100%">
-        <br><br><p class="project-description">“Hvis man kan få folk til at gå med til det (...) så tror jeg helt sikker at den ville skabe noget dialog. Bare det at skulle diskutere om den skal stilles op, er en dialog omkring det. (...) Spørgsmålet er bare om folk ville gå med til det, eller om de ville synes at det var for krænkende”(jf. Bilag 7 - Tietgen Kollegiet, 10.20).</p>
-        </div>
-         </div>
+<div class="proj-pair">
+    <img src="../images/pornolampen/exhibition2.jpg" alt="Pornolampen in context">
+    <img src="../images/pornolampen/kontekst.jpg" alt="Pornolampen context">
+</div>
+
+<span class="proj-section-label">Design Manifesto</span>
+<p class="proj-body-text">We want to offer users a safe and free space to talk about pornography — to feel comfortable discussing something so private. We will not force users into a conversation they don't want; rather, we create the conditions for one. This space could change the way we talk about pornography and our relationship to sexuality, desire, and the body. Does the project aim to provoke? Yes — and also: to open.</p>
+
+<div class="proj-pair">
+    <img src="../images/pornolampen/3dmodel1.jpg" alt="3D model">
+    <img src="../images/pornolampen/3dmodel2.jpg" alt="3D model">
+</div>
+
+<span class="proj-section-label">Technical Implementation</span>
+<p class="proj-body-text">The lamp is controlled by an Arduino and Processing system. A Processing sketch monitors the connected computer's network traffic for Pornhub; when a visit is detected, it sends a signal to an Arduino board. A relay module bridges the 5V Arduino to the 230V lamp circuit, allowing the board to switch the light. The lamp is on while the site is visited; off when the session ends.</p>
+
+<div class="proj-pair">
+    <img src="../images/pornolampen/prototype1.jpg" alt="Prototype">
+    <img src="../images/pornolampen/elektrisk.png" alt="Technical diagram">
+</div>
+
+<div class="proj-full">
+    <img src="../images/pornolampen/exhibition3.jpg" alt="Exhibition view">
+</div>
+
+<div class="proj-next">
+    <a href="tune.html">← Tune</a>
+    <span>Playground — 2018–2021</span>
+</div>
+
 </div>
 
 
