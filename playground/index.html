@@ -197,63 +197,87 @@
             font-size: 12px;
             line-height: 17px;
             color: var(--fg-dim);
-            margin-bottom: 30px;
+            margin-bottom: 18px;
             max-width: 480px;
             opacity: 0.7;
         }
 
-        /* ── Project list ── */
-        .pg-list { list-style: none; }
-
-        .pg-row {
+        /* ── Image grid ── */
+        .pg-grid {
             display: grid;
-            grid-template-columns: 130px 1fr;
-            align-items: baseline;
-            padding: 10px 0;
-            border-top: 1px solid currentColor;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-        }
-        .pg-row:last-child { border-bottom: 1px solid currentColor; }
-        .pg-row:hover .pg-title-link { color: orangered; }
-
-        .pg-meta {
-            font-size: 10px;
-            opacity: 0.4;
-            letter-spacing: 0.04em;
-            padding-right: 16px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
         }
 
-        .pg-title-link {
-            font-size: 12px;
-            line-height: 17px;
+        .pg-tile {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
             display: block;
-            min-height: 17px;
+            background: var(--border);
         }
 
-        /* Blinking cursor during typewriter */
-        .pg-cursor {
-            display: inline-block;
-            width: 1px; height: 12px;
-            background: currentColor;
-            margin-left: 1px;
-            vertical-align: middle;
-            animation: blink 0.65s step-end infinite;
-        }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-        /* ── Hover thumbnail ── */
-        #pg-thumb {
-            position: fixed; pointer-events: none; z-index: 9999;
-            top: 0; left: 0; opacity: 0; transition: opacity 0.12s ease;
-        }
-        #pg-thumb.visible { opacity: 1; }
-        #pg-thumb img {
-            display: block; width: 220px; height: 160px;
+        .pg-tile img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 1px solid currentColor;
-            background: var(--bg);
+            display: block;
+            transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .pg-tile:hover img {
+            transform: scale(1.04);
+        }
+
+        .pg-tile-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 14px 12px;
+            transition: background 0.3s ease;
+        }
+
+        .pg-tile:hover .pg-tile-overlay {
+            background: rgba(0, 0, 0, 0.60);
+        }
+
+        .pg-tile-title {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.35;
+            opacity: 0;
+            transform: translateY(7px);
+            transition: opacity 0.22s ease, transform 0.22s ease;
+        }
+
+        .pg-tile-meta {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.65);
+            margin-top: 3px;
+            opacity: 0;
+            transform: translateY(7px);
+            transition: opacity 0.22s ease 0.04s, transform 0.22s ease 0.04s;
+            letter-spacing: 0.03em;
+        }
+
+        .pg-tile:hover .pg-tile-title,
+        .pg-tile:hover .pg-tile-meta {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive grid */
+        @media (max-width: 900px) {
+            .pg-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .pg-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -309,6 +333,8 @@
                 <li class="project-item"><a href="projects/breathe.html">Breathe</a></li>
                 <li class="project-item"><a href="projects/fanfare.html">Typographic Kitchen</a></li>
                 <li class="project-item"><a href="projects/chaos.html">Chaotic Motion</a></li>
+                <li class="project-item"><a href="projects/pornolampen.html">Pornolampen</a></li>
+                <li class="project-item"><a href="projects/sharePear.html">SharePear</a></li>
             </ul>
 
             <span class="sidebar-label">contact</span>
@@ -320,171 +346,142 @@
 
     <!-- ── Right content ── -->
     <div class="right">
-        <div class="item">
+        <div class="item" style="padding-left:0; padding-right:0;">
 
             <p class="pg-lede">Earlier work, experiments, and student projects — 2018–2021.</p>
 
-            <ol class="pg-list">
+            <div class="pg-grid">
 
-                <li class="pg-row" data-thumb="images/thesis/thumbnail.jpg">
-                    <span class="pg-meta">2021 / Thesis</span>
-                    <a class="pg-title-link" href="projects/thesis.html" data-text="Designing for low self-esteem"></a>
-                </li>
+                <a class="pg-tile" href="projects/thesis.html">
+                    <img src="images/thesis/thumbnail.jpg" alt="Designing for Low Self-Esteem" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">Designing for Low Self-Esteem</div>
+                        <div class="pg-tile-meta">2021 &middot; Thesis</div>
+                    </div>
+                </a>
 
-                <li class="pg-row" data-thumb="images/portable/thumbnail.png">
-                    <span class="pg-meta">2021 / Product Design</span>
-                    <a class="pg-title-link" href="projects/portable.html" data-text="Portable."></a>
-                </li>
+                <a class="pg-tile" href="projects/portable.html">
+                    <img src="images/portable/thumbnail.png" alt="Portable." loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">Portable.</div>
+                        <div class="pg-tile-meta">2021 &middot; Product Design</div>
+                    </div>
+                </a>
 
-                <li class="pg-row" data-thumb="images/mikkeller/thumbnail.png">
-                    <span class="pg-meta">2020 / Product Design</span>
-                    <a class="pg-title-link" href="projects/mikkeller.html" data-text="Mikkeller Brewery"></a>
-                </li>
+                <a class="pg-tile" href="projects/skiveteater.html">
+                    <img src="images/teater/12.jpg" alt="Skive Theater" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">Skive Theater</div>
+                        <div class="pg-tile-meta">2021 &middot; Branding</div>
+                    </div>
+                </a>
 
-                <li class="pg-row" data-thumb="images/teater/12.jpg">
-                    <span class="pg-meta">2021 / Branding</span>
-                    <a class="pg-title-link" href="projects/skiveteater.html" data-text="Skive Theater"></a>
-                </li>
+                <a class="pg-tile" href="projects/tune.html">
+                    <img src="images/tune/tune_thumbnail.png" alt="Tune" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">Tune</div>
+                        <div class="pg-tile-meta">2021 &middot; Graphic Design</div>
+                    </div>
+                </a>
 
-                <li class="pg-row" data-thumb="images/EcoDistricts/thumbnail.png">
-                    <span class="pg-meta">2018 / Branding</span>
-                    <a class="pg-title-link" href="projects/ecodistricts.html" data-text="EcoDistricts"></a>
-                </li>
+                <a class="pg-tile" href="projects/cerealbox.html">
+                    <img src="images/cerealbox/cerealthumb.png" alt="A Cereal Box" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">A Cereal Box</div>
+                        <div class="pg-tile-meta">2021 &middot; Graphic Design</div>
+                    </div>
+                </a>
 
-                <li class="pg-row" data-thumb="images/informationdesign/thumbnail.png">
-                    <span class="pg-meta">2018 / Branding</span>
-                    <a class="pg-title-link" href="projects/multivitamin.html" data-text="Information Redesign"></a>
-                </li>
+                <a class="pg-tile" href="projects/lp_limedevo.html">
+                    <img src="images/lime_devo/devothumb.png" alt="LP Cover Design" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">LP Cover Design</div>
+                        <div class="pg-tile-meta">2021 &middot; Graphic Design</div>
+                    </div>
+                </a>
 
-                <li class="pg-row" data-thumb="images/breakupwithplastic/thumbnail.png">
-                    <span class="pg-meta">2018 / Campaign</span>
-                    <a class="pg-title-link" href="projects/breakupwithplastic.html" data-text="#breakUpWithPlastic"></a>
-                </li>
+                <a class="pg-tile" href="projects/breathe.html">
+                    <img src="images/breathe/Screenshot 2022-01-11 at 15.36.23.png" alt="Breathe" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">Breathe</div>
+                        <div class="pg-tile-meta">2021 &middot; Speculative</div>
+                    </div>
+                </a>
 
-                <li class="pg-row" data-thumb="images/tune/front_stand.jpg">
-                    <span class="pg-meta">2021 / Graphic Design</span>
-                    <a class="pg-title-link" href="projects/tune.html" data-text="Tune"></a>
-                </li>
+                <a class="pg-tile" href="projects/fanfare.html">
+                    <img src="images/fanfare/5715_edit.png" alt="Typographic Kitchen" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">Typographic Kitchen</div>
+                        <div class="pg-tile-meta">2021 &middot; Exhibition</div>
+                    </div>
+                </a>
 
-                <li class="pg-row" data-thumb="images/cerealbox/cerealthumb.png">
-                    <span class="pg-meta">2021 / Graphic Design</span>
-                    <a class="pg-title-link" href="projects/cerealbox.html" data-text="A Cereal Box"></a>
-                </li>
+                <a class="pg-tile" href="projects/pornolampen.html">
+                    <img src="images/pornolampen/thumbnail.jpg" alt="Pornolampen" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">Pornolampen</div>
+                        <div class="pg-tile-meta">2021 &middot; 3D Design</div>
+                    </div>
+                </a>
 
-                <li class="pg-row" data-thumb="images/lime_devo/devothumb.png">
-                    <span class="pg-meta">2021 / Graphic Design</span>
-                    <a class="pg-title-link" href="projects/lp_limedevo.html" data-text="LP Cover Design"></a>
-                </li>
+                <a class="pg-tile" href="projects/sharePear.html">
+                    <img src="images/sharepear/thumbnail.jpg" alt="SharePear" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">SharePear</div>
+                        <div class="pg-tile-meta">2020 &middot; UX Design</div>
+                    </div>
+                </a>
 
-                <li class="pg-row" data-thumb="images/dubois/thumbnail.png">
-                    <span class="pg-meta">2018 / Graphic Design</span>
-                    <a class="pg-title-link" href="projects/dubois.html" data-text="DuBois"></a>
-                </li>
+                <a class="pg-tile" href="projects/ecodistricts.html">
+                    <img src="images/EcoDistricts/thumbnail.png" alt="EcoDistricts" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">EcoDistricts</div>
+                        <div class="pg-tile-meta">2018 &middot; Branding</div>
+                    </div>
+                </a>
 
-                <li class="pg-row" data-thumb="images/breathe/Screenshot 2022-01-11 at 15.36.23.png">
-                    <span class="pg-meta">2021 / Speculative</span>
-                    <a class="pg-title-link" href="projects/breathe.html" data-text="Breathe"></a>
-                </li>
+                <a class="pg-tile" href="projects/multivitamin.html">
+                    <img src="images/informationdesign/thumbnail.png" alt="Information Redesign" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">Information Redesign</div>
+                        <div class="pg-tile-meta">2018 &middot; Editorial</div>
+                    </div>
+                </a>
 
-                <li class="pg-row" data-thumb="images/fanfare/5715_edit.png">
-                    <span class="pg-meta">2021 / Exhibition</span>
-                    <a class="pg-title-link" href="projects/fanfare.html" data-text="Typographic Kitchen"></a>
-                </li>
+                <a class="pg-tile" href="projects/breakupwithplastic.html">
+                    <img src="images/breakupwithplastic/thumbnail.png" alt="#breakUpWithPlastic" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">#breakUpWithPlastic</div>
+                        <div class="pg-tile-meta">2018 &middot; Campaign</div>
+                    </div>
+                </a>
 
-                <li class="pg-row" data-thumb="images/Chaos/thumbnail.jpg">
-                    <span class="pg-meta">2018 / Exhibition</span>
-                    <a class="pg-title-link" href="projects/chaos.html" data-text="Chaos"></a>
-                </li>
+                <a class="pg-tile" href="projects/dubois.html">
+                    <img src="images/dubois/thumbnail.png" alt="W.E.B. Du Bois" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">W.E.B. Du Bois</div>
+                        <div class="pg-tile-meta">2018 &middot; Data Visualisation</div>
+                    </div>
+                </a>
 
-            </ol>
+                <a class="pg-tile" href="projects/chaos.html">
+                    <img src="images/Chaos/thumbnail.jpg" alt="Chaotic Motion" loading="lazy">
+                    <div class="pg-tile-overlay">
+                        <div class="pg-tile-title">Chaotic Motion</div>
+                        <div class="pg-tile-meta">2018 &middot; Exhibition</div>
+                    </div>
+                </a>
+
+            </div><!-- /pg-grid -->
+
         </div>
     </div>
 
 </div>
 
-<!-- Hover thumbnail -->
-<div id="pg-thumb"><img id="pg-thumb-img" src="" alt=""></div>
-
 <script>
 (function () {
     'use strict';
-
-    /* ── Row clicks → navigate ── */
-    document.querySelectorAll('.pg-row').forEach(row => {
-        row.addEventListener('click', e => {
-            const link = row.querySelector('.pg-title-link');
-            if (link && !e.target.closest('a')) {
-                window.location.href = link.getAttribute('href');
-            }
-        });
-    });
-
-    /* ── Typewriter ── */
-    const SPEED = 32;
-    function typeText(el, text) {
-        const cursor = document.createElement('span');
-        cursor.className = 'pg-cursor';
-        el.textContent = '';
-        el.appendChild(cursor);
-        let i = 0;
-        function tick() {
-            if (i < text.length) {
-                el.insertBefore(document.createTextNode(text[i]), cursor);
-                i++;
-                setTimeout(tick, SPEED + (Math.random() * 10 - 5));
-            } else {
-                setTimeout(() => { cursor.style.animation = 'none'; cursor.style.opacity = '0'; }, 360);
-            }
-        }
-        tick();
-    }
-
-    const rows  = Array.from(document.querySelectorAll('.pg-row'));
-    const typed = new Set();
-
-    function triggerRow(row, delay) {
-        if (typed.has(row)) return;
-        typed.add(row);
-        const link = row.querySelector('.pg-title-link');
-        setTimeout(() => typeText(link, link.dataset.text), delay);
-    }
-
-    function initVisible() {
-        const vh = window.innerHeight;
-        let stagger = 0;
-        rows.forEach(row => {
-            const r = row.getBoundingClientRect();
-            if (r.top < vh && r.bottom > 0) {
-                triggerRow(row, stagger);
-                stagger += 85;
-            }
-        });
-    }
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) triggerRow(e.target, 0); });
-    }, { threshold: 0.3 });
-
-    rows.forEach(r => observer.observe(r));
-    setTimeout(initVisible, 80);
-
-    /* ── Hover thumbnail ── */
-    const thumb    = document.getElementById('pg-thumb');
-    const thumbImg = document.getElementById('pg-thumb-img');
-    const TW = 222, TH = 162, OFF = 26;
-
-    document.addEventListener('mousemove', e => {
-        const x = (e.clientX + OFF + TW > window.innerWidth) ? e.clientX - OFF - TW : e.clientX + OFF;
-        const y = Math.max(0, Math.min(window.innerHeight - TH, e.clientY - TH / 2));
-        thumb.style.transform = `translate(${x}px,${y}px)`;
-    });
-
-    rows.forEach(row => {
-        row.addEventListener('mouseenter', () => {
-            if (row.dataset.thumb) { thumbImg.src = row.dataset.thumb; thumb.classList.add('visible'); }
-        });
-        row.addEventListener('mouseleave', () => thumb.classList.remove('visible'));
-    });
 
     /* ── Pixel trail ── */
     (function() {
