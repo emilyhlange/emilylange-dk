@@ -1,35 +1,75 @@
-<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="subtle-shadow">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
-    </filter>
-  </defs>
+<svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cool grey background -->
+  <rect width="600" height="800" fill="#D8D8D8"/>
 
-  <!-- Background -->
-  
+  <!-- Page chrome: a documentation page wireframe -->
+  <rect x="60" y="80" width="480" height="640" rx="4" fill="#faf9f7" stroke="#dddbd8" stroke-width="1.5"/>
 
-  <!-- Content blocks -->
-  <!-- Block 1 - full width -->
-  <rect x="80" y="50" width="320" height="30" rx="4" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <!-- Sidebar nav -->
+  <rect x="60" y="80" width="120" height="640" rx="4" fill="#f7f6f4" stroke="#dddbd8" stroke-width="1"/>
+  <rect x="76" y="110" width="70" height="5" rx="1" fill="#6a6966"/>
+  <rect x="76" y="130" width="80" height="4" rx="1" fill="#b8b6b2" opacity="0.6"/>
+  <rect x="76" y="142" width="60" height="4" rx="1" fill="#b8b6b2" opacity="0.6"/>
+  <rect x="76" y="154" width="72" height="4" rx="1" fill="#6a6966" opacity="0.4"/>
+  <rect x="76" y="166" width="55" height="4" rx="1" fill="#b8b6b2" opacity="0.6"/>
+  <rect x="76" y="178" width="68" height="4" rx="1" fill="#b8b6b2" opacity="0.6"/>
 
-  <!-- Block 2 - indented, narrower -->
-  <rect x="120" y="110" width="240" height="26" rx="4" fill="#f0ebe5" filter="url(#subtle-shadow)"/>
+  <rect x="76" y="204" width="60" height="5" rx="1" fill="#6a6966"/>
+  <rect x="76" y="224" width="80" height="4" rx="1" fill="#b8b6b2" opacity="0.6"/>
+  <rect x="76" y="236" width="65" height="4" rx="1" fill="#b8b6b2" opacity="0.6"/>
+  <rect x="76" y="248" width="75" height="4" rx="1" fill="#b8b6b2" opacity="0.6"/>
 
-  <!-- Block 3 - full width -->
-  <rect x="80" y="165" width="340" height="28" rx="4" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <!-- Content area -->
+  <!-- Title -->
+  <rect x="204" y="114" width="180" height="10" rx="2" fill="#4a4946"/>
+  <rect x="204" y="134" width="120" height="6" rx="1" fill="#9a9896"/>
 
-  <!-- Block 4 - indented -->
-  <rect x="120" y="220" width="200" height="24" rx="4" fill="#f0ebe5" filter="url(#subtle-shadow)"/>
+  <!-- Body text -->
+  <rect x="204" y="164" width="310" height="4" rx="1" fill="#c8c6c2"/>
+  <rect x="204" y="176" width="290" height="4" rx="1" fill="#c8c6c2"/>
+  <rect x="204" y="188" width="270" height="4" rx="1" fill="#c8c6c2"/>
+  <rect x="204" y="200" width="300" height="4" rx="1" fill="#c8c6c2"/>
 
-  <!-- Block 5 - indented deeper -->
-  <rect x="160" y="270" width="160" height="22" rx="4" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <!-- Divider -->
+  <line x1="204" y1="224" x2="516" y2="224" stroke="#e8e9ec" stroke-width="1"/>
 
-  <!-- Block 6 - full width -->
-  <rect x="80" y="320" width="360" height="30" rx="4" fill="#f0ebe5" filter="url(#subtle-shadow)"/>
+  <!-- Do / Don't columns -->
+  <rect x="204" y="244" width="148" height="24" rx="3" fill="#dfe8df" stroke="#a8b4a8" stroke-width="1"/>
+  <rect x="214" y="252" width="40" height="5" rx="1" fill="#5a7a5a"/>
 
-  <!-- Block 7 - indented -->
-  <rect x="120" y="375" width="220" height="26" rx="4" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <rect x="366" y="244" width="148" height="24" rx="3" fill="#e8dfdf" stroke="#b8a8a6" stroke-width="1"/>
+  <rect x="376" y="252" width="40" height="5" rx="1" fill="#7a5a5a"/>
 
-  <!-- Block 8 - indented -->
-  <rect x="120" y="420" width="280" height="24" rx="4" fill="#f0ebe5" filter="url(#subtle-shadow)"/>
+  <!-- Example rows -->
+  <rect x="204" y="280" width="148" height="4" rx="1" fill="#c8c6c2" opacity="0.6"/>
+  <rect x="204" y="292" width="130" height="4" rx="1" fill="#c8c6c2" opacity="0.6"/>
+  <rect x="204" y="304" width="140" height="4" rx="1" fill="#c8c6c2" opacity="0.6"/>
+
+  <rect x="366" y="280" width="148" height="4" rx="1" fill="#c8c6c2" opacity="0.6"/>
+  <rect x="366" y="292" width="120" height="4" rx="1" fill="#c8c6c2" opacity="0.6"/>
+  <rect x="366" y="304" width="135" height="4" rx="1" fill="#c8c6c2" opacity="0.6"/>
+
+  <!-- Another section -->
+  <rect x="204" y="340" width="140" height="8" rx="2" fill="#4a4946"/>
+  <rect x="204" y="362" width="310" height="4" rx="1" fill="#c8c6c2"/>
+  <rect x="204" y="374" width="280" height="4" rx="1" fill="#c8c6c2"/>
+
+  <!-- Component example box -->
+  <rect x="204" y="400" width="310" height="100" rx="4" fill="#f7f6f4" stroke="#dddbd8" stroke-width="1"/>
+  <rect x="220" y="420" width="100" height="20" rx="3" fill="#faf9f7" stroke="#c8c6c2" stroke-width="1"/>
+  <rect x="228" y="427" width="50" height="4" rx="1" fill="#9a9896"/>
+  <rect x="220" y="454" width="270" height="4" rx="1" fill="#c8c6c2" opacity="0.5"/>
+  <rect x="220" y="466" width="240" height="4" rx="1" fill="#c8c6c2" opacity="0.5"/>
+  <rect x="220" y="478" width="200" height="4" rx="1" fill="#c8c6c2" opacity="0.5"/>
+
+  <!-- More text -->
+  <rect x="204" y="524" width="120" height="8" rx="2" fill="#4a4946"/>
+  <rect x="204" y="546" width="310" height="4" rx="1" fill="#c8c6c2"/>
+  <rect x="204" y="558" width="290" height="4" rx="1" fill="#c8c6c2"/>
+  <rect x="204" y="570" width="260" height="4" rx="1" fill="#c8c6c2"/>
+
+  <!-- Tag pills -->
+  <rect x="204" y="600" width="52" height="18" rx="9" fill="#e8e7e4"/>
+  <rect x="264" y="600" width="60" height="18" rx="9" fill="#e8e7e4"/>
+  <rect x="332" y="600" width="48" height="18" rx="9" fill="#e8e7e4"/>
 </svg>

@@ -1,47 +1,77 @@
-<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="subtle-shadow">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
-    </filter>
-  </defs>
+<svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cool grey background -->
+  <rect width="600" height="800" fill="#D8D8D8"/>
 
-  <!-- Background -->
-  
+  <!-- Grid lines (subtle, structural) -->
+  <line x1="80" y1="80" x2="80" y2="720" stroke="#e2e0dd" stroke-width="0.5"/>
+  <line x1="180" y1="80" x2="180" y2="720" stroke="#e2e0dd" stroke-width="0.5"/>
+  <line x1="280" y1="80" x2="280" y2="720" stroke="#e2e0dd" stroke-width="0.5"/>
+  <line x1="380" y1="80" x2="380" y2="720" stroke="#e2e0dd" stroke-width="0.5"/>
+  <line x1="480" y1="80" x2="480" y2="720" stroke="#e2e0dd" stroke-width="0.5"/>
 
-  <!-- Nested rectangles - tokens -->
-  <!-- Largest (outermost) -->
-  <rect x="150" y="100" width="500" height="300" rx="0" fill="none" stroke="#d4ccc2" stroke-width="2"/>
+  <!-- Spacing token: 0 -->
+  <rect x="80" y="120" width="400" height="8" rx="2" fill="#faf9f7" stroke="#c8c6c2" stroke-width="1"/>
+  <text x="500" y="127" font-family="monospace" font-size="9" fill="#9a9896">0</text>
 
-  <!-- Measurement marks -->
-  <line x1="140" y1="100" x2="130" y2="100" stroke="#8a8a8a" stroke-width="1.5" opacity="0.5"/>
-  <line x1="140" y1="400" x2="130" y2="400" stroke="#8a8a8a" stroke-width="1.5" opacity="0.5"/>
-  <line x1="150" y1="95" x2="150" y2="85" stroke="#8a8a8a" stroke-width="1.5" opacity="0.5"/>
-  <line x1="650" y1="95" x2="650" y2="85" stroke="#8a8a8a" stroke-width="1.5" opacity="0.5"/>
+  <!-- Spacing token: 1 -->
+  <rect x="80" y="150" width="400" height="16" rx="2" fill="#faf9f7" stroke="#c8c6c2" stroke-width="1"/>
+  <text x="500" y="161" font-family="monospace" font-size="9" fill="#9a9896">1</text>
 
-  <!-- Second layer (gap between) -->
-  <rect x="180" y="130" width="440" height="240" rx="0" fill="none" stroke="#b8c4b8" stroke-width="2"/>
+  <!-- Spacing token: 2 -->
+  <rect x="80" y="188" width="400" height="24" rx="2" fill="#faf9f7" stroke="#c8c6c2" stroke-width="1"/>
+  <text x="500" y="203" font-family="monospace" font-size="9" fill="#9a9896">2</text>
 
-  <!-- Measurement marks -->
-  <line x1="170" y1="130" x2="160" y2="130" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
-  <line x1="170" y1="370" x2="160" y2="370" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
-  <line x1="180" y1="125" x2="180" y2="115" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
-  <line x1="620" y1="125" x2="620" y2="115" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <!-- Spacing token: 3 -->
+  <rect x="80" y="234" width="400" height="32" rx="2" fill="#faf9f7" stroke="#c8c6c2" stroke-width="1"/>
+  <text x="500" y="253" font-family="monospace" font-size="9" fill="#9a9896">3</text>
 
-  <!-- Third layer -->
-  <rect x="210" y="160" width="380" height="180" rx="0" fill="none" stroke="#b8c4d4" stroke-width="2"/>
+  <!-- Spacing token: 4 -->
+  <rect x="80" y="288" width="400" height="40" rx="2" fill="#faf9f7" stroke="#c8c6c2" stroke-width="1"/>
+  <text x="500" y="311" font-family="monospace" font-size="9" fill="#9a9896">4</text>
 
-  <!-- Measurement marks -->
-  <line x1="200" y1="160" x2="190" y2="160" stroke="#8a8a8a" stroke-width="1.5" opacity="0.3"/>
-  <line x1="200" y1="340" x2="190" y2="340" stroke="#8a8a8a" stroke-width="1.5" opacity="0.3"/>
-  <line x1="210" y1="155" x2="210" y2="145" stroke="#8a8a8a" stroke-width="1.5" opacity="0.3"/>
-  <line x1="590" y1="155" x2="590" y2="145" stroke="#8a8a8a" stroke-width="1.5" opacity="0.3"/>
+  <!-- Spacing token: 5 -->
+  <rect x="80" y="350" width="400" height="52" rx="2" fill="#faf9f7" stroke="#c8c6c2" stroke-width="1"/>
+  <text x="500" y="380" font-family="monospace" font-size="9" fill="#9a9896">5</text>
 
-  <!-- Innermost layer -->
-  <rect x="240" y="190" width="320" height="120" rx="0" fill="#d4ccc2" opacity="0.15"/>
+  <!-- Spacing token: 6 -->
+  <rect x="80" y="424" width="400" height="64" rx="2" fill="#faf9f7" stroke="#c8c6c2" stroke-width="1"/>
+  <text x="500" y="460" font-family="monospace" font-size="9" fill="#9a9896">6</text>
 
-  <!-- Measurement marks -->
-  <line x1="230" y1="190" x2="220" y2="190" stroke="#8a8a8a" stroke-width="1.5" opacity="0.3"/>
-  <line x1="230" y1="310" x2="220" y2="310" stroke="#8a8a8a" stroke-width="1.5" opacity="0.3"/>
-  <line x1="240" y1="185" x2="240" y2="175" stroke="#8a8a8a" stroke-width="1.5" opacity="0.3"/>
-  <line x1="560" y1="185" x2="560" y2="175" stroke="#8a8a8a" stroke-width="1.5" opacity="0.3"/>
+  <!-- Measurement bracket (left) -->
+  <line x1="64" y1="120" x2="64" y2="128" stroke="#7a7876" stroke-width="0.8"/>
+  <line x1="60" y1="120" x2="68" y2="120" stroke="#7a7876" stroke-width="0.8"/>
+  <line x1="60" y1="128" x2="68" y2="128" stroke="#7a7876" stroke-width="0.8"/>
+
+  <line x1="64" y1="150" x2="64" y2="166" stroke="#7a7876" stroke-width="0.8"/>
+  <line x1="60" y1="150" x2="68" y2="150" stroke="#7a7876" stroke-width="0.8"/>
+  <line x1="60" y1="166" x2="68" y2="166" stroke="#7a7876" stroke-width="0.8"/>
+
+  <line x1="64" y1="188" x2="64" y2="212" stroke="#7a7876" stroke-width="0.8"/>
+  <line x1="60" y1="188" x2="68" y2="188" stroke="#7a7876" stroke-width="0.8"/>
+  <line x1="60" y1="212" x2="68" y2="212" stroke="#7a7876" stroke-width="0.8"/>
+
+  <!-- Color token swatches at bottom -->
+  <rect x="80" y="530" width="36" height="36" rx="4" fill="#4a4946"/>
+  <rect x="128" y="530" width="36" height="36" rx="4" fill="#6a6966"/>
+  <rect x="176" y="530" width="36" height="36" rx="4" fill="#9a9896"/>
+  <rect x="224" y="530" width="36" height="36" rx="4" fill="#c8c6c2"/>
+  <rect x="272" y="530" width="36" height="36" rx="4" fill="#dddbd8"/>
+  <rect x="320" y="530" width="36" height="36" rx="4" fill="#e8e7e4"/>
+  <rect x="368" y="530" width="36" height="36" rx="4" fill="#D8D8D8"/>
+
+  <!-- Labels under swatches -->
+  <rect x="80" y="576" width="30" height="3" rx="1" fill="#9a9896"/>
+  <rect x="128" y="576" width="30" height="3" rx="1" fill="#9a9896"/>
+  <rect x="176" y="576" width="30" height="3" rx="1" fill="#9a9896"/>
+  <rect x="224" y="576" width="30" height="3" rx="1" fill="#9a9896"/>
+  <rect x="272" y="576" width="30" height="3" rx="1" fill="#9a9896"/>
+  <rect x="320" y="576" width="30" height="3" rx="1" fill="#9a9896"/>
+  <rect x="368" y="576" width="30" height="3" rx="1" fill="#9a9896"/>
+
+  <!-- Typography scale preview -->
+  <rect x="80" y="620" width="160" height="12" rx="2" fill="#4a4946"/>
+  <rect x="80" y="644" width="130" height="10" rx="2" fill="#6a6966"/>
+  <rect x="80" y="664" width="110" height="8" rx="2" fill="#7a7876"/>
+  <rect x="80" y="680" width="90" height="6" rx="1" fill="#9a9896"/>
+  <rect x="80" y="694" width="70" height="5" rx="1" fill="#b8b6b2"/>
 </svg>

@@ -1,40 +1,49 @@
-<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="subtle-shadow">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
-    </filter>
-  </defs>
+<svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cool grey background -->
+  <rect width="600" height="800" fill="#D8D8D8"/>
 
-  <!-- Background -->
-  
+  <!-- Flow arrows (vertical backbone) -->
+  <line x1="300" y1="160" x2="300" y2="640" stroke="#c8c6c2" stroke-width="1.5"/>
+  <polygon points="296,640 300,650 304,640" fill="#c8c6c2"/>
 
-  <!-- Connections -->
-  <line x1="400" y1="250" x2="200" y2="150" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
-  <line x1="400" y1="250" x2="600" y2="150" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
-  <line x1="400" y1="250" x2="150" y2="300" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
-  <line x1="400" y1="250" x2="650" y2="320" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
-  <line x1="400" y1="250" x2="350" y2="380" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
-  <line x1="400" y1="250" x2="550" y2="370" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <!-- Process nodes — rounded rects like a real flow diagram -->
+  <rect x="200" y="130" width="200" height="56" rx="28" fill="#faf9f7" stroke="#9a9896" stroke-width="1.5"/>
+  <rect x="224" y="152" width="80" height="5" rx="2" fill="#6a6966"/>
+  <rect x="224" y="162" width="52" height="4" rx="1" fill="#9a9896"/>
 
-  <!-- Nodes -->
-  <!-- Central node -->
-  <circle cx="400" cy="250" r="35" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <rect x="200" y="244" width="200" height="56" rx="28" fill="#faf9f7" stroke="#9a9896" stroke-width="1.5"/>
+  <rect x="224" y="266" width="70" height="5" rx="2" fill="#6a6966"/>
+  <rect x="224" y="276" width="48" height="4" rx="1" fill="#9a9896"/>
 
-  <!-- Upper left -->
-  <circle cx="200" cy="150" r="24" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <rect x="200" y="358" width="200" height="56" rx="28" fill="#faf9f7" stroke="#9a9896" stroke-width="1.5"/>
+  <rect x="224" y="380" width="90" height="5" rx="2" fill="#6a6966"/>
+  <rect x="224" y="390" width="60" height="4" rx="1" fill="#9a9896"/>
 
-  <!-- Upper right -->
-  <circle cx="600" cy="150" r="22" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <rect x="200" y="472" width="200" height="56" rx="28" fill="#faf9f7" stroke="#9a9896" stroke-width="1.5"/>
+  <rect x="224" y="494" width="65" height="5" rx="2" fill="#6a6966"/>
+  <rect x="224" y="504" width="44" height="4" rx="1" fill="#9a9896"/>
 
-  <!-- Left -->
-  <circle cx="150" cy="300" r="20" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <rect x="200" y="586" width="200" height="56" rx="28" fill="#faf9f7" stroke="#9a9896" stroke-width="1.5"/>
+  <rect x="224" y="608" width="75" height="5" rx="2" fill="#6a6966"/>
+  <rect x="224" y="618" width="55" height="4" rx="1" fill="#9a9896"/>
 
-  <!-- Right -->
-  <circle cx="650" cy="320" r="26" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <!-- Side branches (collaboration touch-points) -->
+  <line x1="200" y1="158" x2="110" y2="158" stroke="#c8c6c2" stroke-width="1" stroke-dasharray="4,3"/>
+  <circle cx="96" cy="158" r="10" fill="#dddbd8" stroke="#9a9896" stroke-width="1"/>
 
-  <!-- Lower left -->
-  <circle cx="350" cy="380" r="19" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+  <line x1="400" y1="272" x2="490" y2="272" stroke="#c8c6c2" stroke-width="1" stroke-dasharray="4,3"/>
+  <circle cx="504" cy="272" r="10" fill="#dddbd8" stroke="#9a9896" stroke-width="1"/>
 
-  <!-- Lower right -->
-  <circle cx="550" cy="370" r="23" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <line x1="200" y1="386" x2="110" y2="386" stroke="#c8c6c2" stroke-width="1" stroke-dasharray="4,3"/>
+  <circle cx="96" cy="386" r="10" fill="#dddbd8" stroke="#9a9896" stroke-width="1"/>
+
+  <line x1="400" y1="500" x2="490" y2="500" stroke="#c8c6c2" stroke-width="1" stroke-dasharray="4,3"/>
+  <circle cx="504" cy="500" r="10" fill="#dddbd8" stroke="#9a9896" stroke-width="1"/>
+
+  <!-- Step numbers -->
+  <circle cx="178" cy="158" r="12" fill="#6a6966"/>
+  <circle cx="178" cy="272" r="12" fill="#6a6966"/>
+  <circle cx="178" cy="386" r="12" fill="#6a6966"/>
+  <circle cx="178" cy="500" r="12" fill="#6a6966"/>
+  <circle cx="178" cy="614" r="12" fill="#6a6966"/>
 </svg>

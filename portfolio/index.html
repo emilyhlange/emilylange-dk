@@ -25,6 +25,7 @@
             --fg-dim:   #888888;
             --border:   #e8e8e8;
             --card-bg:  #f5f5f5;
+            --card-hover: #eaeae8;
             --gutter:   20px;
         }
         [data-theme="dark"] {
@@ -33,6 +34,7 @@
             --fg-dim:   #666666;
             --border:   #2a2a2a;
             --card-bg:  #1e1e1e;
+            --card-hover: #2a2a2a;
         }
 
         html, body {
@@ -251,6 +253,7 @@
             display: flex;
             flex-direction: column;
             background: var(--card-bg);
+            transition: background 0.35s ease;
             border-radius: 8px;
             padding: 32px 32px 0;  /* generous top + sides, no bottom */
             overflow: hidden;      /* clips the placeholder flush at bottom */
@@ -263,13 +266,13 @@
             object-fit: cover;
             display: block;
             border-radius: 4px 4px 0 0;
-            transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s;
+            transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s ease, opacity 0.3s;
             filter: saturate(0.85);
         }
-        .project-card:hover .card-frame img {
-            transform: scale(1.03);
-            filter: saturate(1);
+        .project-card:hover .card-frame {
+            background: var(--card-hover, #e8e8e8);
         }
+        /* hover only changes card-frame bg — no image transform or filter */
         /* Placeholder rectangle: gray bg, portrait aspect, no bottom radius (flush to card) */
         .card-placeholder {
             width: 100%;
@@ -624,16 +627,20 @@
             inset: 0;
             z-index: 200;
             overflow: hidden;
-            background: rgba(0,0,0,0.32);
+            background: rgba(0,0,0,0);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.26s ease;
+            transition: opacity 0.32s ease, background 0.32s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 4vh 12px;
         }
-        #project-overlay.open { opacity: 1; pointer-events: auto; }
+        #project-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+            background: rgba(0,0,0,0.32);
+        }
 
         .overlay-card {
             width: calc(100% - 24px);
@@ -648,10 +655,18 @@
             overflow: hidden;
             box-shadow: 0 16px 64px rgba(0,0,0,0.13);
             position: relative;
-            transform: translateY(14px);
-            transition: transform 0.26s ease;
+            transform: translateY(28px) scale(0.97);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.3s ease,
+                        box-shadow 0.4s ease;
         }
-        #project-overlay.open .overlay-card { transform: translateY(0); }
+        #project-overlay.open .overlay-card {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.18);
+        }
+        /* (open card transform handled above) */
 
         .overlay-content-area {
             flex: 1;
@@ -766,6 +781,7 @@
         .overlay-card.narrative .overlay-right {
             padding: 0;
             overflow-y: visible;
+            display: block;
         }
         .narrative-header {
             padding: 40px 52px 0;
@@ -976,7 +992,7 @@
                         <div class="card-num">04</div>
                     </div>
                     <div class="card-frame">
-                        <img src="images/svg/thesis-1.svg" alt="Probe kit for self-esteem research">
+                        <img src="images/hero-thesis.jpg" alt="Probe kit for self-esteem research">
                     </div>
                 </div>
 
@@ -989,7 +1005,7 @@
                         <div class="card-num">05</div>
                     </div>
                     <div class="card-frame">
-                        <img src="images/svg/portable-1.svg" alt="Portable — transparent game design">
+                        <img src="images/hero-portable.jpg" alt="Portable — transparent game design">
                     </div>
                 </div>
 
@@ -1002,7 +1018,7 @@
                         <div class="card-num">06</div>
                     </div>
                     <div class="card-frame">
-                        <img src="images/svg/fanfare-1.svg" alt="Typographic kitchen — exhibition at Fanfare">
+                        <img src="images/hero-fanfare.jpg" alt="Typographic kitchen — exhibition at Fanfare">
                     </div>
                 </div>
 
@@ -1015,7 +1031,7 @@
                         <div class="card-num">07</div>
                     </div>
                     <div class="card-frame">
-                        <img src="images/svg/tune-1.svg" alt="Tune — editorial pamphlet">
+                        <img src="images/hero-tune.jpg" alt="Tune — editorial pamphlet">
                     </div>
                 </div>
 
@@ -1028,7 +1044,7 @@
                         <div class="card-num">08</div>
                     </div>
                     <div class="card-frame">
-                        <img src="images/svg/flow-1.svg" alt="Flow — creative book">
+                        <img src="images/hero-flow.jpg" alt="Flow — creative book">
                     </div>
                 </div>
 
@@ -1302,9 +1318,11 @@ var PROJECTS = {
     company:'Visma e-conomic',
     layout:'narrative',
     gallery:[
-      'images/svg/collab-1.svg',
-      'images/svg/collab-2.svg',
-      'images/svg/collab-3.svg'
+      'images/gallery/collab/collab-lifecycle.jpg',
+      'images/gallery/collab/collab-model.jpg',
+      'images/gallery/collab/collab-model-detail.jpg',
+      'images/gallery/collab/process-governance.jpg',
+      'images/gallery/collab/collab-process-flow.jpg'
     ],
     tools:['Figma','FigJam','Jira','Slite','Workshop facilitation','Stakeholder interviews'],
     pdf:null,
@@ -1321,9 +1339,13 @@ var PROJECTS = {
     company:'Visma e-conomic',
     layout:'narrative',
     gallery:[
-      'images/svg/language-1.svg',
-      'images/svg/language-2.svg',
-      'images/svg/language-3.svg'
+      'images/gallery/language/content-page.jpg',
+      'images/gallery/language/writing-research.jpg',
+      'images/gallery/language/tone-of-voice-workshop.jpg',
+      'images/gallery/language/microcopy-patterns.jpg',
+      'images/gallery/language/component-mindmaps.jpg',
+      'images/gallery/language/glossary-board.jpg',
+      'images/gallery/language/design-quality.jpg'
     ],
     tools:['Figma','FigJam','Google Sheets','Slite','UX writing','Workshop facilitation'],
     pdf:null,
@@ -1340,9 +1362,10 @@ var PROJECTS = {
     company:'Visma e-conomic',
     layout:'narrative',
     gallery:[
-      'images/svg/foundations-1.svg',
-      'images/svg/foundations-2.svg',
-      'images/svg/foundations-3.svg'
+      'images/gallery/foundations/foundations-overview.jpg',
+      'images/gallery/foundations/foundations-tokens-why.jpg',
+      'images/gallery/foundations/spacing-tokens-detail.jpg',
+      'images/gallery/foundations/component-audit.jpg'
     ],
     tools:['Figma','Design tokens','Figma variables','Slite','Documentation'],
     pdf:null,
@@ -1359,8 +1382,15 @@ var PROJECTS = {
     company:'Master\u2019s Thesis \u00b7 IT University of Copenhagen \u00b7 2021',
     layout:'balanced',
     gallery:[
-      'images/svg/thesis-1.svg',
-      'images/svg/thesis-2.svg'
+      'images/thesis/kit-overview.jpg',
+      'images/thesis/kits-spread.jpg',
+      'images/thesis/card-deck-front.jpg',
+      'images/thesis/task-cards-spread.jpg',
+      'images/thesis/card-grid.jpg',
+      'images/thesis/envelope-cards.jpg',
+      'images/thesis/stethoscope.jpg',
+      'images/thesis/reflection-journal.jpg',
+      'images/thesis/intro-letter.jpg'
     ],
     tools:['Cultural probes','Speculative design','Figma','Adobe InDesign'],
     pdf:[{label:'View thesis paper',url:'images/thesis-rapport.pdf'},{label:'View workbook',url:'../playground/images/thesis/Workbook.pdf'}],
@@ -1377,8 +1407,11 @@ var PROJECTS = {
     company:'Personal project \u00b7 2021',
     layout:'image',
     gallery:[
-      'images/svg/portable-1.svg',
-      'images/svg/portable-2.svg'
+      'images/gallery/portable/img_6014.jpg',
+      'images/gallery/portable/img_6255.jpg',
+      'images/gallery/portable/img_6075.jpg',
+      'images/gallery/portable/img_6139.jpg',
+      'images/gallery/portable/img_6182.jpg'
     ],
     tools:['Laser cutting','Acrylic','Screen printing','Physical prototyping'],
     pdf:null,
@@ -1395,8 +1428,12 @@ var PROJECTS = {
     company:'Fanfare, Amsterdam \u00b7 2021',
     layout:'image',
     gallery:[
-      'images/svg/fanfare-1.svg',
-      'images/svg/fanfare-2.svg'
+      'images/gallery/fanfare/img_5715.jpg',
+      'images/gallery/fanfare/img_5718.jpg',
+      'images/gallery/fanfare/img_5726.jpg',
+      'images/gallery/fanfare/img_5706.jpg',
+      'images/gallery/fanfare/img_5689.jpg',
+      'images/gallery/fanfare/img_5673.jpg'
     ],
     tools:['Glyphs','Adobe Illustrator','Letterpress','Screen printing','Spatial design'],
     pdf:null,
@@ -1413,8 +1450,12 @@ var PROJECTS = {
     company:'Krabbesholm H\u00f8jskole \u00b7 2022',
     layout:'image',
     gallery:[
-      'images/svg/tune-1.svg',
-      'images/svg/tune-2.svg'
+      'images/gallery/tune/front_stand.jpg',
+      'images/gallery/tune/front_stack.jpg',
+      'images/gallery/tune/page1.jpg',
+      'images/gallery/tune/page3.jpg',
+      'images/gallery/tune/middle_stand.jpg',
+      'images/gallery/tune/frontnback_fixed.jpg'
     ],
     tools:['Adobe InDesign','Adobe Illustrator','Film photography','Darkroom development','Scanner'],
     pdf:'images/tune-spread.pdf',
@@ -1431,8 +1472,12 @@ var PROJECTS = {
     company:'Personal project \u00b7 2021',
     layout:'image',
     gallery:[
-      'images/svg/flow-1.svg',
-      'images/svg/flow-2.svg'
+      'images/gallery/flow/mail-21.jpg',
+      'images/gallery/flow/mail-22.jpg',
+      'images/gallery/flow/mail-24.jpg',
+      'images/gallery/flow/mail-25.jpg',
+      'images/gallery/flow/mail-26.jpg',
+      'images/gallery/flow/mail-23.jpg'
     ],
     tools:['Adobe InDesign','Apple Mail','Renaissance painting (appropriated)'],
     pdf:null,
@@ -1746,7 +1791,8 @@ function filterProjects(tag) {
         document.body.removeChild(probe);
 
         // Use minimum so neither name overflows its column when expanded
-        baseSize = Math.min(sizeL, sizeR);
+        // Scale down to ~75% for a less dominant landing header
+        baseSize = Math.round(Math.min(sizeL, sizeR) * 0.75);
         applySize(baseSize);
         cacheBarHeight();
         updateSpacer(bar && bar.classList.contains('collapsed'));
