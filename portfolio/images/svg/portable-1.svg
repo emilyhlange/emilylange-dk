@@ -1,0 +1,37 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="subtle-shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  
+
+  <!-- Overlapping transparent cards -->
+  <!-- Card 1 - back -->
+  <g opacity="0.3">
+    <rect x="150" y="120" width="160" height="240" rx="14" fill="#d4ccc2" filter="url(#subtle-shadow)" stroke="#d4ccc2" stroke-width="1"/>
+    <circle cx="190" cy="180" r="20" fill="#b8c4b8" opacity="0.6"/>
+  </g>
+
+  <!-- Card 2 -->
+  <g opacity="0.5">
+    <rect x="250" y="100" width="160" height="240" rx="14" fill="#b8c4d4" filter="url(#subtle-shadow)" stroke="#b8c4d4" stroke-width="1"/>
+    <rect x="280" y="150" width="40" height="40" rx="6" fill="#d4ccc2" opacity="0.7"/>
+    <circle cx="350" cy="180" r="12" fill="#f0ebe5" opacity="0.8"/>
+  </g>
+
+  <!-- Card 3 - front -->
+  <g opacity="0.7">
+    <rect x="350" y="80" width="160" height="240" rx="14" fill="#b8c4b8" filter="url(#subtle-shadow)" stroke="#b8c4b8" stroke-width="1"/>
+    <line x1="380" y1="130" x2="490" y2="130" stroke="#f0ebe5" stroke-width="2" opacity="0.6"/>
+    <line x1="380" y1="160" x2="490" y2="160" stroke="#f0ebe5" stroke-width="2" opacity="0.6"/>
+    <line x1="380" y1="190" x2="470" y2="190" stroke="#f0ebe5" stroke-width="2" opacity="0.6"/>
+  </g>
+
+  <!-- Card 4 - most visible -->
+  <rect x="450" y="60" width="160" height="240" rx="14" fill="#f0ebe5" filter="url(#subtle-shadow)"/>
+  <polygon points="510,140 490,170 530,170" fill="#d4ccc2" opacity="0.7"/>
+  <rect x="480" y="200" width="60" height="12" rx="4" fill="#b8c4d4" opacity="0.6"/>
+</svg>

@@ -1,0 +1,50 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="subtle-shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  
+
+  <!-- Retro dialog box (primary) -->
+  <rect x="150" y="80" width="500" height="280" rx="6" fill="#f0ebe5" filter="url(#subtle-shadow)" stroke="#8a8a8a" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- Title bar -->
+  <rect x="150" y="80" width="500" height="35" rx="6" fill="#8a8a8a" opacity="0.5"/>
+  <text x="165" y="105" font-size="14" fill="#ffffff" opacity="0.7" font-family="monospace">Window Title</text>
+
+  <!-- Close button -->
+  <rect x="625" y="90" width="20" height="20" rx="2" fill="#b8c4d4" opacity="0.6"/>
+  <line x1="630" y1="95" x2="640" y2="105" stroke="#ffffff" stroke-width="1.5" opacity="0.7"/>
+  <line x1="640" y1="95" x2="630" y2="105" stroke="#ffffff" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- Content area -->
+  <!-- Text label 1 -->
+  <text x="170" y="145" font-size="12" fill="#8a8a8a" opacity="0.6" font-family="monospace">Input:</text>
+  <!-- Input field -->
+  <rect x="170" y="150" width="280" height="24" rx="3" fill="#ffffff" opacity="0.6" stroke="#8a8a8a" stroke-width="1" opacity="0.3"/>
+
+  <!-- Text label 2 -->
+  <text x="170" y="200" font-size="12" fill="#8a8a8a" opacity="0.6" font-family="monospace">Option:</text>
+  <!-- Radio buttons -->
+  <circle cx="170" cy="215" r="6" fill="none" stroke="#8a8a8a" stroke-width="1.5" opacity="0.5"/>
+  <circle cx="170" cy="215" r="3" fill="#8a8a8a" opacity="0.5"/>
+  <text x="190" y="220" font-size="11" fill="#8a8a8a" opacity="0.5" font-family="monospace">Option A</text>
+
+  <circle cx="310" cy="215" r="6" fill="none" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <text x="330" y="220" font-size="11" fill="#8a8a8a" opacity="0.4" font-family="monospace">Option B</text>
+
+  <!-- Progress bar -->
+  <text x="170" y="250" font-size="12" fill="#8a8a8a" opacity="0.6" font-family="monospace">Progress:</text>
+  <rect x="170" y="260" width="280" height="12" rx="3" fill="#ffffff" opacity="0.4" stroke="#8a8a8a" stroke-width="1" opacity="0.3"/>
+  <rect x="170" y="260" width="140" height="12" rx="3" fill="#d4ccc2" opacity="0.6"/>
+
+  <!-- Buttons at bottom -->
+  <rect x="240" y="310" width="80" height="30" rx="4" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <text x="260" y="332" font-size="12" fill="#ffffff" opacity="0.7" text-anchor="middle" font-family="monospace">OK</text>
+
+  <rect x="380" y="310" width="80" height="30" rx="4" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <text x="400" y="332" font-size="12" fill="#ffffff" opacity="0.6" text-anchor="middle" font-family="monospace">Cancel</text>
+</svg>

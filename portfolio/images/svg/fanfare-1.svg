@@ -1,0 +1,38 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="subtle-shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  
+
+  <!-- Large abstract letterform shapes -->
+  <!-- Shape 1 - "A"-ish geometry -->
+  <g transform="translate(150, 100)">
+    <!-- Left diagonal -->
+    <rect x="0" y="80" width="15" height="180" rx="3" fill="#d4ccc2" filter="url(#subtle-shadow)" transform="rotate(-22 7.5 170)"/>
+    <!-- Right diagonal -->
+    <rect x="70" y="80" width="15" height="180" rx="3" fill="#d4ccc2" filter="url(#subtle-shadow)" transform="rotate(22 77.5 170)"/>
+    <!-- Horizontal crossbar -->
+    <rect x="10" y="155" width="65" height="12" rx="4" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  </g>
+
+  <!-- Shape 2 - "O"-ish circle with geometry -->
+  <g transform="translate(380, 120)">
+    <circle cx="50" cy="50" r="70" fill="none" stroke="#b8c4b8" stroke-width="18"/>
+    <!-- Inner geometric shape -->
+    <polygon points="50,30 70,50 50,70 30,50" fill="#b8c4b8" opacity="0.4"/>
+  </g>
+
+  <!-- Shape 3 - "T"-ish structure -->
+  <g transform="translate(600, 100)">
+    <!-- Top bar -->
+    <rect x="0" y="0" width="140" height="20" rx="6" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+    <!-- Vertical stem -->
+    <rect x="55" y="20" width="30" height="200" rx="6" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+    <!-- Accent shape -->
+    <polygon points="85,220 65,250 105,250" fill="#b8c4d4" opacity="0.6"/>
+  </g>
+</svg>

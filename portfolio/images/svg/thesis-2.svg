@@ -1,0 +1,52 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="subtle-shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  
+
+  <!-- Open book shape -->
+  <!-- Left page -->
+  <rect x="180" y="120" width="160" height="260" rx="8" fill="#f0ebe5" filter="url(#subtle-shadow)"/>
+
+  <!-- Right page -->
+  <rect x="360" y="120" width="160" height="260" rx="8" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+
+  <!-- Spine/fold line -->
+  <line x1="340" y1="120" x2="340" y2="380" stroke="#8a8a8a" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Text lines on left page -->
+  <line x1="200" y1="155" x2="320" y2="155" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <line x1="200" y1="175" x2="320" y2="175" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <line x1="200" y1="195" x2="320" y2="195" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <line x1="200" y1="215" x2="315" y2="215" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <line x1="200" y1="240" x2="320" y2="240" stroke="#8a8a8a" stroke-width="1.5" opacity="0.3"/>
+  <line x1="200" y1="260" x2="320" y2="260" stroke="#8a8a8a" stroke-width="1.5" opacity="0.3"/>
+  <line x1="200" y1="280" x2="310" y2="280" stroke="#8a8a8a" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Text lines on right page -->
+  <line x1="380" y1="155" x2="500" y2="155" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <line x1="380" y1="175" x2="500" y2="175" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <line x1="380" y1="195" x2="500" y2="195" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <line x1="380" y1="215" x2="495" y2="215" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <line x1="380" y1="240" x2="500" y2="240" stroke="#ffffff" stroke-width="1.5" opacity="0.4"/>
+  <line x1="380" y1="260" x2="500" y2="260" stroke="#ffffff" stroke-width="1.5" opacity="0.4"/>
+  <line x1="380" y1="280" x2="490" y2="280" stroke="#ffffff" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Pencil shape to the side -->
+  <!-- Pencil body -->
+  <rect x="540" y="200" width="16" height="120" rx="2" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+
+  <!-- Pencil tip (triangle) -->
+  <polygon points="548,320 540,330 556,330" fill="#8a8a8a" opacity="0.6"/>
+
+  <!-- Pencil eraser -->
+  <rect x="540" y="190" width="16" height="12" rx="2" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+
+  <!-- Wood details on pencil -->
+  <line x1="540" y1="210" x2="556" y2="210" stroke="#ffffff" stroke-width="0.5" opacity="0.4"/>
+  <line x1="540" y1="260" x2="556" y2="260" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+</svg>
