@@ -1,0 +1,96 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Warm paper background -->
+  <rect width="800" height="500" fill="#EAECF0"/>
+
+  <!-- Bottom foundational layer: Largest grid blocks -->
+  <rect x="100" y="380" width="60" height="60" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.4"/>
+  <line x1="130" y1="380" x2="130" y2="440" stroke="#1A1A1A" stroke-width="0.8" opacity="0.2"/>
+  <line x1="100" y1="410" x2="160" y2="410" stroke="#1A1A1A" stroke-width="0.8" opacity="0.2"/>
+
+  <rect x="190" y="380" width="60" height="60" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.35"/>
+  <line x1="220" y1="380" x2="220" y2="440" stroke="#1A1A1A" stroke-width="0.8" opacity="0.18"/>
+  <line x1="190" y1="410" x2="250" y2="410" stroke="#1A1A1A" stroke-width="0.8" opacity="0.18"/>
+
+  <rect x="280" y="380" width="60" height="60" fill="none" stroke="#3B6FC2" stroke-width="1.8" opacity="0.45"/>
+  <line x1="310" y1="380" x2="310" y2="440" stroke="#3B6FC2" stroke-width="0.9" opacity="0.3"/>
+  <line x1="280" y1="410" x2="340" y2="410" stroke="#3B6FC2" stroke-width="0.9" opacity="0.3"/>
+  <circle cx="310" cy="410" r="3" fill="#3B6FC2" opacity="0.4"/>
+
+  <rect x="370" y="380" width="60" height="60" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.38"/>
+  <line x1="400" y1="380" x2="400" y2="440" stroke="#1A1A1A" stroke-width="0.8" opacity="0.2"/>
+  <line x1="370" y1="410" x2="430" y2="410" stroke="#1A1A1A" stroke-width="0.8" opacity="0.2"/>
+
+  <rect x="460" y="380" width="60" height="60" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.33"/>
+  <line x1="490" y1="380" x2="490" y2="440" stroke="#1A1A1A" stroke-width="0.8" opacity="0.17"/>
+  <line x1="460" y1="410" x2="520" y2="410" stroke="#1A1A1A" stroke-width="0.8" opacity="0.17"/>
+
+  <rect x="550" y="380" width="60" height="60" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.36"/>
+  <line x1="580" y1="380" x2="580" y2="440" stroke="#1A1A1A" stroke-width="0.8" opacity="0.19"/>
+  <line x1="550" y1="410" x2="610" y2="410" stroke="#1A1A1A" stroke-width="0.8" opacity="0.19"/>
+
+  <rect x="640" y="380" width="60" height="60" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.32"/>
+  <line x1="670" y1="380" x2="670" y2="440" stroke="#1A1A1A" stroke-width="0.8" opacity="0.16"/>
+  <line x1="640" y1="410" x2="700" y2="410" stroke="#1A1A1A" stroke-width="0.8" opacity="0.16"/>
+
+  <!-- Second layer: Medium blocks, fewer but prominent -->
+  <rect x="130" y="310" width="55" height="55" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.3"/>
+  <line x1="157.5" y1="310" x2="157.5" y2="365" stroke="#1A1A1A" stroke-width="0.75" opacity="0.18"/>
+  <line x1="130" y1="337.5" x2="185" y2="337.5" stroke="#1A1A1A" stroke-width="0.75" opacity="0.18"/>
+
+  <rect x="235" y="310" width="55" height="55" fill="none" stroke="#5A8AD4" stroke-width="1.6" opacity="0.4"/>
+  <line x1="262.5" y1="310" x2="262.5" y2="365" stroke="#5A8AD4" stroke-width="0.8" opacity="0.28"/>
+  <line x1="235" y1="337.5" x2="290" y2="337.5" stroke="#5A8AD4" stroke-width="0.8" opacity="0.28"/>
+
+  <rect x="340" y="310" width="55" height="55" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.32"/>
+  <line x1="367.5" y1="310" x2="367.5" y2="365" stroke="#1A1A1A" stroke-width="0.75" opacity="0.19"/>
+  <line x1="340" y1="337.5" x2="395" y2="337.5" stroke="#1A1A1A" stroke-width="0.75" opacity="0.19"/>
+
+  <rect x="445" y="310" width="55" height="55" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.28"/>
+  <line x1="472.5" y1="310" x2="472.5" y2="365" stroke="#1A1A1A" stroke-width="0.75" opacity="0.16"/>
+  <line x1="445" y1="337.5" x2="500" y2="337.5" stroke="#1A1A1A" stroke-width="0.75" opacity="0.16"/>
+
+  <rect x="550" y="310" width="55" height="55" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.31"/>
+  <line x1="577.5" y1="310" x2="577.5" y2="365" stroke="#1A1A1A" stroke-width="0.75" opacity="0.18"/>
+  <line x1="550" y1="337.5" x2="605" y2="337.5" stroke="#1A1A1A" stroke-width="0.75" opacity="0.18"/>
+
+  <!-- Third layer: Smaller blocks -->
+  <rect x="175" y="245" width="48" height="48" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.25"/>
+  <line x1="199" y1="245" x2="199" y2="293" stroke="#1A1A1A" stroke-width="0.7" opacity="0.15"/>
+
+  <rect x="275" y="245" width="48" height="48" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.27"/>
+  <line x1="299" y1="245" x2="299" y2="293" stroke="#1A1A1A" stroke-width="0.7" opacity="0.16"/>
+
+  <rect x="375" y="245" width="48" height="48" fill="none" stroke="#3B6FC2" stroke-width="1.6" opacity="0.38"/>
+  <line x1="399" y1="245" x2="399" y2="293" stroke="#3B6FC2" stroke-width="0.75" opacity="0.26"/>
+  <circle cx="399" cy="269" r="2.5" fill="#3B6FC2" opacity="0.35"/>
+
+  <rect x="475" y="245" width="48" height="48" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.26"/>
+  <line x1="499" y1="245" x2="499" y2="293" stroke="#1A1A1A" stroke-width="0.7" opacity="0.15"/>
+
+  <rect x="575" y="245" width="48" height="48" fill="none" stroke="#1A1A1A" stroke-width="1.5" opacity="0.24"/>
+  <line x1="599" y1="245" x2="599" y2="293" stroke="#1A1A1A" stroke-width="0.7" opacity="0.14"/>
+
+  <!-- Fourth layer: Even smaller -->
+  <rect x="220" y="190" width="42" height="42" fill="none" stroke="#1A1A1A" stroke-width="1.4" opacity="0.22"/>
+  <rect x="315" y="190" width="42" height="42" fill="none" stroke="#1A1A1A" stroke-width="1.4" opacity="0.24"/>
+  <rect x="410" y="190" width="42" height="42" fill="none" stroke="#1A1A1A" stroke-width="1.4" opacity="0.23"/>
+  <rect x="505" y="190" width="42" height="42" fill="none" stroke="#1A1A1A" stroke-width="1.4" opacity="0.21"/>
+
+  <!-- Top layer: Minimal accent blocks -->
+  <rect x="285" y="130" width="38" height="38" fill="none" stroke="#1A1A1A" stroke-width="1.3" opacity="0.18"/>
+  <circle cx="304" cy="149" r="2" fill="#3B6FC2" opacity="0.3"/>
+
+  <rect x="380" y="130" width="38" height="38" fill="none" stroke="#1A1A1A" stroke-width="1.3" opacity="0.2"/>
+
+  <rect x="475" y="130" width="38" height="38" fill="none" stroke="#5A8AD4" stroke-width="1.4" opacity="0.28"/>
+  <circle cx="494" cy="149" r="1.8" fill="#5A8AD4" opacity="0.25"/>
+
+  <!-- Structural connecting lines to show stacking -->
+  <line x1="100" y1="380" x2="130" y2="365" stroke="#1A1A1A" stroke-width="0.6" opacity="0.12"/>
+  <line x1="280" y1="380" x2="310" y2="365" stroke="#1A1A1A" stroke-width="0.6" opacity="0.12"/>
+  <line x1="460" y1="380" x2="490" y2="365" stroke="#1A1A1A" stroke-width="0.6" opacity="0.12"/>
+  <line x1="640" y1="380" x2="615" y2="365" stroke="#1A1A1A" stroke-width="0.6" opacity="0.12"/>
+
+  <!-- Additional support lines showing foundation -->
+  <path d="M 60 380 L 720 380" stroke="#1A1A1A" stroke-width="0.8" opacity="0.1"/>
+</svg>
