@@ -1498,6 +1498,16 @@ function showProject(id) {
     var p = PROJECTS[id];
     if (!p) return;
 
+    // Password gate — once per session
+    if (!sessionStorage.getItem('portfolio-auth')) {
+        var pw = prompt('This work is under NDA. Enter password to view:');
+        if (!pw || pw.toLowerCase() !== 'howkins') {
+            if (pw !== null) alert('Incorrect password.');
+            return;
+        }
+        sessionStorage.setItem('portfolio-auth', '1');
+    }
+
     var card = document.querySelector('.overlay-card');
     var layout = p.layout || 'balanced';
     var isNarrative = layout === 'narrative';
