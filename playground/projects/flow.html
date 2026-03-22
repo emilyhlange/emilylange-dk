@@ -9,12 +9,13 @@
             else if (window.matchMedia('(prefers-color-scheme: dark)').matches)
                 document.documentElement.setAttribute('data-theme', 'dark');
         }());
+    
     </script>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Breathe — Emily Howkins</title>
+    <title>Flow — Emily Howkins</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -24,12 +25,10 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
             line-height: 1.6;
-            animation: color-change 20s infinite;
         }
         [data-theme="dark"] body {
             background: #111113;
             color: #E8E8EC;
-            animation: color-change 20s infinite;
         }
         [data-theme="dark"] .pg-nav { background: #111113; border-bottom-color: rgba(255,255,255,0.08); }
         [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #E8E8EC; }
@@ -207,12 +206,12 @@
 
         strong { font-weight: 700; }
         i, em { font-style: italic; }
-    
+
         /* ── Dark mode ── */
         :root {
             --bg: #F5F5F7;
             --fg: #1A1A1A;
-            --fg-dim: #9B8B7A;
+            --fg-dim: #888;
             --border: rgba(28,20,9,0.10);
             --topbar-bg: #F5F5F7;
             --topbar-fg: #1A1A1A;
@@ -231,207 +230,27 @@
             0%,100% { color: var(--fg); }
             50%     { color: blue; }
         }
-        /* ── Dark mode topbar ── */
-        .pg-topbar, .pg-nav {
-            background: var(--topbar-bg);
-            border-bottom-color: var(--border);
-            color: var(--topbar-fg);
-        }
-        .pg-nav .nav-right, .pg-nav .nav-current, .pg-nav .nav-sep,
-        .pg-topbar .nav-right, .pg-topbar .nav-current, .pg-topbar .nav-sep {
-            color: var(--topbar-fg);
-        }
-        /* Dark mode toggle */
-        #theme-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 11px;
-            color: inherit;
-            opacity: 0.5;
-            padding: 0;
-            transition: opacity 0.15s;
-        }
-        #theme-btn:hover { opacity: 1; color: #3B6FC2; }
-        /* ── Pixel cursor trail canvas ── */
-        #cursor-canvas {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 999;
-        }
-        /* ── Portfolio-style layout ── */
-        .flex-container {
-            display: flex;
-            max-width: 1200px;
-            margin: 62px auto 30px;
-            padding: 0 40px 0 50px;
-        }
-        .left {
-            flex: 0 0 170px;
-            padding-right: 24px;
-            padding-left: 4px;
-            position: fixed;
-            top: 62px;
-        }
-        .right {
-            flex: 1;
-            margin-left: 240px;
-            min-width: 0;
-        }
-        @media (max-width: 1100px) {
-            .flex-container { flex-direction: column; padding: 0 20px; }
-            .left { flex: 100%; padding-bottom: 20px; padding-right: 0; position: relative; top: auto; }
-            .right { flex: 100%; margin-left: 0; }
-        }
-        .item { padding: 10px; }
-        .sidebar-name {
-            font-size: 12px;
-            font-weight: 600;
-            line-height: 17px;
-            margin-bottom: 16px;
-        }
-        .sidebar-name span {
-            font-weight: normal;
-            display: block;
-        }
-        ul { list-style: none; }
-        li.project-item {
-            font-size: 12px;
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 17px;
-        }
-        .sidebar-label {
-            font-size: 10px;
-            opacity: 0.4;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 16px;
-            margin-bottom: 4px;
-            display: block;
-        }
-        li.project-item a { color: inherit; text-decoration: none; }
-        li.project-item a:hover { color: #3B6FC2; }
-        li.project-item.current > a { font-weight: bold; }
-        .pg-content {
-            padding: 20px 0 80px;
-            max-width: none;
-            margin: 0;
-        }
+        /* ── Lightbox ── */
+        .lb-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.92); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .lb-overlay.open { opacity: 1; pointer-events: all; }
+        .lb-img { max-width: 90vw; max-height: 75vh; object-fit: contain; cursor: pointer; }
+        .lb-caption { max-width: 600px; text-align: center; color: #ccc; font-size: 11px; line-height: 1.6; margin-top: 16px; padding: 0 20px; }
+        .lb-counter { color: #666; font-size: 10px; margin-top: 8px; }
+        .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); font-size: 28px; color: #fff; background: none; border: none; cursor: pointer; padding: 12px; opacity: 0.5; transition: opacity 0.2s; }
+        .lb-nav:hover { opacity: 1; }
+        .lb-prev { left: 16px; }
+        .lb-next { right: 16px; }
+        .lb-close { position: absolute; top: 16px; right: 20px; font-size: 20px; color: #fff; background: none; border: none; cursor: pointer; opacity: 0.5; }
+        .lb-close:hover { opacity: 1; }
 
-
-        /* ── Project page improvements ── */
-
-        /* Header */
-        .proj-header {
-            padding: 20px 0 24px;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 32px;
-        }
-        .proj-header-title {
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 1.3;
-            letter-spacing: -0.01em;
-            margin-bottom: 10px;
-        }
-        .proj-header-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0 20px;
-        }
-        .proj-meta-item {
-            font-size: 10px;
-            letter-spacing: 0.09em;
-            text-transform: uppercase;
-            opacity: 0.42;
-        }
-        .proj-meta-item span {
-            opacity: 0.7;
-            font-weight: 600;
-        }
-
-        /* Body text */
-        .pg-content p, .pg-content .project-description {
-            font-size: 12px;
-            line-height: 1.85;
-            margin-bottom: 14px;
-            max-width: 620px;
-            color: var(--fg);
-        }
-        .pg-content #project-title, .pg-content .project-title {
-            display: none; /* hidden — replaced by .proj-header */
-        }
-
-        /* Images */
-        .pg-content img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-        .pg-content video {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Row layout — flex rows of images */
-        .pg-content .row {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
-            align-items: flex-start;
-        }
-        .pg-content .row .item {
-            flex: 1;
-            padding: 0;
-            min-width: 0;
-        }
-        .pg-content .row .item img,
-        .pg-content .row .item video {
-            width: 100%;
-            height: 340px;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Single full-width item */
-        .pg-content .item {
-            padding: 0;
-            margin-bottom: 8px;
-        }
-        .pg-content .item img,
-        .pg-content .item video {
-            width: 100%;
-        }
-
-        /* iframes */
-        .pg-content iframe {
-            display: block;
-            width: 100%;
-            border: none;
-        }
-
-        /* plastic-img */
-        .pg-content .plastic-img {
-            width: 100%;
-            margin-bottom: 8px;
-        }
-
-        /* section spacing */
-        .pg-content .row + p,
-        .pg-content .item + p {
-            margin-top: 24px;
-        }
-
-        /* Download links */
-        .pg-content a strong { text-decoration: underline; text-underline-offset: 2px; }
-
+        /* ── Spread images ── */
+        .spread-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin: 20px 0; }
+        .spread-img { cursor: pointer; transition: opacity 0.2s; }
+        .spread-img:hover { opacity: 0.85; }
     </style>
 </head>
 <body>
-<canvas id="cursor-canvas"></canvas>
+<canvas id="cursor-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:999;"></canvas>
 <div class="grain" aria-hidden="true"></div>
 
 <!-- Fixed header -->
@@ -453,7 +272,7 @@
                 <span class="info-sep">/</span>
                 <a href="../">playground</a>
                 <span class="info-sep">/</span>
-                <span class="nav-current">breathe</span>
+                <span class="nav-current">flow</span>
             </div>
             <div class="info-bar-right">
                 <span class="toggle-item" id="dark-toggle">Dark <span id="dark-state">(N)</span></span>
@@ -463,81 +282,110 @@
 </div>
 <div class="header-spacer" id="header-spacer"></div>
 
-<div class="flex-container">
-<div class="left">
-    <div class="item">
-        <div class="sidebar-name">
-            Emily Howkins
-            <span>Playground — 2018–2021</span>
-        </div>
-        <span class="sidebar-label">projects</span>
-        <ul>
-            <li class="project-item"><a href="thesis.html">Designing for Low Self-Esteem</a></li>
-            <li class="project-item"><a href="portable.html">Portable.</a></li>
-            <li class="project-item"><a href="skiveteater.html">Skive Theater</a></li>
-            <li class="project-item"><a href="ecodistricts.html">EcoDistricts</a></li>
-            <li class="project-item"><a href="multivitamin.html">Information Redesign</a></li>
-            <li class="project-item"><a href="breakupwithplastic.html">#breakUpWithPlastic</a></li>
-            <li class="project-item"><a href="tune.html">Tune</a></li>
-            <li class="project-item"><a href="cerealbox.html">A Cereal Box</a></li>
-            <li class="project-item"><a href="lp_limedevo.html">LP Cover Design</a></li>
-            <li class="project-item"><a href="dubois.html">W.E.B. Du Bois</a></li>
-            <li class="project-item current"><a href="breathe.html">Breathe</a></li>
-            <li class="project-item"><a href="fanfare.html">Typographic Kitchen</a></li>
-            <li class="project-item"><a href="chaos.html">Chaotic Motion</a></li>
-            <li class="project-item"><a href="cwcj.html">Capt. Jack — Copenhagen</a></li>
-            <li class="project-item"><a href="pornolampen.html">The Porn Lamp</a></li>
-            <li class="project-item"><a href="sharePear.html">SharePear</a></li>
-            <li class="project-item"><a href="spaghetti.html">Spaghetti</a></li>
-        </ul>
-    </div>
-</div>
-<div class="right">
-
 <div class="pg-content">
-<div class="proj-header">
-    <h1 class="proj-header-title">Breathe</h1>
-    <div class="proj-header-meta">
-        <span class="proj-meta-item"><span>Year</span> — 2021</span>
-        <span class="proj-meta-item"><span>Type</span> — Speculative Design</span>
+    <div class="project-title">Flow</div>
+    <p>A creative book documenting the ritual of job-hunting rejection. Each spread captures Apple Mail windows — the same polite closures, the same professional tone, the same outcome — until the repetition becomes a visual statement.</p>
+    <p><em>Creative Book · 2021</em></p>
+
+    <div class="spread-grid">
+        <img class="spread-img" data-lb="0" src="../images/flow/42-43.jpg" alt="Rejection letters spread 1">
+        <img class="spread-img" data-lb="1" src="../images/flow/44-45.jpg" alt="Rejection letters spread 2">
+        <img class="spread-img" data-lb="2" src="../images/flow/46-47.jpg" alt="Rejection letters spread 3">
+        <img class="spread-img" data-lb="3" src="../images/flow/48-49.jpg" alt="Rejection letters spread 4">
+        <img class="spread-img" data-lb="4" src="../images/flow/50-51.jpg" alt="Rejection letters spread 5">
+    </div>
+
+    <div class="spread-grid">
+        <img src="../images/flow/6-7.jpg" alt="Book spread">
+        <img src="../images/flow/8-9.jpg" alt="Book spread">
+        <img src="../images/flow/10-11.jpg" alt="Book spread">
+        <img src="../images/flow/12-13.jpg" alt="Book spread">
+        <img src="../images/flow/14-15.jpg" alt="Book spread">
+        <img src="../images/flow/16-17.jpg" alt="Book spread">
+        <img src="../images/flow/20-21.jpg" alt="Book spread">
+        <img src="../images/flow/22-23.jpg" alt="Book spread">
+        <img src="../images/flow/40-41.jpg" alt="Book spread">
+        <img src="../images/flow/94-95.jpg" alt="Book spread">
+        <img src="../images/flow/106-107.jpg" alt="Book spread">
+        <img src="../images/flow/108-109.jpg" alt="Book spread">
+        <img src="../images/flow/110-111.jpg" alt="Book spread">
+        <img src="../images/flow/112-113.jpg" alt="Book spread">
+        <img src="../images/flow/166-167.jpg" alt="Book spread">
+    </div>
+
+    <div class="proj-next" style="margin-top:60px;padding-top:18px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;">
+        <a href="tune.html">← Tune</a>
+        <a href="thesis.html">Designing for Low Self-Esteem →</a>
     </div>
 </div>
-<div class="row">
-          <div class="item">
-            <p id="project-title">Breathe [2021] </p>
-              <p class="project-description">For this project, our task was to try and sell 'air'. This could be air as a physical, sellable product, or a concept relating to air. We chose to advertise an air 'spa'. Set in a dystopian future (not far-fetched from our own), where air is a rare commodity and no longer is a clean source we can access. We chose a video format, that played on short-film tactics. Rather than being an obvious advertisement for the air spa, which we called 'breathe', we created a narrative of a young woman who uses the 'breathe' spa.</p>
-              <p class="project-description">Project in collaboration with Lukas Blazek and Malva Askerup. Film starring Maia Nergaard.</p>
-          </div>
-         </div>
-           
-            <div class="row">
-            <div class="item">
-    <video src="../images/breathe/breathe_final.mp4" width="100%" height="100%" controls></video>
-            </div>
-            </div>
-                    <div class="row">
-          <div class="item">
-              <p class="project-description">Alongside our main feature film, we created three shorter videos, that could be marketed on various social media, or as independent advertisements. In these, we used some of our clips, paired with the music, and a simple animation with our logo design.</p>
-          </div>
-         </div>
-             <div class="row">
-            <div class="item">
-                 <video src="../images/breathe/Breathe_some_1_alt.mp4" width="100%" height="100%" controls></video>
 
-            </div>               
-            <div class="item">
-                 <video src="../images/breathe/Breathe_some_2_alt.mp4" width="100%" height="100%" controls></video>
-
-            </div>     
-            <div class="item">
-                 <video src="../images/breathe/breathe_some_3_alt.mp4" width="100%" height="100%" controls></video>
-
-            </div>  
-            </div>
+<!-- Lightbox overlay -->
+<div class="lb-overlay" id="lb-overlay">
+    <button class="lb-close" id="lb-close">✕</button>
+    <button class="lb-nav lb-prev" id="lb-prev">‹</button>
+    <button class="lb-nav lb-next" id="lb-next">›</button>
+    <img class="lb-img" id="lb-img" src="" alt="Lightbox image">
+    <div class="lb-caption" id="lb-caption"></div>
+    <div class="lb-counter" id="lb-counter"></div>
 </div>
 
+<script>
 
-</div></div>
+// ── Lightbox ──
+(function() {
+    const spreads = [
+        { src: '../images/flow/42-43.jpg', caption: '<strong>The first batch.</strong> Apple Mail windows documenting the early rejections. Each one bearing the same subject line, the same polite closure. A visual stack of small no\'s.' },
+        { src: '../images/flow/44-45.jpg', caption: '<strong>The middle rejection letters.</strong> More blue header bars, more forwarded text, more "Unfortunately we have decided to move forward with other candidates." Layout as a form of documentation.' },
+        { src: '../images/flow/46-47.jpg', caption: '<strong>More patterns emerging.</strong> By the third spread, the repetition becomes almost meditative. The ritual of the rejection email — the same structure, the same professional tone, the same outcome.' },
+        { src: '../images/flow/48-49.jpg', caption: '<strong>The fourth set.</strong> More Mail windows. More "we appreciate your interest." More blue and grey interface elements, endlessly repeating.' },
+        { src: '../images/flow/50-51.jpg', caption: '<strong>The final rejections.</strong> Where the pattern culminates. By now, the emails are no longer individual disappointments — they\'re a visual statement about job hunting.' }
+    ];
+
+    const overlay = document.getElementById('lb-overlay');
+    const lbImg   = document.getElementById('lb-img');
+    const lbCap   = document.getElementById('lb-caption');
+    const lbCtr   = document.getElementById('lb-counter');
+    const btnPrev = document.getElementById('lb-prev');
+    const btnNext = document.getElementById('lb-next');
+    const btnClose = document.getElementById('lb-close');
+    let current = 0;
+
+    function show(idx) {
+        current = (idx + spreads.length) % spreads.length;
+        const s = spreads[current];
+        lbImg.src = s.src;
+        lbCap.innerHTML = s.caption;
+        lbCtr.textContent = (current + 1) + ' / ' + spreads.length;
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function close() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // Open on click
+    document.querySelectorAll('.spread-img').forEach(function(el) {
+        el.addEventListener('click', function() {
+            show(parseInt(el.dataset.lb, 10));
+        });
+    });
+
+    btnPrev.addEventListener('click', function(e) { e.stopPropagation(); show(current - 1); });
+    btnNext.addEventListener('click', function(e) { e.stopPropagation(); show(current + 1); });
+    btnClose.addEventListener('click', close);
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay || e.target === lbImg) close();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (!overlay.classList.contains('open')) return;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') show(current + 1);
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') show(current - 1);
+        else if (e.key === 'Escape') close();
+    });
+})();
+    </script>
 <script>
     /* ── Scroll: smoothly shrink initials ── */
     (function() {

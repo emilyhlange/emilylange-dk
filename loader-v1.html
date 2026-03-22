@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emily Howkins — Product Designer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #ffffff;
+            --fg: #292929;
+            --fg-dim: #888888;
+            --border: #e8e8e8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--fg);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow: hidden;
+        }
+
+        body.content-revealed {
+            overflow: auto;
+        }
+
+        /* Grain overlay */
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image:
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='2' /%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            z-index: 9999;
+            mix-blend-mode: overlay;
+        }
+
+        /* Loader section */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg);
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .loader-container.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .counter {
+            font-size: 96px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1;
+            color: var(--fg);
+        }
+
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 1px;
+            background-color: var(--fg);
+            width: 0%;
+            transition: width 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-bar.complete {
+            width: 100%;
+        }
+
+        /* Page content */
+        .page-content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            z-index: 100;
+        }
+
+        .page-content.revealed {
+            opacity: 1;
+            position: relative;
+            z-index: 100;
+        }
+
+        .content-inner {
+            text-align: center;
+        }
+
+        .name-line {
+            font-size: 72px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            overflow: hidden;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .name-line.emily {
+            animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+        }
+
+        .name-line.howkins {
+            animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--fg-dim);
+            margin-top: 24px;
+            letter-spacing: 0.5px;
+            animation: fadeIn 0.6s ease-out 1.1s both;
+        }
+
+        .cta-link {
+            display: inline-block;
+            margin-top: 32px;
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--fg);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            padding: 12px 24px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.6s ease-out 1.3s both;
+        }
+
+        .cta-link:hover {
+            border-color: var(--fg);
+            background-color: var(--fg);
+            color: var(--bg);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Additional page content (shown after reveal) */
+        .page-section {
+            padding: 80px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            margin-top: 40px;
+        }
+
+        .page-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--fg-dim);
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="grain"></div>
+
+    <!-- Loader -->
+    <div class="loader-container" id="loaderContainer">
+        <div class="loader-content">
+            <div class="counter" id="counter">0</div>
+        </div>
+    </div>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Page Content -->
+    <div class="page-content" id="pageContent">
+        <div class="content-inner">
+            <div class="name-line emily">Emily</div>
+            <div class="name-line howkins">Howkins</div>
+            <div class="subtitle">Product Designer</div>
+            <a href="#work" class="cta-link">enter →</a>
+        </div>
+    </div>
+
+    <!-- Additional Content -->
+    <div class="page-section" style="display: none;" id="additionalContent">
+        <h2>Work</h2>
+        <p>Designing delightful products and experiences that solve real problems.</p>
+        <p>Focused on design systems, interaction design, and user-centered approaches.</p>
+
+        <h2>Currently</h2>
+        <p>Building innovative digital experiences with attention to detail and usability.</p>
+    </div>
+
+    <script>
+        const SKIP_LOADER_KEY = 'loader-v1-seen';
+        const LOADER_DURATION = 2500; // 2.5 seconds
+
+        const loaderContainer = document.getElementById('loaderContainer');
+        const counterEl = document.getElementById('counter');
+        const progressBar = document.getElementById('progressBar');
+        const pageContent = document.getElementById('pageContent');
+        const additionalContent = document.getElementById('additionalContent');
+
+        function shouldSkipLoader() {
+            return sessionStorage.getItem(SKIP_LOADER_KEY) === 'true';
+        }
+
+        function markLoaderSeen() {
+            sessionStorage.setItem(SKIP_LOADER_KEY, 'true');
+        }
+
+        function animateCounter() {
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / LOADER_DURATION, 1);
+
+                // Cubic ease-in-out
+                const easeProgress = progress < 0.5
+                    ? 4 * progress * progress * progress
+                    : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+                const count = Math.floor(easeProgress * 100);
+                counterEl.textContent = count;
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    counterEl.textContent = '100';
+                    completeLoader();
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        function completeLoader() {
+            // Animate progress bar
+            progressBar.classList.add('complete');
+
+            // Brief pause then fade out and reveal content
+            setTimeout(() => {
+                loaderContainer.classList.add('hidden');
+                pageContent.classList.add('revealed');
+                document.body.classList.add('content-revealed');
+                additionalContent.style.display = 'block';
+            }, 300);
+
+            markLoaderSeen();
+        }
+
+        function startLoader() {
+            // Trigger progress bar animation
+            setTimeout(() => {
+                progressBar.classList.add('complete');
+            }, 50);
+
+            // Animate counter
+            animateCounter();
+        }
+
+        // Initialize
+        if (shouldSkipLoader()) {
+            // Skip loader, show content immediately
+            loaderContainer.classList.add('hidden');
+            pageContent.classList.add('revealed');
+            document.body.classList.add('content-revealed');
+            additionalContent.style.display = 'block';
+        } else {
+            startLoader();
+        }
+    </script>
+</body>
+</html>

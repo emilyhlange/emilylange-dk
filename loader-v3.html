@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emily Howkins — Product Designer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --fg: #292929;
+            --fg-dim: #888888;
+            --border: #e8e8e8;
+        }
+
+        [data-theme="dark"] {
+            --bg: #111111;
+            --fg: #e8e8e8;
+            --fg-dim: #666666;
+            --border: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--fg);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image:
+                url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="2"/><feColorMatrix type="saturate" values="0.1"/></filter><rect width="100" height="100" fill="rgba(0,0,0,0.02)" filter="url(%23noise)"/></svg>');
+            z-index: 9998;
+        }
+
+        /* Loader container */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeOutLoader 0.6s ease-out 2.4s forwards;
+        }
+
+        @keyframes fadeOutLoader {
+            from {
+                opacity: 1;
+                visibility: visible;
+            }
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Grid assembly area */
+        .grid-assembly {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Block styles */
+        .block {
+            position: absolute;
+            background-color: #f0f0f0;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            opacity: 0;
+        }
+
+        [data-theme="dark"] .block {
+            background-color: #1a1a1a;
+        }
+
+        /* Stagger animation for each block */
+        .block {
+            animation: assembleBlock 2.0s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes assembleBlock {
+            0% {
+                opacity: 0;
+                transform: translate(var(--start-x), var(--start-y)) scale(0.8);
+            }
+            60% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                transform: translate(var(--end-x), var(--end-y)) scale(1);
+            }
+        }
+
+        /* Fade out blocks after assembly */
+        .block.fade-out {
+            animation: fadeOutBlock 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeOutBlock {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        /* Content reveal */
+        .content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            z-index: 1000;
+            animation: revealContent 0.8s ease-out 2.4s forwards;
+        }
+
+        @keyframes revealContent {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .content-inner {
+            text-align: center;
+            animation: contentReveal 1.0s ease-out 2.5s forwards;
+        }
+
+        @keyframes contentReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .name {
+            font-weight: 700;
+            font-size: clamp(48px, 12vw, 120px);
+            line-height: 1.1;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        .name-line {
+            display: block;
+        }
+
+        .subtitle {
+            font-weight: 500;
+            font-size: clamp(14px, 2vw, 18px);
+            color: var(--fg-dim);
+            margin-top: clamp(12px, 2vw, 24px);
+            letter-spacing: 0.01em;
+        }
+
+        .cta {
+            margin-top: clamp(24px, 4vw, 48px);
+            font-weight: 500;
+            font-size: clamp(14px, 2vw, 18px);
+            color: var(--fg);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .cta:hover {
+            color: var(--fg-dim);
+            border-bottom-color: var(--border);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .block {
+                border-radius: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader-container">
+        <div class="grid-assembly" id="gridAssembly"></div>
+    </div>
+
+    <div class="content">
+        <div class="content-inner">
+            <h1 class="name">
+                <span class="name-line">Emily</span>
+                <span class="name-line">Howkins</span>
+            </h1>
+            <p class="subtitle">Product Designer</p>
+            <a href="#" class="cta">enter →</a>
+        </div>
+    </div>
+
+    <script>
+        const GRID_COLS = 5;
+        const GRID_ROWS = 6;
+        const BLOCK_COUNT = 28;
+        const GRID_GAP = 12;
+        const ANIMATION_DURATION = 2000;
+        const STAGGER_DELAY = 40;
+
+        function getRandomPosition() {
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const offsetX = (Math.random() - 0.5) * vw * 0.8;
+            const offsetY = (Math.random() - 0.5) * vh * 0.8;
+            return { offsetX, offsetY };
+        }
+
+        function generateBlocks() {
+            const container = document.getElementById('gridAssembly');
+            const blockSizes = [
+                { w: 48, h: 48 },
+                { w: 60, h: 48 },
+                { w: 48, h: 60 },
+                { w: 72, h: 48 },
+                { w: 48, h: 72 },
+                { w: 60, h: 60 },
+                { w: 84, h: 48 },
+                { w: 48, h: 84 },
+            ];
+
+            const blocks = [];
+            let gridIndex = 0;
+
+            for (let i = 0; i < BLOCK_COUNT; i++) {
+                const block = document.createElement('div');
+                block.className = 'block';
+                const sizeIdx = i % blockSizes.length;
+                const { w, h } = blockSizes[sizeIdx];
+
+                // Calculate grid position
+                const col = gridIndex % GRID_COLS;
+                const row = Math.floor(gridIndex / GRID_COLS);
+
+                if (row < GRID_ROWS) {
+                    gridIndex++;
+                }
+
+                const gridX = (col * (72 + GRID_GAP)) - (GRID_COLS * (72 + GRID_GAP)) / 2 + (72 - w) / 2;
+                const gridY = (row * (72 + GRID_GAP)) - (GRID_ROWS * (72 + GRID_GAP)) / 2 + (72 - h) / 2;
+
+                const { offsetX, offsetY } = getRandomPosition();
+
+                block.style.width = w + 'px';
+                block.style.height = h + 'px';
+                block.style.setProperty('--start-x', offsetX + 'px');
+                block.style.setProperty('--start-y', offsetY + 'px');
+                block.style.setProperty('--end-x', gridX + 'px');
+                block.style.setProperty('--end-y', gridY + 'px');
+                block.style.animationDelay = (i * STAGGER_DELAY) + 'ms';
+
+                container.appendChild(block);
+                blocks.push(block);
+            }
+
+            // Fade out blocks after assembly completes
+            setTimeout(() => {
+                blocks.forEach((block) => {
+                    block.classList.add('fade-out');
+                });
+            }, ANIMATION_DURATION + 200);
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', generateBlocks);
+    </script>
+</body>
+</html>

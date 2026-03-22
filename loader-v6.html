@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emily Howkins — Product Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #ffffff;
+            --fg: #292929;
+            --fg-dim: #888888;
+            --border: #e8e8e8;
+        }
+
+        [data-theme="dark"] {
+            --bg: #111111;
+            --fg: #e8e8e8;
+            --fg-dim: #666666;
+            --border: #2a2a2a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--fg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise" /></filter><rect width="100" height="100" fill="%23ffffff" opacity="0.03"/><rect width="100" height="100" fill="%23000000" opacity="0.02" filter="url(%23noise)"/></svg>');
+            pointer-events: none;
+            z-index: 1;
+            mix-blend-mode: overlay;
+        }
+
+        .loader-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .collage-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+        }
+
+        .collage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vw;
+            max-width: 1000px;
+            height: 70vh;
+            max-height: 700px;
+            opacity: 1;
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .collage.fade-out {
+            opacity: 0;
+            transform: translate(-50%, -50%) translateY(80px);
+        }
+
+        .collage-image {
+            position: absolute;
+            width: 14vw;
+            max-width: 200px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 8px;
+            filter: grayscale(100%) contrast(1.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: scale(0.7) rotate(0deg) translateX(0) translateY(0);
+            will-change: opacity, transform;
+        }
+
+        .collage-image.placed {
+            opacity: 1;
+            animation: placeImage 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes placeImage {
+            from {
+                opacity: 0;
+                transform: scale(0.7);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .content-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            opacity: 0;
+            clip-path: inset(0 0 100% 0);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+        }
+
+        .content-wrapper.visible {
+            opacity: 1;
+            clip-path: inset(0 0 0 0);
+        }
+
+        .name-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .name-line {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .name-line:first-child {
+            margin-bottom: 0.2em;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: var(--fg-dim);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            margin-top: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .enter-link {
+            color: var(--fg);
+            text-decoration: none;
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .enter-link:hover {
+            color: var(--fg-dim);
+            gap: 0.8em;
+        }
+
+        .enter-link .arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .enter-link:hover .arrow {
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body>
+    <div class="loader-container">
+        <div class="collage-wrapper">
+            <div class="collage" id="collage">
+                <img class="collage-image" src="portfolio/images/hero-thesis.jpg" alt="">
+                <img class="collage-image" src="portfolio/images/hero-portable.jpg" alt="">
+                <img class="collage-image" src="portfolio/images/hero-fanfare.jpg" alt="">
+                <img class="collage-image" src="portfolio/images/hero-tune.jpg" alt="">
+                <img class="collage-image" src="portfolio/images/hero-flow.jpg" alt="">
+                <img class="collage-image" src="portfolio/images/ProfilePic.jpg" alt="">
+            </div>
+
+            <div class="content-wrapper" id="contentWrapper">
+                <div class="name-container">
+                    <div class="name-line">Emily</div>
+                    <div class="name-line">Howkins</div>
+                    <div class="subtitle">Product Designer</div>
+                </div>
+                <a href="#" class="enter-link">
+                    <span>enter</span>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const images = document.querySelectorAll('.collage-image');
+        const collage = document.getElementById('collage');
+        const contentWrapper = document.getElementById('contentWrapper');
+
+        // Predefined positions for a scattered polaroid effect
+        const positions = [
+            { top: '5%', left: '10%', rotate: -7 },
+            { top: '15%', left: '60%', rotate: 6 },
+            { top: '40%', left: '2%', rotate: -4 },
+            { top: '35%', left: '68%', rotate: 8 },
+            { top: '65%', left: '45%', rotate: -6 },
+            { top: '55%', left: '20%', rotate: 5 }
+        ];
+
+        function placeImages() {
+            images.forEach((img, index) => {
+                setTimeout(() => {
+                    const pos = positions[index % positions.length];
+                    img.style.top = pos.top;
+                    img.style.left = pos.left;
+                    img.style.transform = `rotate(${pos.rotate}deg) scale(1)`;
+                    img.classList.add('placed');
+                }, index * 300);
+            });
+
+            // After all images are placed, reveal the content
+            const totalTime = (images.length - 1) * 300 + 600; // Last image + animation duration
+            setTimeout(() => {
+                collage.classList.add('fade-out');
+                contentWrapper.classList.add('visible');
+            }, totalTime);
+        }
+
+        window.addEventListener('load', () => {
+            placeImages();
+        });
+
+        // Fallback: start immediately if images load slowly
+        setTimeout(() => {
+            if (!images[0].classList.contains('placed')) {
+                placeImages();
+            }
+        }, 100);
+    </script>
+</body>
+</html>

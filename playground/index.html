@@ -13,49 +13,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Playground — Emily Howkins Lange</title>
-    <meta name="description" content="Experiments, graphic design, product design, and student projects by Emily Howkins Lange.">
+    <title>Playground — Emily Howkins</title>
+    <meta name="description" content="Experiments, graphic design, product design, and student projects by Emily Howkins.">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         /* ── Base ── */
         body {
-            background-color: #EDE8DF;
+            background-color: #F5F5F7;
             color: black;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
             line-height: 17px;
         }
         [data-theme="dark"] body {
-            background-color: #151008;
-            color: #F2EDE3;
+            background-color: #111113;
+            color: #E8E8EC;
         }
 
         /* ── CSS Variables ── */
         :root {
-            --bg: #EDE8DF;
-            --fg: #1C1409;
-            --fg-dim: #7A6655;
-            --border: rgba(28,20,9,0.12);
-            --topbar-bg: #EDE8DF;
-            --topbar-fg: #1C1409;
+            --bg: #F5F5F7;
+            --fg: #1A1A1A;
+            --fg-dim: #888;
+            --accent: #3B6FC2;
+            --border: rgba(0,0,0,0.09);
+            --topbar-bg: #F5F5F7;
+            --topbar-fg: #1A1A1A;
         }
         [data-theme="dark"] {
-            --bg: #151008;
-            --fg: #F2EDE3;
-            --fg-dim: #8A7B6C;
-            --border: rgba(242,237,227,0.10);
-            --topbar-bg: #110D07;
-            --topbar-fg: #F2EDE3;
+            --bg: #111113;
+            --fg: #E8E8EC;
+            --fg-dim: #888;
+            --accent: #6B9FE8;
+            --border: rgba(255,255,255,0.09);
+            --topbar-bg: #111113;
+            --topbar-fg: #E8E8EC;
         }
         html { overflow-y: scroll; }
         html, body { background: var(--bg); color: var(--fg); }
 
         /* Scrollbar */
         ::-webkit-scrollbar { width: 10px; height: 5px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #8B2E3F; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(139,46,63,0.55); }
+        ::-webkit-scrollbar-track { background: #F5F5F7; }
+        ::-webkit-scrollbar-thumb { background: #3B6FC2; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(59,111,194,0.55); }
 
         a { color: inherit; text-decoration: none; }
 
@@ -99,7 +101,7 @@
             font-family: Arial, Helvetica, sans-serif;
             line-height: 17px;
         }
-        li.project-item a:hover, li.sidebar-item a:hover { color: #8B2E3F; }
+        li.project-item a:hover, li.sidebar-item a:hover { color: #3B6FC2; }
         .sidebar-label {
             font-size: 10px;
             opacity: 0.52;
@@ -125,7 +127,7 @@
             color: var(--topbar-fg);
         }
         .pg-topbar a { color: inherit; }
-        .pg-topbar a:hover { color: #8B2E3F; }
+        .pg-topbar a:hover { color: #3B6FC2; }
         .pg-topbar .nav-left { display: flex; align-items: center; gap: 8px; }
         .pg-topbar .nav-sep { opacity: 0.3; }
         .pg-topbar .nav-current { opacity: 0.45; }
@@ -135,7 +137,7 @@
             color: inherit; opacity: 0.5; padding: 0;
             transition: opacity 0.15s;
         }
-        #theme-btn:hover { opacity: 1; color: #8B2E3F; }
+        #theme-btn:hover { opacity: 1; color: #3B6FC2; }
 
         /* ── Grain overlay ── */
         .grain {
@@ -173,8 +175,8 @@
         .pg-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            column-gap: 2px;
-            row-gap: 28px;
+            column-gap: 20px;
+            row-gap: 48px;
         }
 
         .pg-tile {
@@ -219,7 +221,7 @@
             transition: color 0.15s ease;
         }
 
-        .pg-tile:hover .pg-tile-title { color: #8B2E3F; }
+        .pg-tile:hover .pg-tile-title { color: #3B6FC2; }
 
         .pg-tile-meta {
             font-size: 10px;
@@ -250,7 +252,7 @@
     <div style="display:flex;align-items:center;gap:4px">
         <button id="theme-btn" aria-label="Toggle colour mode">◐</button>
         <span class="nav-sep">·</span>
-        <a href="../">Emily Howkins Lange</a>
+        <a href="../">Emily Howkins</a>
     </div>
 </nav>
 
@@ -260,7 +262,7 @@
     <div class="left">
         <div class="item">
             <div class="sidebar-name">
-                Emily Howkins Lange
+                Emily Howkins
                 <span>Playground — 2018–2021</span>
             </div>
 
@@ -349,8 +351,8 @@
         window.addEventListener('resize', resize);
 
         const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
-        const PALETTE_LIGHT = ['#1C1409','#1C1409','#1C1409','#6B92A8','#6B92A8','#8B2E3F'];
-        const PALETTE_DARK  = ['#F2EDE3','#F2EDE3','#F2EDE3','#C8D8E4','#6B92A8','#8B2E3F'];
+        const PALETTE_LIGHT = ['#1A1A1A','#1A1A1A','#1A1A1A','#6B92A8','#6B92A8','#3B6FC2'];
+        const PALETTE_DARK  = ['#E8E8EC','#E8E8EC','#E8E8EC','#C8D8E4','#6B92A8','#3B6FC2'];
 
         let pixels = [], lastX = null, lastY = null;
         document.addEventListener('mousemove', e => {

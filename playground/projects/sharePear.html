@@ -14,12 +14,12 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SharePear — Emily Howkins Lange</title>
+    <title>SharePear — Emily Howkins</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html, body {
-            background: #EDE8DF;
+            background: #F5F5F7;
             color: black;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
@@ -27,12 +27,12 @@
             animation: color-change 20s infinite;
         }
         [data-theme="dark"] body {
-            background: #151008;
-            color: #F2EDE3;
+            background: #111113;
+            color: #E8E8EC;
             animation: color-change 20s infinite;
         }
-        [data-theme="dark"] .pg-nav { background: #151008; border-bottom-color: rgba(255,255,255,0.08); }
-        [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #F2EDE3; }
+        [data-theme="dark"] .pg-nav { background: #111113; border-bottom-color: rgba(255,255,255,0.08); }
+        [data-theme="dark"] p, [data-theme="dark"] .project-description { color: #E8E8EC; }
 
         @keyframes color-change {
             0%   { color: var(--fg, black); }
@@ -69,42 +69,81 @@
 
         /* Scrollbar */
         ::-webkit-scrollbar { width: 10px; height: 5px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #8B2E3F; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(139,46,63,0.55); }
+        ::-webkit-scrollbar-track { background: #F5F5F7; }
+        ::-webkit-scrollbar-thumb { background: #3B6FC2; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(59,111,194,0.55); }
 
-        /* Nav bar */
-        .pg-nav {
+        /* Fixed header (matches portfolio) */
+        .fixed-header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 32px;
-            background: #EDE8DF;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(245,245,247,0.92);
+            backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+        }
+        [data-theme="dark"] .fixed-header {
+            background: rgba(17,17,19,0.92);
+        }
+        .fixed-header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+        .header-zone {
+            cursor: default;
+            user-select: none;
+            overflow: hidden;
+            position: relative;
+        }
+        .initials {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            line-height: 0.85;
+            letter-spacing: -0.02em;
+            align-items: flex-start;
+        }
+        .initials a { color: inherit; text-decoration: none; }
+        .fullname {
+            font-weight: 700;
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            position: absolute;
+            left: 0; right: 0; top: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .fullname a { color: inherit; text-decoration: none; }
+        .header-zone:hover .initials { opacity: 0; }
+        .header-zone:hover .fullname { opacity: 1; }
+        .initials { transition: opacity 0.3s ease; }
+        .info-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
-            z-index: 100;
+            flex-wrap: wrap;
+            gap: 8px 24px;
+            padding: 10px 0;
+            border-top: 1px solid var(--border, rgba(0,0,0,0.09));
             font-size: 11px;
+            color: var(--fg-dim, #888);
         }
-        .pg-nav a {
-            color: inherit;
-            text-decoration: none;
-        }
-        .pg-nav a:hover { color: #8B2E3F; }
-        .pg-nav .nav-left { display: flex; align-items: center; gap: 8px; }
-        .pg-nav .nav-sep { opacity: 0.3; }
-        .pg-nav .nav-current { opacity: 0.45; }
-        .pg-nav .nav-right a { color: inherit; text-decoration: none; }
-        .pg-nav .nav-right a:hover { color: #8B2E3F; }
+        .info-bar a { color: inherit; text-decoration: none; }
+        .info-bar a:hover { color: #3B6FC2; }
+        .info-sep { opacity: 0.3; margin: 0 6px; }
+        .nav-current { opacity: 0.5; }
+        .info-bar-right { display: flex; align-items: center; gap: 14px; }
+        .toggle-item { cursor: pointer; user-select: none; transition: color 0.15s; }
+        .toggle-item:hover { color: #3B6FC2; }
+        .header-spacer { /* height set by JS */ }
 
         /* Content */
         .pg-content {
             max-width: 900px;
             margin: 0 auto;
-            padding: 60px 24px 80px;
+            padding: 20px 24px 80px;
         }
 
         /* Project title */
@@ -164,27 +203,27 @@
 
         /* links */
         a { color: inherit; text-decoration: none; }
-        a:hover { color: #8B2E3F; }
+        a:hover { color: #3B6FC2; }
 
         strong { font-weight: 700; }
         i, em { font-style: italic; }
     
         /* ── Dark mode ── */
         :root {
-            --bg: #EDE8DF;
-            --fg: #1C1409;
+            --bg: #F5F5F7;
+            --fg: #1A1A1A;
             --fg-dim: #9B8B7A;
             --border: rgba(28,20,9,0.10);
-            --topbar-bg: #EDE8DF;
-            --topbar-fg: #1C1409;
+            --topbar-bg: #F5F5F7;
+            --topbar-fg: #1A1A1A;
         }
         [data-theme="dark"] {
-            --bg: #151008;
-            --fg: #F2EDE3;
+            --bg: #111113;
+            --fg: #E8E8EC;
             --fg-dim: #6A5B4C;
             --border: rgba(242,237,227,0.08);
-            --topbar-bg: #110D07;
-            --topbar-fg: #F2EDE3;
+            --topbar-bg: #111113;
+            --topbar-fg: #E8E8EC;
         }
         html { overflow-y: scroll; }
         html, body { background: var(--bg); color: var(--fg); }
@@ -214,7 +253,7 @@
             padding: 0;
             transition: opacity 0.15s;
         }
-        #theme-btn:hover { opacity: 1; color: #8B2E3F; }
+        #theme-btn:hover { opacity: 1; color: #3B6FC2; }
         /* ── Pixel cursor trail canvas ── */
         #cursor-canvas {
             position: fixed;
@@ -273,7 +312,7 @@
             display: block;
         }
         li.project-item a { color: inherit; text-decoration: none; }
-        li.project-item a:hover { color: #8B2E3F; }
+        li.project-item a:hover { color: #3B6FC2; }
         li.project-item.current > a { font-weight: bold; }
         .pg-content {
             padding: 20px 0 80px;
@@ -395,26 +434,40 @@
 <canvas id="cursor-canvas"></canvas>
 <div class="grain" aria-hidden="true"></div>
 
-<nav class="pg-nav">
-    <div class="nav-left">
-        <a href="../../">home</a>
-        <span class="nav-sep">·</span>
-        <a href="../../portfolio/">portfolio</a>
-        <span class="nav-sep">·</span>
-        <a href="../">playground</a>
-        <span class="nav-sep">·</span>
-        <span class="nav-current">SharePear</span>
+<!-- Fixed header -->
+<div class="fixed-header" id="fixed-header">
+    <div class="fixed-header-inner">
+        <div class="header-zone" id="header-zone">
+            <div class="initials" id="initials-display">
+                <span><a href="../../portfolio/">E</a></span><span><a href="../../portfolio/">H</a></span>
+            </div>
+            <div class="fullname" id="fullname-display">
+                <a href="../../portfolio/">Emily Howkins</a>
+            </div>
+        </div>
+        <div class="info-bar">
+            <div>
+                <a href="../../">home</a>
+                <span class="info-sep">/</span>
+                <a href="../../portfolio/">portfolio</a>
+                <span class="info-sep">/</span>
+                <a href="../">playground</a>
+                <span class="info-sep">/</span>
+                <span class="nav-current">SharePear</span>
+            </div>
+            <div class="info-bar-right">
+                <span class="toggle-item" id="dark-toggle">Dark <span id="dark-state">(N)</span></span>
+            </div>
+        </div>
     </div>
-    <div class="nav-right"><button id="theme-btn" aria-label="Toggle colour mode">◐</button>
-        <span class="nav-sep">·</span>
-        <a href="../../">Emily Howkins Lange</a></div>
-</nav>
+</div>
+<div class="header-spacer" id="header-spacer"></div>
 
 <div class="flex-container">
 <div class="left">
     <div class="item">
         <div class="sidebar-name">
-            Emily Howkins Lange
+            Emily Howkins
             <span>Playground — 2018–2021</span>
         </div>
         <span class="sidebar-label">projects</span>
@@ -481,5 +534,42 @@
 
 
 </div></div>
+<script>
+    /* ── Scroll: smoothly shrink initials ── */
+    (function() {
+        var fh = document.getElementById('fixed-header');
+        var hz = document.getElementById('header-zone');
+        var ini = document.getElementById('initials-display');
+        var fn = document.getElementById('fullname-display');
+        var sp = document.getElementById('header-spacer');
+        var MAX_FONT = Math.min(200, window.innerWidth * 0.16);
+        var MIN_FONT = 28, MAX_PAD = 32, MIN_PAD = 6, RANGE = 200;
+        function upd() {
+            var t = Math.min(1, window.scrollY / RANGE);
+            var e = t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2;
+            var fs = MAX_FONT - (MAX_FONT - MIN_FONT) * e;
+            var pd = MAX_PAD - (MAX_PAD - MIN_PAD) * e;
+            ini.style.fontSize = fs + 'px';
+            fn.style.fontSize = fs + 'px';
+            hz.style.paddingTop = pd + 'px';
+            hz.style.paddingBottom = (pd * 0.3) + 'px';
+            sp.style.height = fh.offsetHeight + 'px';
+        }
+        upd();
+        window.addEventListener('scroll', upd, {passive:true});
+        window.addEventListener('resize', upd);
+    })();
+
+    /* ── Dark mode toggle ── */
+    (function() {
+        var html = document.documentElement;
+        function gt() { return html.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
+        function st(t) { html.setAttribute('data-theme', t); localStorage.setItem('theme', t); u(); }
+        function u() { var el = document.getElementById('dark-state'); if(el) el.textContent = gt() === 'dark' ? '(Y)' : '(N)'; }
+        var dt = document.getElementById('dark-toggle');
+        if(dt) dt.addEventListener('click', function() { st(gt() === 'dark' ? 'light' : 'dark'); });
+        u();
+    })();
+</script>
 </body>
 </html>
