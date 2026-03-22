@@ -692,6 +692,61 @@
         .overlay-footer-nav > :nth-child(2) { justify-self: center; }
         .overlay-footer-nav > :last-child { justify-self: end; }
 
+        /* ── Password overlay inside modal ── */
+        .pw-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            opacity: 0;
+            animation: fadeIn 0.25s ease forwards;
+        }
+        .pw-overlay p {
+            font-size: 12px;
+            color: var(--fg-dim);
+            text-align: center;
+            line-height: 1.5;
+            max-width: 260px;
+        }
+        .pw-overlay input {
+            font-family: inherit;
+            font-size: 12px;
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg);
+            color: var(--fg);
+            width: 200px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+        .pw-overlay input:focus { border-color: var(--fg-dim); }
+        .pw-overlay input.pw-error {
+            border-color: #c44;
+            animation: pw-shake 0.35s ease;
+        }
+        .pw-overlay .pw-hint {
+            font-size: 11px;
+            color: #c44;
+            opacity: 0;
+            transition: opacity 0.2s;
+            height: 14px;
+        }
+        .pw-overlay .pw-hint.visible { opacity: 1; }
+        @keyframes pw-shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
         .fullpage-toggle {
             background: none; border: 1px solid var(--border); border-radius: 4px;
             padding: 4px 6px; cursor: pointer; color: var(--fg-dim);
@@ -1498,15 +1553,13 @@ function showProject(id) {
     var p = PROJECTS[id];
     if (!p) return;
 
-    // Password gate for work projects only — once per session
+    // Password gate for work projects (01–03) — once per session
     var GATED = ['collab','language','foundations'];
+    var _pendingProjectId = null;
     if (GATED.indexOf(id) !== -1 && !sessionStorage.getItem('portfolio-auth')) {
-        var pw = prompt('This work is under NDA. Enter password to view:');
-        if (!pw || pw.toLowerCase() !== 'howkins') {
-            if (pw !== null) alert('Incorrect password.');
-            return;
-        }
-        sessionStorage.setItem('portfolio-auth', '1');
+        _pendingProjectId = id;
+        _openOverlayForAuth(id);
+        return;
     }
 
     var card = document.querySelector('.overlay-card');
@@ -1732,6 +1785,51 @@ document.addEventListener('keydown', function(e) {
         closeProject();
     }
 });
+
+/* ── Password overlay helpers ── */
+function _openOverlayForAuth(id) {
+    // Open the modal shell with a password overlay inside
+    var overlay = document.getElementById('project-overlay');
+    var card = document.querySelector('.overlay-card');
+    var contentArea = document.getElementById('overlay-content-area');
+    var footerNav = document.getElementById('overlay-footer-nav');
+
+    // Clear content, show password form
+    contentArea.innerHTML = '';
+    footerNav.innerHTML = '';
+
+    var pwDiv = document.createElement('div');
+    pwDiv.className = 'pw-overlay';
+    pwDiv.innerHTML = '<p>This project contains work under NDA.<br>Enter password to view.</p>'
+        + '<input type="password" id="pw-input" placeholder="Password" autocomplete="off">'
+        + '<span class="pw-hint" id="pw-hint">Incorrect password</span>';
+    card.appendChild(pwDiv);
+
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    setTimeout(function(){ document.getElementById('pw-input').focus(); }, 100);
+
+    document.getElementById('pw-input').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            var val = this.value;
+            if (val.toLowerCase() === 'howkins') {
+                sessionStorage.setItem('portfolio-auth', '1');
+                // Remove overlay and show the actual project
+                pwDiv.remove();
+                showProject(id);
+            } else {
+                this.classList.add('pw-error');
+                document.getElementById('pw-hint').classList.add('visible');
+                var inp = this;
+                setTimeout(function(){
+                    inp.classList.remove('pw-error');
+                    inp.value = '';
+                }, 500);
+            }
+        }
+    });
+}
 
 /* ── Filter ── */
 function filterProjects(tag) {

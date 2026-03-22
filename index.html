@@ -623,18 +623,26 @@ var trailIdx = 0;
         delay+=250;
     });
 
-    // Phase 2: Stack images converge → fade → cube appears
+    // Phase 2: Stack images converge → shrink → cross-fade into cube
     setTimeout(function(){
-        // First, remove rotations and converge stack to center
+        // Step 1: Remove rotations, converge and start shrinking
         imgs.forEach(function(img){
-            img.style.transition='opacity 0.5s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)';
-            img.style.transform='scale(0.95) rotate(0deg)';
+            img.style.transition='opacity 0.6s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1)';
+            img.style.transform='scale(0.7) rotate(0deg)';
         });
-        // Then fade stack and bring in cube
+        // Step 2: Continue shrinking while fading, bring cube in underneath
         setTimeout(function(){
-            imgs.forEach(function(img){img.style.opacity='0';});
+            cubeW.style.opacity='0';
+            cubeW.style.transition='opacity 0.8s ease';
             cubeW.classList.add('visible');
-        },400);
+            // Start cube fade-in slightly before stack fully disappears
+            requestAnimationFrame(function(){ cubeW.style.opacity='1'; });
+            imgs.forEach(function(img){
+                img.style.transition='opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+                img.style.transform='scale(0.5) rotate(0deg)';
+                img.style.opacity='0';
+            });
+        },500);
     },delay+150);
 
     // Phase 3: Dismiss loader, show hero name centered
