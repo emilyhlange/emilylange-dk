@@ -1,0 +1,43 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="subtle-shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  
+
+  <!-- Central circle -->
+  <circle cx="400" cy="250" r="28" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+
+  <!-- Branch 1 - Top left -->
+  <line x1="385" y1="225" x2="280" y2="100" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="240" cy="60" r="18" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+  <circle cx="260" cy="45" r="12" fill="#b8c4b8" filter="url(#subtle-shadow)" opacity="0.6"/>
+  <circle cx="220" cy="80" r="11" fill="#b8c4b8" filter="url(#subtle-shadow)" opacity="0.6"/>
+
+  <!-- Branch 2 - Top right -->
+  <line x1="415" y1="225" x2="520" y2="100" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="560" cy="60" r="18" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <circle cx="540" cy="45" r="12" fill="#b8c4d4" filter="url(#subtle-shadow)" opacity="0.6"/>
+  <circle cx="580" cy="80" r="11" fill="#b8c4d4" filter="url(#subtle-shadow)" opacity="0.6"/>
+
+  <!-- Branch 3 - Left -->
+  <line x1="375" y1="245" x2="200" y2="240" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="140" cy="245" r="16" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <circle cx="155" cy="225" r="10" fill="#d4ccc2" filter="url(#subtle-shadow)" opacity="0.6"/>
+  <circle cx="125" cy="265" r="10" fill="#d4ccc2" filter="url(#subtle-shadow)" opacity="0.6"/>
+
+  <!-- Branch 4 - Right -->
+  <line x1="425" y1="245" x2="600" y2="240" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="660" cy="245" r="16" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <circle cx="645" cy="225" r="10" fill="#b8c4d4" filter="url(#subtle-shadow)" opacity="0.6"/>
+  <circle cx="675" cy="265" r="10" fill="#b8c4d4" filter="url(#subtle-shadow)" opacity="0.6"/>
+
+  <!-- Branch 5 - Bottom -->
+  <line x1="400" y1="275" x2="400" y2="380" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="400" cy="420" r="18" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+  <circle cx="380" cy="440" r="11" fill="#b8c4b8" filter="url(#subtle-shadow)" opacity="0.6"/>
+  <circle cx="420" cy="445" r="11" fill="#b8c4b8" filter="url(#subtle-shadow)" opacity="0.6"/>
+</svg>

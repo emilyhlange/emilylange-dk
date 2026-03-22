@@ -1,66 +1,1977 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="auto">
 <head>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
+            else if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+                document.documentElement.setAttribute('data-theme', 'dark');
+        }());
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Emily Lange - Professional Portfolio</title>
-    <link rel="stylesheet" href="/playground/css/bootstrap-4.3.1.css">
-    <link rel="stylesheet" href="/playground/css/style.css">
+    <title>Emily Howkins — Product Designer</title>
+    <meta name="description" content="Product Designer specialising in Design Systems. Based in Copenhagen.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:       #ffffff;
+            --fg:       #292929;
+            --fg-dim:   #888888;
+            --border:   #e8e8e8;
+            --card-bg:  #f5f5f5;
+            --card-hover: #eaeae8;
+            --gutter:   20px;
+        }
+        [data-theme="dark"] {
+            --bg:       #111111;
+            --fg:       #e8e8e8;
+            --fg-dim:   #666666;
+            --border:   #2a2a2a;
+            --card-bg:  #1e1e1e;
+            --card-hover: #2a2a2a;
+        }
+
+        html, body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); }
+
+        a { color: inherit; text-decoration: none; cursor: pointer; }
+        a:hover { opacity: 0.55; }
+        button { background: none; border: none; cursor: pointer; font: inherit; color: inherit; padding: 0; line-height: inherit; }
+        button:hover { opacity: 0.55; }
+        ul, ol { list-style: none; }
+
+        /* ── Two-column layout ── */
+        .columns {
+            display: flex;
+            gap: 16px;
+            padding: 0 12px;
+        }
+        .col { flex: 1; min-width: 0; }
+
+        /* ── Header — Harry Jatkins 1:1 ── */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: var(--bg);
+        }
+
+        /* Letter row: giant E (left) and H (right) */
+        .letter-row {
+            display: flex;
+            align-items: flex-end;   /* sit on same baseline */
+            padding: 10px var(--gutter) 6px;
+            cursor: default;
+            position: relative;
+            z-index: 2;
+            overflow: visible;
+        }
+        .letter-col {
+            flex: 1;
+            /* No overflow needed — .letter-rest uses max-width:0 to clip itself */
+            min-width: 0;
+        }
+
+        /* Each name half is a flex row */
+        .letter-link {
+            display: inline-flex;
+            flex-direction: row;
+            font-weight: 700;
+            line-height: 0.88;
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+            color: var(--fg);
+            text-decoration: none;
+            font-size: var(--letter-size, 120px);
+            /* No overflow — descender is free to hang below into the info bar */
+            width: 100%;
+        }
+        .letter-link:hover { opacity: 1; }
+        .letter-init { flex-shrink: 0; }
+        .letter-rest {
+            display: inline-block;
+            overflow: hidden;
+            max-width: 0;
+            opacity: 0;
+            transition: max-width 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity 0.3s ease;
+        }
+        /* Both sides expand simultaneously when hovering anywhere in the letter row */
+        .letter-row:hover .letter-rest {
+            max-width: 12ch;
+            opacity: 1;
+        }
+
+        /* Info bar: mirrors letter-row 50/50 split */
+        .info-bar {
+            display: flex;
+            padding: 8px var(--gutter) 12px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            overflow: hidden;
+            max-height: 80px;
+            opacity: 1;
+            transition: max-height 0.28s ease, opacity 0.2s ease,
+                        padding 0.28s ease;
+        }
+        .info-bar.collapsed {
+            max-height: 0; opacity: 0;
+            padding-top: 0; padding-bottom: 0;
+            border-top-color: transparent;
+        }
+        .info-col {
+            flex: 1;
+            display: flex;
+            gap: 3px;
+            color: var(--fg-dim);
+            font-size: 12px;
+            min-width: 0;
+        }
+        .info-col-left { flex-direction: column; }
+        .info-col-right {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .info-nav { display: flex; flex-direction: column; gap: 3px; }
+        .info-toggles { display: flex; flex-direction: column; gap: 3px; align-items: flex-end; }
+        .info-col a { color: var(--fg-dim); }
+        .info-col a.nav-active { color: var(--fg); font-weight: 500; opacity: 1; }
+        .info-col a:hover { opacity: 0.55; }
+        .info-col button { color: var(--fg-dim); text-align: right; }
+
+        /* (Settings panel removed) */
+
+        /* Spacer for fixed header — no transition, must track instantly */
+        #header-spacer { display: block; }
+
+        /* ── Cursor canvas ── */
+        #cursor-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 999; }
+
+        /* ── Main ── */
+        main { padding-top: 0; }
+
+        /* ── Filter bar ── */
+        .filter-bar {
+            padding: 14px var(--gutter) 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .filter-chip {
+            font-size: 12px;
+            color: var(--fg-dim);
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: inherit;
+        }
+        .filter-chip:hover { color: var(--fg); opacity: 1; }
+        .filter-chip.active { color: var(--fg); font-weight: 500; }
+
+        /* ── Section divider ── */
+        .section-divider {
+            font-size: 12px;
+            color: var(--fg-dim);
+            padding: 20px var(--gutter) 8px;
+        }
+
+        /* ── Project grid ── */
+        .project-grid-wrap { padding: 16px var(--gutter) 0; }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 4px;
+        }
+
+        /* ── Project card — Harry style ── */
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            padding-top: 8px;
+            color: inherit;
+            cursor: pointer;
+        }
+        .project-card:hover { opacity: 1; }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .card-top-left { flex: 1; min-width: 0; }
+        .card-title {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: 2px;
+            transition: opacity 0.2s;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .project-card:hover .card-title { opacity: 0.45; }
+        .card-type {
+            font-size: 12px;
+            color: var(--fg-dim);
+        }
+        .card-num {
+            font-size: 12px;
+            color: var(--fg-dim);
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+
+        /* Card frame: bg shows on top and sides, placeholder clips at the bottom edge */
+        .card-frame {
+            flex: 1;               /* stretch to fill card height for row consistency */
+            display: flex;
+            flex-direction: column;
+            background: var(--card-bg);
+            transition: background 0.35s ease;
+            border-radius: 8px;
+            padding: 32px 32px 0;  /* generous top + sides, no bottom */
+            overflow: hidden;      /* clips the placeholder flush at bottom */
+        }
+        .card-frame img {
+            width: 100%;
+            flex: 1;
+            min-height: 0;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            display: block;
+            border-radius: 4px 4px 0 0;
+            transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s ease, opacity 0.3s;
+            filter: saturate(0.85);
+        }
+        .project-card:hover .card-frame {
+            background: var(--card-hover, #e8e8e8);
+        }
+        /* hover only changes card-frame bg — no image transform or filter */
+        /* Placeholder rectangle: gray bg, portrait aspect, no bottom radius (flush to card) */
+        .card-placeholder {
+            width: 100%;
+            flex: 1;
+            min-height: 0;
+            aspect-ratio: 3 / 4;
+            background: var(--border);
+            border-radius: 4px 4px 0 0;
+            display: block;
+        }
+
+        /* Modes */
+        body.text-only .card-frame img,
+        body.text-only .case-hero img,
+        body.text-only .detail-hero img,
+        body.text-only .project-gallery img { opacity: 0.04; }
+        body.mono img { filter: grayscale(1) !important; }
+
+        /* ── View system ── */
+        .view { display: none; }
+        .view.active {
+            display: block;
+            animation: fadeIn 0.22s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* ── Project detail ── */
+        .project-detail {
+            padding: 20px 12px 40px;
+            max-width: 860px;
+        }
+
+        .detail-hero {
+            width: 100%;
+            border-radius: 6px;
+            overflow: hidden;
+            background: var(--card-bg);
+            margin-bottom: 20px;
+        }
+        .detail-hero img { width: 100%; display: block; }
+
+        .detail-back {
+            display: inline-block;
+            font-size: 12px;
+            color: var(--fg-dim);
+            margin-bottom: 18px;
+        }
+        .detail-back:hover { color: var(--fg); opacity: 1; }
+
+        .detail-title {
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        .detail-company {
+            font-size: 12px;
+            color: var(--fg-dim);
+            margin-bottom: 22px;
+        }
+
+        .detail-meta {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 5px 0;
+            padding: 14px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+            font-size: 12px;
+        }
+        .meta-label { color: var(--fg-dim); }
+        .meta-value {}
+
+        .case-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 18px;
+        }
+        .case-tag {
+            font-size: 11px;
+            color: var(--fg-dim);
+            border: 1px solid var(--border);
+            padding: 2px 8px;
+            border-radius: 2px;
+        }
+
+        .detail-lede {
+            font-size: 12px;
+            line-height: 1.7;
+            max-width: 640px;
+            margin-bottom: 24px;
+        }
+
+        .detail-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        .section-label {
+            font-size: 11px;
+            color: var(--fg-dim);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            margin-bottom: 7px;
+        }
+        .detail-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        .detail-tools-label {
+            width: 100%;
+            font-size: 11px;
+            color: var(--fg-dim);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            margin-bottom: 3px;
+        }
+        .tool-tag {
+            font-size: 10px;
+            color: var(--fg);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        .detail-pdf-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        .detail-pdf-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--fg);
+            border: 1px solid var(--border);
+            padding: 7px 14px;
+            border-radius: 4px;
+            transition: background 0.15s, border-color 0.15s;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .detail-pdf-link:hover {
+            background: var(--card-bg);
+            border-color: var(--fg-dim);
+        }
+        .detail-pdf-link svg {
+            width: 13px; height: 13px;
+            stroke: currentColor; fill: none;
+            stroke-width: 1.8;
+        }
+        .section-body {
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .detail-reflection {
+            font-size: 12px;
+            line-height: 1.7;
+            font-style: italic;
+            color: var(--fg-dim);
+            max-width: 580px;
+            padding-left: 14px;
+            border-left: 1px solid var(--border);
+            margin-bottom: 8px;
+        }
+
+        .detail-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--fg-dim);
+        }
+        .detail-nav a { color: var(--fg-dim); cursor: pointer; }
+        .detail-nav a:hover { color: var(--fg); opacity: 1; }
+
+        /* Project lead + gallery */
+        .project-lead {
+            font-size: 12px;
+            line-height: 1.7;
+            max-width: 620px;
+            margin-bottom: 20px;
+        }
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .project-gallery.triple { grid-template-columns: repeat(3, 1fr); }
+        .project-gallery img {
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            cursor: pointer;
+            background: var(--card-bg);
+            transition: opacity 0.2s;
+        }
+        .project-gallery img:hover { opacity: 0.8; }
+
+        /* ── CV / Résumé ── */
+        .cv-wrap { padding: 20px var(--gutter) 40px; }
+        .cv-layout { display: grid; grid-template-columns: 260px 1fr; gap: 48px; }
+
+        /* Sidebar: photo + bio + contact + download */
+        .cv-sidebar { font-size: 12px; line-height: 1.65; }
+        .cv-photo {
+            width: 100%; aspect-ratio: 3/4; object-fit: cover;
+            border-radius: 6px; margin-bottom: 16px;
+            background: var(--card-bg); display: block;
+        }
+        .cv-sidebar p { margin-bottom: 14px; }
+        .cv-sidebar-contact { margin-top: 18px; font-size: 12px; line-height: 1.8; }
+        .cv-sidebar-contact a { text-decoration: underline; text-underline-offset: 2px; }
+        .cv-download-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 16px; padding: 7px 14px;
+            border: 1px solid var(--border); border-radius: 5px;
+            font-size: 11px; font-weight: 500; letter-spacing: 0.01em;
+            color: var(--fg); transition: background 0.15s, border-color 0.15s;
+            text-decoration: none;
+        }
+        .cv-download-btn:hover { background: var(--card-bg); border-color: var(--fg-dim); opacity: 1; }
+        .cv-download-btn svg { width: 13px; height: 13px; }
+
+        /* Main column: section groups */
+        .cv-group { margin-bottom: 28px; }
+        .cv-group-label {
+            font-size: 11px;
+            color: var(--fg-dim);
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Entry items: title + org/date row + optional description */
+        .cv-item { margin-bottom: 14px; font-size: 12px; line-height: 1.5; }
+        .cv-item-header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+        .cv-item-title { font-weight: 500; }
+        .cv-item-date { color: var(--fg-dim); font-size: 11px; white-space: nowrap; flex-shrink: 0; }
+        .cv-item-org { color: var(--fg-dim); font-size: 11px; margin-top: 1px; }
+        .cv-item-desc { color: var(--fg-dim); font-size: 11px; margin-top: 4px; line-height: 1.55; }
+        .cv-item-meta { color: var(--fg-dim); font-size: 11px; }
+
+        /* Education: 2-col grid */
+        .cv-edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .cv-edu-card {
+            padding: 12px 14px; border: 1px solid var(--border); border-radius: 6px;
+            font-size: 12px; line-height: 1.5;
+        }
+        .cv-edu-card .cv-item-title { font-size: 12px; }
+        .cv-edu-card .cv-item-org { margin-top: 2px; }
+        .cv-edu-card .cv-item-date { font-size: 10px; margin-top: 4px; display: block; }
+
+        /* Link buttons inside cards */
+        .cv-link-btn {
+            display: inline-block; margin-top: 6px; font-size: 10px;
+            color: var(--fg-dim); text-decoration: none; letter-spacing: 0.01em;
+        }
+        .cv-link-btn:hover { color: var(--fg); opacity: 1; }
+
+        /* Skills & tools: tag-like layout */
+        .cv-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .cv-tag {
+            padding: 4px 10px; border: 1px solid var(--border); border-radius: 100px;
+            font-size: 11px; color: var(--fg); white-space: nowrap;
+        }
+
+        /* ── Lightbox ── */
+        .lightbox {
+            position: fixed; inset: 0; z-index: 300;
+            background: rgba(0,0,0,0.92);
+            display: none;
+            backdrop-filter: blur(6px);
+        }
+        .lightbox.open { display: flex; }
+        /* Fit mode: centered, contained */
+        .lightbox.fit {
+            align-items: center; justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .lightbox.fit .lightbox-img-wrap img {
+            max-width: 90vw; max-height: 82vh;
+            object-fit: contain; border-radius: 3px;
+            cursor: zoom-in;
+        }
+        /* Full mode: native resolution, scroll both axes */
+        .lightbox.full {
+            overflow: auto;
+            padding: 48px;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+        .lightbox-img-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+        .lightbox.full .lightbox-img-wrap {
+            margin: 0 auto;
+        }
+        .lightbox.full .lightbox-img-wrap img {
+            width: auto; height: auto;
+            max-width: none; max-height: none;
+            border-radius: 3px;
+            cursor: zoom-out;
+        }
+        .lightbox-zoom-hint {
+            color: rgba(255,255,255,0.35); font-size: 10px;
+            text-align: center; margin-top: 10px;
+            pointer-events: none;
+        }
+        .lightbox.full .lightbox-zoom-hint { display: none; }
+        .lightbox-close { position: fixed; top: 18px; right: 20px; color: rgba(255,255,255,0.6); font-size: 18px; cursor: pointer; z-index: 2; }
+        .lightbox-close:hover { color: #fff; opacity: 1; }
+        .lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5); font-size: 22px; cursor: pointer; padding: 14px; z-index: 2; }
+        .lightbox-nav:hover { color: #fff; opacity: 1; }
+        .lightbox-prev { left: 8px; }
+        .lightbox-next { right: 8px; }
+        .lightbox-counter { color: rgba(255,255,255,0.4); font-size: 11px; margin-top: 12px; text-align: center; }
+        .lightbox.full .lightbox-counter { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.6); padding: 3px 10px; border-radius: 3px; }
+
+        /* ── Footer ── */
+        footer {
+            padding: 14px var(--gutter) 24px;
+            margin-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--fg-dim);
+        }
+        footer a { color: var(--fg-dim); }
+        footer a:hover { opacity: 0.55; }
+
+        /* ── Project overlay (glass card modal) ── */
+        #project-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            overflow: hidden;
+            background: rgba(0,0,0,0);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.32s ease, background 0.32s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4vh 12px;
+        }
+        #project-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+            background: rgba(0,0,0,0.32);
+        }
+
+        .overlay-card {
+            width: calc(100% - 24px);
+            max-width: 1120px;
+            height: calc(100vh - 8vh);
+            max-height: calc(100vh - 8vh);
+            display: flex;
+            flex-direction: column;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 16px 64px rgba(0,0,0,0.13);
+            position: relative;
+            transform: translateY(28px) scale(0.97);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.3s ease,
+                        box-shadow 0.4s ease;
+        }
+        #project-overlay.open .overlay-card {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.18);
+        }
+        /* (open card transform handled above) */
+
+        .overlay-content-area {
+            flex: 1;
+            min-height: 0;
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            grid-template-rows: 1fr;
+            overflow: hidden;
+        }
+
+        .overlay-footer-nav {
+            flex-shrink: 0;
+            border-top: 1px solid var(--border);
+            padding: 14px 28px;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            font-size: 12px;
+        }
+        .overlay-footer-nav a, .overlay-footer-nav span { cursor: pointer; color: var(--fg-dim); }
+        .overlay-footer-nav a:hover { color: var(--fg); }
+        .overlay-footer-nav > :first-child { justify-self: start; }
+        .overlay-footer-nav > :nth-child(2) { justify-self: center; }
+        .overlay-footer-nav > :last-child { justify-self: end; }
+
+        .fullpage-toggle {
+            background: none; border: 1px solid var(--border); border-radius: 4px;
+            padding: 4px 6px; cursor: pointer; color: var(--fg-dim);
+            display: flex; align-items: center; justify-content: center;
+            transition: color 0.15s, border-color 0.15s;
+        }
+        .fullpage-toggle:hover { color: var(--fg); border-color: var(--fg-dim); }
+
+        /* Full-page mode */
+        .overlay-card.fullpage {
+            max-width: calc(100vw - 48px);
+            width: calc(100vw - 48px);
+            height: calc(100vh - 48px);
+            max-height: calc(100vh - 48px);
+        }
+        .overlay-card.fullpage.narrative {
+            max-width: calc(100vw - 48px);
+        }
+
+        /* Left column: gallery + foot */
+        .overlay-left {
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border);
+            min-height: 0;
+            overflow: hidden;
+        }
+        .overlay-gallery {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .overlay-gallery img {
+            width: 100%;
+            display: block;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: opacity 0.15s ease;
+        }
+        .overlay-gallery img:hover { opacity: 0.92; }
+        .overlay-gallery-placeholder {
+            flex: 1;
+            min-height: 200px;
+            background: var(--border);
+        }
+        .overlay-left-foot {
+            flex-shrink: 0;
+            padding: 12px 14px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--fg-dim);
+            line-height: 1.7;
+        }
+
+        /* Right column: scrolls when content exceeds card height */
+        .overlay-right {
+            padding: 28px 28px 32px;
+            overflow-y: auto;
+            min-height: 0;         /* key: lets grid child scroll rather than overflow */
+            display: flex;
+            flex-direction: column;
+        }
+        .overlay-title { font-size: 13px; font-weight: 500; line-height: 1.45; margin-bottom: 4px; }
+        .overlay-company { font-size: 12px; color: var(--fg-dim); margin-bottom: 20px; }
+
+        .overlay-close {
+            position: absolute;
+            top: 11px; right: 13px;
+            font-size: 18px; line-height: 1;
+            color: var(--fg-dim);
+            padding: 4px 6px; z-index: 2;
+        }
+        .overlay-close:hover { color: var(--fg); opacity: 1; }
+
+        /* ── Narrative layout (single-column for work projects) ── */
+        .overlay-card.narrative {
+            max-width: 920px;
+        }
+        .overlay-card.narrative .overlay-content-area {
+            grid-template-columns: 1fr;
+            overflow-y: auto;
+        }
+        .overlay-card.narrative .overlay-left { display: none; }
+        .overlay-card.narrative .overlay-right {
+            padding: 0;
+            overflow-y: visible;
+            display: block;
+        }
+        .narrative-header {
+            padding: 40px 52px 0;
+        }
+        .narrative-header .overlay-title { font-size: 16px; font-weight: 500; line-height: 1.35; margin-bottom: 4px; }
+        .narrative-header .overlay-company { font-size: 12px; color: var(--fg-dim); margin-bottom: 16px; }
+        .narrative-body {
+            padding: 0 52px;
+        }
+        .narrative-body .detail-lede {
+            font-size: 12px;
+            line-height: 1.65;
+            color: var(--fg);
+            margin-bottom: 28px;
+        }
+        .narrative-img {
+            width: 100%;
+            display: block;
+            cursor: pointer;
+            transition: opacity 0.15s ease;
+        }
+        .narrative-img:hover { opacity: 0.92; }
+        .narrative-img-wrap {
+            margin: 24px 0;
+            border-radius: 6px;
+            overflow: hidden;
+            background: var(--card-bg);
+            position: relative;
+            max-height: 360px;
+        }
+        .narrative-img-wrap .narrative-img-fade {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, var(--card-bg));
+            pointer-events: none;
+        }
+        .narrative-img-wrap .narrative-img-hint {
+            position: absolute;
+            bottom: 10px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            color: var(--fg-dim);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 3px 10px;
+            pointer-events: none;
+            opacity: 0.85;
+        }
+        .narrative-img-wrap.short { max-height: none; }
+        .narrative-img-wrap.short .narrative-img-fade,
+        .narrative-img-wrap.short .narrative-img-hint { display: none; }
+        .narrative-section {
+            padding: 20px 0;
+        }
+        .narrative-section .section-label {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--fg-dim);
+            margin-bottom: 8px;
+        }
+        .narrative-section .section-body {
+            font-size: 12px;
+            line-height: 1.65;
+            color: var(--fg);
+        }
+        .narrative-footer {
+            padding: 8px 52px 40px;
+        }
+
+        @media (max-width: 680px) {
+            .overlay-card { grid-template-columns: 1fr !important; }
+            .overlay-left { min-height: 180px; }
+            .overlay-left { border-right: none; border-bottom: 1px solid var(--border); }
+            .narrative-header, .narrative-body, .narrative-footer { padding-left: 20px !important; padding-right: 20px !important; }
+            .narrative-header { padding-top: 28px; }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 1100px) {
+            .project-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 800px) {
+            .project-grid { grid-template-columns: repeat(2, 1fr); }
+            .detail-sections { gap: 16px; }
+            .cv-layout { grid-template-columns: 1fr; gap: 24px; }
+            .cv-edu-grid { grid-template-columns: 1fr; }
+            .cv-photo { max-width: 240px; }
+        }
+        @media (max-width: 520px) {
+            .project-grid { grid-template-columns: 1fr; gap: 14px; }
+            .columns { flex-direction: column; gap: 10px; }
+        }
+    </style>
 </head>
-
 <body>
-    <div class="flex-container content">
-        <div class="left">
-            <ul class="row">
-                <div class="item col">
-                    <li id="project-description" style="list-style-type: none;"><a href="/index.html">go back</a></li>
-                    <li id="project-description" style="list-style-type: none;"><a href="/resume.html">resumé</a></li>
-                    <li id="project-description" style="list-style-type: none;"><a href="/portfolio/index.html">projects</a></li>
-<br>
-<li id="project-description" style="list-style-type: none; color: orangered;">Obs! Site in progress.</li>
 
-                </div>
-            </ul>
+<canvas id="cursor-canvas"></canvas>
+
+<!-- ── Header ── -->
+<header id="site-header">
+
+    <!-- Giant initial letters: E (left) + H (right), expand to full name on hover -->
+    <div class="letter-row">
+        <div class="letter-col">
+            <a href="../" class="letter-link" id="letter-link-l">
+                <span class="letter-init">E</span><span class="letter-rest">mily</span>
+            </a>
         </div>
-        <div class="right">
-            <div class="row">
-            <div class="item col">
-                <p id="project-title">Driving the co-creation, shaping, implementation & adoption of a collaboration / contribution model for our design system</p>
-                <p id="project-title">Highlights:</p>
-                <p id="project-description">
-                    <li id="project-description"> Mapped out existing practices and workflows in a growing product department.</li>
-                    <li id="project-description"> Identified key challenges and opportunities, aligning with broader product development strategies. </li>
-                    <li id="project-description"> Facilitated co-creation workshops with designers and product teams to refine processes and gather feedback. </li>
-<br>
-                <p id="project-title">Outputs:</p>
-                    <li id="project-description">Defined collaboration model – Establishing clear expectations and structured ways of working to balance speed, quality, and alignment.</li>
-                    <li id="project-description">Request intake & prioritisation – Implementing a process to manage, track, and follow up on design system contributions.</li>
-                    <li id="project-description">Guidance & resources – Creating materials to help product teams understand and engage with the contribution process.</li>
-                    <li id="project-description">Cross-functional alignment – Strengthening collaboration between design, product, and engineering through structured workflows.</li>
-                    <li id="project-description">Workshop facilitation & communication – Driving engagement and ensuring clarity across teams.</p></li>
-                   
-                 <p id="project-title">Applied skills:</p>
-                 <li id="project-description">User centricity – Ensuring the model supports real user needs, whether for designers, product teams, or end-users.</li>
-                 <li id="project-description">Co-creation – Engaging key stakeholders in shaping the model for better adoption and impact.</li>
-                 <li id="project-description">Empathy & usability - Designing a system that is intuitive, scalable, and fosters collaboration.</li>
-<br>
-<p id="project-title"><a href="mailto: emilyhowkinslange@gmail.com">Details upon request</a></p>
-
-
-            </div>
-            <div class="item col" style="flex-grow: 2">
-                <img src="/assets/Contr.model_blurred.jpg" alt="Project Image" class="img-fluid">
-                <img src="/assets/contr.process.jpg" alt="Project Image" class="img-fluid">
-                <img src="/assets/contr1.jpg" alt="Project Image" class="img-fluid">
-                <img src="/assets/contr2.jpg" alt="Project Image" class="img-fluid">
-                
-            </div>
-            
-              </div>  
-         </div>
+        <div class="letter-col">
+            <a href="../" class="letter-link" id="letter-link-r">
+                <span class="letter-init">H</span><span class="letter-rest">owkins</span>
+            </a>
         </div>
     </div>
-</body>
 
+    <!-- Info bar: left half = role, right half = nav + toggles — collapses on scroll -->
+    <div class="info-bar" id="info-bar">
+        <div class="info-col info-col-left">
+            <span>Product Designer</span>
+        </div>
+        <div class="info-col info-col-right">
+            <div class="info-nav">
+                <a id="nav-projects" class="nav-active" onclick="showView('projects')">Projects</a>
+                <a id="nav-cv" onclick="showView('cv')">Résumé</a>
+            </div>
+            <div class="info-toggles">
+                <button id="text-toggle">Text mode <span id="text-state">( N )</span></button>
+                <button id="dark-toggle">Dark mode <span id="dark-state">( N )</span></button>
+                <button id="mono-toggle">Monochrome <span id="mono-state">( N )</span></button>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Pushes body content below the fixed header — height set by JS -->
+<div id="header-spacer"></div>
+
+<!-- ── Main content ── -->
+<main>
+
+    <!-- ═══ PROJECTS VIEW ═══ -->
+    <div class="view active" id="view-projects">
+
+        <!-- Filter chips -->
+        <div class="filter-bar">
+            <button class="filter-chip active" data-tag="all" onclick="filterProjects('all')">All</button>
+            <button class="filter-chip" data-tag="design-systems" onclick="filterProjects('design-systems')">Design systems</button>
+            <button class="filter-chip" data-tag="research" onclick="filterProjects('research')">Research</button>
+            <button class="filter-chip" data-tag="graphic" onclick="filterProjects('graphic')">Graphic design</button>
+            <button class="filter-chip" data-tag="product" onclick="filterProjects('product')">Product</button>
+        </div>
+
+        <!-- Work projects -->
+        <div class="project-grid-wrap">
+            <div class="project-grid" id="work-grid">
+
+                <div class="project-card" onclick="showProject('collab')" data-tags="design-systems governance">
+                    <div class="card-top">
+                        <div class="card-top-left">
+                            <div class="card-title">Designing how a design system collaborates</div>
+                            <div class="card-type">Design systems</div>
+                        </div>
+                        <div class="card-num">01</div>
+                    </div>
+                    <div class="card-frame">
+                        <img src="images/svg/collab-1.svg" alt="Design system collaboration lifecycle">
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="showProject('language')" data-tags="design-systems content">
+                    <div class="card-top">
+                        <div class="card-top-left">
+                            <div class="card-title">Systematising product language</div>
+                            <div class="card-type">Content design</div>
+                        </div>
+                        <div class="card-num">02</div>
+                    </div>
+                    <div class="card-frame">
+                        <img src="images/svg/language-1.svg" alt="Content design system">
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="showProject('foundations')" data-tags="design-systems tokens">
+                    <div class="card-top">
+                        <div class="card-top-left">
+                            <div class="card-title">Building foundational stability</div>
+                            <div class="card-type">Foundations &amp; tokens</div>
+                        </div>
+                        <div class="card-num">03</div>
+                    </div>
+                    <div class="card-frame">
+                        <img src="images/svg/foundations-1.svg" alt="Design foundations overview">
+                    </div>
+                </div>
+
+                <!-- Playground projects -->
+                <div class="project-card" onclick="showProject('pg-thesis')" data-tags="research ux">
+                    <div class="card-top">
+                        <div class="card-top-left">
+                            <div class="card-title">Designing for low self-esteem</div>
+                            <div class="card-type">UX research</div>
+                        </div>
+                        <div class="card-num">04</div>
+                    </div>
+                    <div class="card-frame">
+                        <img src="images/hero-thesis.jpg" alt="Probe kit for self-esteem research">
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="showProject('pg-portable')" data-tags="product physical">
+                    <div class="card-top">
+                        <div class="card-top-left">
+                            <div class="card-title">Portable.</div>
+                            <div class="card-type">Product design</div>
+                        </div>
+                        <div class="card-num">05</div>
+                    </div>
+                    <div class="card-frame">
+                        <img src="images/hero-portable.jpg" alt="Portable — transparent game design">
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="showProject('pg-fanfare')" data-tags="graphic typography exhibition">
+                    <div class="card-top">
+                        <div class="card-top-left">
+                            <div class="card-title">Typographic kitchen</div>
+                            <div class="card-type">Exhibition</div>
+                        </div>
+                        <div class="card-num">06</div>
+                    </div>
+                    <div class="card-frame">
+                        <img src="images/hero-fanfare.jpg" alt="Typographic kitchen — exhibition at Fanfare">
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="showProject('pg-tune')" data-tags="graphic editorial print">
+                    <div class="card-top">
+                        <div class="card-top-left">
+                            <div class="card-title">Tune</div>
+                            <div class="card-type">Graphic design</div>
+                        </div>
+                        <div class="card-num">07</div>
+                    </div>
+                    <div class="card-frame">
+                        <img src="images/hero-tune.jpg" alt="Tune — editorial pamphlet">
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="showProject('pg-flow')" data-tags="graphic editorial print">
+                    <div class="card-top">
+                        <div class="card-top-left">
+                            <div class="card-title">Flow</div>
+                            <div class="card-type">Creative book</div>
+                        </div>
+                        <div class="card-num">08</div>
+                    </div>
+                    <div class="card-frame">
+                        <img src="images/hero-flow.jpg" alt="Flow — creative book">
+                    </div>
+                </div>
+
+            </div><!-- /project-grid -->
+        </div><!-- /project-grid-wrap -->
+
+    </div><!-- /view-projects -->
+
+
+    <!-- ═══ CV / RÉSUMÉ VIEW ═══ -->
+    <div class="view" id="view-cv">
+        <div class="cv-wrap">
+            <div class="cv-layout">
+
+                <!-- ── Sidebar: photo + bio + contact + download ── -->
+                <div class="cv-sidebar">
+                    <img class="cv-photo" src="images/profile-cropped.jpg" alt="Emily Howkins Lange">
+
+                    <p>Product designer in Copenhagen, specialising in design systems and UI. I focus on the structures that let quality scale — governance, component architecture, and the processes that hold everything together.</p>
+                    <p>Background in UX research and interaction design. Experienced in stakeholder management, facilitation, and leading design across teams. Half Danish, half English — bilingual with a sharp eye for language.</p>
+
+                    <div class="cv-sidebar-contact">
+                        <a href="mailto:emilyhowkinslange@gmail.com">emilyhowkinslange@gmail.com</a><br>
+                        +45 61 67 78 89<br>
+                        Bilingual DK/GB<br>
+                        <a href="https://linkedin.com/in/emily-howkins-lange" target="_blank">LinkedIn</a> ·
+                        <a href="../">Portfolio</a>
+                    </div>
+
+                    <a class="cv-download-btn" href="images/CV_emilyhl.pdf" target="_blank">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v9m0 0l-3-3m3 3l3-3M3 13h10"/></svg>
+                        View / Download CV
+                    </a>
+                </div>
+
+                <!-- ── Main column ── -->
+                <div class="cv-main">
+
+                    <!-- Work -->
+                    <div class="cv-group">
+                        <div class="cv-group-label">Work</div>
+
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div class="cv-item-title">Product Designer, Design Systems</div>
+                                <div class="cv-item-date">2022 – Present</div>
+                            </div>
+                            <div class="cv-item-org">Visma e-conomic</div>
+                            <div class="cv-item-desc">Owning and evolving the design system — component architecture, documentation, governance, and cross-team alignment. Driving consistency and quality across product teams.</div>
+                        </div>
+
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div class="cv-item-title">UX Project Lead</div>
+                                <div class="cv-item-date">2022</div>
+                            </div>
+                            <div class="cv-item-org">Design Matters</div>
+                            <div class="cv-item-desc">Led design, testing, and QA for Design Matters Plus. Curated content and shaped the end-to-end user experience of the platform.</div>
+                        </div>
+
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div class="cv-item-title">Freelance Web Designer</div>
+                                <div class="cv-item-date">2019 – 2021</div>
+                            </div>
+                            <div class="cv-item-desc">Designed and built websites in WordPress — from client briefing and scoping through to design and implementation.</div>
+                        </div>
+
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div class="cv-item-title">Graphic Designer</div>
+                                <div class="cv-item-date">2020 – 2021</div>
+                            </div>
+                            <div class="cv-item-org">ClickLearn</div>
+                            <div class="cv-item-desc">Created visual assets for conferences, webinars, video, and social media channels.</div>
+                        </div>
+
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div class="cv-item-title">Student Consultant</div>
+                                <div class="cv-item-date">2019</div>
+                            </div>
+                            <div class="cv-item-org">Digital Sprint</div>
+                            <div class="cv-item-desc">Month-long design sprint for the Danish Veterinary and Food Administration (Fødevarestyrelsen), delivering rapid digital solutions.</div>
+                        </div>
+
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div class="cv-item-title">Concept Developer</div>
+                                <div class="cv-item-date">2017</div>
+                            </div>
+                            <div class="cv-item-org">Copenhagen Creators</div>
+                            <div class="cv-item-desc">Design research, concept development, and low-fidelity prototyping for an app and game studio.</div>
+                        </div>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="cv-group">
+                        <div class="cv-group-label">Education</div>
+                        <div class="cv-edu-grid">
+                            <div class="cv-edu-card">
+                                <div class="cv-item-title">MSc in Digital Design &amp; Interactive Technologies</div>
+                                <div class="cv-item-org">IT University of Copenhagen</div>
+                                <div class="cv-item-date">2019 – 2021</div>
+                            </div>
+                            <div class="cv-edu-card">
+                                <div class="cv-item-title">BSc in Digital Media &amp; Design</div>
+                                <div class="cv-item-org">IT University of Copenhagen</div>
+                                <div class="cv-item-date">2016 – 2019</div>
+                            </div>
+                            <div class="cv-edu-card">
+                                <div class="cv-item-title">Economics &amp; Business Administration (Electives)</div>
+                                <div class="cv-item-org">Copenhagen Business School (CBS)</div>
+                                <div class="cv-item-date">Autumn 2018</div>
+                            </div>
+                            <div class="cv-edu-card">
+                                <div class="cv-item-title">Computational Media (Exchange)</div>
+                                <div class="cv-item-org">Georgia Institute of Technology (GA, USA)</div>
+                                <div class="cv-item-date">Spring 2018</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certificates -->
+                    <div class="cv-group">
+                        <div class="cv-group-label">Certificates</div>
+
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div class="cv-item-title">Subatomic: The Complete Guide to Design Tokens</div>
+                                <div class="cv-item-date">Spring 2026</div>
+                            </div>
+                            <div class="cv-item-org">Brad Frost</div>
+                        </div>
+
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div class="cv-item-title">Graphic Design</div>
+                                <div class="cv-item-date">Autumn 2021</div>
+                            </div>
+                            <div class="cv-item-org">Krabbesholm Højskole</div>
+                            <div class="cv-item-desc">Six-month programme focused on core visual design principles — typography, layout, colour — and tackling complex design challenges across disciplines.</div>
+                        </div>
+
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div class="cv-item-title">JavaScript Bootcamp</div>
+                                <div class="cv-item-date">Summer 2019</div>
+                            </div>
+                            <div class="cv-item-org">Barcelona Code School</div>
+                            <div class="cv-item-desc">Intensive two-week course covering JavaScript fundamentals and hands-on application building.</div>
+                        </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="cv-group">
+                        <div class="cv-group-label">Skills</div>
+                        <div class="cv-tags">
+                            <span class="cv-tag">Design systems</span>
+                            <span class="cv-tag">Component architecture</span>
+                            <span class="cv-tag">Governance</span>
+                            <span class="cv-tag">Cross-team alignment</span>
+                            <span class="cv-tag">Content design</span>
+                            <span class="cv-tag">UX writing</span>
+                            <span class="cv-tag">UX/UI design</span>
+                            <span class="cv-tag">Documentation</span>
+                            <span class="cv-tag">Workshop facilitation</span>
+                            <span class="cv-tag">Accessibility</span>
+                        </div>
+                    </div>
+
+                    <!-- Tools -->
+                    <div class="cv-group">
+                        <div class="cv-group-label">Tools</div>
+                        <div class="cv-tags">
+                            <span class="cv-tag">Figma</span>
+                            <span class="cv-tag">Storybook</span>
+                            <span class="cv-tag">HTML &amp; CSS</span>
+                            <span class="cv-tag">Jira</span>
+                            <span class="cv-tag">Github</span>
+                            <span class="cv-tag">Airtable</span>
+                            <span class="cv-tag">Dovetail</span>
+                            <span class="cv-tag">Adobe Suite</span>
+                        </div>
+                    </div>
+
+                    <!-- Volunteering -->
+                    <div class="cv-group">
+                        <div class="cv-group-label">Volunteering</div>
+                        <div class="cv-edu-grid">
+                            <div class="cv-edu-card">
+                                <div class="cv-item-title">Design Matters</div>
+                                <div class="cv-item-org">Design conference</div>
+                                <div class="cv-item-date">Sep 2018</div>
+                                <a class="cv-link-btn" href="https://designmatters.io" target="_blank">designmatters.io ↗</a>
+                            </div>
+                            <div class="cv-edu-card">
+                                <div class="cv-item-title">CPH:DOX</div>
+                                <div class="cv-item-org">Copenhagen documentary festival</div>
+                                <div class="cv-item-date">2017</div>
+                                <a class="cv-link-btn" href="https://cphdox.dk" target="_blank">cphdox.dk ↗</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div><!-- /view-cv -->
+
+
+
+</main>
+
+<!-- ── Project overlay ── -->
+<div id="project-overlay" onclick="if(event.target===this)closeProject()">
+    <div class="overlay-card">
+        <button class="overlay-close" onclick="closeProject()">×</button>
+        <div class="overlay-content-area" id="overlay-content-area">
+            <div class="overlay-left">
+                <div class="overlay-gallery" id="overlay-gallery"></div>
+                <div class="overlay-left-foot">
+                    <div id="overlay-num"></div>
+                    <div id="overlay-type"></div>
+                </div>
+            </div>
+            <div class="overlay-right" id="overlay-right"></div>
+        </div>
+        <div class="overlay-footer-nav" id="overlay-footer-nav"></div>
+    </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+    <div>
+        <a href="mailto:emily.lange@visma.com">emily.lange@visma.com</a>
+        <span style="margin-left:14px;"><a href="https://linkedin.com/in/emily-howkins-lange" target="_blank">LinkedIn</a></span>
+    </div>
+    <div>Copenhagen · 2026</div>
+</footer>
+
+<!-- ── Lightbox ── -->
+<div class="lightbox fit" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+    <button class="lightbox-nav lightbox-prev" onclick="lbPrev()">‹</button>
+    <button class="lightbox-nav lightbox-next" onclick="lbNext()">›</button>
+    <div class="lightbox-img-wrap" id="lb-wrap">
+        <img id="lb-img" src="" alt="" onclick="lbToggleZoom()">
+    </div>
+    <div class="lightbox-zoom-hint">Click image to view full size</div>
+    <div class="lightbox-counter" id="lb-counter"></div>
+</div>
+
+<script>
+'use strict';
+
+/* ── View switching ── */
+function showView(name) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    const t = document.getElementById('view-' + name);
+    if (t) t.classList.add('active');
+    document.getElementById('nav-cv').classList.toggle('nav-active', name === 'cv');
+    document.getElementById('nav-projects').classList.toggle('nav-active', name === 'projects');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+/* ── Project data ── */
+var PROJECTS = {
+  collab: {
+    num:'01', type:'Design systems',
+    title:'Designing how a design system collaborates',
+    company:'Visma e-conomic',
+    layout:'narrative',
+    gallery:[
+      'images/gallery/collab/collab-lifecycle.jpg',
+      'images/gallery/collab/collab-model.jpg',
+      'images/gallery/collab/collab-model-detail.jpg',
+      'images/gallery/collab/process-governance.jpg',
+      'images/gallery/collab/collab-process-flow.jpg'
+    ],
+    tools:['Figma','FigJam','Jira','Slite','Workshop facilitation','Stakeholder interviews'],
+    pdf:null,
+    meta:[['Year','2025\u2013present'],['Company','Visma e-conomic'],['Role','Product designer, Design systems'],['Scope','Governance, Process design, Stakeholder management']],
+    tags:['Design systems','Governance','Stakeholder management','Workshop facilitation'],
+    lede:'As the organisation scaled, the design system struggled to keep pace. More teams were shipping, delivery pressure was increasing \u2014 but the system lacked the structures to support this growth. I identified this structural gap and led the initiative from research through to implementation.',
+    sections:[{label:'The problem',body:'There was no shared understanding of what the design system team was responsible for \u2014 or how other teams should interact with it. Requests came in informally, priorities were unclear, and the team was stretched between reactive support and proactive system work. This wasn\u2019t a component problem. It was an organisational design problem.'},{label:'What I did',body:'I reframed the design system\u2019s role \u2014 from a team that ships UI to a partner that shapes how design decisions scale. I mapped the full lifecycle of how work flows between product teams and the DS team (problem discovery \u2192 concept exploration \u2192 solution validation \u2192 implementation \u2192 release & adoption). Built a formal intake and prioritisation model. Introduced \u201cDS Labs\u201d \u2014 a monthly cross-discipline session for design deep-dives, updates, and collaboration between DS and UX. Defined quality gates and review touchpoints. Established the team\u2019s purpose statement through collaborative workshops.'},{label:'Impact',body:'Incoming needs became visible and prioritisable. Stakeholder loops were closed. The design system repositioned: from a place to request UI, to a partner that guides decisions. DS Labs became a recurring rhythm that built trust and alignment across 15+ designers and engineers.'}],
+    reflection:'\u201cA design system is more than a component team. It needs to support, advocate, and collaborate. Design systems scale through trust and shared ownership.\u201d',
+    prev:null,prevLabel:null,next:'language',nextLabel:'Systematising product language'
+  },
+  language: {
+    num:'02', type:'Content design',
+    title:'Systematising product language',
+    company:'Visma e-conomic',
+    layout:'narrative',
+    gallery:[
+      'images/gallery/language/content-page.jpg',
+      'images/gallery/language/writing-research.jpg',
+      'images/gallery/language/tone-of-voice-workshop.jpg',
+      'images/gallery/language/microcopy-patterns.jpg',
+      'images/gallery/language/component-mindmaps.jpg',
+      'images/gallery/language/glossary-board.jpg',
+      'images/gallery/language/design-quality.jpg'
+    ],
+    tools:['Figma','FigJam','Google Sheets','Slite','UX writing','Workshop facilitation'],
+    pdf:null,
+    meta:[['Year','2024\u2013present'],['Company','Visma e-conomic'],['Role','Product designer, Design systems'],['Scope','Content design, UX writing, Cross-team alignment']],
+    tags:['Content design','UX writing','Design systems','Cross-team alignment'],
+    lede:'While design matured, language remained unstructured. No content designers. No shared writing ownership. Designers wrote UI copy independently \u2014 and as the product grew more international, inconsistencies became increasingly visible. I identified the gap, built the case internally, and led the effort \u2014 while upskilling myself in content design.',
+    sections:[{label:'The problem',body:'The product had no shared vocabulary. The same concept could appear under three different labels across features. Translations were inconsistent. Designers were making copy decisions in isolation, and there was no guidance for tone, message types, or error handling. As someone raised bilingual \u2014 the daughter of a technical writer \u2014 I had a sharp eye for where the product\u2019s language was failing.'},{label:'What I did',body:'I ran a UX Writing Team Survey to map confidence levels, pain points, and current practices across the design team. Used the findings to build a content guidelines system: writing fundamentals (questions & instructions, style & tone, language rules), message type definitions, microcopy patterns for tooltips, buttons, checkboxes, field labels, empty states, and error handling. Built a Microcopy Glossary \u2014 a living EN/DA term database with preferred translations and terms to avoid. Created a UX Copy Assistant to help designers quality-check microcopy against the product\u2019s voice. Integrated all of this directly into designers\u2019 Figma workflows.'},{label:'Impact',body:'Writing became a shared discipline. A brand-writing group formed organically. Consistent terminology reduced cognitive effort for both users and translators. The guidelines moved from \u201cideas, not defined\u201d to iterated, tested, and adopted \u2014 with a clear roadmap toward consolidation, governance, and measuring impact.'}],
+    reflection:'\u201cI took it upon myself to close a gap no one else was watching. That\u2019s the work I find most meaningful \u2014 identifying what\u2019s quietly breaking, and building the structure to fix it.\u201d',
+    prev:'collab',prevLabel:'Designing how a design system collaborates',next:'foundations',nextLabel:'Building foundational stability'
+  },
+  foundations: {
+    num:'03', type:'Foundations & tokens',
+    title:'Building foundational stability',
+    company:'Visma e-conomic',
+    layout:'narrative',
+    gallery:[
+      'images/gallery/foundations/foundations-overview.jpg',
+      'images/gallery/foundations/foundations-tokens-why.jpg',
+      'images/gallery/foundations/spacing-tokens-detail.jpg',
+      'images/gallery/foundations/component-audit.jpg'
+    ],
+    tools:['Figma','Design tokens','Figma variables','Slite','Documentation'],
+    pdf:null,
+    meta:[['Year','2025\u2013present'],['Company','Visma e-conomic'],['Role','Product designer, Design systems'],['Scope','Foundations, Design tokens, Typography, Spacing, Documentation']],
+    tags:['Foundations','Design tokens','Documentation','Design systems'],
+    lede:'Over three years, the design team more than doubled in size. Adoption was already high \u2014 but without foundational guidance, usage became fragmented. Patterns diverged. Layout logic varied. We had to reframe what progress looked like: working slowly wasn\u2019t delay \u2014 it was preparation to move faster later.',
+    sections:[{label:'The problem',body:'The existing design system had no spacing tokens. Typography was tied to HTML heading levels (H1\u2013H6), creating a rigid visual hierarchy that didn\u2019t match real design needs. Colour variables existed but naming was inconsistent. Components were used widely, but the foundations beneath them were shaky \u2014 leading to divergent implementations across teams.'},{label:'What I did',body:'Started from a comprehensive component audit \u2014 mapping what existed, what was inconsistent, and what was missing. Built an entirely new token system from atoms up: spacing tokens (Spacing-0 through Spacing-10) with clear semantic usage guidance, a new typography scale using t-shirt sizes instead of heading levels, simplified colour scales, and refined border and radius logic. Published variables in Figma with clear documentation. Created onboarding workshops to teach designers how to work with the new tokens and auto-layout. Wrote detailed documentation pages for each foundation (spacing, typography, colours) with principles, usage guidelines, and best practices.'},{label:'Impact',body:'Greater consistency across teams. Reduced layout divergence. Faster onboarding for new designers. Package releases \u2014 holistic updates bundling layout, spacing, typography, and components \u2014 replaced ad-hoc changes. A stronger baseline that lets the team move faster without fragmenting the experience.'}],
+    reflection:'\u201cThe goal wasn\u2019t uniformity. It was predictability \u2014 enabling teams to move faster without fragmenting the experience.\u201d',
+    prev:'language',prevLabel:'Systematising product language',next:'pg-thesis',nextLabel:'Designing for low self-esteem'
+  },
+  'pg-thesis': {
+    num:'04', type:'UX research',
+    title:'Designing for low self-esteem',
+    company:'Master\u2019s Thesis \u00b7 IT University of Copenhagen \u00b7 2021',
+    layout:'balanced',
+    gallery:[
+      'images/thesis/kit-overview.jpg',
+      'images/thesis/kits-spread.jpg',
+      'images/thesis/card-deck-front.jpg',
+      'images/thesis/task-cards-spread.jpg',
+      'images/thesis/card-grid.jpg',
+      'images/thesis/envelope-cards.jpg',
+      'images/thesis/stethoscope.jpg',
+      'images/thesis/reflection-journal.jpg',
+      'images/thesis/intro-letter.jpg'
+    ],
+    tools:['Cultural probes','Speculative design','Figma','Adobe InDesign'],
+    pdf:[{label:'View thesis paper',url:'images/thesis-rapport.pdf'},{label:'View workbook',url:'../playground/images/thesis/Workbook.pdf'}],
+    meta:[['Year','2021'],['Context','IT University of Copenhagen'],['With','Anne Katrine Svejgaard Barrett'],['Scope','UX research, Speculative design']],
+    tags:['UX research','Speculative design','Cultural probes'],
+    lede:'How do digital products shape the self-esteem of young women \u2014 and could intentional design support it instead? We designed a cultural probe kit to find out.',
+    sections:[{label:'The process',body:'We built a physical probe kit \u2014 nicknamed the \u201cf**ck-low-self-esteem-I-am-awesome kit\u201d \u2014 and sent it to young women for a four-week study. The kit contained a deck of task cards (mindfulness, self-care, and reflection prompts), a mood journal for daily tracking, a reflection journal with guided questions, a jar of compliments, and a stethoscope for a heartbeat-listening exercise. Each material was designed with intention: the cards used two principles (looking inward through mindfulness, or outward through relationships), the mood journal correlated screen time with emotional state, and the reflection guide encouraged participants to process their experiences in their own words.'},{label:'What emerged',body:'The probe data revealed patterns we hadn\u2019t anticipated \u2014 the relationship between screen time and mood was more nuanced than expected, and the most powerful moments came from the simplest tasks. The project concluded with five speculative design proposals: apps that reframe social feedback, ambient objects that reflect emotional state, and a lamp-as-interface concept that externalises mood without a screen. Each proposal was designed as a provocation, not a product pitch \u2014 questioning what digital products could be if self-esteem were a design constraint.'}],
+    reflection:null,
+    prev:'foundations',prevLabel:'Building foundational stability',next:'pg-portable',nextLabel:'Portable.'
+  },
+  'pg-portable': {
+    num:'05', type:'Product design',
+    title:'Portable.',
+    company:'Personal project \u00b7 2021',
+    layout:'image',
+    gallery:[
+      'images/gallery/portable/img_6014.jpg',
+      'images/gallery/portable/img_6255.jpg',
+      'images/gallery/portable/img_6075.jpg',
+      'images/gallery/portable/img_6139.jpg',
+      'images/gallery/portable/img_6182.jpg'
+    ],
+    tools:['Laser cutting','Acrylic','Screen printing','Physical prototyping'],
+    pdf:null,
+    meta:[['Year','2021'],['Context','Personal project'],['Scope','Product design, Physical design']],
+    tags:['Product design','Physical','Game design'],
+    lede:'A portable, transparent game designed for human connection. Built for the generation that moves \u2014 works in any space, with any group, whenever.',
+    sections:[{label:'What it explores',body:'Portable is a physical game that interrogates how we connect when screens aren\u2019t involved. The premise is simple: a set of transparent acrylic cards with printed prompts, packaged small enough to fit in a coat pocket. The transparency is deliberate \u2014 you can see through another player\u2019s card, which becomes a metaphor for the vulnerability the game asks of its players.'},{label:'How it was made',body:'The game was designed, prototyped, and produced by hand. Cards were laser-cut from clear acrylic and screen-printed with custom graphics. The packaging was designed to be as considered as the game itself \u2014 compact, tactile, and inviting. Multiple rounds of playtesting shaped the final prompt set, balancing lightness with depth.'}],
+    reflection:null,
+    prev:'pg-thesis',prevLabel:'Designing for low self-esteem',next:'pg-fanfare',nextLabel:'Typographic kitchen'
+  },
+  'pg-fanfare': {
+    num:'06', type:'Exhibition',
+    title:'Typographic kitchen',
+    company:'Fanfare, Amsterdam \u00b7 2021',
+    layout:'image',
+    gallery:[
+      'images/gallery/fanfare/img_5715.jpg',
+      'images/gallery/fanfare/img_5718.jpg',
+      'images/gallery/fanfare/img_5726.jpg',
+      'images/gallery/fanfare/img_5706.jpg',
+      'images/gallery/fanfare/img_5689.jpg',
+      'images/gallery/fanfare/img_5673.jpg'
+    ],
+    tools:['Glyphs','Adobe Illustrator','Letterpress','Screen printing','Spatial design'],
+    pdf:null,
+    meta:[['Year','2021'],['With','Fanfare, Amsterdam'],['Scope','Typography, Exhibition, Print']],
+    tags:['Typography','Exhibition','Print','Type design'],
+    lede:'A custom display typeface designed in collaboration with Fanfare, an Amsterdam-based graphic design bureau. The letterforms were explored spatially \u2014 exhibited as physical objects and printed artefacts.',
+    sections:[{label:'What it explores',body:'The project started with a question: what happens when you treat letters as spatial objects rather than flat symbols? Working with Fanfare, we developed a display typeface from scratch \u2014 not just as a digital font file, but as a set of forms that could exist physically. Each character was designed to hold its own weight in space, readable from multiple angles and distances.'},{label:'The exhibition',body:'The typeface was exhibited at Krabbesholm H\u00f8jskole in a purpose-built installation. Letters were printed, cut, and arranged in a glass vitrine \u2014 creating a \u201ctypographic kitchen\u201d where visitors could see the anatomy of each glyph up close. The exhibition combined letterpress prints, screen-printed posters, and the spatial installation, showing the typeface at every scale from intimate to architectural.'}],
+    reflection:null,
+    prev:'pg-portable',prevLabel:'Portable.',next:'pg-tune',nextLabel:'Tune'
+  },
+  'pg-tune': {
+    num:'07', type:'Graphic design',
+    title:'Tune',
+    company:'Krabbesholm H\u00f8jskole \u00b7 2022',
+    layout:'image',
+    gallery:[
+      'images/gallery/tune/front_stand.jpg',
+      'images/gallery/tune/front_stack.jpg',
+      'images/gallery/tune/page1.jpg',
+      'images/gallery/tune/page3.jpg',
+      'images/gallery/tune/middle_stand.jpg',
+      'images/gallery/tune/frontnback_fixed.jpg'
+    ],
+    tools:['Adobe InDesign','Adobe Illustrator','Film photography','Darkroom development','Scanner'],
+    pdf:'images/tune-spread.pdf',
+    meta:[['Year','2022'],['Context','Krabbesholm H\u00f8jskole'],['Scope','Editorial design, Print, Photography']],
+    tags:['Editorial design','Print','Film photography'],
+    lede:'A 16-page printed publication where each spread is a visual translation of a favourite song \u2014 not illustration, but atmosphere.',
+    sections:[{label:'What it explores',body:'Tune treats music as a design brief. Thirteen songs spanning four decades became the starting point for thirteen spreads, each exploring a different visual language. The constraint: every design had to be rooted in the aesthetics of digital interfaces \u2014 old operating systems, system fonts, dialogue boxes, loading bars \u2014 translated back into ink on paper. The result sits somewhere between nostalgia and glitch.'},{label:'How it was made',body:'The cover and several interior images began as film photographs \u2014 shot on analogue cameras, developed in a darkroom, then scanned and digitalised for use in the layouts. The spreads were designed in InDesign and Illustrator, combining the scanned film images with system typography and recreated UI elements. The pamphlet was printed, staple-bound, and hand-finished.'}],
+    reflection:null,
+    prev:'pg-fanfare',prevLabel:'Typographic kitchen',next:'pg-flow',nextLabel:'Flow'
+  },
+  'pg-flow': {
+    num:'08', type:'Creative book',
+    title:'Flow',
+    company:'Personal project \u00b7 2021',
+    layout:'image',
+    gallery:[
+      'images/gallery/flow/mail-21.jpg',
+      'images/gallery/flow/mail-22.jpg',
+      'images/gallery/flow/mail-24.jpg',
+      'images/gallery/flow/mail-25.jpg',
+      'images/gallery/flow/mail-26.jpg',
+      'images/gallery/flow/mail-23.jpg'
+    ],
+    tools:['Adobe InDesign','Apple Mail','Renaissance painting (appropriated)'],
+    pdf:null,
+    meta:[['Year','2021'],['Context','Personal project'],['Scope','Book design, Editorial, Collage']],
+    tags:['Book design','Editorial','Collage'],
+    lede:'A creative book that turns job-hunting rejection into visual material. Each spread pairs a real rejection email with a Renaissance painting \u2014 classical dignity meets modern disappointment.',
+    sections:[{label:'What it explores',body:'Flow documents the ritual of applying, waiting, and being rejected. Every spread places an Apple Mail window over a Renaissance masterpiece \u2014 the same polite closures, the same professional tone, the same outcome. The juxtaposition is deliberate: the formality of the rejection mirrors the formality of the painting, and the repetition across spreads makes the pattern impossible to ignore.'},{label:'Why it exists',body:'The book started as a coping mechanism and became a commentary. After dozens of rejections during a job search, the emails began to blur together. Collecting them became a compulsion, and pairing them with historical paintings gave them a weight they didn\u2019t earn on their own. The book asks: what does it mean when rejection is this polished, this templated, this beautiful?'}],
+    reflection:null,
+    prev:'pg-tune',prevLabel:'Tune',next:null,nextLabel:null
+  }
+};
+
+function esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function showProject(id) {
+    var p = PROJECTS[id];
+    if (!p) return;
+
+    var card = document.querySelector('.overlay-card');
+    var layout = p.layout || 'balanced';
+    var isNarrative = layout === 'narrative';
+
+    // Toggle narrative class
+    card.classList.toggle('narrative', isNarrative);
+
+    if (isNarrative) {
+        // ── Narrative layout (single-column, images interspersed) ──
+        document.getElementById('overlay-content-area').style.gridTemplateColumns = '';
+        document.getElementById('overlay-gallery').innerHTML = '';
+        document.getElementById('overlay-num').textContent = p.num;
+        document.getElementById('overlay-type').textContent = p.type;
+
+        var gallery = p.gallery || [];
+        var gi = 0; // gallery image index
+
+        var h = '';
+        // Header
+        h += '<div class="narrative-header">';
+        h += '<div class="overlay-title">' + esc(p.title) + '</div>';
+        h += '<div class="overlay-company">' + esc(p.company) + '</div>';
+        h += '<div class="detail-meta">';
+        p.meta.forEach(function(m){ h += '<span class="meta-label">'+esc(m[0])+'</span><span class="meta-value">'+esc(m[1])+'</span>'; });
+        h += '</div>';
+        h += '<div class="case-tags">';
+        p.tags.forEach(function(t){ h += '<span class="case-tag">'+esc(t)+'</span>'; });
+        h += '</div>';
+        h += '</div>';
+
+        // Body: lede → hero image → sections interleaved with images
+        h += '<div class="narrative-body">';
+        h += '<p class="detail-lede">' + esc(p.lede) + '</p>';
+        h += '</div>';
+
+        function narrativeImgHtml(src, idx) {
+            return '<div class="narrative-img-wrap">' +
+                '<img class="narrative-img" src="' + src + '" alt="" loading="lazy" data-lb-idx="' + idx + '">' +
+                '<div class="narrative-img-fade"></div>' +
+                '<span class="narrative-img-hint">Click to view full image</span>' +
+                '</div>';
+        }
+
+        // Hero image (first gallery image, full-width)
+        if (gallery.length > 0) {
+            h += narrativeImgHtml(gallery[gi], gi);
+            gi++;
+        }
+
+        // Sections interleaved with remaining images
+        if (p.sections && p.sections.length) {
+            p.sections.forEach(function(s, si) {
+                h += '<div class="narrative-body"><div class="narrative-section"><div class="section-label">' + esc(s.label) + '</div><div class="section-body">' + esc(s.body) + '</div></div></div>';
+                // Place an image after each section if available
+                if (gi < gallery.length) {
+                    h += narrativeImgHtml(gallery[gi], gi);
+                    gi++;
+                }
+            });
+        }
+
+        // Any remaining images
+        while (gi < gallery.length) {
+            h += narrativeImgHtml(gallery[gi], gi);
+            gi++;
+        }
+
+        // Footer: tools, pdf, reflection, nav
+        h += '<div class="narrative-footer">';
+        if (p.tools && p.tools.length) {
+            h += '<div class="detail-tools"><div class="detail-tools-label">Tools &amp; medium</div>';
+            p.tools.forEach(function(t){ h += '<span class="tool-tag">'+esc(t)+'</span>'; });
+            h += '</div>';
+        }
+        if (p.pdf) {
+            var pdfIcon = '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>';
+            var pdfs = Array.isArray(p.pdf) ? p.pdf : [{label:'View PDF',url:p.pdf}];
+            h += '<div class="detail-pdf-links">';
+            pdfs.forEach(function(item){ h += '<a class="detail-pdf-link" href="'+esc(item.url)+'" target="_blank" rel="noopener">' + pdfIcon + esc(item.label) + '</a>'; });
+            h += '</div>';
+        }
+        if (p.reflection) {
+            h += '<div class="detail-reflection">' + esc(p.reflection) + '</div>';
+        }
+        h += '</div>';
+
+        document.getElementById('overlay-right').innerHTML = h;
+
+        // Bind lightbox + detect tall images for preview cap
+        var narrativeImgs = document.querySelectorAll('.narrative-img');
+        narrativeImgs.forEach(function(img) {
+            img.addEventListener('click', function() {
+                openLightbox(gallery, parseInt(img.dataset.lbIdx));
+            });
+            // After load, mark short images so they don't get the fade
+            function checkHeight() {
+                var wrap = img.closest('.narrative-img-wrap');
+                if (img.naturalHeight && img.naturalWidth) {
+                    var renderedH = img.naturalHeight * (wrap.offsetWidth / img.naturalWidth);
+                    if (renderedH <= 380) wrap.classList.add('short');
+                }
+            }
+            if (img.complete) checkHeight();
+            else img.addEventListener('load', checkHeight);
+        });
+
+    } else {
+        // ── Two-column layout (playground projects) ──
+        var contentArea = document.getElementById('overlay-content-area');
+        var cols = { image: '3fr 2fr', balanced: '1fr 1fr', text: '2fr 3fr' };
+        contentArea.style.gridTemplateColumns = cols[layout] || cols.balanced;
+
+        // Populate left: gallery + foot
+        document.getElementById('overlay-num').textContent = p.num;
+        document.getElementById('overlay-type').textContent = p.type;
+        var gal = document.getElementById('overlay-gallery');
+        var gallery = p.gallery || [];
+        if (gallery.length) {
+            gal.innerHTML = gallery.map(function(src, idx) {
+                return '<img src="' + src + '" alt="" loading="lazy" data-lb-idx="' + idx + '" style="cursor:pointer">';
+            }).join('');
+        } else {
+            gal.innerHTML = '<div class="overlay-gallery-placeholder"></div>';
+        }
+
+        // Bind lightbox to gallery images
+        gal.querySelectorAll('img').forEach(function(img) {
+            img.addEventListener('click', function() {
+                openLightbox(gallery, parseInt(img.dataset.lbIdx));
+            });
+        });
+
+        // Build right column HTML
+        var h = '';
+        h += '<div class="overlay-title">' + esc(p.title) + '</div>';
+        h += '<div class="overlay-company">' + esc(p.company) + '</div>';
+
+        h += '<div class="detail-meta">';
+        p.meta.forEach(function(m){ h += '<span class="meta-label">'+esc(m[0])+'</span><span class="meta-value">'+esc(m[1])+'</span>'; });
+        h += '</div>';
+
+        h += '<div class="case-tags">';
+        p.tags.forEach(function(t){ h += '<span class="case-tag">'+esc(t)+'</span>'; });
+        h += '</div>';
+
+        h += '<p class="detail-lede">' + esc(p.lede) + '</p>';
+
+        if (p.sections && p.sections.length) {
+            h += '<div class="detail-sections">';
+            p.sections.forEach(function(s){
+                h += '<div class="detail-section"><div class="section-label">'+esc(s.label)+'</div><div class="section-body">'+esc(s.body)+'</div></div>';
+            });
+            h += '</div>';
+        }
+
+        if (p.tools && p.tools.length) {
+            h += '<div class="detail-tools">';
+            h += '<div class="detail-tools-label">Tools &amp; medium</div>';
+            p.tools.forEach(function(t){ h += '<span class="tool-tag">'+esc(t)+'</span>'; });
+            h += '</div>';
+        }
+
+        if (p.pdf) {
+            var pdfIcon = '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>';
+            var pdfs = Array.isArray(p.pdf) ? p.pdf : [{label:'View PDF',url:p.pdf}];
+            h += '<div class="detail-pdf-links">';
+            pdfs.forEach(function(item){
+                h += '<a class="detail-pdf-link" href="'+esc(item.url)+'" target="_blank" rel="noopener">';
+                h += pdfIcon + esc(item.label);
+                h += '</a>';
+            });
+            h += '</div>';
+        }
+
+        if (p.reflection) {
+            h += '<div class="detail-reflection">' + esc(p.reflection) + '</div>';
+        }
+
+        document.getElementById('overlay-right').innerHTML = h;
+    }
+
+    // ── Shared footer nav (prev / next) ──
+    var navH = '';
+    navH += p.prev ? '<a onclick="showProject(\''+p.prev+'\')">\u2190 '+esc(p.prevLabel||'Previous')+'</a>' : '<span></span>';
+    navH += '<button class="fullpage-toggle" onclick="toggleFullPage()" title="Toggle full-page view"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4"/></svg></button>';
+    navH += p.next ? '<a onclick="showProject(\''+p.next+'\')">'+esc(p.nextLabel||'Next')+' \u2192</a>' : '<span></span>';
+    document.getElementById('overlay-footer-nav').innerHTML = navH;
+
+    var overlay = document.getElementById('project-overlay');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Reset scroll positions
+    overlay.scrollTop = 0;
+    var contentArea = document.getElementById('overlay-content-area');
+    if (contentArea) contentArea.scrollTop = 0;
+    document.getElementById('overlay-gallery').scrollTop = 0;
+    document.getElementById('overlay-right').scrollTop = 0;
+}
+
+function toggleFullPage() {
+    var card = document.querySelector('.overlay-card');
+    card.classList.toggle('fullpage');
+    // Reset scroll after toggling
+    var contentArea = document.getElementById('overlay-content-area');
+    if (contentArea) contentArea.scrollTop = 0;
+}
+
+function closeProject() {
+    var card = document.querySelector('.overlay-card');
+    document.getElementById('project-overlay').classList.remove('open');
+    card.classList.remove('narrative');
+    card.classList.remove('fullpage');
+    document.getElementById('overlay-content-area').style.gridTemplateColumns = '';
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        if (document.getElementById('lightbox').classList.contains('open')) return;
+        closeProject();
+    }
+});
+
+/* ── Filter ── */
+function filterProjects(tag) {
+    document.querySelectorAll('.filter-chip').forEach(c =>
+        c.classList.toggle('active', c.dataset.tag === tag));
+    document.querySelectorAll('#work-grid .project-card').forEach(card => {
+        const show = tag === 'all' || (card.dataset.tags || '').split(' ').includes(tag);
+        card.style.display = show ? '' : 'none';
+    });
+}
+
+/* ── Dark mode ── */
+(function() {
+    const html = document.documentElement;
+    function getTheme() { return html.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
+    function setTheme(t) { html.setAttribute('data-theme', t); localStorage.setItem('theme', t); sync(); }
+    function sync() { document.getElementById('dark-state').textContent = getTheme() === 'dark' ? '( Y )' : '( N )'; }
+    document.getElementById('dark-toggle').addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+    sync();
+})();
+
+/* ── Mono toggle ── */
+(function() {
+    function sync() { document.getElementById('mono-state').textContent = document.body.classList.contains('mono') ? '( Y )' : '( N )'; }
+    document.getElementById('mono-toggle').addEventListener('click', () => {
+        document.body.classList.toggle('mono');
+        localStorage.setItem('mono', document.body.classList.contains('mono'));
+        sync();
+    });
+    if (localStorage.getItem('mono') === 'true') document.body.classList.add('mono');
+    sync();
+})();
+
+/* ── Text-only toggle ── */
+(function() {
+    function sync() { document.getElementById('text-state').textContent = document.body.classList.contains('text-only') ? '( Y )' : '( N )'; }
+    document.getElementById('text-toggle').addEventListener('click', () => {
+        document.body.classList.toggle('text-only');
+        localStorage.setItem('text-only', document.body.classList.contains('text-only'));
+        sync();
+    });
+    if (localStorage.getItem('text-only') === 'true') document.body.classList.add('text-only');
+    sync();
+})();
+
+/* (Settings panel + viewport/OS removed — info bar simplified to 3 cols) */
+
+/* ── Header: fit name to column width + scroll shrink ── */
+(function() {
+    let baseSize = 120;  // single shared font size for both halves
+
+    function fitName() {
+        const cols = document.querySelectorAll('.letter-col');
+        if (!cols.length) return;
+        const colW = cols[0].clientWidth;
+
+        const probe = document.createElement('span');
+        probe.style.cssText = 'position:absolute;visibility:hidden;font-size:100px;' +
+            'font-family:Inter,-apple-system,"Helvetica Neue",Arial,sans-serif;' +
+            'font-weight:700;letter-spacing:-0.02em;white-space:nowrap;line-height:1;';
+        document.body.appendChild(probe);
+
+        // Measure both full names, use the smaller fit so both fill their column
+        probe.textContent = 'Emily';
+        const sizeL = Math.floor(100 * colW / probe.offsetWidth);
+        probe.textContent = 'Howkins';
+        const sizeR = Math.floor(100 * colW / probe.offsetWidth);
+        document.body.removeChild(probe);
+
+        // Use minimum so neither name overflows its column when expanded
+        // Scale down to ~75% for a less dominant landing header
+        baseSize = Math.round(Math.min(sizeL, sizeR) * 0.75);
+        applySize(baseSize);
+        cacheBarHeight();
+        updateSpacer(bar && bar.classList.contains('collapsed'));
+    }
+
+    function applySize(px) {
+        document.documentElement.style.setProperty('--letter-size', px + 'px');
+    }
+
+    var bar = document.getElementById('info-bar');
+    var letterRow = document.querySelector('.letter-row');
+    var spc = document.getElementById('header-spacer');
+    var barHeight = 0; // cached natural height of the info bar
+
+    // Measure and cache the info bar's natural height
+    function cacheBarHeight() {
+        if (!bar) return;
+        var was = bar.classList.contains('collapsed');
+        if (was) bar.classList.remove('collapsed');
+        barHeight = bar.offsetHeight;
+        if (was) bar.classList.add('collapsed');
+    }
+    cacheBarHeight();
+
+    // Set spacer to the TARGET height (not mid-transition height)
+    function updateSpacer(collapsed) {
+        if (!letterRow || !spc) return;
+        var h = letterRow.offsetHeight + (collapsed ? 0 : barHeight);
+        spc.style.height = h + 'px';
+    }
+
+    // Phase 1 (0 → SHRINK_PX):  letters shrink full → MIN_FONT, info bar stays
+    // Phase 2 (> COLLAPSE_AT):   info bar collapses
+    // Hysteresis: collapse and expand at different thresholds to prevent flicker
+    var MIN_FONT    = 32;
+    var SHRINK_PX   = 220;
+    var COLLAPSE_AT = 440;
+    var EXPAND_AT   = 340;
+
+    function onScroll() {
+        var y = window.scrollY;
+        // Phase 1: shrink letters
+        var t = Math.min(1, y / SHRINK_PX);
+        applySize(Math.round(baseSize * (1 - t) + MIN_FONT * t));
+        // Phase 2: toggle info bar with hysteresis
+        var isCollapsed = bar && bar.classList.contains('collapsed');
+        if (bar) {
+            var shouldCollapse = isCollapsed ? (y > EXPAND_AT) : (y > COLLAPSE_AT);
+            bar.classList.toggle('collapsed', shouldCollapse);
+            isCollapsed = shouldCollapse;
+        }
+        // Set spacer to target height (letter row + bar if visible)
+        updateSpacer(isCollapsed);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function() { fitName(); onScroll(); });
+
+    // Run immediately, then again once fonts are loaded (they affect measured size)
+    fitName();
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function() { fitName(); });
+    }
+})();
+
+/* ── Soft brush (press-and-hold) ── */
+(function() {
+    const canvas = document.getElementById('cursor-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
+    let isDrawing = false, lastX = null, lastY = null, dragDist = 0;
+
+    function paintAt(x, y, fromX, fromY) {
+        const dist = fromX !== null ? Math.hypot(x - fromX, y - fromY) : 0;
+        const steps = Math.max(1, Math.ceil(dist / 4));
+        for (let s = 0; s < steps; s++) {
+            const t = steps > 1 ? s / (steps - 1) : 0;
+            const px = fromX !== null ? fromX + (x - fromX) * t : x;
+            const py = fromY !== null ? fromY + (y - fromY) * t : y;
+            const jx = px + (Math.random() - 0.5) * 10;
+            const jy = py + (Math.random() - 0.5) * 10;
+            const r = 30 + Math.random() * 30;
+            const grad = ctx.createRadialGradient(jx, jy, 0, jx, jy, r);
+            const useAccent = Math.random() < 0.35;
+            const base = isDark()
+                ? (useAccent ? '107,159,232' : '180,190,210')
+                : (useAccent ? '59,111,194'  : '30,30,40');
+            grad.addColorStop(0,   `rgba(${base},0.38)`);
+            grad.addColorStop(0.5, `rgba(${base},0.14)`);
+            grad.addColorStop(1,   `rgba(${base},0.00)`);
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(jx, jy, r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function startDraw(x, y) { isDrawing = true; dragDist = 0; lastX = x; lastY = y; }
+    function continueDraw(x, y) {
+        if (!isDrawing) return;
+        const d = Math.hypot(x - lastX, y - lastY);
+        dragDist += d;
+        if (dragDist > 4) paintAt(x, y, lastX, lastY);
+        lastX = x; lastY = y;
+    }
+    function stopDraw() { isDrawing = false; lastX = null; lastY = null; }
+
+    document.addEventListener('mousedown', e => {
+        if (e.target.closest('a, button, [onclick], input, select, textarea')) return;
+        startDraw(e.clientX, e.clientY);
+    });
+    document.addEventListener('mousemove', e => continueDraw(e.clientX, e.clientY));
+    document.addEventListener('mouseup', stopDraw);
+    document.addEventListener('mouseleave', stopDraw);
+    document.addEventListener('touchstart', e => {
+        if (e.target.closest('a, button, [onclick], input, select, textarea')) return;
+        const t = e.touches[0]; startDraw(t.clientX, t.clientY);
+    }, { passive: true });
+    document.addEventListener('touchmove', e => {
+        const t = e.touches[0]; continueDraw(t.clientX, t.clientY);
+    }, { passive: true });
+    document.addEventListener('touchend', stopDraw);
+})();
+
+/* ── Lightbox ── */
+let lbImages = [], lbIndex = 0;
+const lbEl = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+
+function lbSetFit() {
+    lbEl.classList.remove('full');
+    lbEl.classList.add('fit');
+}
+function lbSetFull() {
+    lbEl.classList.remove('fit');
+    lbEl.classList.add('full');
+}
+function lbToggleZoom() {
+    if (lbEl.classList.contains('fit')) lbSetFull();
+    else lbSetFit();
+}
+
+function lbUpdate() {
+    lbImg.src = lbImages[lbIndex];
+    document.getElementById('lb-counter').textContent = (lbIndex + 1) + ' / ' + lbImages.length;
+    lbSetFit();
+}
+
+function openLightbox(imgs, idx) {
+    lbImages = imgs; lbIndex = idx;
+    lbUpdate();
+    lbEl.classList.add('open');
+}
+function closeLightbox() {
+    lbEl.classList.remove('open');
+    lbSetFit();
+}
+function lbPrev() { lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length; lbUpdate(); }
+function lbNext() { lbIndex = (lbIndex + 1) % lbImages.length; lbUpdate(); }
+
+document.addEventListener('keydown', e => {
+    if (!lbEl.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft') lbPrev();
+    if (e.key === 'ArrowRight') lbNext();
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === ' ') { e.preventDefault(); lbToggleZoom(); }
+});
+document.querySelectorAll('.project-gallery').forEach(gallery => {
+    const imgs = Array.from(gallery.querySelectorAll('img')).map(i => i.src);
+    gallery.querySelectorAll('img').forEach((img, idx) => {
+        img.addEventListener('click', () => openLightbox(imgs, idx));
+    });
+});
+</script>
+
+</body>
 </html>

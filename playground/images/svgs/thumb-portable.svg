@@ -1,0 +1,31 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#DDD5C8"/>
+
+  <!-- Isometric carry case -->
+  <!-- Top face -->
+  <polygon points="400,130 570,224 400,318 230,224" fill="#B0A898" stroke="#1C1409" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Right face -->
+  <polygon points="570,224 400,318 400,448 570,354" fill="#8C8278" stroke="#1C1409" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Left face -->
+  <polygon points="230,224 400,318 400,448 230,354" fill="#A0968A" stroke="#1C1409" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Carry handle -->
+  <path d="M308,215 C308,136 492,136 492,215" fill="none" stroke="#1C1409" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Latch on right face -->
+  <rect x="490" y="300" width="20" height="14" rx="2" fill="none" stroke="#1C1409" stroke-width="1.6"/>
+  <line x1="500" y1="300" x2="500" y2="314" stroke="#1C1409" stroke-width="1.2"/>
+
+  <!-- Texture lines on left face -->
+  <line x1="252" y1="260" x2="378" y2="340" stroke="#1C1409" stroke-width="0.8" opacity="0.22"/>
+  <line x1="252" y1="282" x2="378" y2="362" stroke="#1C1409" stroke-width="0.8" opacity="0.22"/>
+  <line x1="252" y1="304" x2="378" y2="384" stroke="#1C1409" stroke-width="0.8" opacity="0.22"/>
+
+  <!-- Accent dot on handle -->
+  <circle cx="400" cy="136" r="7" fill="none" stroke="#8B2E3F" stroke-width="2"/>
+  <circle cx="400" cy="136" r="3" fill="#8B2E3F"/>
+
+  <!-- Ground shadow -->
+  <ellipse cx="400" cy="462" rx="140" ry="18" fill="#1C1409" opacity="0.08"/>
+  <line x1="80" y1="490" x2="720" y2="490" stroke="#1C1409" stroke-width="1" opacity="0.25"/>
+</svg>

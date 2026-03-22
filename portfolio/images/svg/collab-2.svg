@@ -1,0 +1,35 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="subtle-shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#8a8a8a" opacity="0.5"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  
+
+  <!-- Flow arrows -->
+  <line x1="115" y1="250" x2="155" y2="250" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4" marker-end="url(#arrowhead)"/>
+  <line x1="295" y1="250" x2="335" y2="250" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4" marker-end="url(#arrowhead)"/>
+  <line x1="475" y1="250" x2="515" y2="250" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4" marker-end="url(#arrowhead)"/>
+  <line x1="655" y1="250" x2="695" y2="250" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4" marker-end="url(#arrowhead)"/>
+
+  <!-- Process boxes -->
+  <!-- Box 1 -->
+  <rect x="40" y="210" width="75" height="80" rx="12" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+
+  <!-- Box 2 -->
+  <rect x="220" y="210" width="75" height="80" rx="12" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+
+  <!-- Box 3 -->
+  <rect x="400" y="210" width="75" height="80" rx="12" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+
+  <!-- Box 4 -->
+  <rect x="580" y="210" width="75" height="80" rx="12" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+
+  <!-- Box 5 -->
+  <rect x="700" y="200" width="65" height="100" rx="12" fill="#b8c4d4" filter="url(#subtle-shadow)" opacity="0.7"/>
+</svg>

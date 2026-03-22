@@ -1,0 +1,49 @@
+<svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cool grey background -->
+  <rect width="600" height="800" fill="#D8D8D8"/>
+
+  <!-- Flow arrows (vertical backbone) -->
+  <line x1="300" y1="160" x2="300" y2="640" stroke="#c8c6c2" stroke-width="1.5"/>
+  <polygon points="296,640 300,650 304,640" fill="#c8c6c2"/>
+
+  <!-- Process nodes — rounded rects like a real flow diagram -->
+  <rect x="200" y="130" width="200" height="56" rx="28" fill="#faf9f7" stroke="#9a9896" stroke-width="1.5"/>
+  <rect x="224" y="152" width="80" height="5" rx="2" fill="#6a6966"/>
+  <rect x="224" y="162" width="52" height="4" rx="1" fill="#9a9896"/>
+
+  <rect x="200" y="244" width="200" height="56" rx="28" fill="#faf9f7" stroke="#9a9896" stroke-width="1.5"/>
+  <rect x="224" y="266" width="70" height="5" rx="2" fill="#6a6966"/>
+  <rect x="224" y="276" width="48" height="4" rx="1" fill="#9a9896"/>
+
+  <rect x="200" y="358" width="200" height="56" rx="28" fill="#faf9f7" stroke="#9a9896" stroke-width="1.5"/>
+  <rect x="224" y="380" width="90" height="5" rx="2" fill="#6a6966"/>
+  <rect x="224" y="390" width="60" height="4" rx="1" fill="#9a9896"/>
+
+  <rect x="200" y="472" width="200" height="56" rx="28" fill="#faf9f7" stroke="#9a9896" stroke-width="1.5"/>
+  <rect x="224" y="494" width="65" height="5" rx="2" fill="#6a6966"/>
+  <rect x="224" y="504" width="44" height="4" rx="1" fill="#9a9896"/>
+
+  <rect x="200" y="586" width="200" height="56" rx="28" fill="#faf9f7" stroke="#9a9896" stroke-width="1.5"/>
+  <rect x="224" y="608" width="75" height="5" rx="2" fill="#6a6966"/>
+  <rect x="224" y="618" width="55" height="4" rx="1" fill="#9a9896"/>
+
+  <!-- Side branches (collaboration touch-points) -->
+  <line x1="200" y1="158" x2="110" y2="158" stroke="#c8c6c2" stroke-width="1" stroke-dasharray="4,3"/>
+  <circle cx="96" cy="158" r="10" fill="#dddbd8" stroke="#9a9896" stroke-width="1"/>
+
+  <line x1="400" y1="272" x2="490" y2="272" stroke="#c8c6c2" stroke-width="1" stroke-dasharray="4,3"/>
+  <circle cx="504" cy="272" r="10" fill="#dddbd8" stroke="#9a9896" stroke-width="1"/>
+
+  <line x1="200" y1="386" x2="110" y2="386" stroke="#c8c6c2" stroke-width="1" stroke-dasharray="4,3"/>
+  <circle cx="96" cy="386" r="10" fill="#dddbd8" stroke="#9a9896" stroke-width="1"/>
+
+  <line x1="400" y1="500" x2="490" y2="500" stroke="#c8c6c2" stroke-width="1" stroke-dasharray="4,3"/>
+  <circle cx="504" cy="500" r="10" fill="#dddbd8" stroke="#9a9896" stroke-width="1"/>
+
+  <!-- Step numbers -->
+  <circle cx="178" cy="158" r="12" fill="#6a6966"/>
+  <circle cx="178" cy="272" r="12" fill="#6a6966"/>
+  <circle cx="178" cy="386" r="12" fill="#6a6966"/>
+  <circle cx="178" cy="500" r="12" fill="#6a6966"/>
+  <circle cx="178" cy="614" r="12" fill="#6a6966"/>
+</svg>

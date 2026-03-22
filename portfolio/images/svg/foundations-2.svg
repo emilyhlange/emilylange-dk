@@ -1,0 +1,35 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="subtle-shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  
+
+  <!-- Typography scale bars -->
+  <!-- Largest (XL) -->
+  <circle cx="100" cy="80" r="4" fill="#8a8a8a" opacity="0.5"/>
+  <rect x="120" y="70" width="350" height="20" rx="3" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+
+  <!-- Large (L) -->
+  <circle cx="100" cy="135" r="4" fill="#8a8a8a" opacity="0.5"/>
+  <rect x="120" y="125" width="300" height="20" rx="3" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+
+  <!-- Medium (M) -->
+  <circle cx="100" cy="190" r="4" fill="#8a8a8a" opacity="0.5"/>
+  <rect x="120" y="180" width="280" height="18" rx="3" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+
+  <!-- Small (S) -->
+  <circle cx="100" cy="242" r="4" fill="#8a8a8a" opacity="0.5"/>
+  <rect x="120" y="233" width="200" height="18" rx="3" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+
+  <!-- Extra Small (XS) -->
+  <circle cx="100" cy="293" r="4" fill="#8a8a8a" opacity="0.5"/>
+  <rect x="120" y="285" width="160" height="16" rx="3" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+
+  <!-- Extra Extra Small (2XS) -->
+  <circle cx="100" cy="340" r="4" fill="#8a8a8a" opacity="0.5"/>
+  <rect x="120" y="333" width="120" height="14" rx="3" fill="#f0ebe5" filter="url(#subtle-shadow)"/>
+</svg>

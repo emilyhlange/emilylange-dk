@@ -1,0 +1,47 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="subtle-shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  
+
+  <!-- Tier 1 (Leadership) -->
+  <rect x="50" y="40" width="700" height="120" rx="8" fill="#d4ccc2" opacity="0.15"/>
+
+  <!-- Blocks in tier 1 -->
+  <rect x="100" y="70" width="50" height="50" rx="6" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <rect x="200" y="70" width="50" height="50" rx="6" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <rect x="300" y="70" width="50" height="50" rx="6" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <rect x="400" y="70" width="60" height="50" rx="6" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <rect x="530" y="70" width="50" height="50" rx="6" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <rect x="630" y="70" width="50" height="50" rx="6" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+
+  <!-- Tier 2 (Core) -->
+  <rect x="50" y="190" width="700" height="120" rx="8" fill="#b8c4b8" opacity="0.15"/>
+
+  <!-- Blocks in tier 2 -->
+  <rect x="80" y="220" width="50" height="50" rx="6" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+  <rect x="170" y="220" width="50" height="50" rx="6" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+  <rect x="260" y="220" width="50" height="50" rx="6" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+  <rect x="350" y="220" width="50" height="50" rx="6" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+  <rect x="440" y="220" width="50" height="50" rx="6" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+  <rect x="530" y="220" width="50" height="50" rx="6" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+  <rect x="620" y="220" width="50" height="50" rx="6" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+
+  <!-- Tier 3 (Contributors) -->
+  <rect x="50" y="340" width="700" height="120" rx="8" fill="#b8c4d4" opacity="0.15"/>
+
+  <!-- Blocks in tier 3 -->
+  <rect x="70" y="370" width="40" height="50" rx="6" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <rect x="140" y="370" width="40" height="50" rx="6" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <rect x="210" y="370" width="40" height="50" rx="6" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <rect x="280" y="370" width="40" height="50" rx="6" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <rect x="350" y="370" width="40" height="50" rx="6" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <rect x="420" y="370" width="40" height="50" rx="6" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <rect x="490" y="370" width="40" height="50" rx="6" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <rect x="560" y="370" width="40" height="50" rx="6" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <rect x="630" y="370" width="40" height="50" rx="6" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+</svg>

@@ -1,0 +1,52 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="subtle-shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  
+
+  <!-- Card 1 -->
+  <rect x="60" y="60" width="180" height="160" rx="8" fill="#f0ebe5" filter="url(#subtle-shadow)"/>
+  <circle cx="90" cy="90" r="8" fill="#d4ccc2"/>
+  <line x1="110" y1="85" x2="180" y2="85" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <line x1="110" y1="95" x2="180" y2="95" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <line x1="110" y1="105" x2="170" y2="105" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Card 2 -->
+  <rect x="310" y="60" width="180" height="160" rx="8" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <circle cx="340" cy="90" r="8" fill="#b8c4d4"/>
+  <line x1="360" y1="85" x2="430" y2="85" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <line x1="360" y1="95" x2="430" y2="95" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <line x1="360" y1="105" x2="420" y2="105" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Card 3 -->
+  <rect x="560" y="60" width="180" height="160" rx="8" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+  <circle cx="590" cy="90" r="8" fill="#f0ebe5"/>
+  <line x1="610" y1="85" x2="680" y2="85" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <line x1="610" y1="95" x2="680" y2="95" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <line x1="610" y1="105" x2="670" y2="105" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Card 4 -->
+  <rect x="60" y="260" width="180" height="160" rx="8" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+  <circle cx="90" cy="290" r="8" fill="#d4ccc2"/>
+  <line x1="110" y1="285" x2="180" y2="285" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <line x1="110" y1="295" x2="180" y2="295" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <line x1="110" y1="305" x2="170" y2="305" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Card 5 -->
+  <rect x="310" y="260" width="180" height="160" rx="8" fill="#f0ebe5" filter="url(#subtle-shadow)"/>
+  <circle cx="340" cy="290" r="8" fill="#b8c4b8"/>
+  <line x1="360" y1="285" x2="430" y2="285" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <line x1="360" y1="295" x2="430" y2="295" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+  <line x1="360" y1="305" x2="420" y2="305" stroke="#8a8a8a" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Card 6 -->
+  <rect x="560" y="260" width="180" height="160" rx="8" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+  <circle cx="590" cy="290" r="8" fill="#b8c4d4"/>
+  <line x1="610" y1="285" x2="680" y2="285" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <line x1="610" y1="295" x2="680" y2="295" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <line x1="610" y1="305" x2="670" y2="305" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+</svg>

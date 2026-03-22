@@ -1,0 +1,51 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="subtle-shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  
+
+  <!-- Fanned out cards -->
+  <!-- Card 1 - back -->
+  <g transform="translate(250, 200) rotate(-18)">
+    <rect x="0" y="0" width="120" height="180" rx="12" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+    <line x1="15" y1="25" x2="105" y2="25" stroke="#ffffff" stroke-width="2" opacity="0.4"/>
+    <line x1="15" y1="45" x2="105" y2="45" stroke="#ffffff" stroke-width="2" opacity="0.4"/>
+    <line x1="15" y1="65" x2="100" y2="65" stroke="#ffffff" stroke-width="2" opacity="0.4"/>
+  </g>
+
+  <!-- Card 2 -->
+  <g transform="translate(290, 160) rotate(-8)">
+    <rect x="0" y="0" width="120" height="180" rx="12" fill="#b8c4d4" filter="url(#subtle-shadow)"/>
+    <line x1="15" y1="25" x2="105" y2="25" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+    <line x1="15" y1="45" x2="105" y2="45" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+    <line x1="15" y1="65" x2="100" y2="65" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+  </g>
+
+  <!-- Card 3 - center -->
+  <g transform="translate(340, 150)">
+    <rect x="0" y="0" width="120" height="180" rx="12" fill="#b8c4b8" filter="url(#subtle-shadow)"/>
+    <line x1="15" y1="25" x2="105" y2="25" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+    <line x1="15" y1="45" x2="105" y2="45" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+    <line x1="15" y1="65" x2="100" y2="65" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+  </g>
+
+  <!-- Card 4 -->
+  <g transform="translate(380, 160) rotate(8)">
+    <rect x="0" y="0" width="120" height="180" rx="12" fill="#f0ebe5" filter="url(#subtle-shadow)"/>
+    <line x1="15" y1="25" x2="105" y2="25" stroke="#8a8a8a" stroke-width="2" opacity="0.4"/>
+    <line x1="15" y1="45" x2="105" y2="45" stroke="#8a8a8a" stroke-width="2" opacity="0.4"/>
+    <line x1="15" y1="65" x2="100" y2="65" stroke="#8a8a8a" stroke-width="2" opacity="0.4"/>
+  </g>
+
+  <!-- Card 5 - front -->
+  <g transform="translate(420, 200) rotate(18)">
+    <rect x="0" y="0" width="120" height="180" rx="12" fill="#d4ccc2" filter="url(#subtle-shadow)"/>
+    <line x1="15" y1="25" x2="105" y2="25" stroke="#ffffff" stroke-width="2" opacity="0.4"/>
+    <line x1="15" y1="45" x2="105" y2="45" stroke="#ffffff" stroke-width="2" opacity="0.4"/>
+    <line x1="15" y1="65" x2="100" y2="65" stroke="#ffffff" stroke-width="2" opacity="0.4"/>
+  </g>
+</svg>

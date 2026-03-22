@@ -1,142 +1,394 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="auto">
 <head>
+    <!-- Apply saved theme before paint -->
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
+            else if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+                document.documentElement.setAttribute('data-theme', 'dark');
+        }());
+    </script>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>my portfolio</title>
+    <title>Playground — Emily Howkins Lange</title>
+    <meta name="description" content="Experiments, graphic design, product design, and student projects by Emily Howkins Lange.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <link type="text/css" href="css/bootstrap-4.3.1.css" rel="stylesheet">
-    <link type="text/css" href="css/style.css?v=2" rel="stylesheet">
+        /* ── Base ── */
+        body {
+            background-color: #EDE8DF;
+            color: black;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            line-height: 17px;
+        }
+        [data-theme="dark"] body {
+            background-color: #151008;
+            color: #F2EDE3;
+        }
+
+        /* ── CSS Variables ── */
+        :root {
+            --bg: #EDE8DF;
+            --fg: #1C1409;
+            --fg-dim: #7A6655;
+            --border: rgba(28,20,9,0.12);
+            --topbar-bg: #EDE8DF;
+            --topbar-fg: #1C1409;
+        }
+        [data-theme="dark"] {
+            --bg: #151008;
+            --fg: #F2EDE3;
+            --fg-dim: #8A7B6C;
+            --border: rgba(242,237,227,0.10);
+            --topbar-bg: #110D07;
+            --topbar-fg: #F2EDE3;
+        }
+        html { overflow-y: scroll; }
+        html, body { background: var(--bg); color: var(--fg); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #8B2E3F; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(139,46,63,0.55); }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* ── Layout ── */
+        .flex-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 62px auto 60px;
+            padding: 0 40px 0 50px;
+        }
+        .left {
+            flex: 0 0 170px;
+            padding-right: 24px;
+            padding-left: 4px;
+            position: fixed;
+            top: 62px;
+        }
+        .right {
+            flex: 1;
+            margin-left: 240px;
+            min-width: 0;
+        }
+        @media (max-width: 1100px) {
+            .flex-container { flex-direction: column; padding: 0 20px; }
+            .left { flex: 100%; padding-bottom: 20px; padding-right: 0; position: relative; top: auto; }
+            .right { flex: 100%; margin-left: 0; }
+        }
+        .item { padding: 10px; }
+
+        /* ── Sidebar ── */
+        .sidebar-name {
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 17px;
+            margin-bottom: 16px;
+        }
+        .sidebar-name span { font-weight: normal; display: block; }
+        ul { list-style: none; }
+        li.project-item, li.sidebar-item {
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 17px;
+        }
+        li.project-item a:hover, li.sidebar-item a:hover { color: #8B2E3F; }
+        .sidebar-label {
+            font-size: 10px;
+            opacity: 0.52;
+            letter-spacing: 0.03em;
+            margin-top: 18px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        /* ── Fixed topbar ── */
+        .pg-topbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 32px;
+            background: var(--topbar-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 110;
+            font-size: 11px;
+            color: var(--topbar-fg);
+        }
+        .pg-topbar a { color: inherit; }
+        .pg-topbar a:hover { color: #8B2E3F; }
+        .pg-topbar .nav-left { display: flex; align-items: center; gap: 8px; }
+        .pg-topbar .nav-sep { opacity: 0.3; }
+        .pg-topbar .nav-current { opacity: 0.45; }
+        #theme-btn {
+            background: none; border: none; cursor: pointer;
+            font-family: inherit; font-size: 11px;
+            color: inherit; opacity: 0.5; padding: 0;
+            transition: opacity 0.15s;
+        }
+        #theme-btn:hover { opacity: 1; color: #8B2E3F; }
+
+        /* ── Grain overlay ── */
+        .grain {
+            position: fixed;
+            inset: -40%; width: 180%; height: 180%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+            opacity: 0.038;
+            pointer-events: none;
+            z-index: 5;
+            animation: grain-drift 0.18s steps(1) infinite;
+        }
+        @keyframes grain-drift {
+            0%   { transform: translate(0,0); }   10% { transform: translate(-3%,-4%); }
+            20%  { transform: translate(4%,3%); }  30% { transform: translate(-2%,5%); }
+            40%  { transform: translate(5%,-2%); } 50% { transform: translate(-4%,1%); }
+            60%  { transform: translate(2%,-5%); } 70% { transform: translate(-5%,3%); }
+            80%  { transform: translate(3%,4%); }  90% { transform: translate(-1%,-3%); }
+            100% { transform: translate(0,0); }
+        }
+
+        /* ── Pixel trail canvas ── */
+        #cursor-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 999; }
+
+        /* ── Lede ── */
+        .pg-lede {
+            font-size: 12px;
+            line-height: 17px;
+            color: var(--fg-dim);
+            margin-bottom: 22px;
+            max-width: 420px;
+        }
+
+        /* ── Image grid ── */
+        .pg-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 2px;
+            row-gap: 28px;
+        }
+
+        .pg-tile {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .pg-tile-img {
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            background: var(--border);
+        }
+
+        .pg-tile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        filter 0.4s ease;
+            filter: saturate(0.85);
+        }
+
+        .pg-tile:hover .pg-tile-img img {
+            transform: scale(1.04);
+            filter: saturate(1);
+        }
+
+        .pg-tile-info {
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .pg-tile-title {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 17px;
+            transition: color 0.15s ease;
+        }
+
+        .pg-tile:hover .pg-tile-title { color: #8B2E3F; }
+
+        .pg-tile-meta {
+            font-size: 10px;
+            opacity: 0.38;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 700px) {
+            .pg-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-
 <body>
 
-    <div class="flex-container content">
-        <div class="left">
+<canvas id="cursor-canvas"></canvas>
+<div class="grain" aria-hidden="true"></div>
 
-            <ul class="nav flex-column">
-                <div>
-                    <li class="project-item"><a href="https://emilylange.dk/playground/index.html">emily howkins lange</a></li>
-                    <li class="sidebar-item"><a href="https://emilylange.dk/playground/about.html">about</a></li>
-                    <li class="sidebar-item"><a href="https://emilylange.dk/playground/resume.html">resumé</a></li>
-                    <li class="sidebar-item"><a href="https://emilylange.dk/playground/contact.html">social media // contact</a></li>
-                </div>
-                <br>
-                <div>
-                    <li class="project-item"><a id="thesisthumb"
-                            href="https://emilylange.dk/playground/projects/thesis.html">[2021] designing for low self-esteem</a></li>
-                    </div>
-                <div>
-                    <li class="sidebar-item"><strong>––product design</strong></li>
-                    <li class="project-item"><a id="portablethumb"
-                            href="https://emilylange.dk/playground/projects/portable.html">[2021] portable. </a></li>
-                    <li class="project-item"><a id="mikkellerthumb"
-                            href="https://emilylange.dk/playground/projects/mikkeller.html">[2020] mikkeller brewery</a></li>
-                    </div>
-                <div>
-                    <li class="sidebar-item"><strong>––branding/campaign</strong></li>
-                    <li class="project-item"><a id="teaterthumb"
-                            href="https://emilylange.dk/playground/projects/skiveteater.html">[2021] skive theater </a></li>
-                    <li class="project-item"><a id="ecothumb"
-                            href="https://emilylange.dk/playground/projects/ecodistricts.html">[2018] ecodistricts</a></li>
-                    <li class="project-item"><a id="mvthumb"
-                            href="https://emilylange.dk/playground/projects/multivitamin.html">[2018] information redesign</a></li>
-                    <li class="project-item"><a id="plasticthumb"
-                            href="https://emilylange.dk/playground/projects/breakupwithplastic.html">[2018] #breakUpWithPlastic</a></li>
-                </div>
-                <div>
-                    <li class="sidebar-item"><strong>––graphic design</strong></li>
-                    <li class="project-item"><a id="tune"
-                            href="https://emilylange.dk/playground/projects/tune.html">[2021] tune </a></li>
-                    <li class="project-item"><a id="cerealthumb"
-                            href="https://emilylange.dk/playground/projects/cerealbox.html">[2021] a cereal box </a></li>
-                    <li class="project-item"><a id="devothumb"
-                            href="https://emilylange.dk/playground/projects/lp_limedevo.html">[2021] lp cover design</a></li>
-                    <li class="project-item"><a id="duboisthumb"
-                            href="https://emilylange.dk/playground/projects/dubois.html">[2018] duBois</a></li>
-                </div>
-                <div>
-                    <li class="sidebar-item"><strong>––speculative design</strong></li>
-                    <li class="project-item"><a id="breathe"
-                            href="https://emilylange.dk/playground/projects/breathe.html">[2021] breathe </a></li>
-                <div>
-                    <li class="sidebar-item"><strong>––exhibition</strong></li>
-                    <li class="project-item"><a id="fanfarethumb"
-                            href="https://emilylange.dk/playground/projects/fanfare.html">[2021] typographic kitchen </a></li>
-                    <li class="project-item"><a id="chaosthumb"
-                            href="https://emilylange.dk/playground/projects/chaos.html">[2018] chaos</a></li>
-                </div>
+<nav class="pg-topbar">
+    <div class="nav-left">
+        <a href="../">home</a>
+        <span class="nav-sep">·</span>
+        <a href="../portfolio/">portfolio</a>
+        <span class="nav-sep">·</span>
+        <span class="nav-current">playground</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:4px">
+        <button id="theme-btn" aria-label="Toggle colour mode">◐</button>
+        <span class="nav-sep">·</span>
+        <a href="../">Emily Howkins Lange</a>
+    </div>
+</nav>
+
+<div class="flex-container">
+
+    <!-- ── Sidebar ── -->
+    <div class="left">
+        <div class="item">
+            <div class="sidebar-name">
+                Emily Howkins Lange
+                <span>Playground — 2018–2021</span>
+            </div>
+
+            <span class="sidebar-label">Navigate</span>
+            <ul>
+                <li class="sidebar-item"><a href="../">Home</a></li>
+                <li class="sidebar-item"><a href="../portfolio/">Portfolio</a></li>
             </ul>
-            </div>
 
-        <div class="right">
-            <div class="row overflow">
-                <div class="item col">
-                    <p id="project-description">Recent projects</p>
-                    <iframe width="560" style="max-height: 600px;" height=100% src="https://www.youtube.com/embed/1qeEknAQP6Q?si=x4-ZN_rcV2hGtJnJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                    <a href="https://emilylange.dk/playground/projects/tune.html" target="_blank"><img
-                            src="./images/pp_layout.jpg" style="max-width: 80%; max-height: 600px;"></a>
-                    <a href="https://emilylange.dk/playground/projects/tune.html" target="_blank"><img
-                            src="./images/pp_layout2.jpg" style="max-width: 80%; max-height: 600px;"></a>
-                    <a href="https://emilylange.dk/playground/projects/skiveteater.html" target="_blank"><img
-                            src="./images/pp_layout3.jpg" style="max-width: 80%; max-height: 600px;"></a>
-                    <a href="https://emilylange.dk/playground/projects/skiveteater.html" target="_blank"><img
-                            src="./images/pp_layout4.jpg" style="max-width: 80%; max-height: 600px;"></a>
-                    <a href="https://emilylange.dk/playground/projects/portable.html" target="_blank"><img
-                            src="./images/pp_layout5.jpg" style="max-width: 80%; max-height: 600px;"></a>
-                    <a href="https://emilylange.dk/playground/projects/portable.html" target="_blank"><img
-                            src="./images/pp_layout6.jpg" style="max-width: 80%; max-height: 600px;"></a>
-                </div>
-            </div>
-            <div id='rssBlock'>
-                <p class="cnnContents">
-                    <span class="marqueeStyle" id="project-description">&nbsp;Breathe: selling air [film]. </span>
-                    </p>
-
-                <p class="cnnContents">
-                    <span class="marqueeStyle" id="project-description">&nbsp;Tune: a compilation of graphic design techniques,
-                        portraying a collection of songs [book]. </span>
-                    </p>
-                <p class="cnnContents">
-                    <span class="marqueeStyle" id="project-description">&nbsp;Portable: design of a game that connects people.
-                        Project included building the prototype of the game, the aesthetic and a social media campaign
-                        that surrounds it.
-                    </span>
-                    </p>
-                <p class="cnnContents">
-                    <span class="marqueeStyle" id="project-description">&nbsp;Skive Theater: brand identity/poster design for the
-                        local theater in Skive Municipality. </span>
-                    </p>
-            </div>
+            <span class="sidebar-label">Projects</span>
+            <ul>
+                <li class="project-item"><a href="projects/thesis.html">Designing for Low Self-Esteem</a></li>
+                <li class="project-item"><a href="projects/portable.html">Portable.</a></li>
+                <li class="project-item"><a href="projects/fanfare.html">Typographic Kitchen</a></li>
+                <li class="project-item"><a href="projects/tune.html">Tune</a></li>
+            </ul>
         </div>
     </div>
 
-    <div class="trail">
-        <div class="pointer pointer1"></div>
-        <div class="pointer pointer2"></div>
-        <div class="pointer pointer3"></div>
-        <div class="pointer pointer4"></div>
-        <div class="pointer pointer5"></div>
-        <div class="pointer pointer6"></div>
-        <div class="pointer pointer7"></div>
-        <div class="pointer pointer8"></div>
-        <div class="pointer pointer9"></div>
+    <!-- ── Right content ── -->
+    <div class="right">
+        <div class="item" style="padding-left:0;padding-right:0;">
+
+            <p class="pg-lede">Earlier work, experiments, and student projects — 2018–2021.</p>
+
+            <div class="pg-grid">
+
+                <a class="pg-tile" href="projects/thesis.html">
+                    <div class="pg-tile-img">
+                        <img src="images/svgs/thumb-thesis.svg" alt="Designing for Low Self-Esteem" loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">Designing for Low Self-Esteem</span>
+                        <span class="pg-tile-meta">2021 · Thesis</span>
+                    </div>
+                </a>
+
+                <a class="pg-tile" href="projects/portable.html">
+                    <div class="pg-tile-img">
+                        <img src="images/svgs/thumb-portable.svg" alt="Portable." loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">Portable.</span>
+                        <span class="pg-tile-meta">2021 · Product design</span>
+                    </div>
+                </a>
+
+                <a class="pg-tile" href="projects/fanfare.html">
+                    <div class="pg-tile-img">
+                        <img src="images/svgs/thumb-fanfare.svg" alt="Typographic Kitchen" loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">Typographic Kitchen</span>
+                        <span class="pg-tile-meta">2021 · Exhibition</span>
+                    </div>
+                </a>
+
+                <a class="pg-tile" href="projects/tune.html">
+                    <div class="pg-tile-img">
+                        <img src="images/svgs/thumb-tune.svg" alt="Tune" loading="lazy">
+                    </div>
+                    <div class="pg-tile-info">
+                        <span class="pg-tile-title">Tune</span>
+                        <span class="pg-tile-meta">2021 · Graphic design</span>
+                    </div>
+                </a>
+
+            </div><!-- /pg-grid -->
+
+        </div>
     </div>
 
-    <script src="js/jquery-3.3.1.min.js"></script>
+</div>
 
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap-4.3.1.js"></script>
+<script>
+(function () {
+    'use strict';
 
-    <script>
-        $(document).mousemove(function (e) {
-            $('.pointer').css({
-                left: e.pageX - 50,
-                top: e.pageY - 30
-            });
-        })
-    </script>
+    /* ── Pixel trail ── */
+    (function() {
+        const canvas = document.getElementById('cursor-canvas');
+        const ctx = canvas.getContext('2d');
+        let W, H;
+        function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
+        const PALETTE_LIGHT = ['#1C1409','#1C1409','#1C1409','#6B92A8','#6B92A8','#8B2E3F'];
+        const PALETTE_DARK  = ['#F2EDE3','#F2EDE3','#F2EDE3','#C8D8E4','#6B92A8','#8B2E3F'];
+
+        let pixels = [], lastX = null, lastY = null;
+        document.addEventListener('mousemove', e => {
+            const x = e.clientX, y = e.clientY;
+            const spd = lastX != null ? Math.hypot(x - lastX, y - lastY) : 0;
+            const n = Math.min(4, Math.ceil(spd / 6));
+            const pal = isDark() ? PALETTE_DARK : PALETTE_LIGHT;
+            for (let i = 0; i < n; i++) {
+                pixels.push({ x: x + (Math.random()-0.5)*8, y: y + (Math.random()-0.5)*8, s: 4, alpha: 0.85, color: pal[Math.floor(Math.random()*pal.length)] });
+            }
+            lastX = x; lastY = y;
+        });
+        (function draw() {
+            ctx.clearRect(0,0,W,H);
+            for (let i = pixels.length-1; i >= 0; i--) {
+                const p = pixels[i]; p.alpha -= 0.045;
+                if (p.alpha <= 0) { pixels.splice(i,1); continue; }
+                ctx.globalAlpha = p.alpha; ctx.fillStyle = p.color;
+                ctx.fillRect(Math.round(p.x), Math.round(p.y), p.s, p.s);
+            }
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(draw);
+        })();
+    })();
+
+    /* ── Dark mode toggle ── */
+    (function() {
+        const btn = document.getElementById('theme-btn');
+        const html = document.documentElement;
+        function getTheme() {
+            return html.getAttribute('data-theme') ||
+                (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        }
+        function setTheme(t) { html.setAttribute('data-theme', t); localStorage.setItem('theme', t); }
+        btn.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+    })();
+
+}());
+</script>
 </body>
-
 </html>
