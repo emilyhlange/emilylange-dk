@@ -164,6 +164,7 @@
 
         /* ── Cursor canvas ── */
         #cursor-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 999; }
+        @media (max-width: 800px), (hover: none) { #cursor-canvas { display: none; } }
 
         /* ── Main ── */
         main { padding-top: 0; }
@@ -1997,9 +1998,11 @@ function filterProjects(tag) {
     }
 })();
 
-/* ── Soft brush (press-and-hold) ── */
+/* ── Soft brush (press-and-hold) — disabled on touch devices ── */
 (function() {
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
     const canvas = document.getElementById('cursor-canvas');
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let W, H;
     function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
