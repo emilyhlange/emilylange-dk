@@ -420,6 +420,74 @@
         #save-toast.visible { opacity:1; }
 
         ::-webkit-scrollbar { display:none; }
+
+        /* ══ MOBILE ══ */
+        @media (max-width: 768px) {
+            /* Restore normal cursor on touch devices */
+            *, *::before, *::after { cursor:auto !important; }
+            #cursor-dot, #cursor-ring, .cursor-trail-img { display:none !important; }
+
+            html, body { overflow:auto; overflow-x:hidden; height:auto; }
+
+            /* Stack panels vertically */
+            #page {
+                position:relative; inset:auto;
+                flex-direction:column;
+                min-height:100vh; min-height:100dvh;
+            }
+
+            .panel-left {
+                width:100%; min-width:0;
+                padding:80px 28px 32px;
+                justify-content:flex-start;
+            }
+
+            .id-name-placeholder {
+                font-size:clamp(28px, 10vw, 44px);
+            }
+
+            .panel-right {
+                width:100%;
+                padding:0 28px 40px;
+                align-items:flex-start;
+            }
+
+            .play-carousel-wrap { align-items:flex-start; }
+            .play-carousel { align-items:flex-start; height:200px; padding-left:0; }
+            .carousel-track { align-items:flex-start; }
+            .play-tool { text-align:left; padding:4px 0 4px 8px; }
+
+            .carousel-arrow { align-self:flex-start; }
+            .carousel-hint { text-align:left; font-size:10px; }
+
+            /* Dark mode toggle */
+            .theme-toggle { top:20px; right:20px; }
+
+            /* Pause label */
+            #pause-label { top:20px; left:20px; }
+
+            /* Game canvas — full screen overlay on mobile */
+            body.game-mode #page { display:none; }
+
+            /* Score */
+            #snake-score { top:20px; }
+
+            /* Draw palette */
+            #draw-palette { bottom:24px; padding:8px 16px; }
+
+            /* Loader adjustments */
+            #loader { padding:20px; }
+            .stack-img { width:140px; height:140px; }
+            #cube-wrap { width:140px; height:140px; }
+            .cube-face { width:140px; height:140px; }
+            .cube-face:nth-child(1) { transform:rotateY(0deg) translateZ(70px); }
+            .cube-face:nth-child(2) { transform:rotateY(90deg) translateZ(70px); }
+            .cube-face:nth-child(3) { transform:rotateY(180deg) translateZ(70px); }
+            .cube-face:nth-child(4) { transform:rotateY(270deg) translateZ(70px); }
+
+            /* Hero name */
+            #hero-name .name-inner { font-size:clamp(36px, 12vw, 60px); }
+        }
     </style>
 </head>
 <body>
