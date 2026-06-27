@@ -277,6 +277,121 @@
         body.view-list .project-card:hover { background: var(--card-bg); border-radius: 8px; }
         body.view-list .project-card:hover .pc-media { background: var(--card-hover, #e8e8e8); }
 
+        /* ===== Work cards — minimal (same as creative), graphic media, hover-only CTA + motion ===== */
+        body.view-cards #work-grid .project-card { position: relative; }
+        body.view-cards #work-grid .pc-media { order: 2; position: relative; aspect-ratio: 16/10; background: #fff; }
+        body.view-cards #work-grid .project-card:hover .pc-media { background: #fff; }
+        #work-grid .pc-media svg { display: block; width: 100%; height: 100%; }
+        /* hover CTA — work cards only, overlaid on the graphic */
+        #work-grid .pc-cta {
+            position: absolute; left: 8px; right: 8px; bottom: 8px; z-index: 2;
+            border: 1px solid var(--border); border-radius: 8px; text-align: center; padding: 8px;
+            font-size: 12px; color: #5a5a5a; background: rgba(244,244,242,.96);
+            opacity: 0; transform: translateY(6px); pointer-events: none; transition: opacity .18s, transform .18s, background .15s;
+        }
+        body.view-cards #work-grid .project-card:hover .pc-cta { opacity: 1; transform: none; pointer-events: auto; }
+        #work-grid .pc-cta:hover { background: #ececea; }
+        body.view-list #work-grid .pc-cta { display: none; }
+
+        /* graphic language */
+        #work-grid .ns { stroke: #9E9E9E; stroke-width: 1; fill: none; }
+        #work-grid .nf { fill: #ededeb; }
+        #work-grid .ac { fill: #292929; }
+        #work-grid .acs { fill: #ececec; }
+        #work-grid .acst { stroke: #292929; }
+        #work-grid .lbl2 { font: 500 9px Inter, sans-serif; fill: #9a9a9a; letter-spacing: 1px; }
+        @keyframes acpulse { 0%,100% { opacity: 1; } 50% { opacity: .5; } }
+        body.view-cards #work-grid .project-card:hover .ac { animation: acpulse 1.5s ease-in-out infinite; }
+        /* metaphor motion — hover only, each card has a full idle state */
+        @keyframes spgrow { from { transform: scaleX(.55); opacity: .5; } to { transform: scaleX(1); opacity: 1; } }
+        #work-grid .sp-bar { transform-box: fill-box; transform-origin: left center; }
+        body.view-cards #work-grid .project-card:hover .sp1 { animation: spgrow .5s ease both; }
+        body.view-cards #work-grid .project-card:hover .sp2 { animation: spgrow .5s ease .12s both; }
+        body.view-cards #work-grid .project-card:hover .sp3 { animation: spgrow .5s ease .24s both; }
+        @keyframes gen { from { opacity: 0; transform: translateY(4px) scale(.96); } to { opacity: 1; transform: none; } }
+        #work-grid .gen { transform-box: fill-box; transform-origin: center; }
+        body.view-cards #work-grid .project-card:hover .g1 { animation: gen .45s ease both; }
+        body.view-cards #work-grid .project-card:hover .g2 { animation: gen .45s ease .18s both; }
+        body.view-cards #work-grid .project-card:hover .g3 { animation: gen .45s ease .32s both; }
+        @keyframes flow { to { stroke-dashoffset: -16; } }
+        body.view-cards #work-grid .project-card:hover .flow path { stroke-dasharray: 3 5; animation: flow .8s linear infinite; }
+        @keyframes draw { from { stroke-dashoffset: 40; } to { stroke-dashoffset: 0; } }
+        #work-grid .draw { stroke-dasharray: 40; }
+        body.view-cards #work-grid .project-card:hover .draw { animation: draw .6s ease both; }
+
+        /* variant list (writing agent — the real product-copy output) */
+        #work-grid .vlist { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 5px; padding: 14px 18px; }
+        #work-grid .vl-draft { align-self: flex-end; font: 500 9.5px Inter, sans-serif; color: #8a8a88; background: #f1f1ef; padding: 5px 8px; border-radius: 8px; border-bottom-right-radius: 2px; margin-bottom: 3px; }
+        #work-grid .vl-row { display: flex; align-items: center; gap: 6px; font: 500 9.5px Inter, sans-serif; background: #fff; border: 1px solid #e9e9e7; border-radius: 7px; padding: 5px 8px; }
+        #work-grid .vl-star { color: #292929; font-size: 9px; }
+        #work-grid .vl-n { color: #b5b5b3; width: 8px; text-align: center; }
+        #work-grid .vl-t { color: #5a5a58; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        @keyframes vlrev { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+        body.view-cards #work-grid .project-card:hover .vl-draft { animation: vlrev .35s ease both; }
+        body.view-cards #work-grid .project-card:hover .r1 { animation: vlrev .35s ease .25s both; }
+        body.view-cards #work-grid .project-card:hover .r2 { animation: vlrev .35s ease .40s both; }
+        body.view-cards #work-grid .project-card:hover .r3 { animation: vlrev .35s ease .55s both; }
+
+        /* token chips (cute) */
+        #work-grid .glbl { font: 600 15px Inter, sans-serif; fill: #292929; }
+        #work-grid .tn2 { font: 500 8px Inter, sans-serif; fill: #9a9a9a; }
+        #work-grid .chip { transform-box: fill-box; transform-origin: center; }
+        @keyframes chippop { 0% { transform: scale(.82); opacity: .5; } 60% { transform: scale(1.06); } 100% { transform: scale(1); opacity: 1; } }
+        body.view-cards #work-grid .project-card:hover .c1 { animation: chippop .4s ease both; }
+        body.view-cards #work-grid .project-card:hover .c2 { animation: chippop .4s ease .1s both; }
+        body.view-cards #work-grid .project-card:hover .c3 { animation: chippop .4s ease .2s both; }
+
+        /* tertiary button graphic (exact spec) */
+        #work-grid .btnstage { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        #work-grid .dsb { display: inline-flex; align-items: center; justify-content: center; gap: 4px; height: 32px; min-width: 76px; background: #fff; color: #1C1C1C; border: 1px solid #9E9E9E; border-radius: 4px; padding: 0 12px; font: 400 14px Helvetica, Arial, sans-serif; line-height: 20px; transition: background .18s, transform .12s, opacity .18s; }
+        #work-grid .dsb.hover { background: #E1E1E1; }
+        #work-grid .dsb.active { background: #E1E1E1; transform: scale(.97); }
+        #work-grid .dsb.disabled { opacity: .5; }
+        #work-grid .dsb .sp { display: none; }
+        #work-grid .dsb.loading .lab { display: none; }
+        #work-grid .dsb.loading .sp { display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(28,28,28,.18); border-top-color: #1C1C1C; border-radius: 50%; animation: spin .7s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* writing-agent chat graphic */
+        #work-grid .chatstage { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px; padding: 14px 22px; }
+        #work-grid .bub { max-width: 84%; font: 500 10px Inter, sans-serif; line-height: 1.4; padding: 7px 10px; border-radius: 11px; border-bottom-left-radius: 3px; opacity: 0; transform: translateY(4px); transition: opacity .3s, transform .3s; }
+        #work-grid .bub.draft { background: #f1f1ef; color: #8a8a88; align-self: flex-end; }
+        #work-grid .bub.fix { background: #f3f3f1; border: 1px solid #e4e4e2; color: #2b2b2b; white-space: nowrap; }
+        #work-grid .bub.show { opacity: 1; transform: none; }
+        #work-grid .slot { position: relative; min-height: 32px; }
+        #work-grid .slot .typing, #work-grid .slot .bub { position: absolute; top: 0; left: 0; }
+        #work-grid .typing { display: flex; gap: 3px; padding: 9px 11px; background: #f1f1ef; border-radius: 11px; border-bottom-left-radius: 3px; opacity: 0; transition: opacity .25s; }
+        #work-grid .typing.show { opacity: 1; }
+        #work-grid .typing i { width: 4px; height: 4px; border-radius: 50%; background: #b3b3b1; animation: bd 1s infinite; }
+        #work-grid .typing i:nth-child(2) { animation-delay: .15s; }
+        #work-grid .typing i:nth-child(3) { animation-delay: .3s; }
+        @keyframes bd { 0%,60%,100% { opacity: .35; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+        #work-grid .cw-tag { font: 600 8px Inter, sans-serif; letter-spacing: .4px; color: #292929; opacity: 0; transition: opacity .3s; }
+        #work-grid .cw-tag.show { opacity: 1; }
+
+        /* ===== Dark mode — work-card graphics ===== */
+        [data-theme="dark"] body.view-cards #work-grid .pc-media,
+        [data-theme="dark"] body.view-cards #work-grid .project-card:hover .pc-media { background: #1b1b1b; }
+        /* line-art graphics invert cleanly; hue-rotate keeps the accent blue */
+        [data-theme="dark"] #work-grid .pc-media svg { filter: invert(0.9) hue-rotate(180deg); }
+        /* hover CTA */
+        [data-theme="dark"] #work-grid .pc-cta { background: rgba(42,42,42,.96); color: #cfcfcf; border-color: #3a3a3a; }
+        [data-theme="dark"] #work-grid .pc-cta:hover { background: rgba(56,56,56,.96); }
+        /* button (real HTML component — themed, not inverted) */
+        [data-theme="dark"] #work-grid .dsb { background: #1b1b1b; color: #e8e8e8; border-color: #5a5a5a; }
+        [data-theme="dark"] #work-grid .dsb.hover, [data-theme="dark"] #work-grid .dsb.active { background: #2c2c2c; }
+        [data-theme="dark"] #work-grid .dsb.loading .sp { border-color: rgba(232,232,232,.22); border-top-color: #e8e8e8; }
+        /* writing-agent chat */
+        [data-theme="dark"] #work-grid .bub.draft, [data-theme="dark"] #work-grid .typing { background: #2a2a2a; color: #9a9a9a; }
+        [data-theme="dark"] #work-grid .bub.fix { background: #262626; border-color: #3a3a3a; color: #e2e2e2; }
+        [data-theme="dark"] #work-grid .typing i { background: #555; }
+        [data-theme="dark"] #work-grid .cw-tag { color: #d0d0d0; }
+        [data-theme="dark"] #work-grid .vl-draft { background: #2a2a2a; color: #9a9a9a; }
+        [data-theme="dark"] #work-grid .vl-row { background: #1f1f1f; border-color: #383838; }
+        [data-theme="dark"] #work-grid .vl-t { color: #cfcfcf; }
+        [data-theme="dark"] #work-grid .vl-star { color: #e8e8e8; }
+        [data-theme="dark"] #work-grid .vl-n { color: #666; }
+
         /* Modes */
         body.text-only .pc-media img,
         body.text-only .case-hero img,
@@ -977,6 +1092,22 @@
         body[data-view="case"] .cs-crumb-bar { display: flex; }
         body[data-view="cv"] #filter-bar, body[data-view="cv"] .cs-crumb-bar { display: none; }
 
+        /* Intro hero — overview only */
+        .hero-intro { padding: 42px var(--gutter) 28px; max-width: 780px; }
+        .hero-intro .hi { font-size: 14px; color: var(--fg-dim); margin-bottom: 14px; }
+        .hero-intro .lead { font-size: clamp(18px, 2.1vw, 23px); line-height: 1.5; font-weight: 400; letter-spacing: -0.005em; color: var(--fg); }
+        body[data-view="case"] .hero-intro, body[data-view="cv"] .hero-intro { display: none; }
+
+        /* subtle background wash (light mode only) */
+        #bg-shader { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        [data-theme="dark"] #bg-shader { display: none; }
+
+        /* language toggle */
+        .foot-right { display: inline-flex; align-items: center; gap: 12px; }
+        .lang-seg { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+        .lang-seg button { padding: 2px 7px; font-size: 11px; color: var(--fg-dim); line-height: 1.6; }
+        .lang-seg button.on { background: var(--fg); color: var(--bg); }
+
         /* case study: content column + sticky section nav pinned right */
         .cs-page { max-width: 860px; margin: 0 auto; padding: 14px 32px 140px; }
         .cs-content { min-width: 0; }
@@ -1050,6 +1181,7 @@
     </style>
 </head>
 <body class="view-cards">
+<canvas id="bg-shader" aria-hidden="true"></canvas>
 
 <canvas id="cursor-canvas"></canvas>
 
@@ -1097,6 +1229,12 @@
 <!-- ── Main content ── -->
 <main>
 
+    <!-- Intro hero — overview only -->
+    <section class="hero-intro">
+        <p class="hi" id="hero-hi">Hi — I'm Emily, a product designer based in Copenhagen.</p>
+        <p class="lead" id="hero-lead">I work across UI and design systems, with AI woven into how I work. Over the last few years I've driven a design system used by 15+ designers, built AI tooling that lets non-designers prototype safely within it, and rebuilt our foundations around accessibility.</p>
+    </section>
+
     <!-- Sub-bar: filter chips on the overview, swapped for a breadcrumb inside a project -->
     <div class="sub-bar">
         <div class="filter-bar" id="filter-bar">
@@ -1134,37 +1272,43 @@
                     <div class="project-card" onclick="showProject('proto')" data-tags="design-systems product ai">
                         <span class="pc-num">01</span>
                         <div class="pc-text"><div class="pc-title">AI prototyping, democratized</div><div class="pc-type">AI enablement</div></div>
-                        <div class="pc-media"><span class="pc-num-badge">01</span><img src="images/svg/thumb-proto.svg" alt="AI prototyping, democratized"></div>
+                        <div class="pc-media" aria-hidden="true"><svg viewBox="0 0 320 200"><rect x="60" y="86" width="110" height="30" rx="15" fill="#fff" class="ns"/><circle cx="78" cy="101" r="4" class="ac"/><rect x="90" y="98" width="56" height="6" rx="3" fill="#bcbcba"/><path d="M184 101h20" class="ns" stroke-width="1.5"/><path d="M202 96l8 5-8 5z" fill="#9E9E9E"/><rect x="222" y="72" width="56" height="58" rx="8" fill="#fff" class="ns"/><rect x="234" y="86" width="32" height="16" rx="4" class="acs gen g1"/><rect x="234" y="110" width="32" height="6" rx="3" fill="#bcbcba" class="gen g2"/></svg></div>
+                        <span class="pc-cta">View case</span>
                     </div>
 
                     <div class="project-card" onclick="showProject('aibuild')" data-tags="design-systems ai">
                         <span class="pc-num">02</span>
                         <div class="pc-text"><div class="pc-title">Designing a design system AI can build with</div><div class="pc-type">Design systems &middot; AI</div></div>
-                        <div class="pc-media"><span class="pc-num-badge">02</span><img src="images/svg/thumb-code.svg" alt="Design system AI can build with"></div>
+                        <div class="pc-media"><div class="btnstage"><button class="dsb">Cancel</button><button id="dsbtn" class="dsb"><span class="sp"></span><span class="lab">Save</span></button></div></div>
+                        <span class="pc-cta">View case</span>
                     </div>
 
                     <div class="project-card" onclick="showProject('tacodocs')" data-tags="design-systems content ai">
                         <span class="pc-num">03</span>
-                        <div class="pc-text"><div class="pc-title">taco-docs</div><div class="pc-type">Documentation</div></div>
-                        <div class="pc-media"><span class="pc-num-badge">03</span><img src="images/svg/thumb-docs.svg" alt="taco-docs — documentation as a system"></div>
+                        <div class="pc-text"><div class="pc-title">taco-docs — a living knowledge base</div><div class="pc-type">Documentation</div></div>
+                        <div class="pc-media" aria-hidden="true"><svg viewBox="0 0 320 200"><rect x="110" y="48" width="100" height="104" rx="9" fill="#fff" class="ns"/><rect x="126" y="66" width="50" height="8" rx="4" class="ac"/><rect x="126" y="84" width="68" height="6" rx="3" fill="#bcbcba"/><rect x="126" y="96" width="60" height="6" rx="3" fill="#dcdcda"/><rect x="126" y="108" width="64" height="6" rx="3" fill="#dcdcda"/><rect x="126" y="120" width="40" height="6" rx="3" fill="#dcdcda"/><circle cx="129" cy="139" r="3" fill="#dcdcda"/><circle cx="141" cy="139" r="3" fill="#dcdcda"/><circle cx="153" cy="139" r="3" class="ac"/></svg></div>
+                        <span class="pc-cta">View case</span>
                     </div>
 
                     <div class="project-card" onclick="showProject('collab')" data-tags="design-systems governance">
                         <span class="pc-num">04</span>
                         <div class="pc-text"><div class="pc-title">Designing how a design system collaborates</div><div class="pc-type">Design systems</div></div>
-                        <div class="pc-media"><span class="pc-num-badge">04</span><img src="images/svg/thumb-collab.svg" alt="Designing how a design system collaborates"></div>
+                        <div class="pc-media" aria-hidden="true"><svg viewBox="0 0 320 200"><rect x="30" y="80" width="56" height="40" rx="7" fill="#fff" class="ns"/><rect x="40" y="91" width="28" height="5" rx="2.5" fill="#bcbcba"/><rect x="40" y="101" width="20" height="5" rx="2.5" fill="#dcdcda"/><g class="flow"><path d="M86 100h28" class="ns" stroke-width="1.6"/><path d="M180 100h28" class="ns" stroke-width="1.6"/></g><path d="M110 95l8 5-8 5z" fill="#9E9E9E"/><path d="M204 95l8 5-8 5z" fill="#9E9E9E"/><rect x="120" y="80" width="56" height="40" rx="7" fill="#fff" class="ns acst"/><circle cx="136" cy="93" r="3" class="ac"/><rect x="146" y="90" width="20" height="5" rx="2.5" fill="#bcbcba"/><rect x="130" y="103" width="36" height="5" rx="2.5" fill="#dcdcda"/><rect x="214" y="80" width="56" height="40" rx="7" fill="#fff" class="ns"/><rect x="224" y="91" width="28" height="5" rx="2.5" fill="#bcbcba"/><rect x="224" y="101" width="20" height="5" rx="2.5" fill="#dcdcda"/></svg></div>
+                        <span class="pc-cta">View case</span>
                     </div>
 
                     <div class="project-card" onclick="showProject('language')" data-tags="design-systems content">
                         <span class="pc-num">05</span>
                         <div class="pc-text"><div class="pc-title">Systematising product language</div><div class="pc-type">Content design</div></div>
-                        <div class="pc-media"><span class="pc-num-badge">05</span><img src="images/svg/thumb-language.svg" alt="Systematising product language"></div>
+                        <div class="pc-media"><div class="vlist"><div class="vl-draft">&ldquo;Error 403: Access denied&rdquo;</div><div class="vl-row best r1"><span class="vl-star">★</span><span class="vl-t">You don&rsquo;t have access to this page</span></div><div class="vl-row r2"><span class="vl-n">2</span><span class="vl-t">This page isn&rsquo;t available</span></div><div class="vl-row r3"><span class="vl-n">3</span><span class="vl-t">Access is restricted</span></div></div></div>
+                        <span class="pc-cta">View case</span>
                     </div>
 
                     <div class="project-card" onclick="showProject('foundations')" data-tags="design-systems tokens">
                         <span class="pc-num">06</span>
                         <div class="pc-text"><div class="pc-title">Building foundational stability</div><div class="pc-type">Foundations &amp; tokens</div></div>
-                        <div class="pc-media"><span class="pc-num-badge">06</span><img src="images/svg/thumb-button.svg" alt="Button component"></div>
+                        <div class="pc-media" aria-hidden="true"><svg viewBox="0 0 320 200"><g class="chip c1"><rect x="62" y="74" width="46" height="46" rx="13" fill="#fff" class="ns"/><circle cx="85" cy="97" r="11" class="ac"/></g><g class="chip c2"><rect x="137" y="74" width="46" height="46" rx="13" fill="#fff" class="ns"/><text x="160" y="103" text-anchor="middle" class="glbl">Aa</text></g><g class="chip c3"><rect x="212" y="74" width="46" height="46" rx="13" fill="#fff" class="ns"/><path d="M224 97h22" class="ns" stroke-width="1.6"/><path d="M224 92v10M246 92v10" class="ns" stroke-width="1.6"/></g><text x="85" y="135" text-anchor="middle" class="tn2">colour</text><text x="160" y="135" text-anchor="middle" class="tn2">type</text><text x="235" y="135" text-anchor="middle" class="tn2">space</text></svg></div>
+                        <span class="pc-cta">View case</span>
                     </div>
 
                 </div><!-- /work-grid -->
@@ -1235,7 +1379,7 @@
 
                     <a class="cv-download-btn" href="images/CV_emilyhl.pdf" target="_blank">
                         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v9m0 0l-3-3m3 3l3-3M3 13h10"/></svg>
-                        View / Download CV
+                        <span class="cv-dl-txt">View / Download CV</span>
                     </a>
                 </div>
 
@@ -1449,7 +1593,7 @@
         <a href="mailto:emilyhowkinslange@gmail.com">emilyhowkinslange@gmail.com</a>
         <span style="margin-left:14px;"><a href="https://linkedin.com/in/emily-howkins-lange" target="_blank">LinkedIn</a></span>
     </div>
-    <div>Copenhagen · 2026</div>
+    <div class="foot-right"><span id="foot-city">Copenhagen · 2026</span><span class="lang-seg" role="group" aria-label="Language"><button type="button" data-l="en" onclick="setLang('en')">EN</button><button type="button" data-l="da" onclick="setLang('da')">DA</button></span></div>
 </footer>
 
 <!-- ── Lightbox ── -->
@@ -1482,8 +1626,161 @@ function showView(name) {
 function csPad(n){ return n < 10 ? ('0' + n) : ('' + n); }
 function csParas(body){ return String(body).split('\n\n').map(function(t){ return '<p>' + esc(t) + '</p>'; }).join(''); }
 
+var PROJECTS_DA = {
+  proto: {
+    type:'AI-enablement · Design operations',
+    title:'AI-prototyping, demokratiseret',
+    valueLine:'Forvandlede prototyping fra en ugelang specialistopgave til noget, alle kan gøre på en eftermiddag — med den operating model og platform, der får det til at holde.',
+    lede:'At teste en idé med kunder plejede at tage uger — briefe en designer, bygge en prototype, vente på rettelser. Målet var at skære det ned til timer og lægge evnen i hænderne på alle med en idé værd at teste. Som del af et lille AI-enablement-team stod jeg primært for, hvordan organisationen bygger med design og AI: operating model, platform og adoption.',
+    meta:[['År','2025–nu'],['Virksomhed','Visma e-conomic'],['Rolle','Design operations & AI-enablement'],['Omfang','Operating model, Værktøj, Adoption']],
+    sections:[
+      {label:'Kontekst',head:'Gode idéer sad fast bag prisen for at gøre dem virkelige',body:'Prototyping var langsom, specialiseret og lå hos få mennesker, så de fleste koncepter nåede aldrig en kunde, før de blev sendt i produktion. AI gjorde hurtige, testbare artefakter mulige på ingen tid — men muligt er ikke det samme som indført. Uden struktur ville det forblive nogle få, der laver imponerende demoer, ikke en evne, organisationen kunne læne sig op ad.'},
+      {label:'Sådan virker det',head:'Flowet, designet som et system',body:'Teamet satte sig for at gøre AI-prototyping pålidelig, ikke bare imponerende. Min del er den operating model og platform, der får det indført: et toolkit af Claude Code-skills, der tager en person fra prompt til en fungerende, on-brand prototype bygget på det rigtige designsystem — de rigtige komponenter, mønstre og tekst, ikke generisk UI.'},
+      {label:'Governance & adoption',head:'At få det til at lande i hverdagen',body:'Et feedback-loop er bygget ind i værktøjet: hver session reflekterer over, hvad der virkede, og det føder forbedringer tilbage i vores skills, så systemet bliver bedre, jo mere det bruges. Det er en lille teamindsats — en kollega står for designsystem-kvaliteten, andre for mobil-sporet og mønsterbiblioteket — mens jeg driver operating model, platform og den adoption, der får det brugt.'},
+      {label:'AI-workflowet',head:'AI, vævet ind i processen — ikke sat ovenpå',body:'Hele systemet behandler AI som et arbejdsmateriale. Delene, der gør det pålideligt:'},
+      {label:'Effekt',head:'En evne hele organisationen kan læne sig op ad',body:'Prototyping er ved at blive noget, en produktchef, analytiker eller designer selv kan gøre på en eftermiddag, op mod det rigtige produkt. De manglende brikker — kvalitet i output, hosting i ét trin, en måde at holde værktøjet i konstant forbedring — er på plads og i reel brug, med voksende adoption mod en base af folk, der bruger det uden mig i rummet.\n\nDet udvider, hvad designsystemet rækker ud til: ikke bare komponenter i produktion, men et fundament, hele organisationen bygger og lærer på hurtigere.'}
+    ],
+    reflection:'“At demokratisere en evne er sit eget designproblem. Det svære er ikke demoen — det er operating model, defaults og den adoption, der lader en hel organisation læne sig op ad den.”'
+  },
+  aibuild: {
+    type:'Designsystemer · AI',
+    title:'Et designsystem, AI kan bygge med',
+    valueLine:'Gjorde vores designsystem læsbart for AI — så designere går fra en Figma-fil til system-korrekt kode, og prototyper er on-brand som standard.',
+    lede:'AI-værktøjer bygger kun så godt som systemet under dem. Vi havde set AI generere plausibel-men-forkert UI — rigtig stemning, forkerte komponenter, opfundne styles — og flaskehalsen var ikke modellen. Det var, at designsystemet ikke var læsbart for en maskine. Så “kan en LLM bygge korrekt med det her?” blev en designbegrænsning på selve systemet.',
+    meta:[['År','2025–nu'],['Virksomhed','Visma e-conomic'],['Rolle','Produktdesigner, Designsystemer'],['Omfang','Design tokens, Code Connect, AI-værktøj']],
+    sections:[
+      {label:'Kontekst',head:'AI bygger kun så godt som systemet under det',body:'Et designsystem er som regel dokumenteret for mennesker — en Storybook her, et Figma-bibliotek der, viden i folks hoveder. Peg et AI-værktøj på det, og det gætter: den forkerte komponent, en hardkodet farve, et mønster genopfundet fra bunden. Hvert forkert gæt er designgæld. For at AI kan være til at stole på, skal systemet gøre det rigtige valg til det oplagte — i en form, en model faktisk kan læse.'},
+      {label:'Hvad jeg gjorde',head:'Fra menneskelæsbart til maskinbygbart',body:'Jeg var med til at skubbe systemet fra menneskelæsbart til maskinbygbart og var en tidlig stemme for at forbinde Figma direkte til kode — at udforske, hvordan en fil kunne læses via API/MCP til system-korrekt output, hvilket teamet omsatte til Code Connect og en Figma MCP-opsætning for hver designer.'},
+      {label:'Begrænsningerne, der hjælper',head:'Forudsigeligt — og tilgængeligt — by design',body:'Fundamentet, der gør AI-output forudsigeligt, kom sideløbende: en ren token-arkitektur og navngivning, og en bevidst filosofi om ingen vilkårlige style-overrides, så der er én korrekt måde at bygge en ting på — præcis hvad en model har brug for. Fordi komponenter ikke kan re-styles ad hoc, arver alt, hvad AI genererer, systemets tilgængelighed — WCAG AA, semantisk HTML — som standard. Vi flyttede også kilden til sandhed mod formater, AI læser nativt: typer læses direkte fra den installerede pakke, så vejledning ikke kan drive væk fra koden.'},
+      {label:'Effekt',head:'Én kilde til sandhed — bygget med, ikke udenom',body:'De begrænsninger, der gør et designsystem godt for mennesker — konsistens, klar navngivning, ingen særtilfælde — viser sig at være præcis det, der gør det brugbart for AI. Designere går fra en Figma-fil til system-korrekt kode, prototyper er hurtigere og on-brand som standard, og systemet er blevet den ene kilde til sandhed, AI-værktøjer bygger med frem for udenom.'}
+    ],
+    reflection:'“Det mest fremtidssikre ved et designsystem er ikke komponenterne — det er, om det næste værktøj, menneske eller maskine, kan bygge med det uden at gætte.”'
+  },
+  tacodocs: {
+    type:'Designsystemer · Dokumentation',
+    valueLine:'Erstattede forældede, spredte dokumenter med én versionsstyret vidensbase, der betjener designere, udviklere og AI-værktøjer fra én kilde.',
+    lede:'Designsystem-dokumentation forældes i samme øjeblik, den skrives — et ekstra sted at vedligeholde, der stille driver ud af sync med koden. taco-docs løser det ved roden: én versionsstyret vidensbase, der bor ved siden af koden, betjener designere og udviklere og samtidig fungerer som den kontekst, AI-værktøjer læser. Jeg lavede pakken og dens skema.',
+    meta:[['År','2025–nu'],['Virksomhed','Visma e-conomic'],['Rolle','Produktdesigner, Designsystemer'],['Omfang','Dokumentationsarkitektur, Vidensbase, AI-kontekst']],
+    sections:[
+      {label:'Kontekst',head:'Dokumenter, der driver ud i det øjeblik de skrives',body:'Brugsdokumentation lå i et værktøj tænkt til, at udviklere kunne teste komponenter, og at skrive den var en tilbagevendende efter-release-pligt, ingen ejede ende til ende. Hvordan man bruger en komponent godt — dens tilgængelighedsadfærd, dens faldgruber, hvornår man ikke skal gribe til den — var spredt eller tavs viden. Og med AI-værktøjer, der nu bygger med systemet, var der ingen kanonisk, maskinlæsbar kilde til noget af det.'},
+      {label:'Hvad jeg gjorde',head:'En vidensbase, der bor ved siden af koden',body:'Jeg lavede en ny pakke inde i designsystemets monorepo som hjem for komponentviden — struktureret markdown, der bor ved siden af den kode, den beskriver, så dokumentation og implementering bevæger sig sammen. Jeg designede skemaet for, hvad der fanges per komponent — designvejledning, tilgængelighed, adfærd, kendte begrænsninger, implementeringsnoter — plus fundament og UI-mønstre, og en indgang, der sender enhver læser, menneske eller AI, det rigtige sted hen. Jeg skrev de første vidensfiler for at bevise modellen.'},
+      {label:'I udviklingens grain',head:'At bidrage gennem processen, ikke over hækken',body:'At gøre det betød at arbejde inde i udviklings-workflowet — committe, reviewe og sende PR’er sammen med udviklerne — og det er en retning, designsystem-teamet nu bygger videre på sammen. Tilgængelighed er et førsteklasses felt per komponent, så a11y-vejledning rejser med komponenten frem for at bo i et separat audit, der forældes.'},
+      {label:'Effekt',head:'Én kilde til sandhed, der ikke driver',body:'Dokumentation blev én kilde til sandhed i stedet for en ekstra ting at vedligeholde: kanonisk, versionsstyret, umulig at drive væk fra koden. Den betjener to målgrupper fra ét sted — folk, der læser for at lære, og AI-værktøjer, der læser for kontekst — og lægger grunden til et dokumentationssite genereret fra de samme filer.'}
+    ],
+    reflection:'“Den bedste dokumentation er ikke et sted, man besøger — det er et system, der vedligeholder sig selv, bor dér hvor arbejdet sker, og betjener hvem (eller hvad) der end skal læse det.”'
+  },
+  collab: {
+    type:'Designsystemer',
+    title:'Sådan samarbejder et designsystem',
+    valueLine:'Repositionerede designsystemet fra en UI-bestillingsskranke til en partner, der former, hvordan designbeslutninger skalerer på tværs af 15+ designere og udviklere.',
+    lede:'Da organisationen voksede, kæmpede designsystemet med at følge med. Flere teams sendte i produktion, leveringspresset steg — men systemet manglede strukturerne til at understøtte den vækst. Jeg så det strukturelle hul og ledte initiativet fra research til implementering i tæt samarbejde med designsystem- og UX-teamet.',
+    meta:[['År','2025–nu'],['Virksomhed','Visma e-conomic'],['Rolle','Produktdesigner, Designsystemer'],['Omfang','Governance, Procesdesign, Interessenthåndtering']],
+    sections:[
+      {label:'Kontekst',head:'Ikke et komponentproblem — et organisatorisk',body:'Der var ingen fælles forståelse af, hvad designsystem-teamet var ansvarligt for — eller hvordan andre teams skulle arbejde med det. Forespørgsler kom ind uformelt, prioriteter var uklare, og teamet var strakt mellem reaktiv support og proaktivt systemarbejde. Det var ikke et komponentproblem. Det var et organisatorisk designproblem.'},
+      {label:'At gentænke rollen',head:'Fra bestillingsskranke til partner',body:'Omformuleringen gik fra et team, der sender UI, til en partner, der former, hvordan designbeslutninger skalerer. Jeg kortlagde hele livscyklussen for, hvordan arbejde flyder mellem produktteams og DS-teamet — problemafdækning → koncept → validering → implementering → release & adoption — og byggede en formel model for indtag og prioritering. Et spørgsmål, modellen besvarer for hver forespørgsel: bliver det en lokal ændring for ét team, eller forplanter det sig tilbage i kernesystemet, alle deler?'},
+      {label:'At bygge rytmerne',head:'Design Labs og fælles ejerskab',body:'Sammen med teamet indførte vi Design Labs — en månedlig tværfaglig session til deep-dives og samarbejde mellem DS og UX — og definerede kvalitetsgates, review-touchpoints og en fælles formålserklæring gennem workshops. Arbejdet rækker også ud over produktorganisationen: systemets farve- og brandbeslutninger træffes sammen med Marketing og Brand.'},
+      {label:'At designe til alle',head:'Tilgængelighed som fælles standard',body:'Tilgængelighed løber gennem samarbejdet, ikke efter det. Jeg gennemførte et tilgængelighedsinterview med en blind bruger og delte det på en Department Briefing — og gjorde levet erfaring til fælles teamforståelse — og systemet håndhæver WCAG AA, så inklusion er standarden, ikke et tjek til sidst.'},
+      {label:'Effekt',head:'Bindevæv på tværs af organisationen',body:'Indkommende behov blev synlige og prioriterbare. Interessent-loops blev lukket. Designsystemet blev repositioneret fra et sted at bestille UI til en partner, der guider beslutninger, og Design Labs blev en tilbagevendende rytme, der byggede tillid på tværs af 15+ designere og udviklere. Den rolle, jeg er vokset ind i, er mindre “personen, der laver komponenterne” og mere bindevævet mellem design, udvikling og den bredere produktorganisation.'}
+    ],
+    reflection:'“Et designsystem er mere end et komponent-team. Det skal støtte, tale sagen og samarbejde. Designsystemer skalerer gennem tillid og fælles ejerskab.”'
+  },
+  language: {
+    type:'Indholdsdesign',
+    title:'Systematisering af produktsprog',
+    valueLine:'Gav et hurtigt-internationaliserende produkt en fælles stemme — og gjorde derefter guidelines til en Writing Agent, der lægger on-brand tekst direkte i designerens workflow.',
+    lede:'Mens design modnedes, forblev sproget ustruktureret — ingen content designere, intet fælles skriveejerskab. Designere skrev UI-tekst i isolation, og da produktet blev mere internationalt, viste inkonsistenserne sig. Jeg så hullet, byggede argumentet internt og ledte indsatsen — mens jeg lærte mig content design undervejs.',
+    meta:[['År','2024–nu'],['Virksomhed','Visma e-conomic'],['Rolle','Produktdesigner, Designsystemer'],['Omfang','Indholdsdesign, UX-writing, Tværgående alignment']],
+    sections:[
+      {label:'Kontekst',head:'Et produkt uden et fælles ordforråd',body:'Det samme begreb kunne optræde under tre labels på tværs af features. Oversættelser drev. Designere traf tekstbeslutninger alene, uden vejledning til tone, beskedtyper eller fejlhåndtering. Opvokset tosproget og datter af en teknisk skribent havde jeg et skarpt øje for, hvor sproget svigtede.'},
+      {label:'Hvad jeg gjorde',head:'Sprog som en strukturel byggesten',body:'Jeg gennemførte en UX-writing-undersøgelse på tværs af designteamet for at kortlægge selvtillid, smertepunkter og nuværende praksis, og brugte den til at bygge et content-guidelines-system: skrivefundament, definitioner af beskedtyper og microcopy-mønstre til tooltips, knapper, felter, tomme tilstande og fejl. Ved siden af: et levende EN/DA-microcopy-glossar med foretrukne oversættelser og termer at undgå — alt integreret i designerens Figma-workflow frem for parkeret i et dokument. Konsistent, enkel microcopy er ikke bare ordentlig: den sænker den kognitive belastning for brugere under pres, ældre brugere og ikke-modersmålstalende.'},
+      {label:'Fra guidelines til et værktøj',head:'Et skrivesystem, der arbejder ved siden af dig',body:'Guidelines forblev ikke et dokument. Jeg byggede dem ind i en Product Writing Agent — en Claude-skill, der genererer og reviewer microcopy mod produktets stemme, forankret i glossaret og mønstrene. I stedet for at læse reglerne får du tekst, der allerede følger dem, med begrundelsen vedhæftet.'},
+      {label:'Effekt',head:'Skrivning blev en fælles disciplin',body:'En brand-writing-gruppe opstod organisk. Konsistent terminologi sænkede den kognitive belastning for både brugere og oversættere. Guidelines bevægede sig fra “idéer, ikke defineret” til itereret, testet og indført — med en køreplan mod governance og måling af effekt.'}
+    ],
+    reflection:'“Jeg tog det på mig at lukke et hul, ingen andre holdt øje med. Det er det arbejde, jeg finder mest meningsfuldt — at finde det, der stille går i stykker, og bygge strukturen, der fikser det.”'
+  },
+  foundations: {
+    type:'Fundament & tokens',
+    title:'Et stabilt fundament',
+    valueLine:'Genopbyggede systemets fundament — spacing-, type- og farve-tokens — så teams bevæger sig hurtigere uden at oplevelsen fragmenterer.',
+    lede:'Over tre år mere end fordobledes designteamet. Adoptionen var allerede høj — men uden fundamental vejledning fragmenterede brugen: mønstre divergerede, layout-logik varierede. Vi måtte gentænke, hvordan fremskridt så ud: at arbejde langsomt var ikke forsinkelse, det var forberedelse til at bevæge sig hurtigere senere.',
+    meta:[['År','2025–nu'],['Virksomhed','Visma e-conomic'],['Rolle','Produktdesigner, Designsystemer'],['Omfang','Fundament, Design tokens, Typografi, Spacing, Dokumentation']],
+    sections:[
+      {label:'Kontekst',head:'Høj adoption, vakkelvornt fundament',body:'Det eksisterende designsystem havde ingen spacing-tokens. Typografi var bundet til HTML-overskriftsniveauer (H1–H6), et rigidt hierarki, der ikke matchede reelle designbehov. Farvevariabler fandtes, men navngivningen var inkonsistent. Komponenter blev brugt bredt, men fundamentet under dem var vakkelvornt — hvilket førte til divergerende implementeringer på tværs af teams.'},
+      {label:'Hvad jeg gjorde',head:'Et token-system fra atomerne og op',body:'Det startede med et grundigt komponent-audit — hvad fandtes, hvad var inkonsistent, hvad manglede. Derfra et nyt token-system bygget fra atomerne og op: spacing-tokens med klar semantisk brug, en typeskala med t-shirt-størrelser i stedet for overskriftsniveauer, forenklede farveskalaer og raffineret border- og radius-logik. Jeg publicerede variablerne i Figma med dokumentation, kørte onboarding-workshops og skrev en dokumentationsside for hvert fundament. At afkoble typeskalaen fra HTML-overskrifter var lige så meget et tilgængelighedstræk som et visuelt: udviklere beholder semantisk, korrekt rangordnet overskrifts-markup, mens det visuelle hierarki skalerer uafhængigt — og de samme tokens lader layouts tilpasse sig rent på tværs af meget forskellige skærmstørrelser.'},
+      {label:'Farve, bygget på APCA',head:'At fremtidssikre kontrast',body:'Vi co-designede et nyt farvesystem på APCA — den perceptuelle kontrastmetode på vej i WCAG 3 — og tog det til os proaktivt for at fremtidssikre, ikke fordi det var lovpligtigt. Bygget med Brand og Marketing, præsenteret ved et company town hall og rullet ud på tværs af produktet er det et farvefundament, der holder til, hvor tilgængelighedsstandarder er på vej hen, ikke bare hvor de er.'},
+      {label:'Ned til komponenten',head:'Samme grundighed, på komponentniveau',body:'Samme grundighed gjaldt på komponentniveau. Jeg omarbejdede Button — den mest brugte komponent — fra variant- og tilstandsmatricen og op: justerede ikonets bounding-box til tekstens line-height, hævede border-kontrasten, tilføjede en hover-baggrund, hvor border alene var for subtil, matchede tekstfarve til hvert semantisk lag, fjernede en variant, hvis use case ikke kunne dokumenteres rent, og mappede hver tilstand til de nye farve-tokens. Hver beslutning er noteret med sin begrundelse — så komponenten ikke bare er konsistent, den er forklarlig.'},
+      {label:'Effekt',head:'En baseline, der lader teams bevæge sig hurtigere',body:'Større konsistens på tværs af teams. Mindre layout-divergens. Hurtigere onboarding for nye designere. Pakke-releases — holistiske opdateringer, der bundter layout, spacing, typografi og komponenter — erstattede ad hoc-ændringer. En stærkere baseline, der lader teamet bevæge sig hurtigere uden at fragmentere oplevelsen.'}
+    ],
+    reflection:'“Målet var ikke ensartethed. Det var forudsigelighed — at gøre teams i stand til at bevæge sig hurtigere uden at fragmentere oplevelsen.”'
+  },
+  'pg-thesis': {
+    type:'UX-research',
+    title:'Design til lavt selvværd',
+    company:'Speciale · IT-Universitetet i København · 2021',
+    meta:[['År','2021'],['Kontekst','IT-Universitetet i København'],['Med','Anne Katrine Svejgaard Barrett'],['Omfang','UX-research, Speculative design']],
+    lede:'Hvordan former digitale produkter unge kvinders selvværd — og kunne intentionelt design i stedet understøtte det? Vi designede et cultural-probe-kit for at finde ud af det.',
+    sections:[
+      {label:'Processen',body:'Vi byggede et fysisk probe-kit — med øgenavnet “f**k-lavt-selvværd-jeg-er-fantastisk-kittet” — og sendte det til unge kvinder i et fireugers studie. Kittet indeholdt et sæt opgavekort (mindfulness, selvomsorg og refleksion), en humørdagbog til daglig tracking, en refleksionsdagbog med guidede spørgsmål, en krukke med komplimenter og et stetoskop til en hjerteslag-lytteøvelse. Hvert materiale var designet med hensigt: kortene brugte to principper (at se indad gennem mindfulness eller udad gennem relationer), humørdagbogen koblede skærmtid med følelsestilstand, og refleksionsguiden opfordrede deltagerne til at bearbejde deres oplevelser med deres egne ord.'},
+      {label:'Hvad der opstod',body:'Probe-dataene afslørede mønstre, vi ikke havde forudset — forholdet mellem skærmtid og humør var mere nuanceret end ventet, og de stærkeste øjeblikke kom fra de simpleste opgaver. Projektet endte med fem speculative-design-forslag: apps, der omformulerer social feedback, ambiente objekter, der afspejler følelsestilstand, og et lampe-som-interface-koncept, der eksternaliserer humør uden en skærm. Hvert forslag var designet som en provokation, ikke et produktpitch — et spørgsmål om, hvad digitale produkter kunne være, hvis selvværd var en designbegrænsning.'}
+    ]
+  },
+  'pg-portable': {
+    type:'Produktdesign',
+    company:'Personligt projekt · 2021',
+    meta:[['År','2021'],['Kontekst','Personligt projekt'],['Omfang','Produktdesign, Fysisk design']],
+    lede:'Et bærbart, transparent spil designet til menneskelig forbindelse. Bygget til generationen, der flytter sig — virker i ethvert rum, med enhver gruppe, når som helst.',
+    sections:[
+      {label:'Hvad det udforsker',body:'Portable er et fysisk spil, der undersøger, hvordan vi forbinder os, når skærme ikke er involveret. Præmissen er enkel: et sæt transparente akrylkort med trykte prompts, pakket lille nok til at passe i en frakkelomme. Transparensen er bevidst — man kan se gennem en medspillers kort, hvilket bliver en metafor for den sårbarhed, spillet beder om.'},
+      {label:'Sådan blev det lavet',body:'Spillet blev designet, prototypet og produceret i hånden. Kortene blev laserskåret af klar akryl og screentrykt med custom grafik. Emballagen var designet til at være lige så gennemtænkt som spillet selv — kompakt, taktil og indbydende. Flere runder af playtesting formede det endelige sæt af prompts og balancerede lethed med dybde.'}
+    ]
+  },
+  'pg-fanfare': {
+    type:'Udstilling',
+    title:'Typografisk køkken',
+    company:'Fanfare, Amsterdam · 2021',
+    meta:[['År','2021'],['Med','Fanfare, Amsterdam'],['Omfang','Typografi, Udstilling, Tryk']],
+    lede:'En custom display-skrifttype designet i samarbejde med Fanfare, et grafisk designbureau i Amsterdam. Bogstavformerne blev udforsket rumligt — udstillet som fysiske objekter og trykte artefakter.',
+    sections:[
+      {label:'Hvad det udforsker',body:'Projektet startede med et spørgsmål: hvad sker der, når man behandler bogstaver som rumlige objekter frem for flade symboler? Sammen med Fanfare udviklede vi en display-skrifttype fra bunden — ikke bare som en digital fontfil, men som et sæt former, der kunne eksistere fysisk. Hvert tegn var designet til at bære sin egen vægt i rummet, læsbart fra flere vinkler og afstande.'},
+      {label:'Udstillingen',body:'Skrifttypen blev udstillet på Krabbesholm Højskole i en specialbygget installation. Bogstaver blev trykt, skåret og arrangeret i en glasmontre — og skabte et “typografisk køkken”, hvor besøgende kunne se anatomien af hvert glyph på tæt hold. Udstillingen kombinerede letterpress-tryk, screentrykte plakater og den rumlige installation og viste skrifttypen i enhver skala fra intim til arkitektonisk.'}
+    ]
+  },
+  'pg-tune': {
+    type:'Grafisk design',
+    company:'Krabbesholm Højskole · 2022',
+    meta:[['År','2022'],['Kontekst','Krabbesholm Højskole'],['Omfang','Editorial design, Tryk, Fotografi']],
+    lede:'En 16-siders trykt publikation, hvor hvert opslag er en visuel oversættelse af en yndlingssang — ikke illustration, men atmosfære.',
+    sections:[
+      {label:'Hvad det udforsker',body:'Tune behandler musik som et designbrief. Tretten sange spændende over fire årtier blev udgangspunktet for tretten opslag, hver med sit eget visuelle sprog. Begrænsningen: hvert design skulle være rodfæstet i digitale interfaces æstetik — gamle styresystemer, systemfonte, dialogbokse, loading-bjælker — oversat tilbage til blæk på papir. Resultatet ligger et sted mellem nostalgi og glitch.'},
+      {label:'Sådan blev det lavet',body:'Forsiden og flere indvendige billeder startede som filmfotografier — skudt på analoge kameraer, fremkaldt i mørkekammer og derefter scannet og digitaliseret til layoutet. Opslagene blev designet i InDesign og Illustrator og kombinerede de scannede filmbilleder med system-typografi og genskabte UI-elementer. Pjecen blev trykt, hæftet og håndfinishet.'}
+    ]
+  },
+  'pg-flow': {
+    type:'Kreativ bog',
+    company:'Personligt projekt · 2021',
+    meta:[['År','2021'],['Kontekst','Personligt projekt'],['Omfang','Bogdesign, Editorial, Collage']],
+    lede:'En kreativ bog, der gør jobsøgnings-afslag til visuelt materiale. Hvert opslag parrer en rigtig afslags-mail med et renæssancemaleri — klassisk værdighed møder moderne skuffelse.',
+    sections:[
+      {label:'Hvad det udforsker',body:'Flow dokumenterer ritualet med at ansøge, vente og blive afvist. Hvert opslag lægger et Apple Mail-vindue over et renæssance-mesterværk — de samme høflige afslutninger, den samme professionelle tone, det samme udfald. Sammenstillingen er bevidst: afslagets formalitet spejler maleriets formalitet, og gentagelsen på tværs af opslag gør mønsteret umuligt at overse.'},
+      {label:'Hvorfor den findes',body:'Bogen startede som en mestringsstrategi og blev til en kommentar. Efter dusinvis af afslag under en jobsøgning begyndte mailene at flyde sammen. At samle dem blev en tvang, og at parre dem med historiske malerier gav dem en vægt, de ikke fortjente alene. Bogen spørger: hvad betyder det, når afslag er så poleret, så templated, så smukt?'}
+    ]
+  }
+};
+function L(id){
+    var p = PROJECTS[id]; if (!p) return p;
+    var l = window.CUR_LANG || 'en';
+    if (l !== 'da' || typeof PROJECTS_DA === 'undefined' || !PROJECTS_DA[id]) return p;
+    var d = PROJECTS_DA[id], m = {}; for (var k in p) m[k] = p[k];
+    for (var k2 in d) { if (k2 !== 'sections') m[k2] = d[k2]; }
+    if (d.sections) m.sections = (p.sections || []).map(function(s, i){
+        var o = {}; for (var sk in s) o[sk] = s[sk];
+        var ds = d.sections[i]; if (ds) for (var dk in ds) o[dk] = ds[dk];
+        return o;
+    });
+    return m;
+}
 function renderCase(id){
-    var p = PROJECTS[id]; if (!p) return;
+    var p = L(id); if (!p) return; window._curCase = id;
     var secs = p.sections || [];
     var h = '<div class="cs-page">';
     // hero
@@ -1510,7 +1807,7 @@ function renderCase(id){
         h += '</section>';
     });
     if (p.reflection) h += '<div class="cs-reflection"><blockquote>' + esc(p.reflection.replace(/^[“"\s]+/, '').replace(/[”"\s]+$/, '')) + '</blockquote></div>';
-    h += '<div class="cs-pagenav"><a onclick="backToWork()">← Work</a>';
+    h += '<div class="cs-pagenav"><a onclick="backToWork()">' + (window.CUR_LANG === 'da' ? '← Arbejde' : '← Work') + '</a>';
     if (p.next) h += '<a onclick="showProject(\'' + p.next + '\')">Next — ' + esc(p.nextLabel || '') + ' →</a>';
     h += '</div></div>';
     var sidenav = '<nav class="cs-sidenav" aria-label="Sections">';
@@ -1519,7 +1816,7 @@ function renderCase(id){
 
     // breadcrumb swaps into the sub-bar (the filter-row slot)
     document.getElementById('cs-crumb-bar').innerHTML =
-        '<div class="crumb-line"><a onclick="backToWork()">← Projects</a><span class="sep">/</span>' + esc(p.title) + '</div>';
+        '<div class="crumb-line"><a onclick="backToWork()">' + (window.CUR_LANG === 'da' ? '← Projekter' : '← Projects') + '</a><span class="sep">/</span>' + esc(p.title) + '</div>';
 
     // content column + right-pinned section nav
     var inner = h.replace(/^<div class="cs-page">/, '').replace(/<\/div>\s*$/, '');
@@ -1816,10 +2113,11 @@ function esc(s) {
 var CASE_IDS = ['proto','aibuild','tacodocs','collab','language','foundations'];
 
 function showProject(id) {
-    var p = PROJECTS[id];
+    var p = L(id);
     if (!p) return;
 
     if (CASE_IDS.indexOf(id) !== -1) { renderCase(id); return; }
+    window._curOverlay = id;
 
     // Password gate for work projects (01–03) — once per session
     var GATED = []; // projects are public — no password gate
@@ -2261,6 +2559,15 @@ function setView(v) {
     if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(function() { fitName(); onScroll(); });
     }
+
+    // Keep the spacer matched to the header's REAL height after late layout
+    // shifts (web-font swap, image loads). Without this the fixed header clips
+    // the top of the content on first load until a manual refresh.
+    if (window.ResizeObserver) {
+        var hdrEl = document.querySelector('header');
+        if (hdrEl) new ResizeObserver(function() { onScroll(); }).observe(hdrEl);
+    }
+    window.addEventListener('load', function() { cacheBarHeight(); onScroll(); });
 })();
 
 /* ── Soft brush (press-and-hold) — disabled on touch devices ── */
@@ -2384,5 +2691,132 @@ document.querySelectorAll('.project-gallery').forEach(gallery => {
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
 
+<script>
+/* Work-card graphics — animate on hover only */
+(function(){
+  var b = document.getElementById('dsbtn');
+  if (b) {
+    var card = b.closest('.project-card'), lab = b.querySelector('.lab'), t = null, i = 0;
+    var seq = [{c:'',t:'Save',d:1600},{c:'hover',t:'Save',d:900},{c:'active',t:'Save',d:420},{c:'loading',t:'',d:1500},{c:'',t:'Saved',d:1500},{c:'disabled',t:'Save',d:1200}];
+    function step(){ var s = seq[i]; b.className = 'dsb ' + s.c; lab.textContent = s.t; i = (i+1) % seq.length; t = setTimeout(step, s.d); }
+    card.addEventListener('mouseenter', function(){ if (!document.body.classList.contains('view-cards')) return; i = 0; clearTimeout(t); step(); });
+    card.addEventListener('mouseleave', function(){ clearTimeout(t); b.className = 'dsb'; lab.textContent = 'Save'; });
+  }
+  var d = document.getElementById('cw-draft');
+  if (d) {
+    var ccard = d.closest('.project-card'), ty = document.getElementById('cw-typing'), f = document.getElementById('cw-fix'), tg = document.getElementById('cw-tag'), ts = [];
+    function clr(){ ts.forEach(clearTimeout); ts = []; d.classList.remove('show'); ty.classList.remove('show'); f.classList.remove('show'); tg.classList.remove('show'); }
+    function idle(){ ts.forEach(clearTimeout); ts = []; ty.classList.remove('show'); d.classList.add('show'); f.classList.add('show'); tg.classList.add('show'); }
+    function run(){ clr();
+      ts.push(setTimeout(function(){ d.classList.add('show'); }, 300));
+      ts.push(setTimeout(function(){ ty.classList.add('show'); }, 1100));
+      ts.push(setTimeout(function(){ ty.classList.remove('show'); f.classList.add('show'); }, 2400));
+      ts.push(setTimeout(function(){ tg.classList.add('show'); }, 2800));
+      ts.push(setTimeout(run, 5800));
+    }
+    ccard.addEventListener('mouseenter', function(){ if (document.body.classList.contains('view-cards')) run(); });
+    ccard.addEventListener('mouseleave', idle);
+  }
+})();
+</script>
+<script>
+/* ── Language toggle (EN default · DA) — overview surface ── */
+(function(){
+  var DA = {
+    "Product Designer":"Produktdesigner",
+    "Projects":"Projekter","Résumé":"CV","Playground ↗":"Legeplads ↗",
+    "All":"Alle","Design systems":"Designsystemer","Research":"Research","Graphic design":"Grafisk design","Product":"Produkt",
+    "Selected work":"Udvalgt arbejde","Design systems & AI":"Designsystemer & AI",
+    "Creative & academic":"Kreativt & akademisk","Research, product & graphic design":"Research, produkt & grafisk design",
+    "AI prototyping, democratized":"AI-prototyping, demokratiseret",
+    "Designing a design system AI can build with":"Et designsystem, AI kan bygge med",
+    "Designing how a design system collaborates":"Sådan samarbejder et designsystem",
+    "Systematising product language":"Systematisering af produktsprog",
+    "Building foundational stability":"Et stabilt fundament",
+    "taco-docs — a living knowledge base":"taco-docs — en levende vidensbase",
+    "AI enablement":"AI-enablement","Design systems · AI":"Designsystemer · AI","Documentation":"Dokumentation",
+    "Content design":"Indholdsdesign","Foundations & tokens":"Fundament & tokens",
+    "Designing for low self-esteem":"Design til lavt selvværd","Typographic kitchen":"Typografisk køkken",
+    "UX research":"UX-research","Product design":"Produktdesign","Exhibition":"Udstilling","Creative book":"Kreativ bog",
+    "Copenhagen · 2026":"København · 2026",
+    "Product designer in Copenhagen, specialising in design systems and UI. I focus on the structures that let quality scale — governance, component architecture, and the processes that hold everything together.":"Produktdesigner i København med speciale i designsystemer og UI. Jeg fokuserer på de strukturer, der lader kvalitet skalere — governance, komponentarkitektur og de processer, der holder det hele sammen.",
+    "Background in UX research and interaction design. Experienced in stakeholder management, facilitation, and leading design across teams. Half Danish, half English — bilingual with a sharp eye for language.":"Baggrund i UX-research og interaktionsdesign. Erfaren i interessenthåndtering, facilitering og at lede design på tværs af teams. Halvt dansk, halvt engelsk — tosproget med et skarpt øje for sprog.",
+    "View / Download CV":"Se / download CV",
+    "Work":"Arbejde","Education":"Uddannelse","Certificates":"Certifikater","Skills":"Kompetencer","Tools":"Værktøjer","Volunteering":"Frivilligt",
+    "Product Designer, Design Systems":"Produktdesigner, Designsystemer","UX Project Lead":"UX-projektleder","Freelance Web Designer":"Freelance webdesigner","Graphic Designer":"Grafisk designer","Student Consultant":"Studenterkonsulent","Concept Developer":"Konceptudvikler",
+    "Owning and evolving the design system — component architecture, documentation, governance, and cross-team alignment. Driving consistency and quality across product teams.":"Ejer og udvikler designsystemet — komponentarkitektur, dokumentation, governance og tværgående alignment. Driver konsistens og kvalitet på tværs af produktteams.",
+    "Led design, testing, and QA for Design Matters Plus. Curated content and shaped the end-to-end user experience of the platform.":"Ledte design, test og QA for Design Matters Plus. Kuraterede indhold og formede platformens samlede brugeroplevelse.",
+    "Designed and built websites in WordPress — from client briefing and scoping through to design and implementation.":"Designede og byggede websites i WordPress — fra kundebriefing og scoping til design og implementering.",
+    "Created visual assets for conferences, webinars, video, and social media channels.":"Lavede visuelle assets til konferencer, webinarer, video og sociale medier.",
+    "Month-long design sprint for the Danish Veterinary and Food Administration (Fødevarestyrelsen), delivering rapid digital solutions.":"En månedlang design sprint for Fødevarestyrelsen med hurtige digitale løsninger.",
+    "Design research, concept development, and low-fidelity prototyping for an app and game studio.":"Designresearch, konceptudvikling og low-fidelity-prototyping for et app- og spilstudie.",
+    "IT University of Copenhagen":"IT-Universitetet i København",
+    "MSc in Digital Design & Interactive Technologies":"MSc i Digital Design & Interaktive Teknologier","BSc in Digital Media & Design":"BSc i Digitale Medier & Design","Economics & Business Administration (Electives)":"Økonomi & virksomhedsledelse (valgfag)","Computational Media (Exchange)":"Computational Media (udveksling)",
+    "Graphic Design":"Grafisk design",
+    "Six-month programme focused on core visual design principles — typography, layout, colour — and tackling complex design challenges across disciplines.":"Et halvt års forløb med fokus på grundlæggende visuelle designprincipper — typografi, layout, farve — og komplekse designudfordringer på tværs af fagligheder.",
+    "Intensive two-week course covering JavaScript fundamentals and hands-on application building.":"Intensivt to-ugers kursus i JavaScript-fundamentet og hands-on applikationsbygning.",
+    "Component architecture":"Komponentarkitektur","Cross-team alignment":"Tværgående alignment","UX writing":"UX-writing","UX/UI design":"UX/UI-design","Workshop facilitation":"Workshop-facilitering","Accessibility":"Tilgængelighed",
+    "Design conference":"Designkonference","Copenhagen documentary festival":"Københavns dokumentarfestival",
+    "2022 – Present":"2022 – nu","Spring 2026":"Forår 2026","Autumn 2021":"Efterår 2021","Summer 2019":"Sommer 2019","Autumn 2018":"Efterår 2018","Spring 2018":"Forår 2018","Sep 2018":"Sep. 2018"
+  };
+  var HERO_HI = "Hej — jeg er Emily, produktdesigner med base i København.";
+  var HERO_LEAD = "Jeg arbejder på tværs af UI og designsystemer, med AI vævet ind i måden, jeg arbejder på. De seneste år har jeg drevet et designsystem, som mere end 15 designere bygger på, bygget AI-værktøjer, der gør det muligt for ikke-designere at lave prototyper sikkert inden for systemet, og genopbygget vores fundament omkring tilgængelighed.";
+  var SEL = '.info-col-left span, #nav-projects, #nav-cv, #nav-playground, .filter-chip, .sec-lbl, .sec-meta, .pc-title, .pc-type, #foot-city, .cv-sidebar p, .cv-group-label, .cv-item-title, .cv-item-org, .cv-item-date, .cv-item-desc, .cv-tag, .cv-dl-txt';
+  function swap(el, da){ if(!('en' in el.dataset)) el.dataset.en = el.textContent.trim(); el.textContent = da || el.dataset.en; }
+  window.setLang = function(l){
+    window.CUR_LANG = l;
+    document.documentElement.setAttribute('data-lang', l);
+    try { localStorage.setItem('lang', l); } catch(e) {}
+    document.querySelectorAll(SEL).forEach(function(el){ var en = ('en' in el.dataset) ? el.dataset.en : el.textContent.trim(); swap(el, (l==='da' && DA[en]) ? DA[en] : null); });
+    var hi = document.getElementById('hero-hi'), ld = document.getElementById('hero-lead');
+    if (hi) swap(hi, l==='da' ? HERO_HI : null);
+    if (ld) swap(ld, l==='da' ? HERO_LEAD : null);
+    document.querySelectorAll('.lang-seg button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-l') === l); });
+    if (document.body.getAttribute('data-view') === 'case' && window._curCase && window.renderCase) window.renderCase(window._curCase);
+    var ov = document.getElementById('project-overlay');
+    if (ov && ov.classList.contains('open') && window._curOverlay && window.showProject) window.showProject(window._curOverlay);
+  };
+  var saved = 'en'; try { saved = localStorage.getItem('lang') || 'en'; } catch(e) {}
+  setLang(saved);
+})();
+</script>
+<script>
+/* subtle background wash — light mode only, cursor-reactive */
+(function(){
+  var cv=document.getElementById('bg-shader'); if(!cv) return;
+  var gl=cv.getContext('webgl')||cv.getContext('experimental-webgl'); if(!gl) return;
+  var vs='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+  var fs=[
+  'precision highp float;',
+  'uniform vec2 u_res; uniform float u_time; uniform vec2 u_mouse;',
+  'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}',
+  'float noise(vec2 p){vec2 i=floor(p),f=fract(p);float a=hash(i),b=hash(i+vec2(1.,0.)),c=hash(i+vec2(0.,1.)),d=hash(i+vec2(1.,1.));vec2 u=f*f*(3.-2.*f);return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);}',
+  'float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*noise(p);p*=2.;a*=.5;}return v;}',
+  'float wash(vec2 p){vec2 q=vec2(fbm(p),fbm(p+vec2(3.2,1.7)));return fbm(p+1.4*q);}',
+  'void main(){',
+  ' vec2 uv=gl_FragCoord.xy/u_res.xy; vec2 p=uv; p.x*=u_res.x/u_res.y; p*=2.0;',
+  ' float t=u_time*0.015; vec2 m=(u_mouse-0.5);',
+  ' float w=wash(p+vec2(t,t*0.6)+m*0.35);',
+  ' float sel=smoothstep(0.35,0.65, fbm(p*0.8+vec2(5.0,2.0)));',
+  ' vec3 pig=mix(vec3(0.80,0.83,0.90), vec3(0.91,0.86,0.82), sel);',
+  ' float dens=smoothstep(0.3,0.85,w);',
+  ' vec3 col=mix(vec3(1.0), pig, dens*0.09);',
+  ' col+=hash(gl_FragCoord.xy+u_time)*0.008-0.004;',
+  ' gl_FragColor=vec4(col,1.0);',
+  '}'].join('\n');
+  function sh(t,s){var o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o;}
+  var pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);gl.useProgram(pr);
+  var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  var loc=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  var uRes=gl.getUniformLocation(pr,'u_res'),uTime=gl.getUniformLocation(pr,'u_time'),uMouse=gl.getUniformLocation(pr,'u_mouse');
+  var mouse=[.5,.5],mt=[.5,.5];
+  window.addEventListener('mousemove',function(e){mt=[e.clientX/innerWidth,1.-e.clientY/innerHeight];});
+  function rz(){var d=Math.min(devicePixelRatio||1,1.5);cv.width=innerWidth*d;cv.height=innerHeight*d;gl.viewport(0,0,cv.width,cv.height);}
+  window.addEventListener('resize',rz);rz();
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,start=Date.now();
+  function frame(){mouse[0]+=(mt[0]-mouse[0])*.03;mouse[1]+=(mt[1]-mouse[1])*.03;gl.uniform2f(uRes,cv.width,cv.height);gl.uniform1f(uTime,reduce?6:(Date.now()-start)/1000);gl.uniform2f(uMouse,mouse[0],mouse[1]);gl.drawArrays(gl.TRIANGLES,0,3);if(!reduce)requestAnimationFrame(frame);}
+  frame();
+})();
+</script>
 </body>
 </html>
