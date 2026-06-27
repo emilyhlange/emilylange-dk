@@ -1,0 +1,38 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#D8D8D8"/>
+
+  <!-- central source of truth -->
+  <circle cx="400" cy="300" r="56" fill="#faf9f7" stroke="#3B6FC2" stroke-width="2"/>
+  <circle cx="400" cy="300" r="14" fill="#3B6FC2" opacity="0.8"/>
+  <text x="400" y="378" font-family="Inter, Arial, sans-serif" font-size="12" fill="#3B6FC2" text-anchor="middle">design system</text>
+
+  <!-- spokes to AI tooling consumers -->
+  <g stroke="#c8c6c2" stroke-width="1.2" stroke-dasharray="5,4">
+    <line x1="356" y1="262" x2="190" y2="150"/>
+    <line x1="444" y1="262" x2="610" y2="150"/>
+    <line x1="344" y1="300" x2="150" y2="300"/>
+    <line x1="456" y1="300" x2="650" y2="300"/>
+    <line x1="356" y1="338" x2="190" y2="450"/>
+    <line x1="444" y1="338" x2="610" y2="450"/>
+  </g>
+
+  <!-- consumer nodes -->
+  <g fill="#faf9f7" stroke="#9a9896" stroke-width="1.4">
+    <rect x="110" y="120" width="120" height="48" rx="8"/>
+    <rect x="570" y="120" width="130" height="48" rx="8"/>
+    <rect x="40"  y="276" width="110" height="48" rx="8"/>
+    <rect x="650" y="276" width="120" height="48" rx="8"/>
+    <rect x="110" y="430" width="120" height="48" rx="8"/>
+    <rect x="570" y="430" width="130" height="48" rx="8"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" font-size="11" fill="#6a6966" text-anchor="middle">
+    <text x="170" y="149">Figma MCP</text>
+    <text x="635" y="149">Code Connect</text>
+    <text x="95"  y="305">types</text>
+    <text x="710" y="305">agents</text>
+    <text x="170" y="459">prototyping</text>
+    <text x="635" y="459">Cursor / CC</text>
+  </g>
+
+  <text x="60" y="70" font-family="Inter, Arial, sans-serif" font-size="14" fill="#4a4946">One source of truth, many tools build against it</text>
+</svg>

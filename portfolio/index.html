@@ -197,96 +197,88 @@
         }
 
         /* ── Project grid ── */
-        .project-grid-wrap { padding: 16px var(--gutter) 0; }
+        .project-grid-wrap { padding: 6px var(--gutter) 0; }
+
+        /* View toggle (icon segmented control) */
+        .grid-toolbar { display: flex; justify-content: flex-end; padding: 4px 2px 0; }
+        .view-toggle { display: inline-flex; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
+        .view-toggle button {
+            display: flex; align-items: center; justify-content: center;
+            width: 30px; height: 24px; color: var(--fg-dim);
+            border-right: 1px solid var(--border);
+        }
+        .view-toggle button:last-child { border-right: 0; }
+        .view-toggle button:hover { opacity: 1; color: var(--fg); }
+        .view-toggle button.on { background: var(--fg); color: var(--bg); }
+        .view-toggle svg { width: 13px; height: 13px; display: block; }
+
+        /* Section divider */
+        .work-section { margin-bottom: 12px; }
+        .sec-head { display: flex; align-items: baseline; gap: 12px; margin: 22px 2px 16px; }
+        .sec-head .sec-lbl { font-size: 12px; font-weight: 500; color: var(--fg); }
+        .sec-head .sec-meta { font-size: 12px; color: var(--fg-dim); }
+        .sec-head .sec-rule { flex: 1; height: 1px; background: var(--border); }
 
         .project-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            gap: 18px;
             margin-bottom: 4px;
         }
 
-        /* ── Project card — Harry style ── */
-        .project-card {
-            display: flex;
-            flex-direction: column;
-            padding-top: 8px;
-            color: inherit;
-            cursor: pointer;
-        }
+        /* ── Project card — unified markup, CSS switches layout ── */
+        .project-card { display: flex; flex-direction: column; color: inherit; cursor: pointer; }
         .project-card:hover { opacity: 1; }
-
-        .card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid var(--border);
+        .pc-num { font-size: 12px; color: var(--fg-dim); font-variant-numeric: tabular-nums; }
+        .pc-title { font-size: 12px; font-weight: 500; line-height: 1.35; transition: color 0.2s; }
+        .pc-type { font-size: 12px; color: var(--fg-dim); margin-top: 1px; }
+        .pc-media {
+            position: relative; background: var(--card-bg);
+            border-radius: 8px; overflow: hidden; transition: background 0.35s ease;
         }
-        .card-top-left { flex: 1; min-width: 0; }
-        .card-title {
-            font-size: 12px;
-            font-weight: 400;
-            line-height: 1.4;
-            margin-bottom: 2px;
-            transition: opacity 0.2s;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .project-card:hover .card-title { opacity: 0.45; }
-        .card-type {
-            font-size: 12px;
-            color: var(--fg-dim);
-        }
-        .card-num {
-            font-size: 12px;
-            color: var(--fg-dim);
-            margin-left: 10px;
-            flex-shrink: 0;
-        }
-
-        /* Card frame: bg shows on top and sides, placeholder clips at the bottom edge */
-        .card-frame {
-            flex: 1;               /* stretch to fill card height for row consistency */
-            display: flex;
-            flex-direction: column;
-            background: var(--card-bg);
-            transition: background 0.35s ease;
-            border-radius: 8px;
-            padding: 32px 32px 0;  /* generous top + sides, no bottom */
-            overflow: hidden;      /* clips the placeholder flush at bottom */
-        }
-        .card-frame img {
-            width: 100%;
-            flex: 1;
-            min-height: 0;
-            aspect-ratio: 3 / 4;
-            object-fit: cover;
-            display: block;
-            border-radius: 4px 4px 0 0;
-            transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s ease, opacity 0.3s;
+        .pc-media img {
+            width: 100%; display: block; object-fit: cover;
+            transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
             filter: saturate(0.85);
         }
-        .project-card:hover .card-frame {
-            background: var(--card-hover, #e8e8e8);
-        }
-        /* hover only changes card-frame bg — no image transform or filter */
-        /* Placeholder rectangle: gray bg, portrait aspect, no bottom radius (flush to card) */
-        .card-placeholder {
-            width: 100%;
-            flex: 1;
-            min-height: 0;
-            aspect-ratio: 3 / 4;
-            background: var(--border);
-            border-radius: 4px 4px 0 0;
-            display: block;
+        .pc-num-badge {
+            position: absolute; top: 8px; right: 10px; font-size: 10px; color: var(--fg-dim);
+            background: color-mix(in srgb, var(--bg) 80%, transparent);
+            padding: 1px 7px; border-radius: 10px; pointer-events: none;
         }
 
+        /* ===== CARD VIEW (default) ===== */
+        body.view-cards .pc-num { display: none; }
+        body.view-cards .pc-text { order: 1; margin-bottom: 8px; min-height: 42px; }
+        body.view-cards .pc-media { order: 2; aspect-ratio: 4 / 3; }
+        body.view-cards .pc-media img { height: 100%; object-fit: cover; }
+        /* Work cards use real design assets — calmer than the creative photos (shorter, gently desaturated) */
+        body.view-cards #work-grid .pc-media { aspect-ratio: 16 / 10; }
+        body.view-cards #work-grid .pc-media img { filter: saturate(0.82) contrast(0.97); }
+        body.view-cards .project-card:hover .pc-media { background: var(--card-hover, #e8e8e8); }
+        body.view-cards .project-card:hover .pc-media img { transform: scale(1.03); }
+        body.view-cards .project-card:hover .pc-title { color: var(--fg); }
+
+        /* ===== LIST VIEW ===== */
+        body.view-list .project-grid { display: block; }
+        body.view-list .project-card {
+            display: grid; grid-template-columns: 30px 88px 1fr; align-items: center; gap: 18px;
+            padding: 13px 8px; border-top: 1px solid var(--border);
+        }
+        body.view-list .project-grid .project-card:last-child { border-bottom: 1px solid var(--border); }
+        body.view-list .project-card > * { grid-row: 1; }
+        body.view-list .pc-num { grid-column: 1; }
+        body.view-list .pc-media { grid-column: 2; width: 88px; height: 58px; }
+        body.view-list .pc-media img { height: 100%; }
+        body.view-list .pc-num-badge { display: none; }
+        body.view-list .pc-text { grid-column: 3; }
+        body.view-list .pc-title { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+        body.view-list .pc-type { font-size: 11px; }
+        body.view-list .project-card:hover { background: var(--card-bg); border-radius: 8px; }
+        body.view-list .project-card:hover .pc-media { background: var(--card-hover, #e8e8e8); }
+
         /* Modes */
-        body.text-only .card-frame img,
+        body.text-only .pc-media img,
         body.text-only .case-hero img,
         body.text-only .detail-hero img,
         body.text-only .project-gallery img { opacity: 0.04; }
@@ -611,14 +603,17 @@
 
         /* ── Footer ── */
         footer {
-            padding: 14px var(--gutter) 24px;
-            margin-top: 24px;
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 60;
+            padding: 13px var(--gutter);
             border-top: 1px solid var(--border);
+            background: color-mix(in srgb, var(--bg) 88%, transparent);
+            backdrop-filter: blur(8px);
             display: flex;
             justify-content: space-between;
             font-size: 12px;
             color: var(--fg-dim);
         }
+        body { padding-bottom: 50px; }   /* clearance for pinned footer */
         footer a { color: var(--fg-dim); }
         footer a:hover { opacity: 0.55; }
 
@@ -847,10 +842,18 @@
         .narrative-body {
             padding: 0 52px;
         }
+        .narrative-body .detail-value {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+            color: var(--fg);
+            margin-bottom: 16px;
+        }
         .narrative-body .detail-lede {
             font-size: 12px;
             line-height: 1.65;
-            color: var(--fg);
+            color: var(--fg-dim);
             margin-bottom: 28px;
         }
         .narrative-img {
@@ -959,9 +962,94 @@
 
             .letter-link { font-size: var(--letter-size, 56px) !important; }
         }
+
+        /* ════ Full-page case study ════ */
+        .cs-topnav, .cs-crumb { display: none; }   /* breadcrumb now lives in the persistent sub-bar */
+
+        /* sub-bar: filter chips ⇄ project breadcrumb, in one slot below the header */
+        .cs-crumb-bar { display: none; flex-direction: column; gap: 3px; padding: 14px var(--gutter) 10px; border-bottom: 1px solid var(--border); }
+        .cs-crumb-bar .crumb-line { font-size: 13px; color: var(--fg); }
+        .cs-crumb-bar .crumb-line a { color: var(--fg-dim); cursor: pointer; }
+        .cs-crumb-bar .crumb-line a:hover { color: var(--fg); opacity: 1; }
+        .cs-crumb-bar .crumb-line .sep { color: var(--fg-dim); margin: 0 7px; }
+        .cs-crumb-bar .crumb-eyebrow { font-size: 12px; color: var(--fg-dim); }
+        body[data-view="case"] #filter-bar { display: none; }
+        body[data-view="case"] .cs-crumb-bar { display: flex; }
+        body[data-view="cv"] #filter-bar, body[data-view="cv"] .cs-crumb-bar { display: none; }
+
+        /* case study: content column + sticky section nav pinned right */
+        .cs-page { max-width: 860px; margin: 0 auto; padding: 14px 32px 140px; }
+        .cs-content { min-width: 0; }
+        .cs-bleed { width: 100%; }   /* contained — no viewport breakout */
+
+        /* section nav — floating card, pinned to the far right of the viewport */
+        .cs-sidenav { position: fixed; top: 300px; right: 24px; width: 184px; z-index: 70;
+            display: flex; flex-direction: column; gap: 2px;
+            background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px 10px; }
+        .cs-sidenav a { font-size: 12px; color: var(--fg-dim); line-height: 1.3; padding: 7px 11px; border-radius: 8px; cursor: pointer; transition: color .15s, background .15s; }
+        .cs-sidenav a:hover { color: var(--fg-mid, #666); opacity: 1; }
+        .cs-sidenav a.on { color: var(--fg); background: var(--bg); font-weight: 500; }
+        @media (max-width: 1200px) { .cs-sidenav { display: none; } }
+
+        /* readable text column; figures fill the content column */
+        .cs-hero h1, .cs-value, .cs-lede, .cs-sec > h2, .cs-sec > p, .cs-lab, .cs-note, .cs-builtin, .cs-reflection blockquote { max-width: 720px; }
+
+        .cs-hero { padding: 28px 0 36px; border-bottom: 1px solid var(--border); }
+        .cs-hero .cs-num { font-size: 12px; color: var(--fg-dim); margin-bottom: 20px; }
+        .cs-hero h1 { font-size: 46px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.02; margin-bottom: 26px; }
+        .cs-value { font-size: 21px; font-weight: 500; line-height: 1.38; letter-spacing: -0.012em; margin-bottom: 20px; }
+        .cs-lede { font-size: 14px; line-height: 1.72; color: var(--fg-dim); }
+        .cs-meta { border: 1px solid var(--border); border-radius: 12px; background: var(--card-bg); padding: 18px 26px; display: flex; flex-wrap: wrap; gap: 18px 32px; margin-top: 30px; }
+        .cs-meta > div { flex: 1; min-width: 130px; }
+        .cs-meta .k { font-size: 11px; color: var(--fg-dim); margin-bottom: 4px; }
+        .cs-meta .v { font-size: 13px; color: var(--fg); line-height: 1.4; }
+
+        .cs-sec { padding: 56px 0; }
+        .cs-lab { font-size: 11px; color: var(--fg-dim); letter-spacing: .02em; margin-bottom: 20px; }
+        .cs-lab b { color: var(--fg-mid, #666); font-weight: 500; }
+        .cs-sec h2 { font-size: 23px; font-weight: 600; letter-spacing: -0.018em; margin-bottom: 18px; }
+        .cs-sec p { font-size: 14px; line-height: 1.78; margin-bottom: 18px; }
+        .cs-sec p strong { font-weight: 600; }
+
+        .cs-stats { display: flex; flex-wrap: wrap; gap: 44px; padding: 24px 0 4px; }
+        .cs-stats .n { font-size: 46px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+        .cs-stats .l { font-size: 13px; color: var(--fg-mid, #666); margin-top: 9px; max-width: 150px; line-height: 1.4; }
+        .cs-note { font-size: 15px; line-height: 1.6; color: var(--fg); margin-top: 30px; }
+
+        .cs-fig { margin: 38px 0 8px; }
+        .cs-fig img { width: 100%; display: block; border-radius: 12px; border: 1px solid var(--border); max-height: 520px; object-fit: cover; object-position: top; }
+        .cs-fig img[src$=".svg"] { max-height: none; object-fit: contain; }   /* clean diagrams render whole, not cropped */
+        .cs-fig figcaption { font-size: 12px; color: var(--fg-dim); margin-top: 13px; line-height: 1.5; }
+
+        .cs-split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 48px; align-items: center; margin: 38px 0; }
+        .cs-split .t h3 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+        .cs-split .t p { font-size: 13.5px; line-height: 1.72; color: var(--fg-mid, #666); }
+        .cs-split .v img { width: 100%; display: block; border-radius: 12px; border: 1px solid var(--border); background: var(--card-bg); }
+
+        .cs-ai { border: 1px solid var(--border); border-radius: 14px; padding: 30px 32px; margin: 34px 0 8px; background: var(--card-bg); }
+        .cs-ai .lbl { font-size: 12px; color: var(--fg-mid, #666); font-weight: 500; margin-bottom: 18px; }
+        .cs-ai ul { list-style: none; }
+        .cs-ai li { font-size: 14px; line-height: 1.6; padding-left: 26px; position: relative; margin-bottom: 14px; }
+        .cs-ai li:last-child { margin-bottom: 0; }
+        .cs-ai li:before { content: "→"; position: absolute; left: 0; top: 0; color: var(--fg-dim); }
+        .cs-builtin { font-size: 12px; color: var(--fg-dim); margin-top: 24px; }
+
+        .cs-reflection { padding: 64px 0; border-top: 1px solid var(--border); }
+        .cs-reflection blockquote { font-size: 28px; font-weight: 500; line-height: 1.42; letter-spacing: -0.02em; }
+
+        .cs-pagenav { display: flex; justify-content: space-between; padding: 28px 0; border-top: 1px solid var(--border); font-size: 12px; }
+        .cs-pagenav a { color: var(--fg-dim); }
+        .cs-pagenav a:hover { color: var(--fg); opacity: 1; }
+
+        @media (max-width: 820px) {
+            .cs-bleed { left: 0; transform: none; width: 100%; }
+            .cs-split { grid-template-columns: 1fr; gap: 24px; }
+            .cs-stats .n { font-size: 38px; }
+            .cs-hero h1 { font-size: 34px; }
+        }
     </style>
 </head>
-<body>
+<body class="view-cards">
 
 <canvas id="cursor-canvas"></canvas>
 
@@ -989,8 +1077,9 @@
         </div>
         <div class="info-col info-col-right">
             <div class="info-nav">
-                <a id="nav-projects" class="nav-active" onclick="showView('projects')">Projects</a>
+                <a id="nav-projects" class="nav-active" onclick="backToWork()">Projects</a>
                 <a id="nav-cv" onclick="showView('cv')">Résumé</a>
+                <a id="nav-playground" href="../" title="Mini-games">Playground ↗</a>
             </div>
             <div class="info-toggles">
                 <button id="text-toggle">Text mode <span id="text-state">( N )</span></button>
@@ -1008,128 +1097,117 @@
 <!-- ── Main content ── -->
 <main>
 
-    <!-- ═══ PROJECTS VIEW ═══ -->
-    <div class="view active" id="view-projects">
-
-        <!-- Filter chips -->
-        <div class="filter-bar">
+    <!-- Sub-bar: filter chips on the overview, swapped for a breadcrumb inside a project -->
+    <div class="sub-bar">
+        <div class="filter-bar" id="filter-bar">
             <button class="filter-chip active" data-tag="all" onclick="filterProjects('all')">All</button>
             <button class="filter-chip" data-tag="design-systems" onclick="filterProjects('design-systems')">Design systems</button>
             <button class="filter-chip" data-tag="research" onclick="filterProjects('research')">Research</button>
             <button class="filter-chip" data-tag="graphic" onclick="filterProjects('graphic')">Graphic design</button>
             <button class="filter-chip" data-tag="product" onclick="filterProjects('product')">Product</button>
         </div>
+        <div class="cs-crumb-bar" id="cs-crumb-bar"></div>
+    </div>
+
+    <!-- ═══ PROJECTS VIEW ═══ -->
+    <div class="view active" id="view-projects">
 
         <!-- Work projects -->
         <div class="project-grid-wrap">
-            <div class="project-grid" id="work-grid">
 
-                <div class="project-card" onclick="showProject('collab')" data-tags="design-systems governance">
-                    <div class="card-top">
-                        <div class="card-top-left">
-                            <div class="card-title">Designing how a design system collaborates</div>
-                            <div class="card-type">Design systems</div>
-                        </div>
-                        <div class="card-num">01</div>
-                    </div>
-                    <div class="card-frame">
-                        <img src="images/svg/collab-1.svg" alt="Design system collaboration lifecycle">
-                    </div>
+            <div class="grid-toolbar">
+                <div class="view-toggle" role="group" aria-label="View">
+                    <button id="vt-cards" class="on" onclick="setView('cards')" aria-label="Card view" title="Card view">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.6" y="2.6" width="5.6" height="5.6" rx="1"/><rect x="8.8" y="2.6" width="5.6" height="5.6" rx="1"/><rect x="1.6" y="9.8" width="5.6" height="3.6" rx="1"/><rect x="8.8" y="9.8" width="5.6" height="3.6" rx="1"/></svg>
+                    </button>
+                    <button id="vt-list" onclick="setView('list')" aria-label="List view" title="List view">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/></svg>
+                    </button>
                 </div>
+            </div>
 
-                <div class="project-card" onclick="showProject('language')" data-tags="design-systems content">
-                    <div class="card-top">
-                        <div class="card-top-left">
-                            <div class="card-title">Systematising product language</div>
-                            <div class="card-type">Content design</div>
-                        </div>
-                        <div class="card-num">02</div>
-                    </div>
-                    <div class="card-frame">
-                        <img src="images/svg/language-1.svg" alt="Content design system">
-                    </div>
-                </div>
+            <!-- Selected work -->
+            <section class="work-section" id="section-work">
+                <div class="sec-head"><span class="sec-lbl">Selected work</span><span class="sec-meta">Design systems &amp; AI</span><span class="sec-rule"></span></div>
+                <div class="project-grid" id="work-grid">
 
-                <div class="project-card" onclick="showProject('foundations')" data-tags="design-systems tokens">
-                    <div class="card-top">
-                        <div class="card-top-left">
-                            <div class="card-title">Building foundational stability</div>
-                            <div class="card-type">Foundations &amp; tokens</div>
-                        </div>
-                        <div class="card-num">03</div>
+                    <div class="project-card" onclick="showProject('proto')" data-tags="design-systems product ai">
+                        <span class="pc-num">01</span>
+                        <div class="pc-text"><div class="pc-title">AI prototyping, democratized</div><div class="pc-type">AI enablement</div></div>
+                        <div class="pc-media"><span class="pc-num-badge">01</span><img src="images/svg/thumb-proto.svg" alt="AI prototyping, democratized"></div>
                     </div>
-                    <div class="card-frame">
-                        <img src="images/svg/foundations-1.svg" alt="Design foundations overview">
-                    </div>
-                </div>
 
-                <!-- Playground projects -->
-                <div class="project-card" onclick="showProject('pg-thesis')" data-tags="research ux">
-                    <div class="card-top">
-                        <div class="card-top-left">
-                            <div class="card-title">Designing for low self-esteem</div>
-                            <div class="card-type">UX research</div>
-                        </div>
-                        <div class="card-num">04</div>
+                    <div class="project-card" onclick="showProject('aibuild')" data-tags="design-systems ai">
+                        <span class="pc-num">02</span>
+                        <div class="pc-text"><div class="pc-title">Designing a design system AI can build with</div><div class="pc-type">Design systems &middot; AI</div></div>
+                        <div class="pc-media"><span class="pc-num-badge">02</span><img src="images/svg/thumb-code.svg" alt="Design system AI can build with"></div>
                     </div>
-                    <div class="card-frame">
-                        <img src="images/hero-thesis.jpg" alt="Probe kit for self-esteem research">
-                    </div>
-                </div>
 
-                <div class="project-card" onclick="showProject('pg-portable')" data-tags="product physical">
-                    <div class="card-top">
-                        <div class="card-top-left">
-                            <div class="card-title">Portable.</div>
-                            <div class="card-type">Product design</div>
-                        </div>
-                        <div class="card-num">05</div>
+                    <div class="project-card" onclick="showProject('tacodocs')" data-tags="design-systems content ai">
+                        <span class="pc-num">03</span>
+                        <div class="pc-text"><div class="pc-title">taco-docs</div><div class="pc-type">Documentation</div></div>
+                        <div class="pc-media"><span class="pc-num-badge">03</span><img src="images/svg/thumb-docs.svg" alt="taco-docs — documentation as a system"></div>
                     </div>
-                    <div class="card-frame">
-                        <img src="images/hero-portable.jpg" alt="Portable — transparent game design">
-                    </div>
-                </div>
 
-                <div class="project-card" onclick="showProject('pg-fanfare')" data-tags="graphic typography exhibition">
-                    <div class="card-top">
-                        <div class="card-top-left">
-                            <div class="card-title">Typographic kitchen</div>
-                            <div class="card-type">Exhibition</div>
-                        </div>
-                        <div class="card-num">06</div>
+                    <div class="project-card" onclick="showProject('collab')" data-tags="design-systems governance">
+                        <span class="pc-num">04</span>
+                        <div class="pc-text"><div class="pc-title">Designing how a design system collaborates</div><div class="pc-type">Design systems</div></div>
+                        <div class="pc-media"><span class="pc-num-badge">04</span><img src="images/svg/thumb-collab.svg" alt="Designing how a design system collaborates"></div>
                     </div>
-                    <div class="card-frame">
-                        <img src="images/hero-fanfare.jpg" alt="Typographic kitchen — exhibition at Fanfare">
-                    </div>
-                </div>
 
-                <div class="project-card" onclick="showProject('pg-tune')" data-tags="graphic editorial print">
-                    <div class="card-top">
-                        <div class="card-top-left">
-                            <div class="card-title">Tune</div>
-                            <div class="card-type">Graphic design</div>
-                        </div>
-                        <div class="card-num">07</div>
+                    <div class="project-card" onclick="showProject('language')" data-tags="design-systems content">
+                        <span class="pc-num">05</span>
+                        <div class="pc-text"><div class="pc-title">Systematising product language</div><div class="pc-type">Content design</div></div>
+                        <div class="pc-media"><span class="pc-num-badge">05</span><img src="images/svg/thumb-language.svg" alt="Systematising product language"></div>
                     </div>
-                    <div class="card-frame">
-                        <img src="images/hero-tune.jpg" alt="Tune — editorial pamphlet">
-                    </div>
-                </div>
 
-                <div class="project-card" onclick="showProject('pg-flow')" data-tags="graphic editorial print">
-                    <div class="card-top">
-                        <div class="card-top-left">
-                            <div class="card-title">Flow</div>
-                            <div class="card-type">Creative book</div>
-                        </div>
-                        <div class="card-num">08</div>
+                    <div class="project-card" onclick="showProject('foundations')" data-tags="design-systems tokens">
+                        <span class="pc-num">06</span>
+                        <div class="pc-text"><div class="pc-title">Building foundational stability</div><div class="pc-type">Foundations &amp; tokens</div></div>
+                        <div class="pc-media"><span class="pc-num-badge">06</span><img src="images/svg/thumb-button.svg" alt="Button component"></div>
                     </div>
-                    <div class="card-frame">
-                        <img src="images/hero-flow.jpg" alt="Flow — creative book">
-                    </div>
-                </div>
 
-            </div><!-- /project-grid -->
+                </div><!-- /work-grid -->
+            </section>
+
+            <!-- Creative & academic -->
+            <section class="work-section" id="section-creative">
+                <div class="sec-head"><span class="sec-lbl">Creative &amp; academic</span><span class="sec-meta">Research, product &amp; graphic design</span><span class="sec-rule"></span></div>
+                <div class="project-grid" id="creative-grid">
+
+                    <div class="project-card" onclick="showProject('pg-thesis')" data-tags="research ux">
+                        <span class="pc-num">07</span>
+                        <div class="pc-text"><div class="pc-title">Designing for low self-esteem</div><div class="pc-type">UX research</div></div>
+                        <div class="pc-media"><span class="pc-num-badge">07</span><img src="images/hero-thesis.jpg" alt="Probe kit for self-esteem research"></div>
+                    </div>
+
+                    <div class="project-card" onclick="showProject('pg-portable')" data-tags="product physical">
+                        <span class="pc-num">08</span>
+                        <div class="pc-text"><div class="pc-title">Portable.</div><div class="pc-type">Product design</div></div>
+                        <div class="pc-media"><span class="pc-num-badge">08</span><img src="images/hero-portable.jpg" alt="Portable — transparent game design"></div>
+                    </div>
+
+                    <div class="project-card" onclick="showProject('pg-fanfare')" data-tags="graphic typography exhibition">
+                        <span class="pc-num">09</span>
+                        <div class="pc-text"><div class="pc-title">Typographic kitchen</div><div class="pc-type">Exhibition</div></div>
+                        <div class="pc-media"><span class="pc-num-badge">09</span><img src="images/hero-fanfare.jpg" alt="Typographic kitchen — exhibition at Fanfare"></div>
+                    </div>
+
+                    <div class="project-card" onclick="showProject('pg-tune')" data-tags="graphic editorial print">
+                        <span class="pc-num">10</span>
+                        <div class="pc-text"><div class="pc-title">Tune</div><div class="pc-type">Graphic design</div></div>
+                        <div class="pc-media"><span class="pc-num-badge">10</span><img src="images/hero-tune.jpg" alt="Tune — editorial pamphlet"></div>
+                    </div>
+
+                    <div class="project-card" onclick="showProject('pg-flow')" data-tags="graphic editorial print">
+                        <span class="pc-num">11</span>
+                        <div class="pc-text"><div class="pc-title">Flow</div><div class="pc-type">Creative book</div></div>
+                        <div class="pc-media"><span class="pc-num-badge">11</span><img src="images/hero-flow.jpg" alt="Flow — creative book"></div>
+                    </div>
+
+                </div><!-- /creative-grid -->
+            </section>
+
         </div><!-- /project-grid-wrap -->
 
     </div><!-- /view-projects -->
@@ -1336,9 +1414,16 @@
         </div>
     </div><!-- /view-cv -->
 
-
+    <!-- ═══ CASE STUDY VIEW (full page) ═══ -->
+    <div class="view" id="view-case"></div>
 
 </main>
+
+<!-- Case study fixed breadcrumb -->
+<div class="cs-topnav">
+    <div class="l"><a onclick="backToWork()">Emily Howkins</a><span>/</span><a onclick="backToWork()">Work</a><span>/</span><span class="here" id="cs-crumb"></span></div>
+    <div class="r"><a onclick="backToWork()">All work ↩</a></div>
+</div>
 
 <!-- ── Project overlay ── -->
 <div id="project-overlay" onclick="if(event.target===this)closeProject()">
@@ -1361,7 +1446,7 @@
 <!-- ── Footer ── -->
 <footer>
     <div>
-        <a href="mailto:emily.lange@visma.com">emily.lange@visma.com</a>
+        <a href="mailto:emilyhowkinslange@gmail.com">emilyhowkinslange@gmail.com</a>
         <span style="margin-left:14px;"><a href="https://linkedin.com/in/emily-howkins-lange" target="_blank">LinkedIn</a></span>
     </div>
     <div>Copenhagen · 2026</div>
@@ -1384,6 +1469,7 @@
 
 /* ── View switching ── */
 function showView(name) {
+    document.body.setAttribute('data-view', name);
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     const t = document.getElementById('view-' + name);
     if (t) t.classList.add('active');
@@ -1391,10 +1477,156 @@ function showView(name) {
     document.getElementById('nav-projects').classList.toggle('nav-active', name === 'projects');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+/* ── Full-page case study rendering ── */
+function csPad(n){ return n < 10 ? ('0' + n) : ('' + n); }
+function csParas(body){ return String(body).split('\n\n').map(function(t){ return '<p>' + esc(t) + '</p>'; }).join(''); }
+
+function renderCase(id){
+    var p = PROJECTS[id]; if (!p) return;
+    var secs = p.sections || [];
+    var h = '<div class="cs-page">';
+    // hero
+    h += '<div class="cs-hero"><div class="cs-hero-main">';
+    h += '<div class="cs-num">' + esc(p.num) + ' — ' + esc(p.type) + '</div>';
+    h += '<h1>' + esc(p.title) + '</h1>';
+    if (p.value || p.valueLine) h += '<div class="cs-value">' + esc(p.value || p.valueLine) + '</div>';
+    h += '<p class="cs-lede">' + esc(p.lede) + '</p>';
+    h += '</div><aside class="cs-meta">';
+    (p.meta || []).forEach(function(m){ h += '<div><div class="k">' + esc(m[0]) + '</div><div class="v">' + esc(m[1]) + '</div></div>'; });
+    h += '</aside></div>';
+    // sections
+    secs.forEach(function(s, i){
+        h += '<section class="cs-sec" id="cs-s' + i + '">';
+        h += '<div class="cs-lab">' + csPad(i + 1) + ' — <b>' + esc(s.label) + '</b></div>';
+        if (s.head) h += '<h2>' + esc(s.head) + '</h2>';
+        if (s.body) h += csParas(s.body);
+        if (s.stats){ h += '<div class="cs-stats">'; s.stats.forEach(function(st){ h += '<div class="s"><div class="n">' + esc(st.n) + '</div><div class="l">' + esc(st.l) + '</div></div>'; }); h += '</div>'; }
+        if (s.note) h += '<p class="cs-note">' + esc(s.note) + '</p>';
+        if (s.split) h += '<div class="cs-split"><div class="t"><h3>' + esc(s.split.head) + '</h3><p>' + esc(s.split.text) + '</p></div><div class="v"><img src="' + s.split.img + '" alt=""></div></div>';
+        if (s.img) h += '<figure class="cs-fig' + (s.bleed ? ' cs-bleed' : '') + '"><img src="' + s.img + '" alt="" loading="lazy">' + (s.caption ? ('<figcaption>' + esc(s.caption) + '</figcaption>') : '') + '</figure>';
+        if (s.ai){ h += '<div class="cs-ai"><div class="lbl">' + esc(s.ai.label || 'Behind the scenes') + '</div><ul>'; s.ai.items.forEach(function(it){ h += '<li>' + it + '</li>'; }); h += '</ul></div>'; }
+        if (s.builtin) h += '<div class="cs-builtin">' + esc(s.builtin) + '</div>';
+        h += '</section>';
+    });
+    if (p.reflection) h += '<div class="cs-reflection"><blockquote>' + esc(p.reflection.replace(/^[“"\s]+/, '').replace(/[”"\s]+$/, '')) + '</blockquote></div>';
+    h += '<div class="cs-pagenav"><a onclick="backToWork()">← Work</a>';
+    if (p.next) h += '<a onclick="showProject(\'' + p.next + '\')">Next — ' + esc(p.nextLabel || '') + ' →</a>';
+    h += '</div></div>';
+    var sidenav = '<nav class="cs-sidenav" aria-label="Sections">';
+    secs.forEach(function(s, i){ sidenav += '<a data-sec="cs-s' + i + '"' + (i === 0 ? ' class="on"' : '') + ' onclick="return csJump(event,\'cs-s' + i + '\')">' + esc(s.label) + '</a>'; });
+    sidenav += '</nav>';
+
+    // breadcrumb swaps into the sub-bar (the filter-row slot)
+    document.getElementById('cs-crumb-bar').innerHTML =
+        '<div class="crumb-line"><a onclick="backToWork()">← Projects</a><span class="sep">/</span>' + esc(p.title) + '</div>';
+
+    // content column + right-pinned section nav
+    var inner = h.replace(/^<div class="cs-page">/, '').replace(/<\/div>\s*$/, '');
+    var view = document.getElementById('view-case');
+    view.innerHTML = '<div class="cs-page"><div class="cs-content">' + inner + '</div>' + sidenav + '</div>';
+    showView('case');
+    if (location.hash !== '#/work/' + id){ try { history.pushState({ cs: id }, '', '#/work/' + id); } catch(e){} }
+    window.scrollTo(0, 0);
+    csSpyInit();
+}
+
+function backToWork(){
+    document.body.classList.remove('reading');
+    document.body.classList.remove('in-case');
+    showView('projects');
+    window.scrollTo(0, 0);
+    if (window._refreshHeader) requestAnimationFrame(window._refreshHeader);
+    try { history.pushState({}, '', location.pathname); } catch(e){}
+}
+function csJump(e, sid){ e.preventDefault(); var el = document.getElementById(sid); if (el) window.scrollTo({ top: el.offsetTop - 72, behavior: 'smooth' }); return false; }
+function csSpyInit(){
+    var links = [].slice.call(document.querySelectorAll('.cs-sidenav a'));
+    var map = links.map(function(a){ return { a: a, el: document.getElementById(a.getAttribute('data-sec')) }; }).filter(function(m){ return m.el; });
+    function onScroll(){ var y = window.scrollY + 150, cur = map[0]; map.forEach(function(m){ if (m.el.offsetTop <= y) cur = m; }); links.forEach(function(a){ a.classList.toggle('on', cur && a === cur.a); }); }
+    if (window._csSpy) window.removeEventListener('scroll', window._csSpy);
+    window._csSpy = onScroll; window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+}
+window.addEventListener('popstate', function(){
+    var m = location.hash.match(/^#\/work\/([a-z-]+)$/);
+    if (m && PROJECTS[m[1]]) showProject(m[1]);
+    else { document.body.classList.remove('reading'); document.body.classList.remove('in-case'); showView('projects'); if (window._refreshHeader) window._refreshHeader(); }
+});
+// deep-link: open a case study directly from a shared #/work/<id> URL
+window.addEventListener('load', function(){
+    var m = location.hash.match(/^#\/work\/([a-z-]+)$/);
+    if (m && PROJECTS[m[1]]) showProject(m[1]);
+});
+
 /* ── Project data ── */
 var PROJECTS = {
+  proto: {
+    num:'01', type:'AI enablement · Design operations',
+    title:'AI prototyping, democratized',
+    company:'Visma e-conomic',
+    layout:'narrative',
+    gallery:[
+      'images/gallery/proto/prototype-kit-flow.png',
+      'images/svg/proto-3.svg'
+    ],
+    tools:['Claude Code','Figma','GitHub','React','Design systems','Workshop facilitation'],
+    pdf:null,
+    meta:[['Year','2025–present'],['Company','Visma e-conomic'],['Role','Design operations & AI enablement'],['Scope','Operating model, Tooling, Adoption']],
+    tags:['AI enablement','Design operations','Prototyping','Tooling','Adoption'],
+    valueLine:'Turned prototyping from a weeks-long specialist task into something anyone can do in an afternoon — with the operating model and platform to make it stick.',
+    lede:'Testing an idea with customers used to take weeks — brief a designer, build a prototype, wait for revisions. The goal was to collapse that to hours, and put the ability in the hands of anyone with an idea worth testing. As part of a small AI-enablement team, I primarily led how the organisation builds with design and AI: the operating model, the platform, and the adoption.',
+    sections:[
+      {label:'Context',head:'Good ideas were stuck behind the cost of making them real',body:'Prototyping was slow, specialised, and held by a few people, so most concepts never reached a customer before they shipped. AI made fast, testable artefacts possible within no time — but possible isn’t adopted. Without structure it would stay a few people making impressive demos, not a capability the organisation could lean on.',stats:[{n:'280k+',l:'businesses run on the product'},{n:'~200',l:'people in the product org'},{n:'16',l:'designers in the UX team'}],note:'On a legacy platform this size, change has to be careful and proof has to come early. Design systems here is as much an operations and support role as a design one — the work reaches every product team, and across into Marketing, Brand, Finance and BI.'},
+      {label:'How it works',head:'The flow, designed as a system',body:'The team set out to make AI prototyping dependable, not just impressive. My part is the operating model and platform that get it adopted: a toolkit of Claude Code skills that takes someone from a prompt to a working, on-brand prototype built from the real design system — the right components, patterns, and copy, not generic UI.',img:'images/gallery/proto/prototype-kit-flow.png',caption:'The kit mapped as a system — Context → Foundations → Build → Test → Maintenance, with the skills that run each phase. A piece I designed and maintain.',bleed:true},
+      {label:'Governance & adoption',head:'Making it land in everyday work',body:'A feedback loop is baked into the tooling: every session reflects on what worked, which feeds improvements back into the skills, so the system gets better the more it’s used. It’s a small team effort — a colleague leads on design-system quality, others on the mobile track and pattern library — while I drive the operating model, the platform, and the adoption that get it used.',split:{head:'One-step publishing',text:'Anyone can publish a prototype to a shareable link — no setup, no hand-holding. Distribution runs through an org-wide plugin library, so colleagues pick the toolkit up themselves.',img:'images/svg/proto-3.svg'}},
+      {label:'The AI workflow',head:'AI, woven into the process — not bolted on',body:'The whole system treats AI as a working material. The pieces that make it reliable:',ai:{label:'Behind the scenes',items:['<strong>Claude Code skills</strong> orchestrate the build — framing, foundations, layout, interactions, refine — each a reference doc the agent follows in order.','<strong>Figma MCP + Code Connect</strong> let the design file be read into system-accurate code.','<strong>A self-improving loop</strong> — sessions are logged and triaged back into the skills, so guidance compounds.','<strong>The real design system as source of truth</strong> — output uses live components and tokens, never invented UI.']},builtin:'Built in code — the kit ships real React; this very portfolio is hand-written HTML, CSS & JS.'},
+      {label:'Impact',head:'A capability the whole org can lean on',body:'Prototyping is becoming something a PM, analyst, or designer can do themselves, in an afternoon, against the real product. The missing pieces — quality output, one-step hosting, a way to keep the tooling improving — are in place and in real use, with adoption growing toward a base of people who use it without me in the room.\n\nIt widens what the design system reaches: not just components in production, but a foundation the whole organisation builds and learns on faster.'}
+    ],
+    reflection:'“Democratising a capability is its own design problem. The hard part isn’t the demo — it’s the operating model, the defaults, and the adoption that let a whole organisation rely on it.”',
+    prev:null,prevLabel:null,next:'aibuild',nextLabel:'Designing a design system AI can build with'
+  },
+  aibuild: {
+    num:'02', type:'Design systems · AI',
+    title:'Designing a design system AI can build with',
+    company:'Visma e-conomic',
+    layout:'narrative',
+    gallery:[
+      'images/svg/aibuild-1.svg',
+      'images/svg/aibuild-2.svg',
+      'images/svg/aibuild-3.svg'
+    ],
+    tools:['Figma','Code Connect','Figma MCP','Design tokens','Claude Code','TypeScript'],
+    pdf:null,
+    meta:[['Year','2025–present'],['Company','Visma e-conomic'],['Role','Product designer, Design systems'],['Scope','Design tokens, Code Connect, AI tooling']],
+    tags:['Design systems','AI','Design tokens','Code Connect','Figma-to-code'],
+    valueLine:'Made our design system legible to AI — so designers go from a Figma file to system-accurate code, and prototypes are on-brand by default.',
+    lede:'AI tools only build as well as the system underneath them. We’d been watching AI generate plausible-but-wrong UI — right vibe, wrong components, invented styles — and the bottleneck wasn’t the model. It was that the design system wasn’t legible to a machine. So “can an LLM build with this correctly?” became a design constraint on the system itself.',
+    sections:[{label:'Context',head:'AI only builds as well as the system beneath it',body:'A design system is usually documented for humans — a Storybook here, a Figma library there, knowledge in people’s heads. Point an AI tool at that and it guesses: the wrong component, a hardcoded colour, a pattern reinvented from scratch. Every wrong guess is design debt. For AI to be trustworthy, the system has to make the correct choice the obvious one, in a form a model can actually read.'},{label:'What I did',head:'From human-readable to machine-buildable',body:'I helped push the system from human-readable to machine-buildable, and was an early voice for connecting Figma directly to code — exploring how a file could be read via API/MCP into system-accurate output, which the team turned into Code Connect and a Figma MCP set up for every designer.',img:'images/svg/code-connect.svg',caption:'Code Connect maps each Figma component to its real implementation — system-accurate output, no invented UI.',bleed:true},{label:'The constraints that help',head:'Predictable — and accessible — by design',body:'The foundations that make AI output predictable came alongside it: a clean token architecture and naming, and a deliberate philosophy of no arbitrary style overrides, so there’s one correct way to build a thing — exactly what a model needs. Because components can’t be restyled ad-hoc, whatever AI generates inherits the system’s accessibility — WCAG AA, semantic HTML — by default. We also moved the source of truth toward formats AI reads natively: types read straight from the installed package, so guidance can’t drift from the code.',img:'images/gallery/foundations/button-spec.png',caption:'One component, fully specified — variants, states, sizes — so people and machines build it the same way.'},{label:'Impact',head:'One source of truth — built against, not around',body:'The constraints that make a design system good for humans — consistency, clear naming, no special cases — turn out to be what make it usable by AI. Designers go from a Figma file to system-accurate code, prototypes are faster and on-brand by default, and the system has become the single source of truth AI tooling builds against rather than around.'}],
+    reflection:'“The most future-proof thing about a design system isn’t the components — it’s whether the next tool, human or machine, can build with it without guessing.”',
+    prev:'proto',prevLabel:'AI prototyping, democratized',next:'tacodocs',nextLabel:'taco-docs'
+  },
+  tacodocs: {
+    num:'03', type:'Design systems · Documentation',
+    title:'taco-docs',
+    company:'Visma e-conomic',
+    layout:'narrative',
+    gallery:[
+      'images/svg/tacodocs-1.svg',
+      'images/svg/tacodocs-2.svg',
+      'images/svg/tacodocs-3.svg'
+    ],
+    tools:['Markdown','GitHub','Claude Code','Design systems','Information architecture'],
+    pdf:null,
+    meta:[['Year','2025–present'],['Company','Visma e-conomic'],['Role','Product designer, Design systems'],['Scope','Documentation architecture, Knowledge base, AI context']],
+    tags:['Design systems','Documentation','Knowledge base','AI context','Content'],
+    valueLine:'Replaced stale, scattered docs with one version-controlled knowledge base that serves designers, engineers, and AI tools from a single source.',
+    lede:'Design-system documentation goes stale the moment it’s written — a second place to maintain, drifting quietly out of sync with the code. taco-docs fixes that at the root: a single, version-controlled knowledge base that lives next to the code, serves designers and engineers, and doubles as the context AI tools read. I created the package and its schema.',
+    sections:[{label:'Context',head:'Docs that drift the moment they’re written',body:'Usage documentation lived in a tool meant for engineers to test components, and writing it was a recurring post-release chore no one owned end to end. How to use a component well — its accessibility behaviour, its gotchas, when not to reach for it — was scattered or tacit. And with AI tooling now building against the system, there was no canonical, machine-readable source for any of it.'},{label:'What I did',head:'A knowledge base that lives next to the code',body:'I created a new package inside the design-system monorepo as the home for component knowledge — structured markdown that lives beside the code it describes, so docs and implementation move together. I designed the schema for what gets captured per component — design guidance, accessibility, behaviour, known limitations, implementation notes — plus foundations and UI patterns, and an entry point that routes any reader, human or AI, to the right place. I wrote the first knowledge files to prove the model.',img:'images/svg/doc-schema.svg',caption:'One knowledge file per component — a shared schema read by people and AI.',bleed:true},{label:'In the engineering grain',head:'Contributing through the process, not over the wall',body:'Doing this meant working inside the engineering workflow — committing, reviewing, and shipping PRs alongside the developers — and it’s a direction the design-system team is now building on together. Accessibility is a first-class field per component, so a11y guidance travels with the component rather than living in a separate audit that ages out.',img:'images/gallery/foundations/doc-template.jpg',caption:'A documentation page generated from those files.'},{label:'Impact',head:'A single, un-drifting source of truth',body:'Documentation became a single source of truth instead of a second thing to maintain: canonical, versioned, impossible to drift from the code. It serves two audiences from one place — people reading to learn and AI tools reading for context — and lays the groundwork for a documentation site generated from the same files.'}],
+    reflection:'“The best documentation isn’t a place you visit — it’s a system that maintains itself, lives where the work happens, and serves whoever (or whatever) needs to read it.”',
+    prev:'aibuild',prevLabel:'Designing a design system AI can build with',next:'collab',nextLabel:'Designing how a design system collaborates'
+  },
   collab: {
-    num:'01', type:'Design systems',
+    num:'04', type:'Design systems',
     title:'Designing how a design system collaborates',
     company:'Visma e-conomic',
     layout:'narrative',
@@ -1409,13 +1641,14 @@ var PROJECTS = {
     pdf:null,
     meta:[['Year','2025\u2013present'],['Company','Visma e-conomic'],['Role','Product designer, Design systems'],['Scope','Governance, Process design, Stakeholder management']],
     tags:['Design systems','Governance','Stakeholder management','Workshop facilitation'],
-    lede:'As the organisation scaled, the design system struggled to keep pace. More teams were shipping, delivery pressure was increasing \u2014 but the system lacked the structures to support this growth. I identified this structural gap and led the initiative from research through to implementation.',
-    sections:[{label:'The problem',body:'There was no shared understanding of what the design system team was responsible for \u2014 or how other teams should interact with it. Requests came in informally, priorities were unclear, and the team was stretched between reactive support and proactive system work. This wasn\u2019t a component problem. It was an organisational design problem.'},{label:'What I did',body:'I reframed the design system\u2019s role \u2014 from a team that ships UI to a partner that shapes how design decisions scale. I mapped the full lifecycle of how work flows between product teams and the DS team (problem discovery \u2192 concept exploration \u2192 solution validation \u2192 implementation \u2192 release & adoption). Built a formal intake and prioritisation model. Introduced \u201cDS Labs\u201d \u2014 a monthly cross-discipline session for design deep-dives, updates, and collaboration between DS and UX. Defined quality gates and review touchpoints. Established the team\u2019s purpose statement through collaborative workshops.'},{label:'Impact',body:'Incoming needs became visible and prioritisable. Stakeholder loops were closed. The design system repositioned: from a place to request UI, to a partner that guides decisions. DS Labs became a recurring rhythm that built trust and alignment across 15+ designers and engineers.'}],
+    valueLine:'Repositioned the design system from a UI request desk into a partner that shapes how design decisions scale across 15+ designers and engineers.',
+    lede:'As the organisation scaled, the design system struggled to keep pace. More teams were shipping, delivery pressure was rising \u2014 but the system lacked the structures to support that growth. I spotted the structural gap and led the initiative from research to implementation, working closely with the design-system and UX teams.',
+    sections:[{label:'Context',head:'Not a component problem — an organisational one',body:'There was no shared understanding of what the design-system team was responsible for — or how other teams should work with it. Requests came in informally, priorities were unclear, and the team was stretched between reactive support and proactive system work. This wasn’t a component problem. It was an organisational design problem.'},{label:'Reframing the role',head:'From a request desk to a partner',body:'The reframe was from a team that ships UI to a partner that shapes how design decisions scale. I mapped the full lifecycle of how work flows between product teams and the DS team — problem discovery → concept → validation → implementation → release & adoption — and built a formal intake and prioritisation model. A question the model answers for every request: does this become a local change for one team, or does it propagate back into the core system everyone shares?',img:'images/gallery/collab/collab-lifecycle.jpg',caption:'The collaboration lifecycle and intake model — how work flows between product teams and the design system, with quality gates at each stage.',bleed:true},{label:'Building the rhythms',head:'Design Labs and shared ownership',body:'With the team we introduced Design Labs — a monthly cross-discipline session for deep-dives and collaboration between DS and UX — and defined quality gates, review touchpoints, and a shared purpose statement through workshops. The work reaches beyond the product org, too: the system’s colour and brand decisions are made together with Marketing and Brand.',img:'images/gallery/collab/process-governance.jpg',caption:'Governance touchpoints and review gates, defined with the team.'},{label:'Designing for everyone',head:'Accessibility as a shared standard',body:'Accessibility runs through the collaboration, not after it. I ran an accessibility interview with a blind user and shared it at a Department Briefing — turning lived experience into shared team understanding — and the system enforces WCAG AA so inclusion is the default, not a final-stage check.'},{label:'Impact',head:'Connective tissue across the org',body:'Incoming needs became visible and prioritisable. Stakeholder loops closed. The design system repositioned from a place to request UI to a partner that guides decisions, and Design Labs became a recurring rhythm that built trust across 15+ designers and engineers. The role I’ve grown into is less “the person who makes the components” and more the connective tissue between design, engineering, and the wider product org.'}],
     reflection:'\u201cA design system is more than a component team. It needs to support, advocate, and collaborate. Design systems scale through trust and shared ownership.\u201d',
-    prev:null,prevLabel:null,next:'language',nextLabel:'Systematising product language'
+    prev:'tacodocs',prevLabel:'taco-docs',next:'language',nextLabel:'Systematising product language'
   },
   language: {
-    num:'02', type:'Content design',
+    num:'05', type:'Content design',
     title:'Systematising product language',
     company:'Visma e-conomic',
     layout:'narrative',
@@ -1431,14 +1664,15 @@ var PROJECTS = {
     tools:['Figma','FigJam','Google Sheets','Slite','UX writing','Workshop facilitation'],
     pdf:null,
     meta:[['Year','2024\u2013present'],['Company','Visma e-conomic'],['Role','Product designer, Design systems'],['Scope','Content design, UX writing, Cross-team alignment']],
-    tags:['Content design','UX writing','Design systems','Cross-team alignment'],
-    lede:'While design matured, language remained unstructured. No content designers. No shared writing ownership. Designers wrote UI copy independently \u2014 and as the product grew more international, inconsistencies became increasingly visible. I identified the gap, built the case internally, and led the effort \u2014 while upskilling myself in content design.',
-    sections:[{label:'The problem',body:'The product had no shared vocabulary. The same concept could appear under three different labels across features. Translations were inconsistent. Designers were making copy decisions in isolation, and there was no guidance for tone, message types, or error handling. As someone raised bilingual \u2014 the daughter of a technical writer \u2014 I had a sharp eye for where the product\u2019s language was failing.'},{label:'What I did',body:'I ran a UX Writing Team Survey to map confidence levels, pain points, and current practices across the design team. Used the findings to build a content guidelines system: writing fundamentals (questions & instructions, style & tone, language rules), message type definitions, microcopy patterns for tooltips, buttons, checkboxes, field labels, empty states, and error handling. Built a Microcopy Glossary \u2014 a living EN/DA term database with preferred translations and terms to avoid. Created a UX Copy Assistant to help designers quality-check microcopy against the product\u2019s voice. Integrated all of this directly into designers\u2019 Figma workflows.'},{label:'Impact',body:'Writing became a shared discipline. A brand-writing group formed organically. Consistent terminology reduced cognitive effort for both users and translators. The guidelines moved from \u201cideas, not defined\u201d to iterated, tested, and adopted \u2014 with a clear roadmap toward consolidation, governance, and measuring impact.'}],
+    tags:['Content design','UX writing','Design systems','AI','Content tooling'],
+    valueLine:'Gave a fast-internationalising product a shared voice — then turned the guidelines into a Writing Agent that puts on-brand copy right in designers’ workflow.',
+    lede:'While design matured, language stayed unstructured — no content designers, no shared writing ownership. Designers wrote UI copy in isolation, and as the product went more international the inconsistencies showed. I spotted the gap, built the case internally, and led the effort — while teaching myself content design along the way.',
+    sections:[{label:'Context',head:'A product with no shared vocabulary',body:'The same concept could appear under three labels across features. Translations drifted. Designers made copy decisions alone, with no guidance for tone, message types, or error handling. Raised bilingual, the daughter of a technical writer, I had a sharp eye for where the language was failing.'},{label:'What I did',head:'Language as a structural primitive',body:'I ran a UX-writing survey across the design team to map confidence, pain points, and current practice, and used it to build a content-guidelines system: writing fundamentals, message-type definitions, and microcopy patterns for tooltips, buttons, fields, empty states, and errors. Alongside it, a living EN/DA microcopy glossary with preferred translations and terms to avoid — all integrated into designers’ Figma workflow rather than parked in a doc. Consistent, plain microcopy isn’t just tidy: it lowers cognitive load for users under stress, older users, and non-native speakers.',img:'images/svg/glossary-mini.svg',caption:'A shared, bilingual vocabulary — preferred terms, one word per concept.',bleed:true},{label:'From guidelines to a tool',head:'A writing system that works alongside you',body:'The guidelines didn’t stay a document. I built them into a Product Writing Agent — a Claude skill that generates and reviews microcopy against the product’s voice, grounded in the glossary and patterns. Instead of reading the rules, you get copy that already follows them, with the reasoning attached.',img:'images/gallery/language/content-page.jpg',caption:'The content guidelines — message types, tone, and microcopy patterns.'},{label:'Impact',head:'Writing became a shared discipline',body:'A brand-writing group formed organically. Consistent terminology cut cognitive load for users and translators alike. The guidelines moved from “ideas, not defined” to iterated, tested, and adopted — with a roadmap toward governance and measuring impact.'}],
     reflection:'\u201cI took it upon myself to close a gap no one else was watching. That\u2019s the work I find most meaningful \u2014 identifying what\u2019s quietly breaking, and building the structure to fix it.\u201d',
     prev:'collab',prevLabel:'Designing how a design system collaborates',next:'foundations',nextLabel:'Building foundational stability'
   },
   foundations: {
-    num:'03', type:'Foundations & tokens',
+    num:'06', type:'Foundations & tokens',
     title:'Building foundational stability',
     company:'Visma e-conomic',
     layout:'narrative',
@@ -1446,19 +1680,22 @@ var PROJECTS = {
       'images/gallery/foundations/foundations-overview.jpg',
       'images/gallery/foundations/foundations-tokens-why.jpg',
       'images/gallery/foundations/spacing-tokens-detail.jpg',
-      'images/gallery/foundations/component-audit.jpg'
+      'images/gallery/foundations/component-audit.jpg',
+      'images/gallery/foundations/button-spec.png',
+      'images/gallery/foundations/button-iterations.png'
     ],
     tools:['Figma','Design tokens','Figma variables','Slite','Documentation'],
     pdf:null,
     meta:[['Year','2025\u2013present'],['Company','Visma e-conomic'],['Role','Product designer, Design systems'],['Scope','Foundations, Design tokens, Typography, Spacing, Documentation']],
     tags:['Foundations','Design tokens','Documentation','Design systems'],
-    lede:'Over three years, the design team more than doubled in size. Adoption was already high \u2014 but without foundational guidance, usage became fragmented. Patterns diverged. Layout logic varied. We had to reframe what progress looked like: working slowly wasn\u2019t delay \u2014 it was preparation to move faster later.',
-    sections:[{label:'The problem',body:'The existing design system had no spacing tokens. Typography was tied to HTML heading levels (H1\u2013H6), creating a rigid visual hierarchy that didn\u2019t match real design needs. Colour variables existed but naming was inconsistent. Components were used widely, but the foundations beneath them were shaky \u2014 leading to divergent implementations across teams.'},{label:'What I did',body:'Started from a comprehensive component audit \u2014 mapping what existed, what was inconsistent, and what was missing. Built an entirely new token system from atoms up: spacing tokens (Spacing-0 through Spacing-10) with clear semantic usage guidance, a new typography scale using t-shirt sizes instead of heading levels, simplified colour scales, and refined border and radius logic. Published variables in Figma with clear documentation. Created onboarding workshops to teach designers how to work with the new tokens and auto-layout. Wrote detailed documentation pages for each foundation (spacing, typography, colours) with principles, usage guidelines, and best practices.'},{label:'Impact',body:'Greater consistency across teams. Reduced layout divergence. Faster onboarding for new designers. Package releases \u2014 holistic updates bundling layout, spacing, typography, and components \u2014 replaced ad-hoc changes. A stronger baseline that lets the team move faster without fragmenting the experience.'}],
+    valueLine:'Rebuilt the system’s foundations — spacing, type, and colour tokens — so teams move faster without the experience fragmenting.',
+    lede:'Over three years the design team more than doubled. Adoption was already high — but without foundational guidance, usage fragmented: patterns diverged, layout logic varied. We had to reframe what progress looked like: working slowly wasn’t delay, it was preparation to move faster later.',
+    sections:[{label:'Context',head:'High adoption, shaky foundations',body:'The existing design system had no spacing tokens. Typography was tied to HTML heading levels (H1–H6), a rigid hierarchy that didn’t match real design needs. Colour variables existed but naming was inconsistent. Components were used widely, but the foundations beneath them were shaky — leading to divergent implementations across teams.'},{label:'What I did',head:'A token system from the atoms up',body:'It started from a comprehensive component audit — what existed, what was inconsistent, what was missing. From there, a new token system built from the atoms up: spacing tokens with clear semantic usage, a type scale using t-shirt sizes instead of heading levels, simplified colour scales, and refined border and radius logic. I published the variables in Figma with documentation, ran onboarding workshops, and wrote a documentation page for each foundation. Decoupling the type scale from HTML headings was as much an accessibility move as a visual one: engineers keep semantic, correctly-ordered heading markup while the visual hierarchy scales independently — and the same tokens let layouts adapt cleanly across very different screen sizes.',img:'images/svg/spacing-scale.svg',caption:'The spacing scale — semantic tokens on a 4-point base.',bleed:true},{label:'Colour, built on APCA',head:'Future-proofing contrast',body:'We co-designed a new colour system on APCA — the perceptual contrast method coming in WCAG 3 — adopting it proactively to future-proof rather than because it was legally required. Built with Brand and Marketing, presented at a company town hall, and rolled out across the product, it’s a colour foundation that holds up to where accessibility standards are heading, not just where they are.',img:'images/svg/apca-colours.svg',caption:'A neutral, accent and semantic palette tuned on APCA — perceptual contrast, future-proofed.'},{label:'Down to the component',head:'The same rigour, at component scale',body:'The same rigour applied at the component level. I reworked the Button — the most-used component — from the variant and state matrix up: aligning the icon bounding-box to the text line-height, raising border contrast, adding a hover background where the border alone was too subtle, matching text colour to each semantic layer, removing a variant whose use case couldn’t be cleanly documented, and mapping every state onto the new colour tokens. Each decision is recorded with its reasoning — so the component isn’t just consistent, it’s explainable.',img:'images/gallery/foundations/button-iterations.png',caption:'Every button variant and state, with the reasoning behind each decision.'},{label:'Impact',head:'A baseline that lets teams move faster',body:'Greater consistency across teams. Less layout divergence. Faster onboarding for new designers. Package releases — holistic updates bundling layout, spacing, typography, and components — replaced ad-hoc changes. A stronger baseline that lets the team move faster without fragmenting the experience.'}],
     reflection:'\u201cThe goal wasn\u2019t uniformity. It was predictability \u2014 enabling teams to move faster without fragmenting the experience.\u201d',
     prev:'language',prevLabel:'Systematising product language',next:'pg-thesis',nextLabel:'Designing for low self-esteem'
   },
   'pg-thesis': {
-    num:'04', type:'UX research',
+    num:'07', type:'UX research',
     title:'Designing for low self-esteem',
     company:'Master\u2019s Thesis \u00b7 IT University of Copenhagen \u00b7 2021',
     layout:'balanced',
@@ -1483,7 +1720,7 @@ var PROJECTS = {
     prev:'foundations',prevLabel:'Building foundational stability',next:'pg-portable',nextLabel:'Portable.'
   },
   'pg-portable': {
-    num:'05', type:'Product design',
+    num:'08', type:'Product design',
     title:'Portable.',
     company:'Personal project \u00b7 2021',
     layout:'image',
@@ -1504,7 +1741,7 @@ var PROJECTS = {
     prev:'pg-thesis',prevLabel:'Designing for low self-esteem',next:'pg-fanfare',nextLabel:'Typographic kitchen'
   },
   'pg-fanfare': {
-    num:'06', type:'Exhibition',
+    num:'09', type:'Exhibition',
     title:'Typographic kitchen',
     company:'Fanfare, Amsterdam \u00b7 2021',
     layout:'image',
@@ -1526,7 +1763,7 @@ var PROJECTS = {
     prev:'pg-portable',prevLabel:'Portable.',next:'pg-tune',nextLabel:'Tune'
   },
   'pg-tune': {
-    num:'07', type:'Graphic design',
+    num:'10', type:'Graphic design',
     title:'Tune',
     company:'Krabbesholm H\u00f8jskole \u00b7 2022',
     layout:'image',
@@ -1548,7 +1785,7 @@ var PROJECTS = {
     prev:'pg-fanfare',prevLabel:'Typographic kitchen',next:'pg-flow',nextLabel:'Flow'
   },
   'pg-flow': {
-    num:'08', type:'Creative book',
+    num:'11', type:'Creative book',
     title:'Flow',
     company:'Personal project \u00b7 2021',
     layout:'image',
@@ -1575,12 +1812,17 @@ function esc(s) {
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
+// Work projects open as full pages; creative projects use the overlay below.
+var CASE_IDS = ['proto','aibuild','tacodocs','collab','language','foundations'];
+
 function showProject(id) {
     var p = PROJECTS[id];
     if (!p) return;
 
+    if (CASE_IDS.indexOf(id) !== -1) { renderCase(id); return; }
+
     // Password gate for work projects (01–03) — once per session
-    var GATED = ['collab','language','foundations'];
+    var GATED = []; // projects are public — no password gate
     var _pendingProjectId = null;
     if (GATED.indexOf(id) !== -1 && !sessionStorage.getItem('portfolio-auth')) {
         _pendingProjectId = id;
@@ -1618,8 +1860,9 @@ function showProject(id) {
         h += '</div>';
         h += '</div>';
 
-        // Body: lede → hero image → sections interleaved with images
+        // Body: value line → lede → hero image → sections interleaved with images
         h += '<div class="narrative-body">';
+        if (p.valueLine) h += '<p class="detail-value">' + esc(p.valueLine) + '</p>';
         h += '<p class="detail-lede">' + esc(p.lede) + '</p>';
         h += '</div>';
 
@@ -1866,11 +2109,31 @@ function _openOverlayForAuth(id) {
 function filterProjects(tag) {
     document.querySelectorAll('.filter-chip').forEach(c =>
         c.classList.toggle('active', c.dataset.tag === tag));
-    document.querySelectorAll('#work-grid .project-card').forEach(card => {
+    document.querySelectorAll('.project-grid .project-card').forEach(card => {
         const show = tag === 'all' || (card.dataset.tags || '').split(' ').includes(tag);
         card.style.display = show ? '' : 'none';
     });
+    // Hide a section header if its grid has no visible cards
+    document.querySelectorAll('.work-section').forEach(sec => {
+        const visible = [...sec.querySelectorAll('.project-card')].some(c => c.style.display !== 'none');
+        sec.style.display = visible ? '' : 'none';
+    });
 }
+
+/* ── List / Card view toggle ── */
+function setView(v) {
+    document.body.classList.toggle('view-cards', v === 'cards');
+    document.body.classList.toggle('view-list', v === 'list');
+    var c = document.getElementById('vt-cards'), l = document.getElementById('vt-list');
+    if (c) c.classList.toggle('on', v === 'cards');
+    if (l) l.classList.toggle('on', v === 'list');
+    try { localStorage.setItem('portfolio-view', v); } catch (e) {}
+}
+(function () {
+    var v = 'cards';
+    try { v = localStorage.getItem('portfolio-view') || 'cards'; } catch (e) {}
+    setView(v);
+}());
 
 /* ── Dark mode ── */
 (function() {
@@ -1990,11 +2253,13 @@ function filterProjects(tag) {
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', function() { fitName(); onScroll(); });
+    window._refreshHeader = function() { cacheBarHeight(); onScroll(); };
 
     // Run immediately, then again once fonts are loaded (they affect measured size)
     fitName();
+    onScroll();   // set the spacer height on first paint
     if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(function() { fitName(); });
+        document.fonts.ready.then(function() { fitName(); onScroll(); });
     }
 })();
 
@@ -2114,6 +2379,10 @@ document.querySelectorAll('.project-gallery').forEach(gallery => {
     });
 });
 </script>
+
+<!-- Vercel Web Analytics -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 
 </body>
 </html>

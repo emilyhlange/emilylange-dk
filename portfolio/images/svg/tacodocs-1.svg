@@ -1,0 +1,55 @@
+<svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="800" fill="#D8D8D8"/>
+
+  <!-- router entry node -->
+  <rect x="210" y="100" width="180" height="56" rx="10" fill="#faf9f7" stroke="#3B6FC2" stroke-width="2"/>
+  <circle cx="240" cy="128" r="8" fill="#3B6FC2" opacity="0.8"/>
+  <text x="312" y="132" font-family="Inter, Arial, sans-serif" font-size="12" fill="#3B6FC2" text-anchor="middle">entry · router</text>
+
+  <!-- fan to doc files -->
+  <g stroke="#c8c6c2" stroke-width="1.2">
+    <line x1="260" y1="156" x2="150" y2="240"/>
+    <line x1="300" y1="156" x2="300" y2="240"/>
+    <line x1="340" y1="156" x2="450" y2="240"/>
+  </g>
+
+  <!-- markdown doc cards (with corner fold) -->
+  <g>
+    <!-- doc 1 -->
+    <path d="M 100 240 H 180 L 200 260 V 360 H 100 Z" fill="#faf9f7" stroke="#9a9896" stroke-width="1.4"/>
+    <path d="M 180 240 V 260 H 200 Z" fill="#e8e7e4" stroke="#9a9896" stroke-width="1.4"/>
+    <g fill="#c8c6c2"><rect x="116" y="280" width="60" height="5" rx="2"/><rect x="116" y="296" width="48" height="5" rx="2"/><rect x="116" y="312" width="66" height="5" rx="2"/><rect x="116" y="328" width="40" height="5" rx="2"/></g>
+    <!-- doc 2 -->
+    <path d="M 250 240 H 330 L 350 260 V 360 H 250 Z" fill="#faf9f7" stroke="#9a9896" stroke-width="1.4"/>
+    <path d="M 330 240 V 260 H 350 Z" fill="#e8e7e4" stroke="#9a9896" stroke-width="1.4"/>
+    <g fill="#c8c6c2"><rect x="266" y="280" width="60" height="5" rx="2"/><rect x="266" y="296" width="48" height="5" rx="2"/><rect x="266" y="312" width="66" height="5" rx="2"/><rect x="266" y="328" width="40" height="5" rx="2"/></g>
+    <!-- doc 3 -->
+    <path d="M 400 240 H 480 L 500 260 V 360 H 400 Z" fill="#faf9f7" stroke="#9a9896" stroke-width="1.4"/>
+    <path d="M 480 240 V 260 H 500 Z" fill="#e8e7e4" stroke="#9a9896" stroke-width="1.4"/>
+    <g fill="#c8c6c2"><rect x="416" y="280" width="60" height="5" rx="2"/><rect x="416" y="296" width="48" height="5" rx="2"/><rect x="416" y="312" width="66" height="5" rx="2"/><rect x="416" y="328" width="40" height="5" rx="2"/></g>
+  </g>
+  <text x="300" y="392" font-family="Inter, Arial, sans-serif" font-size="11" fill="#7a7876" text-anchor="middle">component knowledge · markdown</text>
+
+  <!-- two audiences -->
+  <line x1="300" y1="360" x2="200" y2="470" stroke="#c8c6c2" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="300" y1="360" x2="400" y2="470" stroke="#c8c6c2" stroke-width="1.2" stroke-dasharray="4,3"/>
+
+  <!-- human -->
+  <g transform="translate(170 480)">
+    <circle cx="30" cy="20" r="16" fill="#dddbd8" stroke="#9a9896" stroke-width="1.4"/>
+    <path d="M 4 70 a 26 26 0 0 1 52 0 Z" fill="#dddbd8" stroke="#9a9896" stroke-width="1.4"/>
+  </g>
+  <text x="200" y="580" font-family="Inter, Arial, sans-serif" font-size="11" fill="#7a7876" text-anchor="middle">people</text>
+
+  <!-- AI -->
+  <g transform="translate(370 482)">
+    <rect x="6" y="8" width="48" height="48" rx="8" fill="#faf9f7" stroke="#3B6FC2" stroke-width="1.6"/>
+    <circle cx="22" cy="30" r="4" fill="#3B6FC2" opacity="0.8"/>
+    <circle cx="38" cy="30" r="4" fill="#3B6FC2" opacity="0.8"/>
+    <line x1="30" y1="0" x2="30" y2="8" stroke="#3B6FC2" stroke-width="1.6"/>
+    <circle cx="30" cy="-2" r="3" fill="#3B6FC2"/>
+  </g>
+  <text x="400" y="580" font-family="Inter, Arial, sans-serif" font-size="11" fill="#7a7876" text-anchor="middle">AI tools</text>
+
+  <text x="300" y="690" font-family="Inter, Arial, sans-serif" font-size="12" fill="#7a7876" text-anchor="middle">one source, read by both</text>
+</svg>

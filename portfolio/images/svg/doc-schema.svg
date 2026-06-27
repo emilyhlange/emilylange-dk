@@ -1,0 +1,39 @@
+<svg viewBox="0 0 880 420" xmlns="http://www.w3.org/2000/svg">
+  <rect width="880" height="420" fill="#ffffff"/>
+  <text x="56" y="56" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#262626">One knowledge file per component</text>
+  <text x="56" y="78" font-family="Inter, Arial, sans-serif" font-size="12" fill="#8a8a8a">A shared schema — read by people and by AI</text>
+
+  <!-- component.md file -->
+  <rect x="56" y="116" width="320" height="252" rx="10" fill="#fafafa" stroke="#ececec"/>
+  <text x="80" y="150" font-family="SFMono-Regular, ui-monospace, monospace" font-size="13" fill="#6a6a6a">toast.md</text>
+  <line x1="80" y1="164" x2="352" y2="164" stroke="#ececec"/>
+  <g font-family="Inter, Arial, sans-serif" font-size="13" fill="#3a3a3a">
+    <text x="80" y="196"># Design guidance</text>
+    <text x="80" y="228"># Accessibility</text>
+    <text x="80" y="260"># Behaviour</text>
+    <text x="80" y="292"># Known limitations</text>
+    <text x="80" y="324"># Implementation</text>
+  </g>
+
+  <!-- arrows to two readers -->
+  <line x1="376" y1="210" x2="540" y2="160" stroke="#c8c8c8" stroke-width="1.5"/>
+  <polygon points="536,153 550,157 539,166" fill="#c8c8c8"/>
+  <line x1="376" y1="274" x2="540" y2="320" stroke="#c8c8c8" stroke-width="1.5"/>
+  <polygon points="539,313 550,323 536,327" fill="#c8c8c8"/>
+
+  <!-- person -->
+  <rect x="560" y="120" width="260" height="84" rx="10" fill="#fafafa" stroke="#ececec"/>
+  <circle cx="600" cy="150" r="11" fill="#dcdcdc"/>
+  <path d="M 582 188 a 18 18 0 0 1 36 0 Z" fill="#dcdcdc"/>
+  <text x="636" y="156" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="500" fill="#3a3a3a">People</text>
+  <text x="636" y="176" font-family="Inter, Arial, sans-serif" font-size="11" fill="#9a9a9a">reading to learn</text>
+
+  <!-- AI -->
+  <rect x="560" y="280" width="260" height="84" rx="10" fill="#fafafa" stroke="#3B6FC2"/>
+  <rect x="586" y="308" width="28" height="28" rx="6" fill="none" stroke="#3B6FC2" stroke-width="1.5"/>
+  <circle cx="595" cy="322" r="3" fill="#3B6FC2"/><circle cx="605" cy="322" r="3" fill="#3B6FC2"/>
+  <text x="632" y="316" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="500" fill="#3a3a3a">AI tools</text>
+  <text x="632" y="336" font-family="Inter, Arial, sans-serif" font-size="11" fill="#9a9a9a">reading for context</text>
+
+  <text x="56" y="400" font-family="Inter, Arial, sans-serif" font-size="12" fill="#6a6a6a">Versioned beside the code — one source of truth that can’t drift.</text>
+</svg>

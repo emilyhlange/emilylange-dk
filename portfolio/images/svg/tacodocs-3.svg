@@ -1,0 +1,45 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#D8D8D8"/>
+
+  <text x="80" y="90" font-family="Inter, Arial, sans-serif" font-size="14" fill="#4a4946">A schema for every component</text>
+
+  <!-- schema doc -->
+  <rect x="90" y="130" width="260" height="320" rx="8" fill="#faf9f7" stroke="#9a9896" stroke-width="1.5"/>
+  <g font-family="Inter, Arial, sans-serif" font-size="11" fill="#6a6966">
+    <text x="112" y="170">## design guidance</text>
+    <text x="112" y="208">## accessibility</text>
+    <text x="112" y="246">## behaviour</text>
+    <text x="112" y="284">## known limits</text>
+    <text x="112" y="322">## implementation</text>
+  </g>
+  <g fill="#c8c6c2">
+    <rect x="112" y="180" width="200" height="5" rx="2"/><rect x="112" y="190" width="160" height="5" rx="2"/>
+    <rect x="112" y="218" width="190" height="5" rx="2"/><rect x="112" y="228" width="150" height="5" rx="2"/>
+    <rect x="112" y="256" width="200" height="5" rx="2"/><rect x="112" y="266" width="140" height="5" rx="2"/>
+    <rect x="112" y="294" width="170" height="5" rx="2"/><rect x="112" y="304" width="180" height="5" rx="2"/>
+    <rect x="112" y="332" width="200" height="5" rx="2"/><rect x="112" y="342" width="120" height="5" rx="2"/>
+  </g>
+
+  <!-- arrow -->
+  <line x1="360" y1="290" x2="470" y2="290" stroke="#9a9896" stroke-width="1.5"/>
+  <polygon points="468,284 480,290 468,296" fill="#9a9896"/>
+
+  <!-- designers in the eng workflow: PR flow -->
+  <text x="500" y="165" font-family="Inter, Arial, sans-serif" font-size="12" fill="#6a6966">designer → PR → review</text>
+  <g fill="#faf9f7" stroke="#9a9896" stroke-width="1.4">
+    <circle cx="530" cy="240" r="22"/>
+    <circle cx="630" cy="240" r="22"/>
+    <circle cx="730" cy="240" r="22"/>
+  </g>
+  <circle cx="630" cy="240" r="9" fill="#3B6FC2" opacity="0.8"/>
+  <g stroke="#c8c6c2" stroke-width="1.4">
+    <line x1="552" y1="240" x2="608" y2="240"/>
+    <line x1="652" y1="240" x2="708" y2="240"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" font-size="10" fill="#9a9896" text-anchor="middle">
+    <text x="530" y="295">commit</text>
+    <text x="630" y="295">push</text>
+    <text x="730" y="295">merge</text>
+  </g>
+  <text x="630" y="360" font-family="Inter, Arial, sans-serif" font-size="11" fill="#7a7876" text-anchor="middle">designers contribute through, not over the wall</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="500" fill="#f4f4f3"/>
+  <g font-family="Inter, Arial, sans-serif" font-size="30" text-anchor="middle">
+    <text x="400" y="230" fill="#9a9a9a">&lt;Button</text>
+    <text x="400" y="272" fill="#3B6FC2">variant="primary"</text>
+    <text x="400" y="314" fill="#9a9a9a">/&gt;</text>
+  </g>
+</svg>

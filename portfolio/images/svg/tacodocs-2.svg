@@ -1,0 +1,45 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#D8D8D8"/>
+
+  <!-- monorepo bracket -->
+  <text x="80" y="90" font-family="Inter, Arial, sans-serif" font-size="14" fill="#4a4946">Docs live beside the code they describe</text>
+  <path d="M 110 140 H 90 V 470 H 110" fill="none" stroke="#9a9896" stroke-width="1.5"/>
+  <text x="70" y="312" font-family="Inter, Arial, sans-serif" font-size="11" fill="#9a9896" transform="rotate(-90 70 312)">monorepo</text>
+
+  <!-- code column -->
+  <text x="150" y="165" font-family="Inter, Arial, sans-serif" font-size="12" fill="#6a6966">/components</text>
+  <g fill="#faf9f7" stroke="#9a9896" stroke-width="1.3">
+    <rect x="150" y="180" width="200" height="46" rx="6"/>
+    <rect x="150" y="238" width="200" height="46" rx="6"/>
+    <rect x="150" y="296" width="200" height="46" rx="6"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" font-size="11" fill="#9a9896">
+    <text x="168" y="208">Toast.tsx</text>
+    <text x="168" y="266">Alert.tsx</text>
+    <text x="168" y="324">Switch.tsx</text>
+  </g>
+
+  <!-- doc column -->
+  <text x="450" y="165" font-family="Inter, Arial, sans-serif" font-size="12" fill="#3B6FC2">/docs</text>
+  <g fill="#faf9f7" stroke="#3B6FC2" stroke-width="1.3">
+    <rect x="450" y="180" width="200" height="46" rx="6"/>
+    <rect x="450" y="238" width="200" height="46" rx="6"/>
+    <rect x="450" y="296" width="200" height="46" rx="6"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" font-size="11" fill="#6a6966">
+    <text x="468" y="208">toast.md</text>
+    <text x="468" y="266">alert.md</text>
+    <text x="468" y="324">switch.md</text>
+  </g>
+
+  <!-- tie lines (move together) -->
+  <g stroke="#c8c6c2" stroke-width="1.2" stroke-dasharray="4,3">
+    <line x1="350" y1="203" x2="450" y2="203"/>
+    <line x1="350" y1="261" x2="450" y2="261"/>
+    <line x1="350" y1="319" x2="450" y2="319"/>
+  </g>
+
+  <!-- version tag -->
+  <rect x="330" y="420" width="140" height="34" rx="17" fill="#faf9f7" stroke="#9a9896" stroke-width="1.3"/>
+  <text x="400" y="442" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6a6966" text-anchor="middle">versioned together</text>
+</svg>

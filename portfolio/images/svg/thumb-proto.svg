@@ -1,0 +1,17 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="500" fill="#f4f4f3"/>
+  <!-- prompt -->
+  <rect x="120" y="228" width="180" height="46" rx="23" fill="#ffffff" stroke="#e2e2e0"/>
+  <circle cx="146" cy="251" r="6" fill="#3B6FC2"/>
+  <rect x="164" y="248" width="104" height="6" rx="3" fill="#cfcfcd"/>
+  <!-- arrow -->
+  <line x1="320" y1="251" x2="430" y2="251" stroke="#c8c8c6" stroke-width="1.5"/>
+  <polygon points="428,245 442,251 428,257" fill="#c8c8c6"/>
+  <!-- prototype frame -->
+  <rect x="470" y="170" width="210" height="160" rx="10" fill="#ffffff" stroke="#e2e2e0"/>
+  <rect x="470" y="170" width="210" height="26" rx="10" fill="#f0f0ee"/>
+  <circle cx="486" cy="183" r="3.5" fill="#cfcfcd"/><circle cx="498" cy="183" r="3.5" fill="#dcdcda"/>
+  <rect x="488" y="214" width="80" height="44" rx="6" fill="#eef2fa"/>
+  <rect x="488" y="270" width="120" height="7" rx="3" fill="#e2e2e0"/>
+  <rect x="488" y="286" width="92" height="7" rx="3" fill="#e9e9e7"/>
+</svg>
